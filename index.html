@@ -17,6 +17,8 @@
             --dorado-oscuro: #B8941F;
             --blanco: #f5f5f5;
             --blanco-puro: #ffffff;
+            --rojo: #dc3545;
+            --verde: #28a745;
         }
 
         * {
@@ -279,6 +281,8 @@
             border: 2px solid var(--dorado);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+            display: inline-block;
         }
 
         .btn-primary:hover {
@@ -303,6 +307,38 @@
             background: var(--blanco);
             color: var(--negro);
             border-color: var(--dorado);
+        }
+
+        .btn-danger {
+            background: var(--rojo);
+            color: var(--blanco);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-success {
+            background: var(--verde);
+            color: var(--blanco);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .btn-success:hover {
+            background: #218838;
         }
 
         .scroll-indicator {
@@ -330,6 +366,248 @@
             0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
             40% {transform: translateX(-50%) translateY(-20px);}
             60% {transform: translateX(-50%) translateY(-10px);}
+        }
+
+        /* ADMIN PANEL STYLES */
+        .admin-login {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .admin-login.active {
+            display: flex;
+        }
+
+        .login-box {
+            background: var(--gris-oscuro);
+            border: 1px solid var(--dorado);
+            padding: 3rem;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .login-box h2 {
+            color: var(--dorado);
+            margin-bottom: 2rem;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+        }
+
+        .login-box input {
+            width: 100%;
+            background: var(--negro);
+            border: 1px solid var(--gris-medio);
+            color: var(--blanco);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-box input:focus {
+            outline: none;
+            border-color: var(--dorado);
+        }
+
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--negro-claro);
+            z-index: 2500;
+            overflow-y: auto;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-header {
+            background: var(--negro);
+            border-bottom: 2px solid var(--dorado);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-title {
+            color: var(--dorado);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .admin-nav button {
+            background: transparent;
+            border: 1px solid var(--gris-medio);
+            color: var(--blanco);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .admin-nav button:hover, .admin-nav button.active {
+            border-color: var(--dorado);
+            color: var(--dorado);
+        }
+
+        .admin-content {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        .admin-form {
+            background: var(--gris-oscuro);
+            border: 1px solid var(--gris-medio);
+            padding: 2rem;
+            height: fit-content;
+        }
+
+        .admin-form h3 {
+            color: var(--dorado);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--dorado);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dorado);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            background: var(--negro);
+            border: 1px solid var(--gris-medio);
+            color: var(--blanco);
+            padding: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--dorado);
+        }
+
+        .admin-list {
+            background: var(--gris-oscuro);
+            border: 1px solid var(--gris-medio);
+            padding: 2rem;
+        }
+
+        .admin-list h3 {
+            color: var(--dorado);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--dorado);
+        }
+
+        .admin-item {
+            background: var(--negro);
+            border: 1px solid var(--gris-medio);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            transition: all 0.3s;
+        }
+
+        .admin-item:hover {
+            border-color: var(--dorado);
+        }
+
+        .admin-item-info h4 {
+            color: var(--dorado);
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-item-info p {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .admin-item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-edit {
+            background: var(--dorado);
+            color: var(--negro);
+        }
+
+        .btn-delete {
+            background: transparent;
+            border: 1px solid var(--rojo);
+            color: var(--rojo);
+        }
+
+        .btn-delete:hover {
+            background: var(--rojo);
+            color: var(--blanco);
         }
 
         /* Sección Cómo Funciona */
@@ -557,6 +835,12 @@
             overflow: hidden;
         }
 
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .product-image i {
             font-size: 4rem;
             color: var(--dorado);
@@ -648,7 +932,7 @@
             margin-right: 0.5rem;
         }
 
-        /* NUEVA SECCION: NUESTRAS BODEGAS */
+        /* NUESTRAS BODEGAS */
         .bodegas-showcase {
             padding: 6rem 5%;
             background: linear-gradient(135deg, var(--negro-claro) 0%, var(--negro) 100%);
@@ -702,6 +986,12 @@
             justify-content: center;
             position: relative;
             transition: transform 0.5s;
+        }
+
+        .bodega-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .bodega-card:hover .bodega-image {
@@ -945,7 +1235,7 @@
             animation: fadeIn 0.5s;
         }
 
-        /* Rutas del Vino */
+        /* Rutas del Vino - MAPA REAL */
         .routes {
             padding: 6rem 5%;
             background: var(--negro-claro);
@@ -961,6 +1251,12 @@
             overflow: hidden;
         }
 
+        .map-real {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
         .map-placeholder {
             width: 100%;
             height: 600px;
@@ -969,60 +1265,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-        }
-
-        .route-path {
-            position: absolute;
-            stroke: var(--dorado);
-            stroke-width: 3;
-            fill: none;
-            stroke-dasharray: 10;
-            animation: dash 30s linear infinite;
-        }
-
-        @keyframes dash {
-            to {
-                stroke-dashoffset: -1000;
-            }
-        }
-
-        .bodega-marker {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: var(--dorado);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--negro);
-            font-weight: bold;
-            transition: transform 0.3s;
-            z-index: 10;
-        }
-
-        .bodega-marker:hover {
-            transform: scale(1.3);
-        }
-
-        .marker-tooltip {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--negro);
-            border: 1px solid var(--dorado);
-            padding: 0.8rem;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-            font-size: 0.85rem;
-        }
-
-        .bodega-marker:hover .marker-tooltip {
-            opacity: 1;
+            display: none; /* Oculto si hay mapa real */
         }
 
         /* Recorridos */
@@ -1343,44 +1586,6 @@
             z-index: 1;
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--dorado);
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            background: var(--gris-oscuro);
-            border: 1px solid var(--gris-medio);
-            color: var(--blanco);
-            padding: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--dorado);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
         .btn-submit {
             width: 100%;
             background: var(--dorado);
@@ -1406,6 +1611,21 @@
             background: var(--negro-claro);
             border-top: 1px solid var(--gris-medio);
             padding: 4rem 5% 2rem;
+            position: relative;
+        }
+
+        .admin-access {
+            position: absolute;
+            bottom: 1rem;
+            right: 2rem;
+            color: #333;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .admin-access:hover {
+            color: var(--dorado);
         }
 
         .footer-content {
@@ -1607,7 +1827,7 @@
             background: var(--dorado-claro);
         }
 
-        /* FIX PARA MOVILES - IMAGEN HERO */
+        /* Responsive */
         @media (max-width: 768px) {
             .hero {
                 background-attachment: scroll !important;
@@ -1645,9 +1865,17 @@
             .bodegas-grid {
                 grid-template-columns: 1fr;
             }
+
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
 
-        /* Fix específico para iOS Safari */
         @supports (-webkit-touch-callout: none) {
             .hero {
                 background-attachment: scroll;
@@ -1797,7 +2025,7 @@
         </div>
     </section>
 
-    <!-- NUEVA SECCION: NUESTRAS BODEGAS -->
+    <!-- NUESTRAS BODEGAS -->
     <section class="bodegas-showcase" id="bodegas-showcase">
         <div class="section-header">
             <span class="section-tag">Conoce a Nuestros Socios</span>
@@ -1805,204 +2033,8 @@
             <p style="color: #888; max-width: 600px; margin: 2rem auto;">Historias de familia, tradición y pasión por el vino en cada rincón de San Rafael</p>
         </div>
 
-        <div class="bodegas-grid">
-            <!-- Bodega 1 -->
-            <div class="bodega-card">
-                <div class="bodega-image-container">
-                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg'); background-size: cover; background-position: center;">
-                        <span class="bodega-year">Desde 1985</span>
-                    </div>
-                </div>
-                <div class="bodega-content">
-                    <h3 class="bodega-name">Bodega Amanecer</h3>
-                    <span class="bodega-founder">Fundada por la familia Roldán</span>
-                    <p class="bodega-description">
-                        Ubicada en el corazón del valle de San Rafael, esta bodega familiar lleva tres generaciones 
-                        cultivando Malbec de altura a 800 metros sobre el nivel del mar. Sus viñedos se destacan 
-                        por la pureza del aire y la intensidad solar que da a sus vinos un carácter único.
-                    </p>
-                    <div class="bodega-specialties">
-                        <span class="specialties-title">Especialidades</span>
-                        <div class="specialties-tags">
-                            <span class="specialty-tag">Malbec Reserva</span>
-                            <span class="specialty-tag">Cabernet Franc</span>
-                            <span class="specialty-tag">Blend Premium</span>
-                        </div>
-                    </div>
-                    <div class="bodega-footer">
-                        <span class="bodega-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Valle Grande, San Rafael
-                        </span>
-                        <button class="btn-bodega" onclick="filterByBodega('amanecer')">Ver Vinos</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bodega 2 -->
-            <div class="bodega-card">
-                <div class="bodega-image-container">
-                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg'); background-size: cover; background-position: center;">
-                        <span class="bodega-year">Desde 1992</span>
-                    </div>
-                </div>
-                <div class="bodega-content">
-                    <h3 class="bodega-name">Viñedos del Sol</h3>
-                    <span class="bodega-founder">Fundada por Marta y Carlos Díaz</span>
-                    <p class="bodega-description">
-                        Especialistas en vinos blancos y espumantes, esta bodega aprovecha los suelos calcáreos 
-                        de la zona para crear Chardonnays de excelencia internacional. Su bodega subterránea, 
-                        construida en piedra, mantiene la temperatura ideal para el añejamiento.
-                    </p>
-                    <div class="bodega-specialties">
-                        <span class="specialties-title">Especialidades</span>
-                        <div class="specialties-tags">
-                            <span class="specialty-tag">Chardonnay</span>
-                            <span class="specialty-tag">Espumante Brut</span>
-                            <span class="specialty-tag">Sauvignon Blanc</span>
-                        </div>
-                    </div>
-                    <div class="bodega-footer">
-                        <span class="bodega-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Cuadro Benegas, San Rafael
-                        </span>
-                        <button class="btn-bodega" onclick="filterByBodega('sol')">Ver Vinos</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bodega 3 -->
-            <div class="bodega-card">
-                <div class="bodega-image-container">
-                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/elements-resized.envatousercontent.com/2621656f2d618098f96b0c9dcbf1174e4717c311.jpg'); background-size: cover; background-position: center;">
-                        <span class="bodega-year">Desde 1978</span>
-                    </div>
-                </div>
-                <div class="bodega-content">
-                    <h3 class="bodega-name">Bodega Monte Viejo</h3>
-                    <span class="bodega-founder">Fundada por inmigrantes italianos</span>
-                    <p class="bodega-description">
-                        Con más de 45 años de historia, es una de las bodegas más tradicionales de la región. 
-                        Conservan técnicas ancestrales de elaboración combinadas con tecnología moderna. 
-                        Famosos por sus tintos de guarda que pueden añejarse hasta 20 años.
-                    </p>
-                    <div class="bodega-specialties">
-                        <span class="specialties-title">Especialidades</span>
-                        <div class="specialties-tags">
-                            <span class="specialty-tag">Gran Reserva</span>
-                            <span class="specialty-tag">Tannat</span>
-                            <span class="specialty-tag">Syrah Roble</span>
-                        </div>
-                    </div>
-                    <div class="bodega-footer">
-                        <span class="bodega-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Cañada Honda, San Rafael
-                        </span>
-                        <button class="btn-bodega" onclick="filterByBodega('monte')">Ver Vinos</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bodega 4 -->
-            <div class="bodega-card">
-                <div class="bodega-image-container">
-                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/www.shutterstock.com/6928ef3c5af7378ab397fe9bd0e2066caf993d73.jpg'); background-size: cover; background-position: center;">
-                        <span class="bodega-year">Desde 2005</span>
-                    </div>
-                </div>
-                <div class="bodega-content">
-                    <h3 class="bodega-name">Los Toneles</h3>
-                    <span class="bodega-founder">Fundada por jóvenes enólogos</span>
-                    <p class="bodega-description">
-                        Bodega boutique que representa la nueva generación vitivinícola de San Rafael. 
-                        Experimentan con variedades no tradicionales como Pinot Noir y crean blends 
-                        innovadores. Su enfoque es la viticultura orgánica y sostenible.
-                    </p>
-                    <div class="bodega-specialties">
-                        <span class="specialties-title">Especialidades</span>
-                        <div class="specialties-tags">
-                            <span class="specialty-tag">Pinot Noir</span>
-                            <span class="specialty-tag">Rosé de autor</span>
-                            <span class="specialty-tag">Blend Joven</span>
-                        </div>
-                    </div>
-                    <div class="bodega-footer">
-                        <span class="bodega-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Los Reyunos, San Rafael
-                        </span>
-                        <button class="btn-bodega" onclick="filterByBodega('toneles')">Ver Vinos</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bodega 5 -->
-            <div class="bodega-card">
-                <div class="bodega-image-container">
-                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/www.shutterstock.com/46643a3bf3ac687781e1959e7e8a53c1d098e6a6.jpg'); background-size: cover; background-position: center;">
-                        <span class="bodega-year">Desde 1960</span>
-                    </div>
-                </div>
-                <div class="bodega-content">
-                    <h3 class="bodega-name">La Carmela</h3>
-                    <span class="bodega-founder">Tradición española en Mendoza</span>
-                    <p class="bodega-description">
-                        Llevada adelante por la tercera generación de la familia García, mantiene vivos 
-                        los secretos traídos desde La Rioja española. Famosa por sus vinos dulces naturales 
-                        y sus postres de autor que maridan a la perfección.
-                    </p>
-                    <div class="bodega-specialties">
-                        <span class="specialties-title">Especialidades</span>
-                        <div class="specialties-tags">
-                            <span class="specialty-tag">Malbec Dulce</span>
-                            <span class="specialty-tag">Oporto Natural</span>
-                            <span class="specialty-tag">Mistela</span>
-                        </div>
-                    </div>
-                    <div class="bodega-footer">
-                        <span class="bodega-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Ciudad, San Rafael
-                        </span>
-                        <button class="btn-bodega" onclick="filterByBodega('carmela')">Ver Vinos</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bodega 6 -->
-            <div class="bodega-card">
-                <div class="bodega-image-container">
-                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/img.freepik.com/d383986a8e51f43569ee2198519fcd168a3cb48b.jpg'); background-size: cover; background-position: center;">
-                        <span class="bodega-year">Desde 2010</span>
-                    </div>
-                </div>
-                <div class="bodega-content">
-                    <h3 class="bodega-name">Altos del Atuel</h3>
-                    <span class="bodega-founder">Proyecto vitivinícola joven</span>
-                    <p class="bodega-description">
-                        Situada en las cercanías del río Atuel, esta bodega aprovecha el microclima único 
-                        de la zona para crear vinos frescos y frutales. Su terraza con vista al río es 
-                        el lugar perfecto para las catas al atardecer.
-                    </p>
-                    <div class="bodega-specialties">
-                        <span class="specialties-title">Especialidades</span>
-                        <div class="specialties-tags">
-                            <span class="specialty-tag">Tempranillo</span>
-                            <span class="specialty-tag">Torrontés</span>
-                            <span class="specialty-tag">Bonarda</span>
-                        </div>
-                    </div>
-                    <div class="bodega-footer">
-                        <span class="bodega-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Villa 25 de Mayo, San Rafael
-                        </span>
-                        <button class="btn-bodega" onclick="filterByBodega('atuel')">Ver Vinos</button>
-                    </div>
-                </div>
-            </div>
+        <div class="bodegas-grid" id="bodegasGrid">
+            <!-- Las bodegas se generan con JS -->
         </div>
     </section>
 
@@ -2109,7 +2141,7 @@
         </div>
     </section>
 
-    <!-- Rutas del Vino -->
+    <!-- Rutas del Vino - MAPA REAL -->
     <section class="routes" id="rutas">
         <div class="section-header">
             <span class="section-tag">Explora San Rafael</span>
@@ -2117,54 +2149,8 @@
             <p style="color: #888; margin-top: 1rem;">Descubre las bodegas más emblemáticas de nuestra región</p>
         </div>
 
-        <div class="map-container">
-            <div class="map-placeholder">
-                <svg style="position: absolute; width: 100%; height: 100%;" viewBox="0 0 800 600">
-                    <path class="route-path" d="M 100 300 Q 200 200 300 300 T 500 300 T 700 300" />
-                </svg>
-                
-                <div class="bodega-marker" style="top: 40%; left: 15%;">
-                    1
-                    <div class="marker-tooltip">
-                        <strong>Bodega La Carmela</strong><br>
-                        Especialidad: Malbec<br>
-                        4.8 ★
-                    </div>
-                </div>
-                
-                <div class="bodega-marker" style="top: 55%; left: 35%;">
-                    2
-                    <div class="marker-tooltip">
-                        <strong>Viñedos del Sol</strong><br>
-                        Especialidad: Cabernet<br>
-                        4.9 ★
-                    </div>
-                </div>
-                
-                <div class="bodega-marker" style="top: 45%; left: 55%;">
-                    3
-                    <div class="marker-tooltip">
-                        <strong>Bodega Monte Viejo</strong><br>
-                        Especialidad: Blend<br>
-                        4.7 ★
-                    </div>
-                </div>
-                
-                <div class="bodega-marker" style="top: 60%; left: 75%;">
-                    4
-                    <div class="marker-tooltip">
-                        <strong>Los Toneles</strong><br>
-                        Especialidad: Syrah<br>
-                        4.6 ★
-                    </div>
-                </div>
-
-                <div style="text-align: center; color: var(--dorado); z-index: 5;">
-                    <i class="fas fa-map-marked-alt" style="font-size: 4rem; opacity: 0.5;"></i>
-                    <p style="margin-top: 1rem; color: #666;">Mapa Interactivo de Bodegas</p>
-                    <p style="font-size: 0.9rem; color: #888;">Haz clic en los marcadores dorados</p>
-                </div>
-            </div>
+        <div class="map-container" id="mapContainer">
+            <!-- El mapa se carga dinámicamente desde el admin -->
         </div>
     </section>
 
@@ -2176,68 +2162,8 @@
             <p style="color: #888; margin-top: 1rem;">Vive la experiencia completa en las mejores bodegas de San Rafael</p>
         </div>
 
-        <div class="tours-grid">
-            <div class="tour-card">
-                <div class="tour-header">
-                    <div class="tour-price-tag">$4.500</div>
-                    <h3>Clásico Enológico</h3>
-                    <p>Bodega La Carmela</p>
-                </div>
-                <div class="tour-body">
-                    <ul class="tour-features">
-                        <li><i class="fas fa-check"></i> Recorrido por viñedos</li>
-                        <li><i class="fas fa-check"></i> Visita a sala de barricas</li>
-                        <li><i class="fas fa-check"></i> Degustación de 3 vinos</li>
-                        <li><i class="fas fa-check"></i> Tabla de quesos regionales</li>
-                        <li><i class="fas fa-check"></i> Duración: 2 horas</li>
-                    </ul>
-                </div>
-                <div class="tour-footer">
-                    <button class="btn-reserve" onclick="addToCart('tour1', 'Clásico Enológico - La Carmela', 4500)">Reservar Ahora</button>
-                </div>
-            </div>
-
-            <div class="tour-card">
-                <div class="tour-header">
-                    <div class="tour-price-tag">$8.900</div>
-                    <h3>Experiencia Premium</h3>
-                    <p>Viñedos del Sol</p>
-                </div>
-                <div class="tour-body">
-                    <ul class="tour-features">
-                        <li><i class="fas fa-check"></i> Recorrido privado VIP</li>
-                        <li><i class="fas fa-check"></i> Cata guiada por enólogo</li>
-                        <li><i class="fas fa-check"></i> 5 vinos de alta gama</li>
-                        <li><i class="fas fa-check"></i> Almuerzo maridado 3 pasos</li>
-                        <li><i class="fas fa-check"></i> Botella de regalo</li>
-                        <li><i class="fas fa-check"></i> Duración: 4 horas</li>
-                    </ul>
-                </div>
-                <div class="tour-footer">
-                    <button class="btn-reserve" onclick="addToCart('tour2', 'Experiencia Premium - Viñedos del Sol', 8900)">Reservar Ahora</button>
-                </div>
-            </div>
-
-            <div class="tour-card">
-                <div class="tour-header">
-                    <div class="tour-price-tag">$12.500</div>
-                    <h3>Día de Cosecha</h3>
-                    <p>Bodega Monte Viejo</p>
-                </div>
-                <div class="tour-body">
-                    <ul class="tour-features">
-                        <li><i class="fas fa-check"></i> Participación en vendimia</li>
-                        <li><i class="fas fa-check"></i> Pisa de uvas tradicional</li>
-                        <li><i class="fas fa-check"></i> Almuerzo campestre</li>
-                        <li><i class="fas fa-check"></i> Taller de elaboración</li>
-                        <li><i class="fas fa-check"></i> Caja de 6 vinos</li>
-                        <li><i class="fas fa-check"></i> Duración: Día completo</li>
-                    </ul>
-                </div>
-                <div class="tour-footer">
-                    <button class="btn-reserve" onclick="addToCart('tour3', 'Día de Cosecha - Monte Viejo', 12500)">Reservar Ahora</button>
-                </div>
-            </div>
+        <div class="tours-grid" id="toursGrid">
+            <!-- Los recorridos se generan con JS -->
         </div>
     </section>
 
@@ -2455,6 +2381,11 @@
         <div class="footer-bottom">
             <p>&copy; 2026 Club de la Bodega. Todos los derechos reservados. | Hecho con <i class="fas fa-heart" style="color: var(--dorado);"></i> en San Rafael</p>
         </div>
+        
+        <!-- Botón oculto para acceso admin -->
+        <div class="admin-access" onclick="openAdminLogin()" title="Acceso Administrador">
+            <i class="fas fa-lock"></i> Admin
+        </div>
     </footer>
 
     <!-- Modal Carrito -->
@@ -2477,38 +2408,318 @@
         </div>
     </div>
 
+    <!-- ADMIN LOGIN -->
+    <div class="admin-login" id="adminLogin">
+        <div class="login-box">
+            <h2>Club de la Bodega</h2>
+            <p style="color: #888; margin-bottom: 2rem;">Panel de Administración</p>
+            <input type="password" id="adminPassword" placeholder="Contraseña" onkeypress="if(event.key==='Enter')checkAdminPassword()">
+            <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="checkAdminPassword()">Ingresar</button>
+            <button class="btn-secondary" style="width: 100%; margin-top: 0.5rem; border: none;" onclick="closeAdminLogin()">Cancelar</button>
+            <p id="loginError" style="color: var(--rojo); margin-top: 1rem; display: none;">Contraseña incorrecta</p>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <div class="admin-title">
+                <i class="fas fa-wine-bottle"></i> Panel de Administración
+            </div>
+            <div class="admin-nav">
+                <button class="active" onclick="showAdminSection('bodegas')">Bodegas</button>
+                <button onclick="showAdminSection('vinos')">Vinos</button>
+                <button onclick="showAdminSection('recorridos')">Recorridos</button>
+                <button onclick="showAdminSection('mapa')">Mapa</button>
+                <button onclick="cerrarAdmin()" style="color: var(--rojo); border-color: var(--rojo);">Salir</button>
+            </div>
+        </div>
+
+        <div class="admin-content">
+            <!-- SECCIÓN BODEGAS -->
+            <div id="admin-bodegas" class="admin-section active">
+                <div class="admin-grid">
+                    <div class="admin-form">
+                        <h3>Agregar/Editar Bodega</h3>
+                        <form id="formBodega" onsubmit="saveBodega(event)">
+                            <input type="hidden" id="bodegaId">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" id="bodegaNombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fundador</label>
+                                <input type="text" id="bodegaFundador" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Año de Fundación</label>
+                                <input type="number" id="bodegaAnio" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Ubicación</label>
+                                <input type="text" id="bodegaUbicacion" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Descripción</label>
+                                <textarea id="bodegaDescripcion" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Especialidades (separadas por coma)</label>
+                                <input type="text" id="bodegaEspecialidades" placeholder="Malbec, Cabernet, etc" required>
+                            </div>
+                            <div class="form-group">
+                                <label>URL de la Imagen</label>
+                                <input type="url" id="bodegaImagen" placeholder="https://...">
+                                <small style="color: #666; display: block; margin-top: 0.3rem;">Dejar vacío para usar imagen por defecto</small>
+                            </div>
+                            <button type="submit" class="btn-success" style="width: 100%;">Guardar Bodega</button>
+                            <button type="button" class="btn-secondary" style="width: 100%; margin-top: 0.5rem;" onclick="resetBodegaForm()">Cancelar</button>
+                        </form>
+                    </div>
+                    <div class="admin-list">
+                        <h3>Bodegas Registradas</h3>
+                        <div id="listaBodegas"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN VINOS -->
+            <div id="admin-vinos" class="admin-section">
+                <div class="admin-grid">
+                    <div class="admin-form">
+                        <h3>Agregar/Editar Vino</h3>
+                        <form id="formVino" onsubmit="saveVino(event)">
+                            <input type="hidden" id="vinoId">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" id="vinoNombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Bodega</label>
+                                <select id="vinoBodega" required>
+                                    <!-- Se llena dinámicamente -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo</label>
+                                <select id="vinoTipo" required>
+                                    <option value="tinto">Tinto</option>
+                                    <option value="blanco">Blanco</option>
+                                    <option value="rosado">Rosado</option>
+                                    <option value="espumante">Espumante</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Precio</label>
+                                <input type="number" id="vinoPrecio" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Precio Anterior (opcional)</label>
+                                <input type="number" id="vinoPrecioOld">
+                            </div>
+                            <div class="form-group">
+                                <label>URL de la Imagen</label>
+                                <input type="url" id="vinoImagen" placeholder="https://...">
+                            </div>
+                            <div class="form-group">
+                                <label>Badge (opcional)</label>
+                                <input type="text" id="vinoBadge" placeholder="Oferta, Nuevo, etc">
+                            </div>
+                            <button type="submit" class="btn-success" style="width: 100%;">Guardar Vino</button>
+                            <button type="button" class="btn-secondary" style="width: 100%; margin-top: 0.5rem;" onclick="resetVinoForm()">Cancelar</button>
+                        </form>
+                    </div>
+                    <div class="admin-list">
+                        <h3>Vinos en Catálogo</h3>
+                        <div id="listaVinos"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN RECORRIDOS -->
+            <div id="admin-recorridos" class="admin-section">
+                <div class="admin-grid">
+                    <div class="admin-form">
+                        <h3>Agregar/Editar Recorrido</h3>
+                        <form id="formRecorrido" onsubmit="saveRecorrido(event)">
+                            <input type="hidden" id="recorridoId">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" id="recorridoNombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Bodega</label>
+                                <select id="recorridoBodega" required>
+                                    <!-- Se llena dinámicamente -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Precio</label>
+                                <input type="number" id="recorridoPrecio" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Duración</label>
+                                <input type="text" id="recorridoDuracion" placeholder="Ej: 2 horas" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Características (una por línea)</label>
+                                <textarea id="recorridoFeatures" rows="5" placeholder="Recorrido por viñedos&#10;Degustación de 3 vinos&#10;..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-success" style="width: 100%;">Guardar Recorrido</button>
+                            <button type="button" class="btn-secondary" style="width: 100%; margin-top: 0.5rem;" onclick="resetRecorridoForm()">Cancelar</button>
+                        </form>
+                    </div>
+                    <div class="admin-list">
+                        <h3>Recorridos Disponibles</h3>
+                        <div id="listaRecorridos"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN MAPA -->
+            <div id="admin-mapa" class="admin-section">
+                <div class="admin-form" style="max-width: 800px; margin: 0 auto;">
+                    <h3>Configurar Google Maps</h3>
+                    <p style="color: #888; margin-bottom: 1.5rem;">Pegá el código de embed de Google Maps (iframe) o la URL para mostrar el mapa en la página de Rutas.</p>
+                    
+                    <div class="form-group">
+                        <label>Código Embed de Google Maps</label>
+                        <textarea id="mapEmbedCode" rows="6" placeholder='<iframe src="https://www.google.com/maps/embed?..." width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>'></textarea>
+                        <small style="color: #666; display: block; margin-top: 0.3rem;">
+                            Para obtenerlo: Google Maps → Compartir → Insertar un mapa → Copiar HTML
+                        </small>
+                    </div>
+                    
+                    <button onclick="saveMapConfig()" class="btn-success" style="width: 100%; margin-bottom: 1rem;">Guardar Mapa</button>
+                    
+                    <div class="form-group">
+                        <label>Vista Previa:</label>
+                        <div id="mapPreview" style="background: var(--negro); border: 1px solid var(--gris-medio); min-height: 300px; display: flex; align-items: center; justify-content: center; color: #666;">
+                            No hay mapa configurado aún
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Datos de productos
-        const products = [
-            { id: 1, name: 'Malbec Reserva', bodega: 'La Carmela', type: 'tinto', price: 4500, oldPrice: 5200, image: 'wine-bottle', badge: 'Oferta' },
-            { id: 2, name: 'Cabernet Sauvignon', bodega: 'Viñedos del Sol', type: 'tinto', price: 3800, oldPrice: null, image: 'wine-bottle', badge: null },
-            { id: 3, name: 'Chardonnay Premium', bodega: 'Monte Viejo', type: 'blanco', price: 3200, oldPrice: null, image: 'wine-bottle', badge: null },
-            { id: 4, name: 'Rosé de Corte', bodega: 'Los Toneles', type: 'rosado', price: 2900, oldPrice: 3500, image: 'wine-bottle', badge: '-20%' },
-            { id: 5, name: 'Espumante Brut Nature', bodega: 'La Carmela', type: 'espumante', price: 5600, oldPrice: null, image: 'wine-bottle', badge: null },
-            { id: 6, name: 'Syrah Roble', bodega: 'Viñedos del Sol', type: 'tinto', price: 4100, oldPrice: null, image: 'wine-bottle', badge: null },
-            { id: 7, name: 'Blend Icono', bodega: 'Monte Viejo', type: 'tinto', price: 8900, oldPrice: 12000, image: 'wine-bottle', badge: 'Oferta' },
-            { id: 8, name: 'Torrontés', bodega: 'Los Toneles', type: 'blanco', price: 2600, oldPrice: null, image: 'wine-bottle', badge: null }
+        // DATOS INICIALES
+        const defaultBodegas = [
+            {
+                id: 1,
+                nombre: "Bodega Amanecer",
+                fundador: "Familia Roldán",
+                anio: 1985,
+                ubicacion: "Valle Grande, San Rafael",
+                descripcion: "Ubicada en el corazón del valle de San Rafael, esta bodega familiar lleva tres generaciones cultivando Malbec de altura a 800 metros sobre el nivel del mar.",
+                especialidades: ["Malbec Reserva", "Cabernet Franc", "Blend Premium"],
+                imagen: "https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg"
+            },
+            {
+                id: 2,
+                nombre: "Viñedos del Sol",
+                fundador: "Marta y Carlos Díaz",
+                anio: 1992,
+                ubicacion: "Cuadro Benegas, San Rafael",
+                descripcion: "Especialistas en vinos blancos y espumantes, esta bodega aprovecha los suelos calcáreos de la zona para crear Chardonnays de excelencia internacional.",
+                especialidades: ["Chardonnay", "Espumante Brut", "Sauvignon Blanc"],
+                imagen: "https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg"
+            },
+            {
+                id: 3,
+                nombre: "Bodega Monte Viejo",
+                fundador: "Inmigrantes italianos",
+                anio: 1978,
+                ubicacion: "Cañada Honda, San Rafael",
+                descripcion: "Con más de 45 años de historia, es una de las bodegas más tradicionales de la región. Famosos por sus tintos de guarda.",
+                especialidades: ["Gran Reserva", "Tannat", "Syrah Roble"],
+                imagen: "https://kimi-web-img.moonshot.cn/img/elements-resized.envatousercontent.com/2621656f2d618098f96b0c9dcbf1174e4717c311.jpg"
+            }
         ];
+
+        const defaultProducts = [
+            { id: 1, name: 'Malbec Reserva', bodega: 'Bodega Amanecer', type: 'tinto', price: 4500, oldPrice: 5200, imagen: '', badge: 'Oferta' },
+            { id: 2, name: 'Chardonnay Premium', bodega: 'Viñedos del Sol', type: 'blanco', price: 3800, oldPrice: null, imagen: '', badge: null },
+            { id: 3, name: 'Gran Reserva', bodega: 'Bodega Monte Viejo', type: 'tinto', price: 8900, oldPrice: null, imagen: '', badge: null }
+        ];
+
+        const defaultRecorridos = [
+            {
+                id: 1,
+                nombre: "Clásico Enológico",
+                bodega: "Bodega Amanecer",
+                precio: 4500,
+                duracion: "2 horas",
+                features: ["Recorrido por viñedos", "Visita a sala de barricas", "Degustación de 3 vinos", "Tabla de quesos regionales"]
+            },
+            {
+                id: 2,
+                nombre: "Experiencia Premium",
+                bodega: "Viñedos del Sol",
+                precio: 8900,
+                duracion: "4 horas",
+                features: ["Recorrido privado VIP", "Cata guiada por enólogo", "5 vinos de alta gama", "Almuerzo maridado 3 pasos", "Botella de regalo"]
+            }
+        ];
+
+        // INICIALIZACIÓN
+        let bodegas = JSON.parse(localStorage.getItem('cb_bodegas')) || defaultBodegas;
+        let products = JSON.parse(localStorage.getItem('cb_vinos')) || defaultProducts;
+        let recorridos = JSON.parse(localStorage.getItem('cb_recorridos')) || defaultRecorridos;
+        let mapConfig = JSON.parse(localStorage.getItem('cb_map')) || { embedCode: '' };
 
         let cart = [];
         let currentFilter = 'all';
 
-        // Renderizar productos
+        // RENDERIZADO PÚBLICO
+        function renderBodegas() {
+            const grid = document.getElementById('bodegasGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = bodegas.map(b => `
+                <div class="bodega-card">
+                    <div class="bodega-image-container">
+                        <div class="bodega-image">
+                            ${b.imagen ? `<img src="${b.imagen}" alt="${b.nombre}">` : '<i class="fas fa-wine-bottle"></i>'}
+                            <span class="bodega-year">Desde ${b.anio}</span>
+                        </div>
+                    </div>
+                    <div class="bodega-content">
+                        <h3 class="bodega-name">${b.nombre}</h3>
+                        <span class="bodega-founder">Fundada por ${b.fundador}</span>
+                        <p class="bodega-description">${b.descripcion}</p>
+                        <div class="bodega-specialties">
+                            <span class="specialties-title">Especialidades</span>
+                            <div class="specialties-tags">
+                                ${b.especialidades.map(e => `<span class="specialty-tag">${e}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div class="bodega-footer">
+                            <span class="bodega-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                ${b.ubicacion}
+                            </span>
+                            <button class="btn-bodega" onclick="filterByBodega('${b.nombre}')">Ver Vinos</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         function renderProducts(filter = 'all') {
             const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
+            if (!grid) return;
             
             const filtered = filter === 'all' ? products : 
                            filter === 'oferta' ? products.filter(p => p.oldPrice) :
                            products.filter(p => p.type === filter);
             
-            filtered.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
+            grid.innerHTML = filtered.map(product => `
+                <div class="product-card">
                     ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
                     <div class="product-image">
-                        <i class="fas fa-${product.image}"></i>
+                        ${product.imagen ? `<img src="${product.imagen}" alt="${product.name}">` : '<i class="fas fa-wine-bottle"></i>'}
                         <div class="product-overlay">
                             <button class="btn-add-cart" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">
                                 Agregar al Carrito
@@ -2529,27 +2740,345 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            `).join('');
+        }
+
+        function renderRecorridos() {
+            const grid = document.getElementById('toursGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = recorridos.map(t => `
+                <div class="tour-card">
+                    <div class="tour-header">
+                        <div class="tour-price-tag">$${t.precio}</div>
+                        <h3>${t.nombre}</h3>
+                        <p>${t.bodega}</p>
+                    </div>
+                    <div class="tour-body">
+                        <ul class="tour-features">
+                            ${t.features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}
+                            <li><i class="fas fa-clock"></i> Duración: ${t.duracion}</li>
+                        </ul>
+                    </div>
+                    <div class="tour-footer">
+                        <button class="btn-reserve" onclick="addToCart('tour_${t.id}', '${t.nombre} - ${t.bodega}', ${t.precio})">Reservar Ahora</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderMap() {
+            const container = document.getElementById('mapContainer');
+            if (!container) return;
+            
+            if (mapConfig.embedCode) {
+                container.innerHTML = mapConfig.embedCode;
+            } else {
+                // Mapa placeholder si no hay configuración
+                container.innerHTML = `
+                    <div style="padding: 4rem; text-align: center; color: #666;">
+                        <i class="fas fa-map-marked-alt" style="font-size: 4rem; color: var(--dorado); margin-bottom: 1rem;"></i>
+                        <h3>Mapa no configurado</h3>
+                        <p>El administrador debe configurar el mapa desde el panel de administración.</p>
+                    </div>
                 `;
-                grid.appendChild(card);
+            }
+        }
+
+        // FUNCIONES ADMIN
+        function openAdminLogin() {
+            document.getElementById('adminLogin').classList.add('active');
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('adminLogin').classList.remove('active');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        function checkAdminPassword() {
+            const pass = document.getElementById('adminPassword').value;
+            if (pass === 'SigloTinto') {
+                closeAdminLogin();
+                document.getElementById('adminPanel').classList.add('active');
+                initAdmin();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        function cerrarAdmin() {
+            document.getElementById('adminPanel').classList.remove('active');
+        }
+
+        function showAdminSection(section) {
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.admin-nav button').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById('admin-' + section).classList.add('active');
+            event.target.classList.add('active');
+            
+            if (section === 'bodegas') renderAdminBodegas();
+            if (section === 'vinos') { renderAdminVinos(); updateBodegaSelects(); }
+            if (section === 'recorridos') { renderAdminRecorridos(); updateBodegaSelects(); }
+            if (section === 'mapa') {
+                document.getElementById('mapEmbedCode').value = mapConfig.embedCode;
+                updateMapPreview();
+            }
+        }
+
+        function initAdmin() {
+            renderAdminBodegas();
+            showAdminSection('bodegas');
+        }
+
+        // GESTIÓN BODEGAS
+        function renderAdminBodegas() {
+            const container = document.getElementById('listaBodegas');
+            container.innerHTML = bodegas.map(b => `
+                <div class="admin-item">
+                    <div class="admin-item-info">
+                        <h4>${b.nombre}</h4>
+                        <p>Fundada: ${b.anio} | ${b.fundador}</p>
+                        <p>${b.ubicacion}</p>
+                    </div>
+                    <div class="admin-item-actions">
+                        <button class="btn-small btn-edit" onclick="editBodega(${b.id})">Editar</button>
+                        <button class="btn-small btn-delete" onclick="deleteBodega(${b.id})">Eliminar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function saveBodega(e) {
+            e.preventDefault();
+            const id = document.getElementById('bodegaId').value;
+            const bodega = {
+                id: id ? parseInt(id) : Date.now(),
+                nombre: document.getElementById('bodegaNombre').value,
+                fundador: document.getElementById('bodegaFundador').value,
+                anio: parseInt(document.getElementById('bodegaAnio').value),
+                ubicacion: document.getElementById('bodegaUbicacion').value,
+                descripcion: document.getElementById('bodegaDescripcion').value,
+                especialidades: document.getElementById('bodegaEspecialidades').value.split(',').map(s => s.trim()),
+                imagen: document.getElementById('bodegaImagen').value || ''
+            };
+            
+            if (id) {
+                const index = bodegas.findIndex(b => b.id === parseInt(id));
+                bodegas[index] = bodega;
+            } else {
+                bodegas.push(bodega);
+            }
+            
+            localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
+            resetBodegaForm();
+            renderAdminBodegas();
+            renderBodegas(); // Actualizar sitio público
+            alert('Bodega guardada correctamente');
+        }
+
+        function editBodega(id) {
+            const b = bodegas.find(b => b.id === id);
+            if (!b) return;
+            
+            document.getElementById('bodegaId').value = b.id;
+            document.getElementById('bodegaNombre').value = b.nombre;
+            document.getElementById('bodegaFundador').value = b.fundador;
+            document.getElementById('bodegaAnio').value = b.anio;
+            document.getElementById('bodegaUbicacion').value = b.ubicacion;
+            document.getElementById('bodegaDescripcion').value = b.descripcion;
+            document.getElementById('bodegaEspecialidades').value = b.especialidades.join(', ');
+            document.getElementById('bodegaImagen').value = b.imagen || '';
+        }
+
+        function deleteBodega(id) {
+            if (!confirm('¿Eliminar esta bodega?')) return;
+            bodegas = bodegas.filter(b => b.id !== id);
+            localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
+            renderAdminBodegas();
+            renderBodegas();
+        }
+
+        function resetBodegaForm() {
+            document.getElementById('formBodega').reset();
+            document.getElementById('bodegaId').value = '';
+        }
+
+        // GESTIÓN VINOS
+        function updateBodegaSelects() {
+            const selects = ['vinoBodega', 'recorridoBodega'];
+            selects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                if (!select) return;
+                const currentValue = select.value;
+                select.innerHTML = bodegas.map(b => `<option value="${b.nombre}">${b.nombre}</option>`).join('');
+                select.value = currentValue;
             });
         }
 
-        // Filtrar vinos
-        function filterWines(type) {
-            currentFilter = type;
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderProducts(type);
+        function renderAdminVinos() {
+            const container = document.getElementById('listaVinos');
+            container.innerHTML = products.map(p => `
+                <div class="admin-item">
+                    <div class="admin-item-info">
+                        <h4>${p.name}</h4>
+                        <p>${p.bodega} | ${p.type} | $${p.price}</p>
+                        ${p.badge ? `<span style="color: var(--dorado); font-size: 0.8rem;">${p.badge}</span>` : ''}
+                    </div>
+                    <div class="admin-item-actions">
+                        <button class="btn-small btn-edit" onclick="editVino(${p.id})">Editar</button>
+                        <button class="btn-small btn-delete" onclick="deleteVino(${p.id})">Eliminar</button>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // Filtrar por bodega (nueva función)
-        function filterByBodega(bodegaName) {
-            document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
-            // Aquí podrías agregar lógica para filtrar específicamente por bodega
-            alert(`Mostrando vinos de ${bodegaName}. En la versión final esto filtraría el catálogo.`);
+        function saveVino(e) {
+            e.preventDefault();
+            const id = document.getElementById('vinoId').value;
+            const vino = {
+                id: id ? parseInt(id) : Date.now(),
+                name: document.getElementById('vinoNombre').value,
+                bodega: document.getElementById('vinoBodega').value,
+                type: document.getElementById('vinoTipo').value,
+                price: parseInt(document.getElementById('vinoPrecio').value),
+                oldPrice: parseInt(document.getElementById('vinoPrecioOld').value) || null,
+                imagen: document.getElementById('vinoImagen').value || '',
+                badge: document.getElementById('vinoBadge').value || null
+            };
+            
+            if (id) {
+                const index = products.findIndex(p => p.id === parseInt(id));
+                products[index] = vino;
+            } else {
+                products.push(vino);
+            }
+            
+            localStorage.setItem('cb_vinos', JSON.stringify(products));
+            resetVinoForm();
+            renderAdminVinos();
+            renderProducts(currentFilter);
+            alert('Vino guardado correctamente');
         }
 
-        // Carrito
+        function editVino(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            
+            document.getElementById('vinoId').value = p.id;
+            document.getElementById('vinoNombre').value = p.name;
+            document.getElementById('vinoBodega').value = p.bodega;
+            document.getElementById('vinoTipo').value = p.type;
+            document.getElementById('vinoPrecio').value = p.price;
+            document.getElementById('vinoPrecioOld').value = p.oldPrice || '';
+            document.getElementById('vinoImagen').value = p.imagen || '';
+            document.getElementById('vinoBadge').value = p.badge || '';
+        }
+
+        function deleteVino(id) {
+            if (!confirm('¿Eliminar este vino?')) return;
+            products = products.filter(p => p.id !== id);
+            localStorage.setItem('cb_vinos', JSON.stringify(products));
+            renderAdminVinos();
+            renderProducts(currentFilter);
+        }
+
+        function resetVinoForm() {
+            document.getElementById('formVino').reset();
+            document.getElementById('vinoId').value = '';
+        }
+
+        // GESTIÓN RECORRIDOS
+        function renderAdminRecorridos() {
+            const container = document.getElementById('listaRecorridos');
+            container.innerHTML = recorridos.map(r => `
+                <div class="admin-item">
+                    <div class="admin-item-info">
+                        <h4>${r.nombre}</h4>
+                        <p>${r.bodega} | $${r.precio} | ${r.duracion}</p>
+                    </div>
+                    <div class="admin-item-actions">
+                        <button class="btn-small btn-edit" onclick="editRecorrido(${r.id})">Editar</button>
+                        <button class="btn-small btn-delete" onclick="deleteRecorrido(${r.id})">Eliminar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function saveRecorrido(e) {
+            e.preventDefault();
+            const id = document.getElementById('recorridoId').value;
+            const recorrido = {
+                id: id ? parseInt(id) : Date.now(),
+                nombre: document.getElementById('recorridoNombre').value,
+                bodega: document.getElementById('recorridoBodega').value,
+                precio: parseInt(document.getElementById('recorridoPrecio').value),
+                duracion: document.getElementById('recorridoDuracion').value,
+                features: document.getElementById('recorridoFeatures').value.split('\n').filter(f => f.trim())
+            };
+            
+            if (id) {
+                const index = recorridos.findIndex(r => r.id === parseInt(id));
+                recorridos[index] = recorrido;
+            } else {
+                recorridos.push(recorrido);
+            }
+            
+            localStorage.setItem('cb_recorridos', JSON.stringify(recorridos));
+            resetRecorridoForm();
+            renderAdminRecorridos();
+            renderRecorridos();
+            alert('Recorrido guardado correctamente');
+        }
+
+        function editRecorrido(id) {
+            const r = recorridos.find(x => x.id === id);
+            if (!r) return;
+            
+            document.getElementById('recorridoId').value = r.id;
+            document.getElementById('recorridoNombre').value = r.nombre;
+            document.getElementById('recorridoBodega').value = r.bodega;
+            document.getElementById('recorridoPrecio').value = r.precio;
+            document.getElementById('recorridoDuracion').value = r.duracion;
+            document.getElementById('recorridoFeatures').value = r.features.join('\n');
+        }
+
+        function deleteRecorrido(id) {
+            if (!confirm('¿Eliminar este recorrido?')) return;
+            recorridos = recorridos.filter(r => r.id !== id);
+            localStorage.setItem('cb_recorridos', JSON.stringify(recorridos));
+            renderAdminRecorridos();
+            renderRecorridos();
+        }
+
+        function resetRecorridoForm() {
+            document.getElementById('formRecorrido').reset();
+            document.getElementById('recorridoId').value = '';
+        }
+
+        // MAPA
+        function saveMapConfig() {
+            const code = document.getElementById('mapEmbedCode').value;
+            mapConfig = { embedCode: code };
+            localStorage.setItem('cb_map', JSON.stringify(mapConfig));
+            renderMap();
+            alert('Mapa guardado correctamente');
+        }
+
+        function updateMapPreview() {
+            const code = document.getElementById('mapEmbedCode').value;
+            const preview = document.getElementById('mapPreview');
+            if (code) {
+                preview.innerHTML = code;
+                preview.style.display = 'block';
+            } else {
+                preview.innerHTML = 'No hay mapa configurado aún';
+            }
+        }
+
+        // CARRITO Y OTRAS FUNCIONES
         function addToCart(id, name, price) {
             const existing = cart.find(item => item.id === id);
             if (existing) {
@@ -2584,7 +3113,7 @@
                         <div style="color: #666; font-size: 0.9rem;">Cantidad: ${item.quantity}</div>
                         <div class="cart-item-price">$${item.price * item.quantity}</div>
                     </div>
-                    <button onclick="removeFromCart(${item.id})" style="background: none; border: none; color: #666; cursor: pointer;">
+                    <button onclick="removeFromCart('${item.id}')" style="background: none; border: none; color: #666; cursor: pointer;">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -2600,29 +3129,59 @@
         }
 
         function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.classList.toggle('active');
+            document.getElementById('cartModal').classList.toggle('active');
         }
 
-        // Tabs
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
+        function filterWines(type) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-            document.getElementById(tab).classList.add('active');
+            renderProducts(type);
+        }
+
+        function filterByBodega(nombre) {
+            document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+            // Filtrar por bodega específica
+            const filtered = products.filter(p => p.bodega === nombre);
+            const grid = document.getElementById('productsGrid');
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666; padding: 2rem;">No hay vinos de esta bodega en el catálogo aún.</p>';
+            } else {
+                grid.innerHTML = filtered.map(product => `
+                    <div class="product-card">
+                        ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                        <div class="product-image">
+                            ${product.imagen ? `<img src="${product.imagen}" alt="${product.name}">` : '<i class="fas fa-wine-bottle"></i>'}
+                            <div class="product-overlay">
+                                <button class="btn-add-cart" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-bodega">${product.bodega}</div>
+                            <h3 class="product-name">${product.name}</h3>
+                            <div class="product-details">
+                                <span><i class="fas fa-wine-bottle"></i> ${product.type}</span>
+                                <span><i class="fas fa-star"></i> 4.8</span>
+                            </div>
+                            <div class="product-price">
+                                <div>
+                                    ${product.oldPrice ? `<span class="price-original">$${product.oldPrice}</span>` : ''}
+                                    <span class="price">$${product.price}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
         }
 
         // Wine Matcher
         let matcherAnswers = {};
-
         function selectOption(question, value) {
             matcherAnswers[`q${question}`] = value;
-            
-            // Ocultar pregunta actual
             document.getElementById(`question${question}`).style.display = 'none';
-            
-            // Mostrar siguiente o resultado
             if (question < 3) {
                 document.getElementById(`question${question + 1}`).style.display = 'block';
             } else {
@@ -2631,40 +3190,23 @@
         }
 
         function showMatcherResult() {
-            const resultDiv = document.getElementById('matcherResult');
-            const contentDiv = document.getElementById('resultContent');
-            
-            // Lógica simple de recomendación
-            let recommendation = {
-                name: 'Malbec Reserva - La Carmela',
-                desc: 'Un vino robusto y elegante, perfecto para acompañar carnes rojas. Notas de ciruela, chocolate y vainilla con taninos suaves.',
-                price: '$4.500'
-            };
+            let recommendation = products[0] || { name: 'Malbec Reserva', bodega: 'Bodega Amanecer', price: 4500, descripcion: 'Un vino robusto y elegante.' };
             
             if (matcherAnswers.q1 === 'pescado') {
-                recommendation = {
-                    name: 'Chardonnay Premium - Monte Viejo',
-                    desc: 'Fresco y frutal, ideal para mariscos. Notas cítricas y minerales con un final cremoso.',
-                    price: '$3.200'
-                };
+                recommendation = products.find(p => p.type === 'blanco') || recommendation;
             } else if (matcherAnswers.q3 === 'premium') {
-                recommendation = {
-                    name: 'Blend Icono - Monte Viejo',
-                    desc: 'Nuestro vino más prestigioso. Un blend de Malbec, Cabernet y Syrah añejado 24 meses en roble francés.',
-                    price: '$8.900'
-                };
+                recommendation = products.filter(p => p.price > 6000)[0] || recommendation;
             }
             
-            contentDiv.innerHTML = `
+            document.getElementById('resultContent').innerHTML = `
                 <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">${recommendation.name}</h2>
-                <p style="color: #ccc; margin-bottom: 1.5rem; line-height: 1.6;">${recommendation.desc}</p>
-                <div style="font-size: 2rem; color: var(--dorado); font-weight: 600; margin-bottom: 1rem;">${recommendation.price}</div>
-                <button class="btn-primary" onclick="addToCart('matched', '${recommendation.name}', ${parseInt(recommendation.price.replace('$', '').replace('.', ''))})">
+                <p style="color: #ccc; margin-bottom: 1.5rem;">${recommendation.bodega}</p>
+                <div style="font-size: 2rem; color: var(--dorado); font-weight: 600; margin-bottom: 1rem;">$${recommendation.price}</div>
+                <button class="btn-primary" onclick="addToCart(${recommendation.id}, '${recommendation.name}', ${recommendation.price})">
                     Agregar al Carrito
                 </button>
             `;
-            
-            resultDiv.classList.add('show');
+            document.getElementById('matcherResult').classList.add('show');
         }
 
         function resetMatcher() {
@@ -2673,6 +3215,13 @@
             document.getElementById('question1').style.display = 'block';
             document.getElementById('question2').style.display = 'none';
             document.getElementById('question3').style.display = 'none';
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab).classList.add('active');
         }
 
         // Countdown
@@ -2703,20 +3252,23 @@
             }
         });
 
-        // Formulario
         function submitForm(e) {
             e.preventDefault();
-            alert('¡Gracias por tu interés! Te contactaremos en las próximas 24 horas para coordinar una reunión.');
-            document.getElementById('bodegaForm').reset();
+            alert('¡Gracias por tu interés! Te contactaremos en las próximas 24 horas.');
+            e.target.reset();
         }
 
-        // Suscripción
         function subscribe(plan) {
-            alert(`¡Excelente elección! Has seleccionado el plan ${plan}. Serás redirigido al proceso de pago.`);
+            alert(`¡Excelente elección! Plan ${plan} seleccionado.`);
         }
 
-        // Inicializar
-        renderProducts();
+        // Inicializar todo
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBodegas();
+            renderProducts();
+            renderRecorridos();
+            renderMap();
+        });
     </script>
 </body>
 </html>
