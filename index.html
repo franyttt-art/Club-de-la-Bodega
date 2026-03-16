@@ -166,11 +166,230 @@
         .price { font-size: 1.4rem; color: var(--dorado); font-weight: 600; }
         .price-original { text-decoration: line-through; color: #666; font-size: 1rem; margin-right: 0.5rem; }
         .product-rating { display: flex; align-items: center; gap: 0.3rem; color: var(--dorado); font-size: 0.9rem; }
+
+        /* MODAL FICHA DE PRODUCTO */
+        .product-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; overflow-y: auto; backdrop-filter: blur(10px); }
+        .product-modal.active { display: block; }
+        .product-modal-content { max-width: 1000px; margin: 2rem auto; background: var(--gris-oscuro); border: 1px solid var(--dorado); position: relative; }
+        .product-modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--blanco); font-size: 2rem; cursor: pointer; z-index: 10; transition: color 0.3s; }
+        .product-modal-close:hover { color: var(--dorado); }
+        .product-modal-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+        .product-modal-gallery { background: var(--negro); min-height: 500px; position: relative; overflow: hidden; }
+        .product-modal-gallery img { width: 100%; height: 100%; object-fit: cover; }
+        .product-modal-gallery i { font-size: 6rem; color: var(--dorado); opacity: 0.3; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .product-modal-info { padding: 3rem; }
+        .product-modal-bodega { color: var(--dorado); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .product-modal-title { font-size: 2.5rem; margin-bottom: 1rem; color: var(--blanco); }
+        .product-modal-year { display: inline-block; background: var(--dorado); color: var(--negro); padding: 0.3rem 1rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .product-modal-price { font-size: 2rem; color: var(--dorado); font-weight: 700; margin-bottom: 2rem; }
+        .product-modal-section { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--gris-medio); }
+        .product-modal-section:last-of-type { border-bottom: none; }
+        .product-modal-section h4 { color: var(--dorado); margin-bottom: 1rem; font-size: 1.1rem; }
+        .product-modal-section p { color: #ccc; line-height: 1.8; }
+        .product-modal-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .meta-item { background: var(--negro); padding: 1rem; border-left: 3px solid var(--dorado); }
+        .meta-label { color: #666; font-size: 0.8rem; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+        .meta-value { color: var(--blanco); font-weight: 600; }
+        .product-modal-actions { display: flex; gap: 1rem; margin-top: 2rem; }
+        .btn-favorite { background: transparent; border: 1px solid var(--dorado); color: var(--dorado); padding: 1rem 1.5rem; cursor: pointer; transition: all 0.3s; }
+        .btn-favorite:hover, .btn-favorite.active { background: var(--dorado); color: var(--negro); }
+
+        /* SISTEMA DE RESEÑAS */
+        .reviews-section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--gris-medio); }
+        .reviews-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .reviews-summary { display: flex; align-items: center; gap: 1rem; }
+        .rating-big { font-size: 3rem; color: var(--dorado); font-weight: 700; }
+        .stars-big { color: var(--dorado); font-size: 1.5rem; }
+        .review-card { background: var(--negro); border: 1px solid var(--gris-medio); padding: 1.5rem; margin-bottom: 1rem; }
+        .review-header { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+        .reviewer-name { color: var(--dorado); font-weight: 600; }
+        .review-date { color: #666; font-size: 0.85rem; }
+        .review-rating { color: var(--dorado); margin-bottom: 0.5rem; }
+        .review-text { color: #ccc; line-height: 1.6; }
+        .review-form { background: var(--negro); border: 1px solid var(--gris-medio); padding: 2rem; margin-bottom: 2rem; }
+        .star-rating-input { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .star-rating-input i { font-size: 1.5rem; color: #444; cursor: pointer; transition: color 0.3s; }
+        .star-rating-input i:hover, .star-rating-input i.active { color: var(--dorado); }
+
+        /* NUESTRAS BODEGAS */
+        .bodegas-showcase { padding: 6rem 5%; background: linear-gradient(135deg, var(--negro-claro) 0%, var(--negro) 100%); position: relative; }
+        .bodegas-showcase::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--dorado), transparent); }
+        .bodegas-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; }
+        .bodega-card { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); overflow: hidden; transition: all 0.4s; position: relative; }
+        .bodega-card:hover { border-color: var(--dorado); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .bodega-image-container { position: relative; height: 280px; overflow: hidden; }
+        .bodega-image { width: 100%; height: 100%; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%); display: flex; align-items: center; justify-content: center; position: relative; transition: transform 0.5s; }
+        .bodega-image img { width: 100%; height: 100%; object-fit: cover; }
+        .bodega-card:hover .bodega-image { transform: scale(1.05); }
+        .bodega-image i { font-size: 3.5rem; color: var(--dorado); opacity: 0.4; }
+        .bodega-year { position: absolute; top: 1rem; right: 1rem; background: rgba(0,0,0,0.8); border: 1px solid var(--dorado); color: var(--dorado); padding: 0.5rem 1rem; font-family: 'Playfair Display', serif; font-size: 0.9rem; }
+        .bodega-content { padding: 2rem; }
+        .bodega-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--dorado); margin-bottom: 0.5rem; }
+        .bodega-founder { color: #888; font-size: 0.9rem; font-style: italic; margin-bottom: 1rem; display: block; }
+        .bodega-description { color: #aaa; line-height: 1.6; margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .bodega-specialties { margin-bottom: 1.5rem; }
+        .specialties-title { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--dorado); margin-bottom: 0.8rem; display: block; }
+        .specialties-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .specialty-tag { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--dorado-claro); padding: 0.3rem 0.8rem; font-size: 0.8rem; border-radius: 20px; }
+        .bodega-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid var(--gris-medio); }
+        .bodega-location { color: #666; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; }
+        .bodega-location i { color: var(--dorado); }
+        .btn-bodega { background: transparent; border: 1px solid var(--dorado); color: var(--dorado); padding: 0.6rem 1.2rem; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; transition: all 0.3s; }
+        .btn-bodega:hover { background: var(--dorado); color: var(--negro); }
+
+        /* Ofertas del Día */
+        .offers { padding: 6rem 5%; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg'); background-size: cover; background-position: center; background-attachment: fixed; position: relative; }
+        .countdown-container { max-width: 800px; margin: 3rem auto; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+        .countdown-item { text-align: center; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--dorado); padding: 1.5rem 2rem; min-width: 100px; }
+        .countdown-number { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--dorado); display: block; line-height: 1; }
+        .countdown-label { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; color: #aaa; margin-top: 0.5rem; }
+
+        /* Wine Matcher */
+        .wine-matcher { padding: 6rem 5%; background: var(--gris-oscuro); }
+        .matcher-container { max-width: 800px; margin: 0 auto; background: var(--negro); border: 1px solid var(--gris-medio); padding: 3rem; position: relative; }
+        .matcher-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, var(--dorado), transparent); }
+        .question { text-align: center; margin-bottom: 2rem; }
+        .question h3 { font-size: 1.8rem; margin-bottom: 2rem; color: var(--dorado); }
+        .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .option-btn { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 1.5rem; cursor: pointer; transition: all 0.3s; font-size: 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+        .option-btn:hover { border-color: var(--dorado); background: rgba(212, 175, 55, 0.1); }
+        .option-btn.selected { background: var(--dorado); color: var(--negro); border-color: var(--dorado); }
+        .option-btn i { font-size: 1.5rem; }
+        .matcher-result { display: none; text-align: center; padding: 2rem; background: rgba(212, 175, 55, 0.05); border: 1px solid var(--dorado); margin-top: 2rem; }
+        .matcher-result.show { display: block; animation: fadeIn 0.5s; }
+
+        /* Rutas del Vino - MAPA REAL */
+        .routes { padding: 6rem 5%; background: var(--negro-claro); }
+        .map-container { max-width: 1200px; margin: 0 auto; position: relative; background: var(--gris-oscuro); border: 1px solid var(--gris-medio); min-height: 600px; overflow: hidden; }
+        .map-real { width: 100%; height: 600px; border: none; }
+        .map-placeholder { width: 100%; height: 600px; background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); display: flex; align-items: center; justify-content: center; position: relative; display: none; }
+
+        /* Recorridos */
+        .tours { padding: 6rem 5%; background: var(--negro); }
+        .tours-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .tour-card { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s; }
+        .tour-card:hover { border-color: var(--dorado); transform: translateY(-5px); }
+        .tour-header { background: linear-gradient(135deg, var(--gris-medio) 0%, var(--negro-claro) 100%); padding: 2rem; border-bottom: 2px solid var(--dorado); }
+        .tour-price-tag { float: right; background: var(--dorado); color: var(--negro); padding: 0.5rem 1rem; font-weight: 700; font-size: 1.2rem; }
+        .tour-header h3 { font-size: 1.5rem; color: var(--dorado); margin-bottom: 0.5rem; clear: both; }
+        .tour-header p { color: #888; font-size: 0.9rem; }
+        .tour-body { padding: 2rem; flex: 1; }
+        .tour-features { list-style: none; margin-bottom: 2rem; }
+        .tour-features li { padding: 0.5rem 0; border-bottom: 1px solid var(--gris-medio); display: flex; align-items: center; gap: 0.5rem; color: #ccc; }
+        .tour-features li i { color: var(--dorado); width: 20px; }
+        .tour-footer { padding: 0 2rem 2rem; }
+        .btn-reserve { width: 100%; background: transparent; border: 1px solid var(--dorado); color: var(--dorado); padding: 1rem; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; font-weight: 600; }
+        .btn-reserve:hover { background: var(--dorado); color: var(--negro); }
+
+        /* Club de Suscripción */
+        .club { padding: 6rem 5%; background: linear-gradient(135deg, var(--negro-claro) 0%, var(--gris-oscuro) 100%); position: relative; overflow: hidden; }
+        .club::before { content: ''; position: absolute; top: -50%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%); pointer-events: none; }
+        .pricing-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; position: relative; z-index: 1; }
+        .pricing-card { background: var(--negro); border: 1px solid var(--gris-medio); padding: 3rem 2rem; text-align: center; position: relative; transition: all 0.3s; }
+        .pricing-card.featured { border-color: var(--dorado); transform: scale(1.05); box-shadow: 0 0 40px rgba(212, 175, 55, 0.2); }
+        .pricing-card.featured::before { content: 'Más Popular'; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--dorado); color: var(--negro); padding: 0.5rem 1.5rem; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+        .pricing-card:hover { border-color: var(--dorado); }
+        .pricing-name { font-size: 1.5rem; color: var(--dorado); margin-bottom: 1rem; }
+        .pricing-price { font-size: 3rem; font-family: 'Playfair Display', serif; margin-bottom: 2rem; }
+        .pricing-price span { font-size: 1rem; color: #666; }
+        .pricing-features { list-style: none; margin-bottom: 2rem; text-align: left; }
+        .pricing-features li { padding: 0.8rem 0; border-bottom: 1px solid var(--gris-medio); display: flex; align-items: center; gap: 0.5rem; }
+        .pricing-features li i { color: var(--dorado); }
+
+        /* Blog */
+        .blog { padding: 6rem 5%; background: var(--negro-claro); }
+        .blog-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .blog-card { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); overflow: hidden; transition: all 0.3s; }
+        .blog-card:hover { border-color: var(--dorado); }
+        .blog-image { height: 250px; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%); position: relative; display: flex; align-items: center; justify-content: center; }
+        .blog-image i { font-size: 3rem; color: var(--dorado); opacity: 0.3; }
+        .blog-category { position: absolute; top: 1rem; left: 1rem; background: var(--dorado); color: var(--negro); padding: 0.3rem 0.8rem; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; }
+        .blog-content { padding: 1.5rem; }
+        .blog-date { color: var(--dorado); font-size: 0.8rem; margin-bottom: 0.5rem; display: block; }
+        .blog-title { font-size: 1.3rem; margin-bottom: 1rem; line-height: 1.3; }
+        .blog-excerpt { color: #888; line-height: 1.6; margin-bottom: 1rem; }
+        .read-more { color: var(--dorado); text-decoration: none; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.3s; }
+        .read-more:hover { gap: 1rem; }
+
+        /* Formulario Bodegas */
+        .partners { padding: 6rem 5%; background: var(--negro); position: relative; }
+        .partners::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://kimi-web-img.moonshot.cn/img/elements-resized.envatousercontent.com/2621656f2d618098f96b0c9dcbf1174e4717c311.jpg'); opacity: 0.1; pointer-events: none; }
+        .form-container { max-width: 800px; margin: 0 auto; background: rgba(10, 10, 10, 0.9); border: 1px solid var(--gris-medio); padding: 3rem; position: relative; z-index: 1; }
+        .btn-submit { width: 100%; background: var(--dorado); color: var(--negro); border: none; padding: 1.2rem; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s; }
+        .btn-submit:hover { background: var(--dorado-claro); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); }
+
+        /* Footer */
+        footer { background: var(--negro-claro); border-top: 1px solid var(--gris-medio); padding: 4rem 5% 2rem; position: relative; }
+        .admin-access { position: absolute; bottom: 1rem; right: 2rem; color: #333; cursor: pointer; font-size: 0.8rem; transition: color 0.3s; }
+        .admin-access:hover { color: var(--dorado); }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+        .footer-section h4 { color: var(--dorado); margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .footer-section p, .footer-section a { color: #888; text-decoration: none; line-height: 1.8; transition: color 0.3s; }
+        .footer-section a:hover { color: var(--dorado); }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 0.5rem; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+        .social-links a { width: 40px; height: 40px; border: 1px solid var(--gris-medio); display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .social-links a:hover { background: var(--dorado); border-color: var(--dorado); color: var(--negro); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--gris-medio); color: #666; font-size: 0.9rem; }
+
+        /* Modal Carrito */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .modal.active { display: flex; }
+        .modal-content { background: var(--gris-oscuro); border: 1px solid var(--dorado); max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; animation: slideIn 0.3s; }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-header { background: var(--negro); padding: 1.5rem; border-bottom: 1px solid var(--dorado); display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { color: var(--dorado); font-size: 1.5rem; }
+        .close-modal { background: none; border: none; color: var(--blanco); font-size: 1.5rem; cursor: pointer; transition: color 0.3s; }
+        .close-modal:hover { color: var(--dorado); }
+        .modal-body { padding: 1.5rem; }
+        .cart-item { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--gris-medio); }
+        .cart-item-image { width: 80px; height: 80px; background: var(--negro); display: flex; align-items: center; justify-content: center; }
+        .cart-item-image i { color: var(--dorado); font-size: 2rem; }
+        .cart-item-details { flex: 1; }
+        .cart-item-name { font-weight: 600; margin-bottom: 0.3rem; }
+        .cart-item-price { color: var(--dorado); }
+        .cart-total { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--dorado); display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; }
+        .btn-checkout { width: 100%; background: var(--dorado); color: var(--negro); border: none; padding: 1rem; margin-top: 1.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
+        .btn-checkout:hover { background: var(--dorado-claro); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero { background-attachment: scroll !important; background-position: center center !important; background-size: cover !important; min-height: 100vh; height: auto; }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .tabs { flex-direction: column; align-items: center; }
+            .form-row { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: scale(1); }
+            .logo { font-size: 1.8rem; }
+            .bodegas-grid { grid-template-columns: 1fr; }
+            .admin-grid { grid-template-columns: 1fr; }
+            .admin-nav { flex-wrap: wrap; justify-content: center; }
+            .product-modal-body { grid-template-columns: 1fr; }
+            .product-modal-gallery { min-height: 300px; }
+            .search-row { grid-template-columns: 1fr; }
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            .hero { background-attachment: scroll; min-height: -webkit-fill-available; }
+        }
+
+        /* ESTADÍSTICAS ADMIN */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--negro); border: 1px solid var(--gris-medio); padding: 1.5rem; text-align: center; transition: all 0.3s; }
+        .stat-card:hover { border-color: var(--dorado); }
+        .stat-number { font-size: 2.5rem; color: var(--dorado); font-weight: 700; display: block; }
+        .stat-label { color: #888; font-size: 0.9rem; margin-top: 0.5rem; }
+
+        /* PEDIDOS ADMIN */
+        .order-status { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+        .status-pendiente { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+        .status-enviado { background: rgba(33, 150, 243, 0.2); color: #2196f3; }
+        .status-completado { background: rgba(40, 167, 69, 0.2); color: #28a745; }
     </style>
 <base target="_blank">
 </head>
 <body>
-
     <!-- Navegación -->
     <nav id="navbar">
         <div class="nav-container">
@@ -1408,7 +1627,7 @@
             document.getElementById('modalBodega').textContent = product.bodega;
             document.getElementById('modalTitle').textContent = product.name;
             document.getElementById('modalYear').textContent = product.cosecha || 'NV';
-            document.getElementById('modalPrice').textContent = `$${product.price}`;
+            document.getElementById('modalPrice').textContent = '$' + product.price;
             document.getElementById('modalType').textContent = product.type.charAt(0).toUpperCase() + product.type.slice(1);
             document.getElementById('modalHarvest').textContent = product.cosecha || 'No vintage';
             document.getElementById('modalAltitude').textContent = product.altura || 'No especificado';
@@ -1650,10 +1869,10 @@
         // Wine Matcher
         let matcherAnswers = {};
         function selectOption(question, value) {
-            matcherAnswers[`q${question}`] = value;
-            document.getElementById(`question${question}`).style.display = 'none';
+            matcherAnswers['q' + question] = value;
+            document.getElementById('question' + question).style.display = 'none';
             if (question < 3) {
-                document.getElementById(`question${question + 1}`).style.display = 'block';
+                document.getElementById('question' + (question + 1)).style.display = 'block';
             } else {
                 showMatcherResult();
             }
@@ -1734,7 +1953,7 @@
                 openUserAccount();
                 return;
             }
-            alert(`¡Excelente elección! Plan ${plan} seleccionado.`);
+            alert('¡Excelente elección! Plan ' + plan + ' seleccionado.');
         }
 
         // CUENTA DE USUARIO
@@ -1744,10 +1963,10 @@
                 if (name) {
                     currentUser = { name, email: '', favorites: [], orders: [] };
                     localStorage.setItem('cb_user', JSON.stringify(currentUser));
-                    alert(`¡Bienvenido, ${name}!`);
+                    alert('¡Bienvenido, ' + name + '!');
                 }
             } else {
-                const option = confirm(`Hola ${currentUser.name}\n\n¿Deseas cerrar sesión?`);
+                const option = confirm('Hola ' + currentUser.name + '\n\n¿Deseas cerrar sesión?');
                 if (option) {
                     currentUser = null;
                     localStorage.removeItem('cb_user');
