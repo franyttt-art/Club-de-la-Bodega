@@ -1607,8 +1607,16 @@
             background: var(--dorado-claro);
         }
 
-        /* Responsive */
+        /* FIX PARA MOVILES - IMAGEN HERO */
         @media (max-width: 768px) {
+            .hero {
+                background-attachment: scroll !important;
+                background-position: center center !important;
+                background-size: cover !important;
+                min-height: 100vh;
+                height: auto;
+            }
+            
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -1632,6 +1640,18 @@
             
             .logo {
                 font-size: 1.8rem;
+            }
+            
+            .bodegas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Fix específico para iOS Safari */
+        @supports (-webkit-touch-callout: none) {
+            .hero {
+                background-attachment: scroll;
+                min-height: -webkit-fill-available;
             }
         }
     </style>
