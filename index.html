@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Club de la Bodega | San Rafael</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -74,19 +74,36 @@
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
             color: var(--dorado);
             text-decoration: none;
-            font-weight: 700;
-            letter-spacing: 2px;
+            font-weight: 400;
+            letter-spacing: 1px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
+            line-height: 1;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(212, 175, 55, 0.5);
         }
 
         .logo i {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+            margin-bottom: 2px;
         }
 
         .nav-links {
@@ -629,6 +646,175 @@
             color: #666;
             font-size: 1rem;
             margin-right: 0.5rem;
+        }
+
+        /* NUEVA SECCION: NUESTRAS BODEGAS */
+        .bodegas-showcase {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, var(--negro-claro) 0%, var(--negro) 100%);
+            position: relative;
+        }
+
+        .bodegas-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+        }
+
+        .bodegas-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .bodega-card {
+            background: var(--gris-oscuro);
+            border: 1px solid var(--gris-medio);
+            overflow: hidden;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .bodega-card:hover {
+            border-color: var(--dorado);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .bodega-image-container {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .bodega-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: transform 0.5s;
+        }
+
+        .bodega-card:hover .bodega-image {
+            transform: scale(1.05);
+        }
+
+        .bodega-image i {
+            font-size: 3.5rem;
+            color: var(--dorado);
+            opacity: 0.4;
+        }
+
+        .bodega-year {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--dorado);
+            color: var(--dorado);
+            padding: 0.5rem 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+        }
+
+        .bodega-content {
+            padding: 2rem;
+        }
+
+        .bodega-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--dorado);
+            margin-bottom: 0.5rem;
+        }
+
+        .bodega-founder {
+            color: #888;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .bodega-description {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .bodega-specialties {
+            margin-bottom: 1.5rem;
+        }
+
+        .specialties-title {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--dorado);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .specialties-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .specialty-tag {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--dorado-claro);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: 20px;
+        }
+
+        .bodega-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gris-medio);
+        }
+
+        .bodega-location {
+            color: #666;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bodega-location i {
+            color: var(--dorado);
+        }
+
+        .btn-bodega {
+            background: transparent;
+            border: 1px solid var(--dorado);
+            color: var(--dorado);
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .btn-bodega:hover {
+            background: var(--dorado);
+            color: var(--negro);
         }
 
         /* Ofertas del Día */
@@ -1443,6 +1629,10 @@
             .pricing-card.featured {
                 transform: scale(1);
             }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -1452,11 +1642,11 @@
     <nav id="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
-                <i class="fas fa-wine-bottle"></i>
                 Club de la Bodega
             </a>
             <ul class="nav-links">
                 <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#bodegas-showcase">Bodegas</a></li>
                 <li><a href="#recorridos">Recorridos</a></li>
                 <li><a href="#rutas">Rutas</a></li>
                 <li><a href="#club">Club</a></li>
@@ -1584,6 +1774,215 @@
 
         <div class="products-grid" id="productsGrid">
             <!-- Los productos se generan con JS -->
+        </div>
+    </section>
+
+    <!-- NUEVA SECCION: NUESTRAS BODEGAS -->
+    <section class="bodegas-showcase" id="bodegas-showcase">
+        <div class="section-header">
+            <span class="section-tag">Conoce a Nuestros Socios</span>
+            <h2 class="section-title">Nuestras Bodegas</h2>
+            <p style="color: #888; max-width: 600px; margin: 2rem auto;">Historias de familia, tradición y pasión por el vino en cada rincón de San Rafael</p>
+        </div>
+
+        <div class="bodegas-grid">
+            <!-- Bodega 1 -->
+            <div class="bodega-card">
+                <div class="bodega-image-container">
+                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg'); background-size: cover; background-position: center;">
+                        <span class="bodega-year">Desde 1985</span>
+                    </div>
+                </div>
+                <div class="bodega-content">
+                    <h3 class="bodega-name">Bodega Amanecer</h3>
+                    <span class="bodega-founder">Fundada por la familia Roldán</span>
+                    <p class="bodega-description">
+                        Ubicada en el corazón del valle de San Rafael, esta bodega familiar lleva tres generaciones 
+                        cultivando Malbec de altura a 800 metros sobre el nivel del mar. Sus viñedos se destacan 
+                        por la pureza del aire y la intensidad solar que da a sus vinos un carácter único.
+                    </p>
+                    <div class="bodega-specialties">
+                        <span class="specialties-title">Especialidades</span>
+                        <div class="specialties-tags">
+                            <span class="specialty-tag">Malbec Reserva</span>
+                            <span class="specialty-tag">Cabernet Franc</span>
+                            <span class="specialty-tag">Blend Premium</span>
+                        </div>
+                    </div>
+                    <div class="bodega-footer">
+                        <span class="bodega-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Valle Grande, San Rafael
+                        </span>
+                        <button class="btn-bodega" onclick="filterByBodega('amanecer')">Ver Vinos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bodega 2 -->
+            <div class="bodega-card">
+                <div class="bodega-image-container">
+                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg'); background-size: cover; background-position: center;">
+                        <span class="bodega-year">Desde 1992</span>
+                    </div>
+                </div>
+                <div class="bodega-content">
+                    <h3 class="bodega-name">Viñedos del Sol</h3>
+                    <span class="bodega-founder">Fundada por Marta y Carlos Díaz</span>
+                    <p class="bodega-description">
+                        Especialistas en vinos blancos y espumantes, esta bodega aprovecha los suelos calcáreos 
+                        de la zona para crear Chardonnays de excelencia internacional. Su bodega subterránea, 
+                        construida en piedra, mantiene la temperatura ideal para el añejamiento.
+                    </p>
+                    <div class="bodega-specialties">
+                        <span class="specialties-title">Especialidades</span>
+                        <div class="specialties-tags">
+                            <span class="specialty-tag">Chardonnay</span>
+                            <span class="specialty-tag">Espumante Brut</span>
+                            <span class="specialty-tag">Sauvignon Blanc</span>
+                        </div>
+                    </div>
+                    <div class="bodega-footer">
+                        <span class="bodega-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Cuadro Benegas, San Rafael
+                        </span>
+                        <button class="btn-bodega" onclick="filterByBodega('sol')">Ver Vinos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bodega 3 -->
+            <div class="bodega-card">
+                <div class="bodega-image-container">
+                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/elements-resized.envatousercontent.com/2621656f2d618098f96b0c9dcbf1174e4717c311.jpg'); background-size: cover; background-position: center;">
+                        <span class="bodega-year">Desde 1978</span>
+                    </div>
+                </div>
+                <div class="bodega-content">
+                    <h3 class="bodega-name">Bodega Monte Viejo</h3>
+                    <span class="bodega-founder">Fundada por inmigrantes italianos</span>
+                    <p class="bodega-description">
+                        Con más de 45 años de historia, es una de las bodegas más tradicionales de la región. 
+                        Conservan técnicas ancestrales de elaboración combinadas con tecnología moderna. 
+                        Famosos por sus tintos de guarda que pueden añejarse hasta 20 años.
+                    </p>
+                    <div class="bodega-specialties">
+                        <span class="specialties-title">Especialidades</span>
+                        <div class="specialties-tags">
+                            <span class="specialty-tag">Gran Reserva</span>
+                            <span class="specialty-tag">Tannat</span>
+                            <span class="specialty-tag">Syrah Roble</span>
+                        </div>
+                    </div>
+                    <div class="bodega-footer">
+                        <span class="bodega-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Cañada Honda, San Rafael
+                        </span>
+                        <button class="btn-bodega" onclick="filterByBodega('monte')">Ver Vinos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bodega 4 -->
+            <div class="bodega-card">
+                <div class="bodega-image-container">
+                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/www.shutterstock.com/6928ef3c5af7378ab397fe9bd0e2066caf993d73.jpg'); background-size: cover; background-position: center;">
+                        <span class="bodega-year">Desde 2005</span>
+                    </div>
+                </div>
+                <div class="bodega-content">
+                    <h3 class="bodega-name">Los Toneles</h3>
+                    <span class="bodega-founder">Fundada por jóvenes enólogos</span>
+                    <p class="bodega-description">
+                        Bodega boutique que representa la nueva generación vitivinícola de San Rafael. 
+                        Experimentan con variedades no tradicionales como Pinot Noir y crean blends 
+                        innovadores. Su enfoque es la viticultura orgánica y sostenible.
+                    </p>
+                    <div class="bodega-specialties">
+                        <span class="specialties-title">Especialidades</span>
+                        <div class="specialties-tags">
+                            <span class="specialty-tag">Pinot Noir</span>
+                            <span class="specialty-tag">Rosé de autor</span>
+                            <span class="specialty-tag">Blend Joven</span>
+                        </div>
+                    </div>
+                    <div class="bodega-footer">
+                        <span class="bodega-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Los Reyunos, San Rafael
+                        </span>
+                        <button class="btn-bodega" onclick="filterByBodega('toneles')">Ver Vinos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bodega 5 -->
+            <div class="bodega-card">
+                <div class="bodega-image-container">
+                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/www.shutterstock.com/46643a3bf3ac687781e1959e7e8a53c1d098e6a6.jpg'); background-size: cover; background-position: center;">
+                        <span class="bodega-year">Desde 1960</span>
+                    </div>
+                </div>
+                <div class="bodega-content">
+                    <h3 class="bodega-name">La Carmela</h3>
+                    <span class="bodega-founder">Tradición española en Mendoza</span>
+                    <p class="bodega-description">
+                        Llevada adelante por la tercera generación de la familia García, mantiene vivos 
+                        los secretos traídos desde La Rioja española. Famosa por sus vinos dulces naturales 
+                        y sus postres de autor que maridan a la perfección.
+                    </p>
+                    <div class="bodega-specialties">
+                        <span class="specialties-title">Especialidades</span>
+                        <div class="specialties-tags">
+                            <span class="specialty-tag">Malbec Dulce</span>
+                            <span class="specialty-tag">Oporto Natural</span>
+                            <span class="specialty-tag">Mistela</span>
+                        </div>
+                    </div>
+                    <div class="bodega-footer">
+                        <span class="bodega-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Ciudad, San Rafael
+                        </span>
+                        <button class="btn-bodega" onclick="filterByBodega('carmela')">Ver Vinos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bodega 6 -->
+            <div class="bodega-card">
+                <div class="bodega-image-container">
+                    <div class="bodega-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://kimi-web-img.moonshot.cn/img/img.freepik.com/d383986a8e51f43569ee2198519fcd168a3cb48b.jpg'); background-size: cover; background-position: center;">
+                        <span class="bodega-year">Desde 2010</span>
+                    </div>
+                </div>
+                <div class="bodega-content">
+                    <h3 class="bodega-name">Altos del Atuel</h3>
+                    <span class="bodega-founder">Proyecto vitivinícola joven</span>
+                    <p class="bodega-description">
+                        Situada en las cercanías del río Atuel, esta bodega aprovecha el microclima único 
+                        de la zona para crear vinos frescos y frutales. Su terraza con vista al río es 
+                        el lugar perfecto para las catas al atardecer.
+                    </p>
+                    <div class="bodega-specialties">
+                        <span class="specialties-title">Especialidades</span>
+                        <div class="specialties-tags">
+                            <span class="specialty-tag">Tempranillo</span>
+                            <span class="specialty-tag">Torrontés</span>
+                            <span class="specialty-tag">Bonarda</span>
+                        </div>
+                    </div>
+                    <div class="bodega-footer">
+                        <span class="bodega-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Villa 25 de Mayo, San Rafael
+                        </span>
+                        <button class="btn-bodega" onclick="filterByBodega('atuel')">Ver Vinos</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -2007,6 +2406,7 @@
                 <h4>Enlaces Rápidos</h4>
                 <ul>
                     <li><a href="#catalogo">Catálogo de Vinos</a></li>
+                    <li><a href="#bodegas-showcase">Nuestras Bodegas</a></li>
                     <li><a href="#recorridos">Recorridos</a></li>
                     <li><a href="#rutas">Rutas del Vino</a></li>
                     <li><a href="#club">Club de Suscripción</a></li>
@@ -2120,6 +2520,13 @@
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             renderProducts(type);
+        }
+
+        // Filtrar por bodega (nueva función)
+        function filterByBodega(bodegaName) {
+            document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+            // Aquí podrías agregar lógica para filtrar específicamente por bodega
+            alert(`Mostrando vinos de ${bodegaName}. En la versión final esto filtraría el catálogo.`);
         }
 
         // Carrito
