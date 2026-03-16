@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club de la Bodega | San Rafael</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --negro: #000000;
+            --negro-claro: #0a0a0a;
+            --gris-oscuro: #1a1a1a;
+            --gris-medio: #2d2d2d;
+            --dorado: #D4AF37;
+            --dorado-claro: #FFD700;
+            --dorado-oscuro: #B8941F;
+            --blanco: #f5f5f5;
+            --blanco-puro: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--negro);
+            color: var(--blanco);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--negro-claro);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--dorado);
+            border-radius: 5px;
+        }
+
+        /* Navegación */
+        nav {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            border-bottom: 1px solid var(--dorado);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--dorado);
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--blanco);
+            text-decoration: none;
+            font-weight: 400;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--dorado);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--dorado);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .btn-nav {
+            background: transparent;
+            border: 1px solid var(--dorado);
+            color: var(--dorado);
+            padding: 0.5rem 1.5rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--dorado);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .btn-nav:hover::before {
+            left: 0;
+        }
+
+        .btn-nav:hover {
+            color: var(--negro);
+        }
+
+        .cart-icon {
+            position: relative;
+            color: var(--blanco);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .cart-icon:hover {
+            color: var(--dorado);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--dorado);
+            color: var(--negro);
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            color: var(--dorado);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero h1 span {
+            color: var(--dorado);
+            font-style: italic;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--dorado);
+            color: var(--negro);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--dorado);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--dorado);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--blanco);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid var(--blanco);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--blanco);
+            color: var(--negro);
+            border-color: var(--dorado);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--dorado);
+            animation: bounce 2s infinite;
+            font-size: 1.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-20px);}
+            60% {transform: translateX(-50%) translateY(-10px);}
+        }
+
+        /* Sección Cómo Funciona */
+        .how-it-works {
+            padding: 6rem 5%;
+            background: var(--negro-claro);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            color: var(--dorado);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--dorado);
+        }
+
+        .tabs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--gris-medio);
+            padding-bottom: 1rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--blanco);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 0.5rem 2rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--dorado);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--dorado);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid var(--gris-medio);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--dorado);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            border-color: var(--dorado);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--dorado);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dorado);
+        }
+
+        .feature-card p {
+            color: #aaa;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Catálogo de Vinos */
+        .catalog {
+            padding: 6rem 5%;
+            background: var(--negro);
+        }
+
+        .filters {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--gris-oscuro);
+            border: 1px solid var(--gris-medio);
+            color: var(--blanco);
+            padding: 0.6rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--dorado);
+            color: var(--negro);
+            border-color: var(--dorado);
+        }
+
+        .products-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--gris-oscuro);
+            border: 1px solid var(--gris-medio);
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+            group: true;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            border-color: var(--dorado);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--dorado);
+            color: var(--negro);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image i {
+            font-size: 4rem;
+            color: var(--dorado);
+            opacity: 0.3;
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 175, 55, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .btn-add-cart {
+            background: var(--negro);
+            color: var(--dorado);
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .btn-add-cart:hover {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-bodega {
+            color: var(--dorado);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-details {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .product-details span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.4rem;
+            color: var(--dorado);
+            font-weight: 600;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            color: #666;
+            font-size: 1rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Ofertas del Día */
+        .offers {
+            padding: 6rem 5%;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .countdown-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            text-align: center;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--dorado);
+            padding: 1.5rem 2rem;
+            min-width: 100px;
+        }
+
+        .countdown-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--dorado);
+            display: block;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: #aaa;
+            margin-top: 0.5rem;
+        }
+
+        /* Wine Matcher */
+        .wine-matcher {
+            padding: 6rem 5%;
+            background: var(--gris-oscuro);
+        }
+
+        .matcher-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--negro);
+            border: 1px solid var(--gris-medio);
+            padding: 3rem;
+            position: relative;
+        }
+
+        .matcher-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+        }
+
+        .question {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .question h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--dorado);
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .option-btn {
+            background: var(--gris-oscuro);
+            border: 1px solid var(--gris-medio);
+            color: var(--blanco);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .option-btn:hover {
+            border-color: var(--dorado);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .option-btn.selected {
+            background: var(--dorado);
+            color: var(--negro);
+            border-color: var(--dorado);
+        }
+
+        .option-btn i {
+            font-size: 1.5rem;
+        }
+
+        .matcher-result {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid var(--dorado);
+            margin-top: 2rem;
+        }
+
+        .matcher-result.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        /* Rutas del Vino */
+        .routes {
+            padding: 6rem 5%;
+            background: var(--negro-claro);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            background: var(--gris-oscuro);
+            border: 1px solid var(--gris-medio);
+            min-height: 600px;
+            overflow: hidden;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .route-path {
+            position: absolute;
+            stroke: var(--dorado);
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 10;
+            animation: dash 30s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -1000;
+            }
+        }
+
+        .bodega-marker {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: var(--dorado);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--negro);
+            font-weight: bold;
+            transition: transform 0.3s;
+            z-index: 10;
+        }
+
+        .bodega-marker:hover {
+            transform: scale(1.3);
+        }
+
+        .marker-tooltip {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--negro);
+            border: 1px solid var(--dorado);
+            padding: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .bodega-marker:hover .marker-tooltip {
+            opacity: 1;
+        }
+
+        /* Recorridos */
+        .tours {
+            padding: 6rem 5%;
+            background: var(--negro);
+        }
+
+        .tours-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .tour-card {
+            background: var(--gris-oscuro);
+            border: 1px solid var(--gris-medio);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+        }
+
+        .tour-card:hover {
+            border-color: var(--dorado);
+            transform: translateY(-5px);
+        }
+
+        .tour-header {
+            background: linear-gradient(135deg, var(--gris-medio) 0%, var(--negro-claro) 100%);
+            padding: 2rem;
+            border-bottom: 2px solid var(--dorado);
+        }
+
+        .tour-price-tag {
+            float: right;
+            background: var(--dorado);
+            color: var(--negro);
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .tour-header h3 {
+            font-size: 1.5rem;
+            color: var(--dorado);
+            margin-bottom: 0.5rem;
+            clear: both;
+        }
+
+        .tour-header p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .tour-body {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .tour-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .tour-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gris-medio);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ccc;
+        }
+
+        .tour-features li i {
+            color: var(--dorado);
+            width: 20px;
+        }
+
+        .tour-footer {
+            padding: 0 2rem 2rem;
+        }
+
+        .btn-reserve {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--dorado);
+            color: var(--dorado);
+            padding: 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-reserve:hover {
+            background: var(--dorado);
+            color: var(--negro);
+        }
+
+        /* Club de Suscripción */
+        .club {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, var(--negro-claro) 0%, var(--gris-oscuro) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .club::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .pricing-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pricing-card {
+            background: var(--negro);
+            border: 1px solid var(--gris-medio);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--dorado);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Más Popular';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dorado);
+            color: var(--negro);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--dorado);
+        }
+
+        .pricing-name {
+            font-size: 1.5rem;
+            color: var(--dorado);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--gris-medio);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li i {
+            color: var(--dorado);
+        }
+
+        /* Blog */
+        .blog {
+            padding: 6rem 5%;
+            background: var(--negro-claro);
+        }
+
+        .blog-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: var(--gris-oscuro);
+            border: 1px solid var(--gris-medio);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .blog-card:hover {
+            border-color: var(--dorado);
+        }
+
+        .blog-image {
+            height: 250px;
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blog-image i {
+            font-size: 3rem;
+            color: var(--dorado);
+            opacity: 0.3;
+        }
+
+        .blog-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--dorado);
+            color: var(--negro);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            color: var(--dorado);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-excerpt {
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: var(--dorado);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .read-more:hover {
+            gap: 1rem;
+        }
+
+        /* Formulario Bodegas */
+        .partners {
+            padding: 6rem 5%;
+            background: var(--negro);
+            position: relative;
+        }
+
+        .partners::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://kimi-web-img.moonshot.cn/img/elements-resized.envatousercontent.com/2621656f2d618098f96b0c9dcbf1174e4717c311.jpg');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--gris-medio);
+            padding: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dorado);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            background: var(--gris-oscuro);
+            border: 1px solid var(--gris-medio);
+            color: var(--blanco);
+            padding: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--dorado);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--dorado);
+            color: var(--negro);
+            border: none;
+            padding: 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: var(--dorado-claro);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--negro-claro);
+            border-top: 1px solid var(--gris-medio);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--dorado);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #888;
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--dorado);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--gris-medio);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--dorado);
+            border-color: var(--dorado);
+            color: var(--negro);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gris-medio);
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Modal Carrito */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--gris-oscuro);
+            border: 1px solid var(--dorado);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: var(--negro);
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--dorado);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: var(--dorado);
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--blanco);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--dorado);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gris-medio);
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background: var(--negro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-item-image i {
+            color: var(--dorado);
+            font-size: 2rem;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-price {
+            color: var(--dorado);
+        }
+
+        .cart-total {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--dorado);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background: var(--dorado);
+            color: var(--negro);
+            border: none;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-checkout:hover {
+            background: var(--dorado-claro);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-wine-bottle"></i>
+                Club de la Bodega
+            </a>
+            <ul class="nav-links">
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#recorridos">Recorridos</a></li>
+                <li><a href="#rutas">Rutas</a></li>
+                <li><a href="#club">Club</a></li>
+                <li><a href="#blog">Blog</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <button class="btn-nav">Mi Cuenta</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-subtitle">Bienvenido a San Rafael</span>
+            <h1>Descubre el Alma del <span>Vino</span></h1>
+            <p>Conectamos las mejores bodegas de San Rafael con amantes del vino. Explora nuestro catálogo exclusivo, reserva recorridos únicos y únete a nuestro club de suscripción.</p>
+            <div class="hero-buttons">
+                <a href="#catalogo" class="btn-primary">Explorar Catálogo</a>
+                <a href="#recorridos" class="btn-secondary">Ver Recorridos</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Cómo Funciona -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="section-header">
+            <span class="section-tag">Nuestro Sistema</span>
+            <h2 class="section-title">¿Cómo Funciona?</h2>
+            <p style="color: #888; max-width: 600px; margin: 2rem auto;">Una plataforma diseñada para conectar bodegas artesanales con consumidores apasionados</p>
+        </div>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('consumers')">Para Clientes</button>
+                <button class="tab-btn" onclick="switchTab('bodegas')">Para Bodegas</button>
+            </div>
+
+            <div id="consumers" class="tab-content active">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Explora</h3>
+                    <p>Navega por nuestro catálogo curado con los mejores vinos de San Rafael. Filtra por tipo de uva, bodega, precio o región.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-wine-glass-alt"></i>
+                    </div>
+                    <h3>Descubre</h3>
+                    <p>Usa nuestro Wine Matcher para encontrar el vino perfecto según tus preferencias y ocasión especial.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Compra</h3>
+                    <p>Realiza tu pedido de forma segura. Las bodegas se encargan del envío directo a tu puerta.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3>Experiencias</h3>
+                    <p>Reserva recorridos exclusivos, catas privadas y almuerzos en los viñedos más hermosos de la región.</p>
+                </div>
+            </div>
+
+            <div id="bodegas" class="tab-content">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Regístrate</h3>
+                    <p>Únete a nuestra plataforma sin costo alguno. Solo pagas comisión por ventas realizadas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Publica</h3>
+                    <p>Carga tu catálogo de vinos, fotos de tu bodega y disponibilidad de recorridos en nuestro sistema.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Vende</h3>
+                    <p>Recibe pedidos directos, gestiona tu stock y accede a estadísticas de ventas en tiempo real.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Crece</h3>
+                    <p>Forma parte de rutas turísticas promocionadas y llega a nuevos mercados sin inversión inicial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Vinos -->
+    <section class="catalog" id="catalogo">
+        <div class="section-header">
+            <span class="section-tag">Nuestra Selección</span>
+            <h2 class="section-title">Catálogo de Vinos</h2>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterWines('all')">Todos</button>
+            <button class="filter-btn" onclick="filterWines('tinto')">Tintos</button>
+            <button class="filter-btn" onclick="filterWines('blanco')">Blancos</button>
+            <button class="filter-btn" onclick="filterWines('rosado')">Rosados</button>
+            <button class="filter-btn" onclick="filterWines('espumante')">Espumantes</button>
+            <button class="filter-btn" onclick="filterWines('oferta')">Ofertas</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Los productos se generan con JS -->
+        </div>
+    </section>
+
+    <!-- Ofertas del Día -->
+    <section class="offers" id="ofertas">
+        <div class="section-header">
+            <span class="section-tag">No te lo Pierdas</span>
+            <h2 class="section-title" style="color: var(--blanco);">Ofertas del Día</h2>
+            <p style="color: #ccc; margin-top: 1rem;">Descuentos exclusivos en vinos seleccionados de nuestras bodegas asociadas</p>
+        </div>
+
+        <div class="countdown-container">
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">12</span>
+                <div class="countdown-label">Horas</div>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">45</span>
+                <div class="countdown-label">Minutos</div>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">30</span>
+                <div class="countdown-label">Segundos</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="#catalogo" class="btn-primary">Ver Ofertas</a>
+        </div>
+    </section>
+
+    <!-- Wine Matcher -->
+    <section class="wine-matcher" id="matcher">
+        <div class="section-header">
+            <span class="section-tag">Encuentra tu Vino Ideal</span>
+            <h2 class="section-title">Wine Matcher</h2>
+            <p style="color: #888; margin-top: 1rem;">Responde 3 preguntas simples y te recomendamos el vino perfecto</p>
+        </div>
+
+        <div class="matcher-container">
+            <div id="question1" class="question">
+                <h3>¿Qué tipo de comida vas a acompañar?</h3>
+                <div class="options">
+                    <button class="option-btn" onclick="selectOption(1, 'carne')">
+                        <i class="fas fa-drumstick-bite"></i>
+                        Carnes Rojas
+                    </button>
+                    <button class="option-btn" onclick="selectOption(1, 'pescado')">
+                        <i class="fas fa-fish"></i>
+                        Pescado/Mariscos
+                    </button>
+                    <button class="option-btn" onclick="selectOption(1, 'pasta')">
+                        <i class="fas fa-utensils"></i>
+                        Pastas/Pizza
+                    </button>
+                    <button class="option-btn" onclick="selectOption(1, 'postre')">
+                        <i class="fas fa-ice-cream"></i>
+                        Postres
+                    </button>
+                </div>
+            </div>
+
+            <div id="question2" class="question" style="display: none;">
+                <h3>¿Qué preferencia de sabor tenés?</h3>
+                <div class="options">
+                    <button class="option-btn" onclick="selectOption(2, 'seco')">
+                        <i class="fas fa-wine-glass"></i>
+                        Seco y Estructurado
+                    </button>
+                    <button class="option-btn" onclick="selectOption(2, 'frutal')">
+                        <i class="fas fa-apple-alt"></i>
+                        Frutal y Suave
+                    </button>
+                    <button class="option-btn" onclick="selectOption(2, 'dulce')">
+                        <i class="fas fa-candy-cane"></i>
+                        Dulce o Semi
+                    </button>
+                </div>
+            </div>
+
+            <div id="question3" class="question" style="display: none;">
+                <h3>¿Cuál es tu rango de precio?</h3>
+                <div class="options">
+                    <button class="option-btn" onclick="selectOption(3, 'economico')">
+                        <i class="fas fa-coins"></i>
+                        Hasta $3000
+                    </button>
+                    <button class="option-btn" onclick="selectOption(3, 'medio')">
+                        <i class="fas fa-money-bill-wave"></i>
+                        $3000 - $6000
+                    </button>
+                    <button class="option-btn" onclick="selectOption(3, 'premium')">
+                        <i class="fas fa-gem"></i>
+                        Más de $6000
+                    </button>
+                </div>
+            </div>
+
+            <div id="matcherResult" class="matcher-result">
+                <h3 style="color: var(--dorado); margin-bottom: 1rem;">¡Tu vino ideal es:</h3>
+                <div id="resultContent"></div>
+                <button class="btn-primary" onclick="resetMatcher()" style="margin-top: 1.5rem;">Volver a Empezar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rutas del Vino -->
+    <section class="routes" id="rutas">
+        <div class="section-header">
+            <span class="section-tag">Explora San Rafael</span>
+            <h2 class="section-title">Rutas del Vino</h2>
+            <p style="color: #888; margin-top: 1rem;">Descubre las bodegas más emblemáticas de nuestra región</p>
+        </div>
+
+        <div class="map-container">
+            <div class="map-placeholder">
+                <svg style="position: absolute; width: 100%; height: 100%;" viewBox="0 0 800 600">
+                    <path class="route-path" d="M 100 300 Q 200 200 300 300 T 500 300 T 700 300" />
+                </svg>
+                
+                <div class="bodega-marker" style="top: 40%; left: 15%;">
+                    1
+                    <div class="marker-tooltip">
+                        <strong>Bodega La Carmela</strong><br>
+                        Especialidad: Malbec<br>
+                        4.8 ★
+                    </div>
+                </div>
+                
+                <div class="bodega-marker" style="top: 55%; left: 35%;">
+                    2
+                    <div class="marker-tooltip">
+                        <strong>Viñedos del Sol</strong><br>
+                        Especialidad: Cabernet<br>
+                        4.9 ★
+                    </div>
+                </div>
+                
+                <div class="bodega-marker" style="top: 45%; left: 55%;">
+                    3
+                    <div class="marker-tooltip">
+                        <strong>Bodega Monte Viejo</strong><br>
+                        Especialidad: Blend<br>
+                        4.7 ★
+                    </div>
+                </div>
+                
+                <div class="bodega-marker" style="top: 60%; left: 75%;">
+                    4
+                    <div class="marker-tooltip">
+                        <strong>Los Toneles</strong><br>
+                        Especialidad: Syrah<br>
+                        4.6 ★
+                    </div>
+                </div>
+
+                <div style="text-align: center; color: var(--dorado); z-index: 5;">
+                    <i class="fas fa-map-marked-alt" style="font-size: 4rem; opacity: 0.5;"></i>
+                    <p style="margin-top: 1rem; color: #666;">Mapa Interactivo de Bodegas</p>
+                    <p style="font-size: 0.9rem; color: #888;">Haz clic en los marcadores dorados</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recorridos y Experiencias -->
+    <section class="tours" id="recorridos">
+        <div class="section-header">
+            <span class="section-tag">Experiencias Únicas</span>
+            <h2 class="section-title">Recorridos del Vino</h2>
+            <p style="color: #888; margin-top: 1rem;">Vive la experiencia completa en las mejores bodegas de San Rafael</p>
+        </div>
+
+        <div class="tours-grid">
+            <div class="tour-card">
+                <div class="tour-header">
+                    <div class="tour-price-tag">$4.500</div>
+                    <h3>Clásico Enológico</h3>
+                    <p>Bodega La Carmela</p>
+                </div>
+                <div class="tour-body">
+                    <ul class="tour-features">
+                        <li><i class="fas fa-check"></i> Recorrido por viñedos</li>
+                        <li><i class="fas fa-check"></i> Visita a sala de barricas</li>
+                        <li><i class="fas fa-check"></i> Degustación de 3 vinos</li>
+                        <li><i class="fas fa-check"></i> Tabla de quesos regionales</li>
+                        <li><i class="fas fa-check"></i> Duración: 2 horas</li>
+                    </ul>
+                </div>
+                <div class="tour-footer">
+                    <button class="btn-reserve" onclick="addToCart('tour1', 'Clásico Enológico - La Carmela', 4500)">Reservar Ahora</button>
+                </div>
+            </div>
+
+            <div class="tour-card">
+                <div class="tour-header">
+                    <div class="tour-price-tag">$8.900</div>
+                    <h3>Experiencia Premium</h3>
+                    <p>Viñedos del Sol</p>
+                </div>
+                <div class="tour-body">
+                    <ul class="tour-features">
+                        <li><i class="fas fa-check"></i> Recorrido privado VIP</li>
+                        <li><i class="fas fa-check"></i> Cata guiada por enólogo</li>
+                        <li><i class="fas fa-check"></i> 5 vinos de alta gama</li>
+                        <li><i class="fas fa-check"></i> Almuerzo maridado 3 pasos</li>
+                        <li><i class="fas fa-check"></i> Botella de regalo</li>
+                        <li><i class="fas fa-check"></i> Duración: 4 horas</li>
+                    </ul>
+                </div>
+                <div class="tour-footer">
+                    <button class="btn-reserve" onclick="addToCart('tour2', 'Experiencia Premium - Viñedos del Sol', 8900)">Reservar Ahora</button>
+                </div>
+            </div>
+
+            <div class="tour-card">
+                <div class="tour-header">
+                    <div class="tour-price-tag">$12.500</div>
+                    <h3>Día de Cosecha</h3>
+                    <p>Bodega Monte Viejo</p>
+                </div>
+                <div class="tour-body">
+                    <ul class="tour-features">
+                        <li><i class="fas fa-check"></i> Participación en vendimia</li>
+                        <li><i class="fas fa-check"></i> Pisa de uvas tradicional</li>
+                        <li><i class="fas fa-check"></i> Almuerzo campestre</li>
+                        <li><i class="fas fa-check"></i> Taller de elaboración</li>
+                        <li><i class="fas fa-check"></i> Caja de 6 vinos</li>
+                        <li><i class="fas fa-check"></i> Duración: Día completo</li>
+                    </ul>
+                </div>
+                <div class="tour-footer">
+                    <button class="btn-reserve" onclick="addToCart('tour3', 'Día de Cosecha - Monte Viejo', 12500)">Reservar Ahora</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Club de Suscripción -->
+    <section class="club" id="club">
+        <div class="section-header">
+            <span class="section-tag">Únete al Club</span>
+            <h2 class="section-title">Club de la Bodega</h2>
+            <p style="color: #888; margin-top: 1rem;">Recibe mensualmente una selección curada de los mejores vinos de San Rafael</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 class="pricing-name">Descubrimiento</h3>
+                <div class="pricing-price">$6.900<span>/mes</span></div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-wine-bottle"></i> 2 botellas seleccionadas</li>
+                    <li><i class="fas fa-book"></i> Ficha de cata de cada vino</li>
+                    <li><i class="fas fa-truck"></i> Envío incluido</li>
+                    <li><i class="fas fa-percent"></i> 10% off en compras adicionales</li>
+                </ul>
+                <button class="btn-reserve" onclick="subscribe('descubrimiento')">Suscribirme</button>
+            </div>
+
+            <div class="pricing-card featured">
+                <h3 class="pricing-name">Experto</h3>
+                <div class="pricing-price">$12.500<span>/mes</span></div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-wine-bottle"></i> 4 botellas premium</li>
+                    <li><i class="fas fa-book"></i> Notas de cata detalladas</li>
+                    <li><i class="fas fa-gift"></i> Snacks maridados incluidos</li>
+                    <li><i class="fas fa-video"></i> Acceso a catas virtuales</li>
+                    <li><i class="fas fa-percent"></i> 20% off en compras</li>
+                    <li><i class="fas fa-ticket-alt"></i> 1 recorrido gratis al año</li>
+                </ul>
+                <button class="btn-reserve" onclick="subscribe('experto')">Suscribirme</button>
+            </div>
+
+            <div class="pricing-card">
+                <h3 class="pricing-name">Coleccionista</h3>
+                <div class="pricing-price">$24.900<span>/mes</span></div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-wine-bottle"></i> 6 botellas (incluye guarda)</li>
+                    <li><i class="fas fa-book"></i> Guía de inversión en vinos</li>
+                    <li><i class="fas fa-user-tie"></i> Asesoría personalizada</li>
+                    <li><i class="fas fa-glass-cheers"></i> Eventos exclusivos</li>
+                    <li><i class="fas fa-percent"></i> 30% off en compras</li>
+                </ul>
+                <button class="btn-reserve" onclick="subscribe('coleccionista')">Suscribirme</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog -->
+    <section class="blog" id="blog">
+        <div class="section-header">
+            <span class="section-tag">Conocimiento</span>
+            <h2 class="section-title">Notas de Cata</h2>
+        </div>
+
+        <div class="blog-grid">
+            <article class="blog-card">
+                <div class="blog-image">
+                    <span class="blog-category">Maridaje</span>
+                    <i class="fas fa-wine-glass-alt"></i>
+                </div>
+                <div class="blog-content">
+                    <span class="blog-date">12 Marzo 2026</span>
+                    <h3 class="blog-title">Maridajes Perfectos para Carnes Asadas</h3>
+                    <p class="blog-excerpt">Descubre qué vinos de San Rafael acompañan mejor un buen asado argentino, desde Malbec robustos hasta blends elegantes.</p>
+                    <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <span class="blog-category">Historia</span>
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div class="blog-content">
+                    <span class="blog-date">8 Marzo 2026</span>
+                    <h3 class="blog-title">La Historia del Vino en San Rafael</h3>
+                    <p class="blog-excerpt">Desde los primeros inmigrantes italianos hasta la actualidad, conoce cómo se formó esta región vitivinícola de renombre.</p>
+                    <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <span class="blog-category">Cata</span>
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="blog-content">
+                    <span class="blog-date">1 Marzo 2026</span>
+                    <h3 class="blog-title">Guía para Principiantes: Cata como un Sommelier</h3>
+                    <p class="blog-excerpt">Aprende las técnicas básicas para evaluar un vino: vista, nariz y boca. Todo lo que necesitas saber para tu próxima degustación.</p>
+                    <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Formulario para Bodegas -->
+    <section class="partners" id="bodegas">
+        <div class="section-header">
+            <span class="section-tag">Colabora con Nosotros</span>
+            <h2 class="section-title">¿Tenés una Bodega?</h2>
+            <p style="color: #888; margin-top: 1rem;">Únete a nuestra plataforma y llega a miles de amantes del vino. Sin costo de suscripción.</p>
+        </div>
+
+        <div class="form-container">
+            <form id="bodegaForm" onsubmit="submitForm(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre de la Bodega</label>
+                        <input type="text" required placeholder="Ej: Bodega Los Toneles">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre del Contacto</label>
+                        <input type="text" required placeholder="Nombre completo">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" required placeholder="contacto@bodega.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" required placeholder="+54 260...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Dirección de la Bodega</label>
+                    <input type="text" required placeholder="San Rafael, Mendoza">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Cantidad de variedades</label>
+                        <select required>
+                            <option value="">Seleccionar</option>
+                            <option value="1-5">1 a 5 variedades</option>
+                            <option value="6-10">6 a 10 variedades</option>
+                            <option value="10+">Más de 10 variedades</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>¿Ofrecés recorridos?</label>
+                        <select required>
+                            <option value="">Seleccionar</option>
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                            <option value="planeo">Planeo ofrecer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Mensaje (opcional)</label>
+                    <textarea rows="4" placeholder="Contanos más sobre tu bodega..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Solicitud</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Club de la Bodega</h4>
+                <p>Conectando las mejores bodegas de San Rafael con amantes del vino desde 2024. Una plataforma diseñada para potenciar la vitivinicultura regional.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="#catalogo">Catálogo de Vinos</a></li>
+                    <li><a href="#recorridos">Recorridos</a></li>
+                    <li><a href="#rutas">Rutas del Vino</a></li>
+                    <li><a href="#club">Club de Suscripción</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Política de Envíos</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p><i class="fas fa-map-marker-alt" style="color: var(--dorado); margin-right: 0.5rem;"></i> San Rafael, Mendoza, Argentina</p>
+                <p><i class="fas fa-phone" style="color: var(--dorado); margin-right: 0.5rem;"></i> +54 260 444-4444</p>
+                <p><i class="fas fa-envelope" style="color: var(--dorado); margin-right: 0.5rem;"></i> hola@clubdelabodega.com</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Club de la Bodega. Todos los derechos reservados. | Hecho con <i class="fas fa-heart" style="color: var(--dorado);"></i> en San Rafael</p>
+        </div>
+    </footer>
+
+    <!-- Modal Carrito -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tu Carrito</h3>
+                <button class="close-modal" onclick="toggleCart()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="cartBody">
+                <div id="cartItems"></div>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal" style="color: var(--dorado); font-weight: 700;">$0</span>
+                </div>
+                <button class="btn-checkout">Proceder al Pago</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de productos
+        const products = [
+            { id: 1, name: 'Malbec Reserva', bodega: 'La Carmela', type: 'tinto', price: 4500, oldPrice: 5200, image: 'wine-bottle', badge: 'Oferta' },
+            { id: 2, name: 'Cabernet Sauvignon', bodega: 'Viñedos del Sol', type: 'tinto', price: 3800, oldPrice: null, image: 'wine-bottle', badge: null },
+            { id: 3, name: 'Chardonnay Premium', bodega: 'Monte Viejo', type: 'blanco', price: 3200, oldPrice: null, image: 'wine-bottle', badge: null },
+            { id: 4, name: 'Rosé de Corte', bodega: 'Los Toneles', type: 'rosado', price: 2900, oldPrice: 3500, image: 'wine-bottle', badge: '-20%' },
+            { id: 5, name: 'Espumante Brut Nature', bodega: 'La Carmela', type: 'espumante', price: 5600, oldPrice: null, image: 'wine-bottle', badge: null },
+            { id: 6, name: 'Syrah Roble', bodega: 'Viñedos del Sol', type: 'tinto', price: 4100, oldPrice: null, image: 'wine-bottle', badge: null },
+            { id: 7, name: 'Blend Icono', bodega: 'Monte Viejo', type: 'tinto', price: 8900, oldPrice: 12000, image: 'wine-bottle', badge: 'Oferta' },
+            { id: 8, name: 'Torrontés', bodega: 'Los Toneles', type: 'blanco', price: 2600, oldPrice: null, image: 'wine-bottle', badge: null }
+        ];
+
+        let cart = [];
+        let currentFilter = 'all';
+
+        // Renderizar productos
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'all' ? products : 
+                           filter === 'oferta' ? products.filter(p => p.oldPrice) :
+                           products.filter(p => p.type === filter);
+            
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                    <div class="product-image">
+                        <i class="fas fa-${product.image}"></i>
+                        <div class="product-overlay">
+                            <button class="btn-add-cart" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">
+                                Agregar al Carrito
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-bodega">${product.bodega}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-details">
+                            <span><i class="fas fa-wine-bottle"></i> ${product.type}</span>
+                            <span><i class="fas fa-star"></i> 4.8</span>
+                        </div>
+                        <div class="product-price">
+                            <div>
+                                ${product.oldPrice ? `<span class="price-original">$${product.oldPrice}</span>` : ''}
+                                <span class="price">$${product.price}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filtrar vinos
+        function filterWines(type) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts(type);
+        }
+
+        // Carrito
+        function addToCart(id, name, price) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            updateCart();
+            toggleCart();
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+            
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Tu carrito está vacío</p>';
+                cartTotal.textContent = '$0';
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <i class="fas fa-wine-bottle"></i>
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div style="color: #666; font-size: 0.9rem;">Cantidad: ${item.quantity}</div>
+                        <div class="cart-item-price">$${item.price * item.quantity}</div>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" style="background: none; border: none; color: #666; cursor: pointer;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = '$' + total.toLocaleString();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('active');
+        }
+
+        // Tabs
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab).classList.add('active');
+        }
+
+        // Wine Matcher
+        let matcherAnswers = {};
+
+        function selectOption(question, value) {
+            matcherAnswers[`q${question}`] = value;
+            
+            // Ocultar pregunta actual
+            document.getElementById(`question${question}`).style.display = 'none';
+            
+            // Mostrar siguiente o resultado
+            if (question < 3) {
+                document.getElementById(`question${question + 1}`).style.display = 'block';
+            } else {
+                showMatcherResult();
+            }
+        }
+
+        function showMatcherResult() {
+            const resultDiv = document.getElementById('matcherResult');
+            const contentDiv = document.getElementById('resultContent');
+            
+            // Lógica simple de recomendación
+            let recommendation = {
+                name: 'Malbec Reserva - La Carmela',
+                desc: 'Un vino robusto y elegante, perfecto para acompañar carnes rojas. Notas de ciruela, chocolate y vainilla con taninos suaves.',
+                price: '$4.500'
+            };
+            
+            if (matcherAnswers.q1 === 'pescado') {
+                recommendation = {
+                    name: 'Chardonnay Premium - Monte Viejo',
+                    desc: 'Fresco y frutal, ideal para mariscos. Notas cítricas y minerales con un final cremoso.',
+                    price: '$3.200'
+                };
+            } else if (matcherAnswers.q3 === 'premium') {
+                recommendation = {
+                    name: 'Blend Icono - Monte Viejo',
+                    desc: 'Nuestro vino más prestigioso. Un blend de Malbec, Cabernet y Syrah añejado 24 meses en roble francés.',
+                    price: '$8.900'
+                };
+            }
+            
+            contentDiv.innerHTML = `
+                <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">${recommendation.name}</h2>
+                <p style="color: #ccc; margin-bottom: 1.5rem; line-height: 1.6;">${recommendation.desc}</p>
+                <div style="font-size: 2rem; color: var(--dorado); font-weight: 600; margin-bottom: 1rem;">${recommendation.price}</div>
+                <button class="btn-primary" onclick="addToCart('matched', '${recommendation.name}', ${parseInt(recommendation.price.replace('$', '').replace('.', ''))})">
+                    Agregar al Carrito
+                </button>
+            `;
+            
+            resultDiv.classList.add('show');
+        }
+
+        function resetMatcher() {
+            matcherAnswers = {};
+            document.getElementById('matcherResult').classList.remove('show');
+            document.getElementById('question1').style.display = 'block';
+            document.getElementById('question2').style.display = 'none';
+            document.getElementById('question3').style.display = 'none';
+        }
+
+        // Countdown
+        function updateCountdown() {
+            const now = new Date();
+            const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+            const diff = endOfDay - now;
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Formulario
+        function submitForm(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu interés! Te contactaremos en las próximas 24 horas para coordinar una reunión.');
+            document.getElementById('bodegaForm').reset();
+        }
+
+        // Suscripción
+        function subscribe(plan) {
+            alert(`¡Excelente elección! Has seleccionado el plan ${plan}. Serás redirigido al proceso de pago.`);
+        }
+
+        // Inicializar
+        renderProducts();
+    </script>
+</body>
+</html>
