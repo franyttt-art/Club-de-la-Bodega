@@ -76,18 +76,59 @@
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-20px);} 60% {transform: translateX(-50%) translateY(-10px);} }
 
-        /* ADMIN PANEL STYLES */
-        .admin-login { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; justify-content: center; align-items: center; }
-        .admin-login.active { display: flex; }
-        .login-box { background: var(--gris-oscuro); border: 1px solid var(--dorado); padding: 3rem; max-width: 400px; width: 90%; text-align: center; }
-        .login-box h2 { color: var(--dorado); margin-bottom: 2rem; font-family: 'Great Vibes', cursive; font-size: 2.5rem; }
-        .login-box input { width: 100%; background: var(--negro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 1rem; margin-bottom: 1rem; font-family: 'Inter', sans-serif; }
-        .login-box input:focus { outline: none; border-color: var(--dorado); }
+        /* SISTEMA DE AUTENTICACIÓN MEJORADO */
+        .auth-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; justify-content: center; align-items: center; overflow-y: auto; }
+        .auth-modal.active { display: flex; }
+        .auth-container { background: var(--gris-oscuro); border: 1px solid var(--dorado); max-width: 500px; width: 90%; padding: 3rem; position: relative; animation: slideIn 0.3s; }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .auth-header { text-align: center; margin-bottom: 2rem; }
+        .auth-header h2 { color: var(--dorado); font-family: 'Great Vibes', cursive; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .auth-header p { color: #888; font-size: 0.9rem; }
+        .auth-tabs { display: flex; margin-bottom: 2rem; border-bottom: 1px solid var(--gris-medio); }
+        .auth-tab { flex: 1; background: none; border: none; color: #888; padding: 1rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; transition: all 0.3s; }
+        .auth-tab.active { color: var(--dorado); border-bottom: 2px solid var(--dorado); }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; animation: fadeIn 0.3s; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--dorado); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .form-group input, .form-group select { width: 100%; background: var(--negro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 1rem; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--dorado); }
+        .form-group input.error { border-color: var(--rojo); }
+        .error-message { color: var(--rojo); font-size: 0.8rem; margin-top: 0.3rem; display: none; }
+        .error-message.show { display: block; }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1.5rem; }
+        .checkbox-group input[type="checkbox"] { width: auto; margin-top: 0.3rem; accent-color: var(--dorado); }
+        .checkbox-group label { color: #ccc; font-size: 0.85rem; line-height: 1.4; margin: 0; text-transform: none; letter-spacing: normal; }
+        .checkbox-group label a { color: var(--dorado); }
+        .btn-auth { width: 100%; background: var(--dorado); color: var(--negro); border: none; padding: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s; }
+        .btn-auth:hover { background: var(--dorado-claro); }
+        .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; }
+        .close-auth { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--blanco); font-size: 1.5rem; cursor: pointer; transition: color 0.3s; }
+        .close-auth:hover { color: var(--dorado); }
+        .auth-footer { text-align: center; margin-top: 1.5rem; color: #888; font-size: 0.85rem; }
+        .auth-footer a { color: var(--dorado); cursor: pointer; }
+        .role-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+        .role-option { background: var(--negro); border: 1px solid var(--gris-medio); padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.3s; }
+        .role-option:hover { border-color: var(--dorado); }
+        .role-option.selected { border-color: var(--dorado); background: rgba(212, 175, 55, 0.1); }
+        .role-option i { font-size: 2rem; color: var(--dorado); margin-bottom: 0.5rem; display: block; }
+        .role-option h4 { color: var(--blanco); font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .role-option p { color: #666; font-size: 0.75rem; }
 
+        /* SISTEMA DE BODEGAS - REGISTRO ESPECIAL */
+        .bodega-register-fields { display: none; }
+        .bodega-register-fields.active { display: block; animation: fadeIn 0.3s; }
+        .bodega-select-group { margin-bottom: 1.5rem; }
+        .bodega-select-group label { display: block; margin-bottom: 0.5rem; color: var(--dorado); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .bodega-select-group select { width: 100%; background: var(--negro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 1rem; font-family: 'Inter', sans-serif; }
+
+        /* PANEL ADMIN MEJORADO CON ROLES */
         .admin-panel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--negro-claro); z-index: 2500; overflow-y: auto; }
         .admin-panel.active { display: block; }
         .admin-header { background: var(--negro); border-bottom: 2px solid var(--dorado); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
         .admin-title { color: var(--dorado); font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+        .admin-user-info { display: flex; align-items: center; gap: 1rem; color: #888; font-size: 0.9rem; }
+        .admin-role-badge { background: var(--dorado); color: var(--negro); padding: 0.3rem 0.8rem; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; border-radius: 3px; }
         .admin-nav { display: flex; gap: 1rem; flex-wrap: wrap; }
         .admin-nav button { background: transparent; border: 1px solid var(--gris-medio); color: var(--blanco); padding: 0.5rem 1rem; cursor: pointer; transition: all 0.3s; }
         .admin-nav button:hover, .admin-nav button.active { border-color: var(--dorado); color: var(--dorado); }
@@ -97,11 +138,6 @@
         .admin-grid { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; }
         .admin-form { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); padding: 2rem; height: fit-content; }
         .admin-form h3 { color: var(--dorado); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--dorado); }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--dorado); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; background: var(--negro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 0.8rem; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
-        .form-group textarea { min-height: 100px; resize: vertical; }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--dorado); }
         .admin-list { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); padding: 2rem; }
         .admin-list h3 { color: var(--dorado); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--dorado); }
         .admin-item { background: var(--negro); border: 1px solid var(--gris-medio); padding: 1.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: start; transition: all 0.3s; }
@@ -194,6 +230,24 @@
         .btn-favorite { background: transparent; border: 1px solid var(--dorado); color: var(--dorado); padding: 1rem 1.5rem; cursor: pointer; transition: all 0.3s; }
         .btn-favorite:hover, .btn-favorite.active { background: var(--dorado); color: var(--negro); }
 
+        /* VERIFICACIÓN DE EDAD MEJORADA */
+        .age-verification { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 4000; justify-content: center; align-items: center; padding: 2rem; }
+        .age-verification.active { display: flex; }
+        .age-box { background: var(--gris-oscuro); border: 2px solid var(--dorado); max-width: 500px; width: 100%; padding: 3rem; text-align: center; }
+        .age-box h2 { color: var(--dorado); font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1.5rem; }
+        .age-box p { color: #ccc; margin-bottom: 2rem; line-height: 1.6; }
+        .age-warning { background: rgba(220, 53, 69, 0.1); border: 1px solid var(--rojo); color: var(--rojo); padding: 1rem; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .age-checkbox-group { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; text-align: left; background: var(--negro); padding: 1.5rem; border: 1px solid var(--gris-medio); }
+        .age-checkbox-group input { width: auto; margin-top: 0.3rem; accent-color: var(--dorado); transform: scale(1.2); }
+        .age-checkbox-group label { color: var(--blanco); font-size: 0.9rem; line-height: 1.4; margin: 0; text-transform: none; letter-spacing: normal; }
+        .age-checkbox-group label strong { color: var(--dorado); }
+        .age-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .btn-age-yes { background: var(--verde); color: var(--blanco); border: none; padding: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
+        .btn-age-yes:hover:not(:disabled) { background: #218838; }
+        .btn-age-yes:disabled { opacity: 0.5; cursor: not-allowed; background: #666; }
+        .btn-age-no { background: transparent; border: 1px solid var(--rojo); color: var(--rojo); padding: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
+        .btn-age-no:hover { background: var(--rojo); color: var(--blanco); }
+
         /* SISTEMA DE RESEÑAS */
         .reviews-section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--gris-medio); }
         .reviews-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
@@ -262,7 +316,6 @@
         .routes { padding: 6rem 5%; background: var(--negro-claro); }
         .map-container { max-width: 1200px; margin: 0 auto; position: relative; background: var(--gris-oscuro); border: 1px solid var(--gris-medio); min-height: 600px; overflow: hidden; }
         .map-real { width: 100%; height: 600px; border: none; }
-        .map-placeholder { width: 100%; height: 600px; background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); display: flex; align-items: center; justify-content: center; position: relative; display: none; }
 
         /* Recorridos */
         .tours { padding: 6rem 5%; background: var(--negro); }
@@ -320,8 +373,6 @@
 
         /* Footer */
         footer { background: var(--negro-claro); border-top: 1px solid var(--gris-medio); padding: 4rem 5% 2rem; position: relative; }
-        .admin-access { position: absolute; bottom: 1rem; right: 2rem; color: #333; cursor: pointer; font-size: 0.8rem; transition: color 0.3s; }
-        .admin-access:hover { color: var(--dorado); }
         .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
         .footer-section h4 { color: var(--dorado); margin-bottom: 1.5rem; font-size: 1.2rem; }
         .footer-section p, .footer-section a { color: #888; text-decoration: none; line-height: 1.8; transition: color 0.3s; }
@@ -337,7 +388,6 @@
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .modal.active { display: flex; }
         .modal-content { background: var(--gris-oscuro); border: 1px solid var(--dorado); max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; animation: slideIn 0.3s; }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .modal-header { background: var(--negro); padding: 1.5rem; border-bottom: 1px solid var(--dorado); display: flex; justify-content: space-between; align-items: center; }
         .modal-header h3 { color: var(--dorado); font-size: 1.5rem; }
         .close-modal { background: none; border: none; color: var(--blanco); font-size: 1.5rem; cursor: pointer; transition: color 0.3s; }
@@ -352,6 +402,19 @@
         .cart-total { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--dorado); display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; }
         .btn-checkout { width: 100%; background: var(--dorado); color: var(--negro); border: none; padding: 1rem; margin-top: 1.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
         .btn-checkout:hover { background: var(--dorado-claro); }
+
+        /* ESTADÍSTICAS ADMIN */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--negro); border: 1px solid var(--gris-medio); padding: 1.5rem; text-align: center; transition: all 0.3s; }
+        .stat-card:hover { border-color: var(--dorado); }
+        .stat-number { font-size: 2.5rem; color: var(--dorado); font-weight: 700; display: block; }
+        .stat-label { color: #888; font-size: 0.9rem; margin-top: 0.5rem; }
+
+        /* PEDIDOS ADMIN */
+        .order-status { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+        .status-pendiente { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+        .status-enviado { background: rgba(33, 150, 243, 0.2); color: #2196f3; }
+        .status-completado { background: rgba(40, 167, 69, 0.2); color: #28a745; }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -368,28 +431,162 @@
             .product-modal-body { grid-template-columns: 1fr; }
             .product-modal-gallery { min-height: 300px; }
             .search-row { grid-template-columns: 1fr; }
+            .role-selector { grid-template-columns: 1fr; }
+            .age-buttons { grid-template-columns: 1fr; }
         }
 
         @supports (-webkit-touch-callout: none) {
             .hero { background-attachment: scroll; min-height: -webkit-fill-available; }
         }
-
-        /* ESTADÍSTICAS ADMIN */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-        .stat-card { background: var(--negro); border: 1px solid var(--gris-medio); padding: 1.5rem; text-align: center; transition: all 0.3s; }
-        .stat-card:hover { border-color: var(--dorado); }
-        .stat-number { font-size: 2.5rem; color: var(--dorado); font-weight: 700; display: block; }
-        .stat-label { color: #888; font-size: 0.9rem; margin-top: 0.5rem; }
-
-        /* PEDIDOS ADMIN */
-        .order-status { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
-        .status-pendiente { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
-        .status-enviado { background: rgba(33, 150, 243, 0.2); color: #2196f3; }
-        .status-completado { background: rgba(40, 167, 69, 0.2); color: #28a745; }
     </style>
-<base target="_blank">
 </head>
 <body>
+    <!-- VERIFICACIÓN DE EDAD OBLIGATORIA -->
+    <div class="age-verification active" id="ageVerification">
+        <div class="age-box">
+            <i class="fas fa-wine-bottle" style="font-size: 3rem; color: var(--dorado); margin-bottom: 1rem;"></i>
+            <h2>Verificación de Edad</h2>
+            <div class="age-warning">
+                <i class="fas fa-exclamation-triangle"></i> Debes ser mayor de 18 años para acceder a este sitio
+            </div>
+            <p>Este sitio web contiene información sobre bebidas alcohólicas y está destinado exclusivamente a adultos mayores de edad legal para consumir alcohol en su jurisdicción.</p>
+            
+            <div class="age-checkbox-group">
+                <input type="checkbox" id="ageConfirm" onchange="toggleAgeButton()">
+                <label for="ageConfirm">
+                    Confirmo que tengo <strong>al menos 18 años de edad</strong> y acepto los <a href="#">Términos de Uso</a> y la <a href="#">Política de Privacidad</a> del sitio.
+                </label>
+            </div>
+            
+            <div class="age-buttons">
+                <button class="btn-age-yes" id="btnAgeYes" onclick="verifyAge(true)" disabled>
+                    <i class="fas fa-check"></i> Sí, soy mayor de edad
+                </button>
+                <button class="btn-age-no" onclick="verifyAge(false)">
+                    <i class="fas fa-times"></i> No, salir del sitio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEMA DE AUTENTICACIÓN -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-container">
+            <button class="close-auth" onclick="closeAuthModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="auth-header">
+                <h2>Club de la Bodega</h2>
+                <p id="authSubtitle">Inicia sesión en tu cuenta</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login')">Iniciar Sesión</button>
+                <button class="auth-tab" onclick="switchAuthTab('register')">Crear Cuenta</button>
+            </div>
+
+            <!-- LOGIN -->
+            <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required placeholder="tu@email.com">
+                    <span class="error-message" id="loginEmailError">Email no encontrado</span>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                    <span class="error-message" id="loginPasswordError">Contraseña incorrecta</span>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Recordar mis datos en este dispositivo</label>
+                </div>
+                <button type="submit" class="btn-auth">Ingresar</button>
+                <div class="auth-footer">
+                    <a onclick="showForgotPassword()">¿Olvidaste tu contraseña?</a>
+                </div>
+            </form>
+
+            <!-- REGISTRO -->
+            <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                <!-- Selector de Rol -->
+                <div class="role-selector">
+                    <div class="role-option selected" onclick="selectRole('cliente')" id="roleCliente">
+                        <i class="fas fa-user"></i>
+                        <h4>Soy Cliente</h4>
+                        <p>Quiero comprar vinos</p>
+                    </div>
+                    <div class="role-option" onclick="selectRole('bodega')" id="roleBodega">
+                        <i class="fas fa-wine-bottle"></i>
+                        <h4>Soy Bodega</h4>
+                        <p>Quiero vender mis vinos</p>
+                    </div>
+                </div>
+                <input type="hidden" id="selectedRole" value="cliente">
+
+                <!-- Campos comunes -->
+                <div class="form-group">
+                    <label>Nombre Completo / Nombre de Bodega</label>
+                    <input type="text" id="regName" required placeholder="Ej: Juan Pérez o Bodega Los Toneles">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" required placeholder="tu@email.com">
+                    <span class="error-message" id="regEmailError">Este email ya está registrado</span>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" id="regPhone" required placeholder="+54 260...">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña (mínimo 8 caracteres)</label>
+                    <input type="password" id="regPassword" required minlength="8" placeholder="••••••••">
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Contraseña</label>
+                    <input type="password" id="regPasswordConfirm" required placeholder="••••••••">
+                    <span class="error-message" id="regPasswordError">Las contraseñas no coinciden</span>
+                </div>
+
+                <!-- Campos específicos para bodega -->
+                <div class="bodega-register-fields" id="bodegaFields">
+                    <div class="form-group">
+                        <label>Dirección de la Bodega</label>
+                        <input type="text" id="regAddress" placeholder="San Rafael, Mendoza">
+                    </div>
+                    <div class="form-group">
+                        <label>Año de Fundación</label>
+                        <input type="number" id="regYear" placeholder="1990">
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción de la Bodega</label>
+                        <textarea id="regDescription" rows="3" placeholder="Cuéntanos sobre tu bodega..."></textarea>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="termsAccept" required>
+                    <label for="termsAccept">Acepto los <a href="#">Términos y Condiciones</a> y confirmo que soy mayor de 18 años</label>
+                </div>
+
+                <button type="submit" class="btn-auth">Crear Cuenta</button>
+            </form>
+
+            <!-- RECUPERAR CONTRASEÑA -->
+            <form id="forgotForm" class="auth-form" onsubmit="handleForgotPassword(event)">
+                <div class="form-group">
+                    <label>Email de recuperación</label>
+                    <input type="email" id="forgotEmail" required placeholder="tu@email.com">
+                </div>
+                <button type="submit" class="btn-auth">Enviar instrucciones</button>
+                <div class="auth-footer">
+                    <a onclick="switchAuthTab('login')">Volver al inicio de sesión</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Navegación -->
     <nav id="navbar">
         <div class="nav-container">
@@ -407,7 +604,7 @@
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-count" id="cartCount">0</span>
                 </div>
-                <button class="btn-nav" onclick="openUserAccount()">Mi Cuenta</button>
+                <button class="btn-nav" id="userBtn" onclick="openAuthModal()">Iniciar Sesión</button>
             </div>
         </div>
     </nav>
@@ -946,9 +1143,6 @@
         <div class="footer-bottom">
             <p>&copy; 2026 Club de la Bodega. Todos los derechos reservados. | Hecho con <i class="fas fa-heart" style="color: var(--dorado);"></i> en San Rafael</p>
         </div>
-        <div class="admin-access" onclick="openAdminLogin()" title="Acceso Administrador">
-            <i class="fas fa-lock"></i> Admin
-        </div>
     </footer>
 
     <!-- Modal Carrito -->
@@ -966,82 +1160,560 @@
                     <span>Total:</span>
                     <span id="cartTotal" style="color: var(--dorado); font-weight: 700;">$0</span>
                 </div>
-                <button class="btn-checkout">Proceder al Pago</button>
+                
+                <!-- Verificación de edad en checkout -->
+                <div class="age-checkbox-group" style="margin-top: 1rem; background: transparent; padding: 0;">
+                    <input type="checkbox" id="checkoutAgeConfirm" required>
+                    <label for="checkoutAgeConfirm" style="font-size: 0.8rem;">
+                        Confirmo que soy mayor de 18 años y acepto los términos de compra de bebidas alcohólicas
+                    </label>
+                </div>
+                
+                <button class="btn-checkout" onclick="proceedToCheckout()">Proceder al Pago</button>
             </div>
         </div>
     </div>
 
-    <!-- ADMIN LOGIN -->
-    <div class="admin-login" id="adminLogin">
-        <div class="login-box">
-            <h2>Club de la Bodega</h2>
-            <p style="color: #888; margin-bottom: 2rem;">Panel de Administración</p>
-            <input type="password" id="adminPassword" placeholder="Contraseña" onkeypress="if(event.key==='Enter')checkAdminPassword()">
-            <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="checkAdminPassword()">Ingresar</button>
-            <button class="btn-secondary" style="width: 100%; margin-top: 0.5rem; border: none;" onclick="closeAdminLogin()">Cancelar</button>
-            <p id="loginError" style="color: var(--rojo); margin-top: 1rem; display: none;">Contraseña incorrecta</p>
-        </div>
-    </div>
-
-    <!-- ADMIN PANEL MEJORADO -->
+    <!-- PANEL DE ADMINISTRACIÓN CON ROLES -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-header">
             <div class="admin-title">
-                <i class="fas fa-wine-bottle"></i> Panel de Administración
+                <i class="fas fa-wine-bottle"></i> 
+                <span id="adminPanelTitle">Panel de Administración</span>
             </div>
-            <div class="admin-nav">
-                <button class="active" onclick="showAdminSection('dashboard')">Dashboard</button>
-                <button onclick="showAdminSection('bodegas')">Bodegas</button>
-                <button onclick="showAdminSection('vinos')">Vinos</button>
-                <button onclick="showAdminSection('recorridos')">Recorridos</button>
-                <button onclick="showAdminSection('pedidos')">Pedidos</button>
-                <button onclick="showAdminSection('cupones')">Cupones</button>
-                <button onclick="showAdminSection('mapa')">Mapa</button>
-                <button onclick="cerrarAdmin()" style="color: var(--rojo); border-color: var(--rojo);">Salir</button>
+            <div class="admin-user-info">
+                <span id="adminUserName">Usuario</span>
+                <span class="admin-role-badge" id="adminRoleBadge">ROL</span>
+                <button onclick="logout()" style="background: transparent; border: 1px solid var(--rojo); color: var(--rojo); padding: 0.3rem 0.8rem; cursor: pointer; font-size: 0.8rem;">Salir</button>
             </div>
         </div>
 
-        <div class="admin-content">
-            <!-- DASHBOARD CON ESTADÍSTICAS -->
-            <div id="admin-dashboard" class="admin-section active">
-                <h2 style="color: var(--dorado); margin-bottom: 2rem;">Dashboard de Rendimiento</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-number" id="statViews">0</span>
-                        <div class="stat-label">Visitas a tu perfil (esta semana)</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" id="statClicks">0</span>
-                        <div class="stat-label">Clics en "Ver Vinos"</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" id="statSales">0</span>
-                        <div class="stat-label">Unidades Vendidas</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" id="statReservations">0</span>
-                        <div class="stat-label">Reservas de Recorridos</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" id="statRevenue">$0</span>
-                        <div class="stat-label">Ingresos Totales</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" id="statRating">0.0</span>
-                        <div class="stat-label">Valoración Promedio</div>
-                    </div>
-                </div>
+        <div class="admin-nav" id="adminNav">
+            <!-- Se genera dinámicamente según el rol -->
+        </div>
 
-                <div style="margin-top: 3rem;">
-                    <h3 style="color: var(--dorado); margin-bottom: 1.5rem;">Actividad Reciente</h3>
-                    <div class="admin-list" id="activityList">
-                        <p style="color: #666; text-align: center; padding: 2rem;">No hay actividad reciente para mostrar</p>
-                    </div>
-                </div>
-            </div>
+        <div class="admin-content" id="adminContent">
+            <!-- Contenido dinámico según rol -->
+        </div>
+    </div>
 
-            <!-- SECCIÓN BODEGAS -->
-            <div id="admin-bodegas" class="admin-section">
+    <script>
+        // ==========================================
+        // SISTEMA DE SEGURIDAD Y AUTENTICACIÓN
+        // ==========================================
+
+        // Contraseña maestra hasheada (en producción usar bcrypt)
+        // "SigloTinto2024!" -> SHA256 simplificado para demo
+        const MASTER_PASSWORD_HASH = btoa("SigloTinto2024!");
+        
+        // Estructura de usuarios
+        let users = JSON.parse(localStorage.getItem('cb_users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('cb_currentUser')) || null;
+        let sessionToken = localStorage.getItem('cb_sessionToken') || null;
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAgeVerification();
+            initAuth();
+            renderBodegas();
+            renderProducts();
+            renderRecorridos();
+            renderMap();
+            updateSearchOptions();
+            updateCountdown();
+        });
+
+        // ==========================================
+        // VERIFICACIÓN DE EDAD
+        // ==========================================
+        
+        function checkAgeVerification() {
+            const ageVerified = localStorage.getItem('cb_ageVerified');
+            const ageVerification = document.getElementById('ageVerification');
+            
+            if (ageVerified === 'true') {
+                ageVerification.classList.remove('active');
+            } else {
+                ageVerification.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function toggleAgeButton() {
+            const checkbox = document.getElementById('ageConfirm');
+            const btn = document.getElementById('btnAgeYes');
+            btn.disabled = !checkbox.checked;
+        }
+
+        function verifyAge(isAdult) {
+            if (isAdult) {
+                const checkbox = document.getElementById('ageConfirm');
+                if (!checkbox.checked) {
+                    alert('Debes aceptar los términos y condiciones');
+                    return;
+                }
+                localStorage.setItem('cb_ageVerified', 'true');
+                document.getElementById('ageVerification').classList.remove('active');
+                document.body.style.overflow = '';
+            } else {
+                window.location.href = 'https://www.google.com';
+            }
+        }
+
+        // ==========================================
+        // SISTEMA DE AUTENTICACIÓN
+        // ==========================================
+
+        function initAuth() {
+            updateUserButton();
+            
+            // Verificar sesión activa
+            if (currentUser && sessionToken) {
+                validateSession();
+            }
+        }
+
+        function openAuthModal() {
+            if (currentUser) {
+                // Si ya está logueado, mostrar menú de usuario o ir a admin
+                if (currentUser.role === 'superadmin' || currentUser.role === 'bodega') {
+                    openAdminPanel();
+                } else {
+                    if (confirm(`Hola ${currentUser.name}\n\n¿Deseas cerrar sesión?`)) {
+                        logout();
+                    }
+                }
+            } else {
+                document.getElementById('authModal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+            document.body.style.overflow = '';
+            // Resetear formularios
+            document.getElementById('loginForm').reset();
+            document.getElementById('registerForm').reset();
+            clearErrors();
+        }
+
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab === 'login' ? 'loginForm' : 
+                                   tab === 'register' ? 'registerForm' : 'forgotForm').classList.add('active');
+            
+            document.getElementById('authSubtitle').textContent = 
+                tab === 'login' ? 'Inicia sesión en tu cuenta' : 
+                tab === 'register' ? 'Crea tu cuenta gratuita' : 'Recupera tu contraseña';
+        }
+
+        function selectRole(role) {
+            document.querySelectorAll('.role-option').forEach(r => r.classList.remove('selected'));
+            document.getElementById('role' + role.charAt(0).toUpperCase() + role.slice(1)).classList.add('selected');
+            document.getElementById('selectedRole').value = role;
+            
+            const bodegaFields = document.getElementById('bodegaFields');
+            if (role === 'bodega') {
+                bodegaFields.classList.add('active');
+                document.getElementById('regAddress').required = true;
+                document.getElementById('regYear').required = true;
+            } else {
+                bodegaFields.classList.remove('active');
+                document.getElementById('regAddress').required = false;
+                document.getElementById('regYear').required = false;
+            }
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error-message').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('input').forEach(i => i.classList.remove('error'));
+        }
+
+        function showError(fieldId, message) {
+            const errorEl = document.getElementById(fieldId + 'Error');
+            const field = document.getElementById(fieldId);
+            if (errorEl) {
+                errorEl.textContent = message;
+                errorEl.classList.add('show');
+            }
+            if (field) field.classList.add('error');
+        }
+
+        // LOGIN
+        function handleLogin(e) {
+            e.preventDefault();
+            clearErrors();
+            
+            const email = document.getElementById('loginEmail').value.toLowerCase().trim();
+            const password = document.getElementById('loginPassword').value;
+            const remember = document.getElementById('rememberMe').checked;
+
+            // Verificar super admin
+            if (email === 'admin@clubdelabodega.com') {
+                if (btoa(password) === MASTER_PASSWORD_HASH) {
+                    createSession({
+                        id: 'superadmin',
+                        name: 'Super Administrador',
+                        email: email,
+                        role: 'superadmin',
+                        createdAt: new Date().toISOString()
+                    }, remember);
+                    closeAuthModal();
+                    openAdminPanel();
+                    return;
+                } else {
+                    showError('loginPassword', 'Contraseña de administrador incorrecta');
+                    return;
+                }
+            }
+
+            // Buscar usuario regular
+            const user = users.find(u => u.email === email);
+            if (!user) {
+                showError('loginEmail', 'Email no registrado');
+                return;
+            }
+
+            if (user.password !== btoa(password)) {
+                showError('loginPassword', 'Contraseña incorrecta');
+                return;
+            }
+
+            if (!user.active) {
+                alert('Tu cuenta está pendiente de aprobación. Te contactaremos pronto.');
+                return;
+            }
+
+            createSession(user, remember);
+            closeAuthModal();
+            
+            if (user.role === 'bodega') {
+                openAdminPanel();
+            } else {
+                updateUserButton();
+                alert('¡Bienvenido de vuelta, ' + user.name + '!');
+            }
+        }
+
+        // REGISTRO
+        function handleRegister(e) {
+            e.preventDefault();
+            clearErrors();
+
+            const role = document.getElementById('selectedRole').value;
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.toLowerCase().trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+
+            // Validaciones
+            if (users.some(u => u.email === email)) {
+                showError('regEmail', 'Este email ya está registrado');
+                return;
+            }
+
+            if (password !== passwordConfirm) {
+                showError('regPassword', 'Las contraseñas no coinciden');
+                return;
+            }
+
+            if (password.length < 8) {
+                showError('regPassword', 'La contraseña debe tener al menos 8 caracteres');
+                return;
+            }
+
+            const newUser = {
+                id: Date.now().toString(),
+                name: name,
+                email: email,
+                phone: phone,
+                password: btoa(password), // En producción: hash real
+                role: role,
+                active: role === 'cliente', // Bodegas necesitan aprobación
+                createdAt: new Date().toISOString(),
+                // Datos específicos de bodega
+                bodegaData: role === 'bodega' ? {
+                    address: document.getElementById('regAddress').value,
+                    year: document.getElementById('regYear').value,
+                    description: document.getElementById('regDescription').value,
+                    approved: false
+                } : null
+            };
+
+            users.push(newUser);
+            localStorage.setItem('cb_users', JSON.stringify(users));
+
+            if (role === 'bodega') {
+                alert('¡Solicitud enviada! Revisaremos tu información y te contactaremos en 24-48 horas para activar tu cuenta.');
+                closeAuthModal();
+            } else {
+                createSession(newUser, false);
+                closeAuthModal();
+                updateUserButton();
+                alert('¡Cuenta creada exitosamente! Bienvenido, ' + name);
+            }
+        }
+
+        function handleForgotPassword(e) {
+            e.preventDefault();
+            const email = document.getElementById('forgotEmail').value;
+            alert('Si existe una cuenta con ' + email + ', recibirás instrucciones para restablecer tu contraseña.');
+            switchAuthTab('login');
+        }
+
+        function createSession(user, remember) {
+            currentUser = user;
+            const token = btoa(user.id + Date.now() + Math.random());
+            sessionToken = token;
+            
+            const storage = remember ? localStorage : sessionStorage;
+            storage.setItem('cb_currentUser', JSON.stringify(user));
+            storage.setItem('cb_sessionToken', token);
+        }
+
+        function validateSession() {
+            // En producción: validar contra servidor
+            // Por ahora solo verificamos que exista
+            if (!currentUser || !sessionToken) {
+                logout();
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            sessionToken = null;
+            localStorage.removeItem('cb_currentUser');
+            localStorage.removeItem('cb_sessionToken');
+            sessionStorage.removeItem('cb_currentUser');
+            sessionStorage.removeItem('cb_sessionToken');
+            
+            document.getElementById('adminPanel').classList.remove('active');
+            updateUserButton();
+        }
+
+        function updateUserButton() {
+            const btn = document.getElementById('userBtn');
+            if (currentUser) {
+                btn.textContent = currentUser.name.split(' ')[0];
+                if (currentUser.role === 'superadmin' || currentUser.role === 'bodega') {
+                    btn.innerHTML = '<i class="fas fa-cog"></i> ' + btn.textContent;
+                }
+            } else {
+                btn.textContent = 'Iniciar Sesión';
+            }
+        }
+
+        // ==========================================
+        // PANEL DE ADMINISTRACIÓN POR ROLES
+        // ==========================================
+
+        function openAdminPanel() {
+            if (!currentUser) return;
+            
+            document.getElementById('adminPanel').classList.add('active');
+            document.getElementById('adminUserName').textContent = currentUser.name;
+            document.getElementById('adminRoleBadge').textContent = 
+                currentUser.role === 'superadmin' ? 'SUPER ADMIN' : 
+                currentUser.role === 'bodega' ? 'BODEGA' : 'USUARIO';
+            
+            renderAdminNav();
+            showAdminSection('dashboard');
+        }
+
+        function renderAdminNav() {
+            const nav = document.getElementById('adminNav');
+            const isSuper = currentUser.role === 'superadmin';
+            const isBodega = currentUser.role === 'bodega';
+            
+            let buttons = [];
+            
+            if (isSuper) {
+                buttons = [
+                    { id: 'dashboard', label: 'Dashboard', icon: 'fa-chart-line' },
+                    { id: 'bodegas', label: 'Bodegas', icon: 'fa-store' },
+                    { id: 'vinos', label: 'Todos los Vinos', icon: 'fa-wine-bottle' },
+                    { id: 'recorridos', label: 'Recorridos', icon: 'fa-route' },
+                    { id: 'pedidos', label: 'Pedidos', icon: 'fa-shopping-bag' },
+                    { id: 'cupones', label: 'Cupones', icon: 'fa-ticket-alt' },
+                    { id: 'usuarios', label: 'Usuarios', icon: 'fa-users' },
+                    { id: 'mapa', label: 'Configurar Mapa', icon: 'fa-map' }
+                ];
+            } else if (isBodega) {
+                buttons = [
+                    { id: 'dashboard', label: 'Mis Estadísticas', icon: 'fa-chart-line' },
+                    { id: 'mis-vinos', label: 'Mis Vinos', icon: 'fa-wine-bottle' },
+                    { id: 'mis-recorridos', label: 'Mis Recorridos', icon: 'fa-route' },
+                    { id: 'mis-pedidos', label: 'Mis Pedidos', icon: 'fa-shopping-bag' },
+                    { id: 'mi-perfil', label: 'Mi Perfil', icon: 'fa-user' }
+                ];
+            }
+            
+            nav.innerHTML = buttons.map(b => `
+                <button onclick="showAdminSection('${b.id}')" id="nav-${b.id}">
+                    <i class="fas ${b.icon}"></i> ${b.label}
+                </button>
+            `).join('');
+        }
+
+        function showAdminSection(section) {
+            // Actualizar navegación activa
+            document.querySelectorAll('.admin-nav button').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById('nav-' + section);
+            if (activeBtn) activeBtn.classList.add('active');
+            
+            const content = document.getElementById('adminContent');
+            
+            // Renderizar contenido según sección y rol
+            if (currentUser.role === 'superadmin') {
+                renderSuperAdminSection(section, content);
+            } else if (currentUser.role === 'bodega') {
+                renderBodegaAdminSection(section, content);
+            }
+        }
+
+        function renderSuperAdminSection(section, container) {
+            switch(section) {
+                case 'dashboard':
+                    container.innerHTML = `
+                        <h2 style="color: var(--dorado); margin-bottom: 2rem;">Dashboard General</h2>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-number">${users.length}</span>
+                                <div class="stat-label">Usuarios Registrados</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">${bodegas.length}</span>
+                                <div class="stat-label">Bodegas Activas</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">${products.length}</span>
+                                <div class="stat-label">Vinos en Catálogo</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">${pedidos.length}</span>
+                                <div class="stat-label">Pedidos Totales</div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'bodegas':
+                    renderAdminBodegas(container);
+                    break;
+                    
+                case 'vinos':
+                    renderAdminVinos(container, true); // true = todas las bodegas
+                    break;
+                    
+                case 'recorridos':
+                    renderAdminRecorridos(container, true);
+                    break;
+                    
+                case 'pedidos':
+                    renderAdminPedidos(container, true);
+                    break;
+                    
+                case 'cupones':
+                    renderAdminCupones(container);
+                    break;
+                    
+                case 'usuarios':
+                    renderAdminUsuarios(container);
+                    break;
+                    
+                case 'mapa':
+                    renderAdminMapa(container);
+                    break;
+            }
+        }
+
+        function renderBodegaAdminSection(section, container) {
+            switch(section) {
+                case 'dashboard':
+                    const misProductos = products.filter(p => p.bodega === currentUser.name);
+                    const misVentas = pedidos.filter(p => p.items.some(i => i.bodega === currentUser.name));
+                    
+                    container.innerHTML = `
+                        <h2 style="color: var(--dorado); margin-bottom: 2rem;">Mis Estadísticas</h2>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-number">${misProductos.length}</span>
+                                <div class="stat-label">Mis Vinos</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">${misVentas.length}</span>
+                                <div class="stat-label">Mis Ventas</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">$${misVentas.reduce((sum, p) => sum + p.total, 0).toLocaleString()}</span>
+                                <div class="stat-label">Ingresos Totales</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">${misProductos.reduce((sum, p) => sum + (p.stock || 0), 0)}</span>
+                                <div class="stat-label">Stock Total</div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'mis-vinos':
+                    renderAdminVinos(container, false); // false = solo mi bodega
+                    break;
+                    
+                case 'mis-recorridos':
+                    renderAdminRecorridos(container, false);
+                    break;
+                    
+                case 'mis-pedidos':
+                    renderAdminPedidos(container, false);
+                    break;
+                    
+                case 'mi-perfil':
+                    container.innerHTML = `
+                        <div class="admin-form" style="max-width: 600px;">
+                            <h3>Mi Perfil de Bodega</h3>
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" value="${currentUser.name}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" value="${currentUser.email}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="tel" value="${currentUser.phone}" disabled>
+                            </div>
+                            ${currentUser.bodegaData ? `
+                                <div class="form-group">
+                                    <label>Dirección</label>
+                                    <input type="text" value="${currentUser.bodegaData.address}" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label>Año de Fundación</label>
+                                    <input type="text" value="${currentUser.bodegaData.year}" disabled>
+                                </div>
+                            ` : ''}
+                            <p style="color: #666; margin-top: 1rem; font-size: 0.9rem;">
+                                Para modificar estos datos, contacta al administrador.
+                            </p>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        // ==========================================
+        // RENDERIZADO DE SECCIONES ADMIN
+        // ==========================================
+
+        function renderAdminBodegas(container) {
+            container.innerHTML = `
                 <div class="admin-grid">
                     <div class="admin-form">
                         <h3>Agregar/Editar Bodega</h3>
@@ -1072,48 +1744,60 @@
                                 <input type="text" id="bodegaEspecialidades" placeholder="Malbec, Cabernet, etc" required>
                             </div>
                             <div class="form-group">
-                                <label>Video de Presentación (URL)</label>
-                                <input type="url" id="bodegaVideo" placeholder="https://youtube.com/...">
-                            </div>
-                            <div class="form-group">
-                                <label>Instagram</label>
-                                <input type="text" id="bodegaInstagram" placeholder="@bodega">
-                            </div>
-                            <div class="form-group">
-                                <label>Facebook</label>
-                                <input type="text" id="bodegaFacebook" placeholder="bodega">
-                            </div>
-                            <div class="form-group">
                                 <label>URL de la Imagen</label>
                                 <input type="url" id="bodegaImagen" placeholder="https://...">
-                                <small style="color: #666; display: block; margin-top: 0.3rem;">Dejar vacío para usar imagen por defecto</small>
                             </div>
                             <button type="submit" class="btn-success" style="width: 100%;">Guardar Bodega</button>
-                            <button type="button" class="btn-secondary" style="width: 100%; margin-top: 0.5rem;" onclick="resetBodegaForm()">Cancelar</button>
                         </form>
                     </div>
                     <div class="admin-list">
                         <h3>Bodegas Registradas</h3>
-                        <div id="listaBodegas"></div>
+                        <div id="listaBodegas">
+                            ${bodegas.map(b => `
+                                <div class="admin-item">
+                                    <div class="admin-item-info">
+                                        <h4>${b.nombre}</h4>
+                                        <p>Fundada: ${b.anio} | ${b.fundador}</p>
+                                    </div>
+                                    <div class="admin-item-actions">
+                                        <button class="btn-small btn-edit" onclick="editBodega(${b.id})">Editar</button>
+                                        <button class="btn-small btn-delete" onclick="deleteBodega(${b.id})">Eliminar</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 </div>
-            </div>
+            `;
+        }
 
-            <!-- SECCIÓN VINOS -->
-            <div id="admin-vinos" class="admin-section">
+        function renderAdminVinos(container, allBodegas) {
+            const filteredProducts = allBodegas ? products : products.filter(p => p.bodega === currentUser.name);
+            
+            container.innerHTML = `
                 <div class="admin-grid">
                     <div class="admin-form">
-                        <h3>Agregar/Editar Vino</h3>
-                        <form id="formVino" onsubmit="saveVino(event)">
+                        <h3>${allBodegas ? 'Agregar/Editar Vino' : 'Agregar Nuevo Vino'}</h3>
+                        <form id="formVino" onsubmit="saveVino(event, ${allBodegas})">
                             <input type="hidden" id="vinoId">
                             <div class="form-group">
                                 <label>Nombre</label>
                                 <input type="text" id="vinoNombre" required>
                             </div>
-                            <div class="form-group">
-                                <label>Bodega</label>
-                                <select id="vinoBodega" required></select>
-                            </div>
+                            ${allBodegas ? `
+                                <div class="form-group">
+                                    <label>Bodega</label>
+                                    <select id="vinoBodega" required>
+                                        ${bodegas.map(b => `<option value="${b.nombre}">${b.nombre}</option>`).join('')}
+                                    </select>
+                                </div>
+                            ` : `
+                                <input type="hidden" id="vinoBodega" value="${currentUser.name}">
+                                <div class="form-group">
+                                    <label>Bodega</label>
+                                    <input type="text" value="${currentUser.name}" disabled>
+                                </div>
+                            `}
                             <div class="form-group">
                                 <label>Tipo</label>
                                 <select id="vinoTipo" required>
@@ -1132,67 +1816,61 @@
                                 <input type="number" id="vinoPrecio" required>
                             </div>
                             <div class="form-group">
-                                <label>Precio Anterior (opcional)</label>
-                                <input type="number" id="vinoPrecioOld">
-                            </div>
-                            <div class="form-group">
                                 <label>Stock Disponible</label>
                                 <input type="number" id="vinoStock" required min="0">
                             </div>
                             <div class="form-group">
                                 <label>Notas de Cata</label>
-                                <textarea id="vinoNotasCata" rows="3" placeholder="Descripción del aroma, sabor y final..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Maridajes Sugeridos</label>
-                                <input type="text" id="vinoMaridajes" placeholder="Carnes rojas, pastas, quesos...">
-                            </div>
-                            <div class="form-group">
-                                <label>Altura del Viñedo</label>
-                                <input type="text" id="vinoAltura" placeholder="Ej: 800 msnm">
-                            </div>
-                            <div class="form-group">
-                                <label>Potencial de Guarda</label>
-                                <input type="text" id="vinoGuarda" placeholder="Ej: 5 años">
-                            </div>
-                            <div class="form-group">
-                                <label>Información del Suelo</label>
-                                <textarea id="vinoSuelo" rows="2" placeholder="Tipo de suelo, características..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>URL de la Imagen</label>
-                                <input type="url" id="vinoImagen" placeholder="https://...">
-                            </div>
-                            <div class="form-group">
-                                <label>Badge (opcional)</label>
-                                <input type="text" id="vinoBadge" placeholder="Oferta, Nuevo, etc">
+                                <textarea id="vinoNotasCata" rows="3"></textarea>
                             </div>
                             <button type="submit" class="btn-success" style="width: 100%;">Guardar Vino</button>
-                            <button type="button" class="btn-secondary" style="width: 100%; margin-top: 0.5rem;" onclick="resetVinoForm()">Cancelar</button>
                         </form>
                     </div>
                     <div class="admin-list">
-                        <h3>Vinos en Catálogo</h3>
-                        <div id="listaVinos"></div>
+                        <h3>${allBodegas ? 'Todos los Vinos' : 'Mis Vinos'}</h3>
+                        <div id="listaVinos">
+                            ${filteredProducts.map(p => `
+                                <div class="admin-item">
+                                    <div class="admin-item-info">
+                                        <h4>${p.name} ${p.stock === 0 ? '<span style="color: var(--rojo);">(AGOTADO)</span>' : ''}</h4>
+                                        <p>${p.bodega} | ${p.type} | $${p.price} | Stock: ${p.stock}</p>
+                                    </div>
+                                    <div class="admin-item-actions">
+                                        <button class="btn-small btn-edit" onclick="editVino(${p.id}, ${allBodegas})">Editar</button>
+                                        ${allBodegas || p.bodega === currentUser.name ? `
+                                            <button class="btn-small btn-delete" onclick="deleteVino(${p.id})">Eliminar</button>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 </div>
-            </div>
+            `;
+        }
 
-            <!-- SECCIÓN RECORRIDOS -->
-            <div id="admin-recorridos" class="admin-section">
+        function renderAdminRecorridos(container, allBodegas) {
+            const filteredRecorridos = allBodegas ? recorridos : recorridos.filter(r => r.bodega === currentUser.name);
+            
+            container.innerHTML = `
                 <div class="admin-grid">
                     <div class="admin-form">
-                        <h3>Agregar/Editar Recorrido</h3>
-                        <form id="formRecorrido" onsubmit="saveRecorrido(event)">
-                            <input type="hidden" id="recorridoId">
+                        <h3>Agregar Recorrido</h3>
+                        <form id="formRecorrido" onsubmit="saveRecorrido(event, ${allBodegas})">
                             <div class="form-group">
                                 <label>Nombre</label>
                                 <input type="text" id="recorridoNombre" required>
                             </div>
-                            <div class="form-group">
-                                <label>Bodega</label>
-                                <select id="recorridoBodega" required></select>
-                            </div>
+                            ${allBodegas ? `
+                                <div class="form-group">
+                                    <label>Bodega</label>
+                                    <select id="recorridoBodega" required>
+                                        ${bodegas.map(b => `<option value="${b.nombre}">${b.nombre}</option>`).join('')}
+                                    </select>
+                                </div>
+                            ` : `
+                                <input type="hidden" id="recorridoBodega" value="${currentUser.name}">
+                            `}
                             <div class="form-group">
                                 <label>Precio</label>
                                 <input type="number" id="recorridoPrecio" required>
@@ -1202,47 +1880,75 @@
                                 <input type="text" id="recorridoDuracion" placeholder="Ej: 2 horas" required>
                             </div>
                             <div class="form-group">
-                                <label>Capacidad Máxima (personas)</label>
+                                <label>Capacidad Máxima</label>
                                 <input type="number" id="recorridoCapacidad" required min="1">
                             </div>
                             <div class="form-group">
                                 <label>Características (una por línea)</label>
-                                <textarea id="recorridoFeatures" rows="5" placeholder="Recorrido por viñedos&#10;Degustación de 3 vinos&#10;..." required></textarea>
+                                <textarea id="recorridoFeatures" rows="5" required></textarea>
                             </div>
                             <button type="submit" class="btn-success" style="width: 100%;">Guardar Recorrido</button>
-                            <button type="button" class="btn-secondary" style="width: 100%; margin-top: 0.5rem;" onclick="resetRecorridoForm()">Cancelar</button>
                         </form>
                     </div>
                     <div class="admin-list">
-                        <h3>Recorridos Disponibles</h3>
-                        <div id="listaRecorridos"></div>
+                        <h3>${allBodegas ? 'Todos los Recorridos' : 'Mis Recorridos'}</h3>
+                        ${filteredRecorridos.map(r => `
+                            <div class="admin-item">
+                                <div class="admin-item-info">
+                                    <h4>${r.nombre}</h4>
+                                    <p>${r.bodega} | $${r.precio} | ${r.duracion}</p>
+                                </div>
+                                <div class="admin-item-actions">
+                                    <button class="btn-small btn-edit" onclick="editRecorrido(${r.id})">Editar</button>
+                                    <button class="btn-small btn-delete" onclick="deleteRecorrido(${r.id})">Eliminar</button>
+                                </div>
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
-            </div>
+            `;
+        }
 
-            <!-- SECCIÓN PEDIDOS -->
-            <div id="admin-pedidos" class="admin-section">
+        function renderAdminPedidos(container, allBodegas) {
+            const filteredPedidos = allBodegas ? pedidos : pedidos.filter(p => 
+                p.items.some(i => i.bodega === currentUser.name)
+            );
+            
+            container.innerHTML = `
                 <div class="admin-list" style="max-width: 100%;">
-                    <h3>Gestión de Pedidos</h3>
-                    <div id="listaPedidos">
-                        <p style="color: #666; text-align: center; padding: 2rem;">No hay pedidos pendientes</p>
-                    </div>
+                    <h3>${allBodegas ? 'Todos los Pedidos' : 'Mis Pedidos'}</h3>
+                    ${filteredPedidos.length === 0 ? 
+                        '<p style="color: #666; text-align: center; padding: 2rem;">No hay pedidos</p>' :
+                        filteredPedidos.map(p => `
+                            <div class="admin-item">
+                                <div class="admin-item-info">
+                                    <h4>Pedido #${p.id}</h4>
+                                    <p>Cliente: ${p.cliente} | Fecha: ${p.fecha}</p>
+                                    <p>Items: ${p.items.map(i => i.name).join(', ')}</p>
+                                    <p>Total: $${p.total}</p>
+                                </div>
+                                <div class="admin-item-actions">
+                                    <span class="order-status status-${p.estado}">${p.estado}</span>
+                                </div>
+                            </div>
+                        `).join('')
+                    }
                 </div>
-            </div>
+            `;
+        }
 
-            <!-- SECCIÓN CUPONES -->
-            <div id="admin-cupones" class="admin-section">
+        function renderAdminCupones(container) {
+            container.innerHTML = `
                 <div class="admin-grid">
                     <div class="admin-form">
-                        <h3>Crear Cupón de Descuento</h3>
+                        <h3>Crear Cupón</h3>
                         <form id="formCupon" onsubmit="saveCupon(event)">
-                            <input type="hidden" id="cuponId">
                             <div class="form-group">
                                 <label>Código</label>
                                 <input type="text" id="cuponCodigo" required placeholder="VERANO20">
                             </div>
                             <div class="form-group">
-                                <label>Tipo de Descuento</label>
+                                <label>Tipo</label>
                                 <select id="cuponTipo" required>
                                     <option value="porcentaje">Porcentaje (%)</option>
                                     <option value="fijo">Monto Fijo ($)</option>
@@ -1250,49 +1956,283 @@
                             </div>
                             <div class="form-group">
                                 <label>Valor</label>
-                                <input type="number" id="cuponValor" required placeholder="20">
+                                <input type="number" id="cuponValor" required>
                             </div>
                             <div class="form-group">
-                                <label>Fecha de Expiración</label>
+                                <label>Expiración</label>
                                 <input type="date" id="cuponExpiracion" required>
                             </div>
-                            <div class="form-group">
-                                <label>Usos Máximos</label>
-                                <input type="number" id="cuponUsos" placeholder="Dejar vacío para ilimitado">
-                            </div>
                             <button type="submit" class="btn-success" style="width: 100%;">Crear Cupón</button>
-                            <button type="button" class="btn-secondary" style="width: 100%; margin-top: 0.5rem;" onclick="resetCuponForm()">Cancelar</button>
                         </form>
                     </div>
                     <div class="admin-list">
                         <h3>Cupones Activos</h3>
-                        <div id="listaCupones"></div>
+                        ${cupones.map(c => `
+                            <div class="admin-item">
+                                <div class="admin-item-info">
+                                    <h4>${c.codigo}</h4>
+                                    <p>${c.tipo === 'porcentaje' ? c.valor + '%' : '$' + c.valor} de descuento</p>
+                                </div>
+                                <div class="admin-item-actions">
+                                    <button class="btn-small btn-delete" onclick="deleteCupon(${c.id})">Eliminar</button>
+                                </div>
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
-            </div>
+            `;
+        }
 
-            <!-- SECCIÓN MAPA -->
-            <div id="admin-mapa" class="admin-section">
+        function renderAdminUsuarios(container) {
+            const pendingBodegas = users.filter(u => u.role === 'bodega' && !u.active);
+            
+            container.innerHTML = `
+                <div class="admin-list" style="max-width: 100%;">
+                    <h3>Bodegas Pendientes de Aprobación</h3>
+                    ${pendingBodegas.length === 0 ? 
+                        '<p style="color: #666; text-align: center; padding: 2rem;">No hay bodegas pendientes</p>' :
+                        pendingBodegas.map(u => `
+                            <div class="admin-item">
+                                <div class="admin-item-info">
+                                    <h4>${u.name}</h4>
+                                    <p>${u.email} | ${u.phone}</p>
+                                    ${u.bodegaData ? `
+                                        <p>Fundada: ${u.bodegaData.year} | ${u.bodegaData.address}</p>
+                                        <p>${u.bodegaData.description}</p>
+                                    ` : ''}
+                                </div>
+                                <div class="admin-item-actions">
+                                    <button class="btn-small btn-success" onclick="approveBodega('${u.id}')">Aprobar</button>
+                                    <button class="btn-small btn-delete" onclick="rejectBodega('${u.id}')">Rechazar</button>
+                                </div>
+                            </div>
+                        `).join('')
+                    }
+                </div>
+            `;
+        }
+
+        function renderAdminMapa(container) {
+            container.innerHTML = `
                 <div class="admin-form" style="max-width: 800px; margin: 0 auto;">
                     <h3>Configurar Google Maps</h3>
-                    <p style="color: #888; margin-bottom: 1.5rem;">Pegá el código de embed de Google Maps (iframe) o la URL para mostrar el mapa en la página de Rutas.</p>
                     <div class="form-group">
-                        <label>Código Embed de Google Maps</label>
-                        <textarea id="mapEmbedCode" rows="6" placeholder='<iframe src="https://www.google.com/maps/embed?..." width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>'></textarea>
-                        <small style="color: #666; display: block; margin-top: 0.3rem;">Para obtenerlo: Google Maps → Compartir → Insertar un mapa → Copiar HTML</small>
+                        <label>Código Embed</label>
+                        <textarea id="mapEmbedCode" rows="6" placeholder='<iframe src="..."'></textarea>
                     </div>
-                    <button onclick="saveMapConfig()" class="btn-success" style="width: 100%; margin-bottom: 1rem;">Guardar Mapa</button>
-                    <div class="form-group">
-                        <label>Vista Previa:</label>
-                        <div id="mapPreview" style="background: var(--negro); border: 1px solid var(--gris-medio); min-height: 300px; display: flex; align-items: center; justify-content: center; color: #666;">No hay mapa configurado aún</div>
-                    </div>
+                    <button onclick="saveMapConfig()" class="btn-success" style="width: 100%;">Guardar</button>
                 </div>
-            </div>
-        </div>
-    </div>
+            `;
+        }
 
-    <script>
-        // DATOS INICIALES MEJORADOS
+        // ==========================================
+        // FUNCIONES DE GUARDADO (CRUD)
+        // ==========================================
+
+        function saveBodega(e) {
+            e.preventDefault();
+            const id = document.getElementById('bodegaId').value;
+            const bodega = {
+                id: id ? parseInt(id) : Date.now(),
+                nombre: document.getElementById('bodegaNombre').value,
+                fundador: document.getElementById('bodegaFundador').value,
+                anio: parseInt(document.getElementById('bodegaAnio').value),
+                ubicacion: document.getElementById('bodegaUbicacion').value,
+                descripcion: document.getElementById('bodegaDescripcion').value,
+                especialidades: document.getElementById('bodegaEspecialidades').value.split(',').map(s => s.trim()),
+                imagen: document.getElementById('bodegaImagen').value || ''
+            };
+
+            if (id) {
+                const index = bodegas.findIndex(b => b.id === parseInt(id));
+                bodegas[index] = bodega;
+            } else {
+                bodegas.push(bodega);
+            }
+
+            localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
+            alert('Bodega guardada');
+            showAdminSection('bodegas');
+            renderBodegas();
+        }
+
+        function saveVino(e, allBodegas) {
+            e.preventDefault();
+            const id = document.getElementById('vinoId').value;
+            const vino = {
+                id: id ? parseInt(id) : Date.now(),
+                name: document.getElementById('vinoNombre').value,
+                bodega: document.getElementById('vinoBodega').value,
+                type: document.getElementById('vinoTipo').value,
+                cosecha: parseInt(document.getElementById('vinoCosecha').value),
+                price: parseInt(document.getElementById('vinoPrecio').value),
+                stock: parseInt(document.getElementById('vinoStock').value) || 0,
+                notasCata: document.getElementById('vinoNotasCata').value,
+                rating: 4.5,
+                reviews: 0
+            };
+
+            if (id) {
+                const index = products.findIndex(p => p.id === parseInt(id));
+                products[index] = vino;
+            } else {
+                products.push(vino);
+            }
+
+            localStorage.setItem('cb_vinos', JSON.stringify(products));
+            alert('Vino guardado');
+            showAdminSection(allBodegas ? 'vinos' : 'mis-vinos');
+            renderProducts();
+        }
+
+        function saveRecorrido(e, allBodegas) {
+            e.preventDefault();
+            const recorrido = {
+                id: Date.now(),
+                nombre: document.getElementById('recorridoNombre').value,
+                bodega: document.getElementById('recorridoBodega').value,
+                precio: parseInt(document.getElementById('recorridoPrecio').value),
+                duracion: document.getElementById('recorridoDuracion').value,
+                capacidad: parseInt(document.getElementById('recorridoCapacidad').value),
+                features: document.getElementById('recorridoFeatures').value.split('\n').filter(f => f.trim())
+            };
+
+            recorridos.push(recorrido);
+            localStorage.setItem('cb_recorridos', JSON.stringify(recorridos));
+            alert('Recorrido guardado');
+            showAdminSection(allBodegas ? 'recorridos' : 'mis-recorridos');
+            renderRecorridos();
+        }
+
+        function saveCupon(e) {
+            e.preventDefault();
+            const cupon = {
+                id: Date.now(),
+                codigo: document.getElementById('cuponCodigo').value.toUpperCase(),
+                tipo: document.getElementById('cuponTipo').value,
+                valor: parseInt(document.getElementById('cuponValor').value),
+                expiracion: document.getElementById('cuponExpiracion').value
+            };
+            cupones.push(cupon);
+            localStorage.setItem('cb_cupones', JSON.stringify(cupones));
+            alert('Cupón creado');
+            showAdminSection('cupones');
+        }
+
+        function approveBodega(userId) {
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                user.active = true;
+                localStorage.setItem('cb_users', JSON.stringify(users));
+                
+                // Crear entrada en bodegas
+                const newBodega = {
+                    id: Date.now(),
+                    nombre: user.name,
+                    fundador: user.name,
+                    anio: user.bodegaData?.year || new Date().getFullYear(),
+                    ubicacion: user.bodegaData?.address || 'San Rafael',
+                    descripcion: user.bodegaData?.description || 'Bodega asociada',
+                    especialidades: ['Vinos de autor'],
+                    imagen: ''
+                };
+                bodegas.push(newBodega);
+                localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
+                
+                alert('Bodega aprobada y creada');
+                showAdminSection('usuarios');
+            }
+        }
+
+        function rejectBodega(userId) {
+            if (confirm('¿Eliminar esta solicitud?')) {
+                users = users.filter(u => u.id !== userId);
+                localStorage.setItem('cb_users', JSON.stringify(users));
+                showAdminSection('usuarios');
+            }
+        }
+
+        // ==========================================
+        // FUNCIONES DE EDICIÓN Y ELIMINACIÓN
+        // ==========================================
+
+        function editBodega(id) {
+            const b = bodegas.find(x => x.id === id);
+            document.getElementById('bodegaId').value = b.id;
+            document.getElementById('bodegaNombre').value = b.nombre;
+            document.getElementById('bodegaFundador').value = b.fundador;
+            document.getElementById('bodegaAnio').value = b.anio;
+            document.getElementById('bodegaUbicacion').value = b.ubicacion;
+            document.getElementById('bodegaDescripcion').value = b.descripcion;
+            document.getElementById('bodegaEspecialidades').value = b.especialidades.join(', ');
+            document.getElementById('bodegaImagen').value = b.imagen || '';
+        }
+
+        function deleteBodega(id) {
+            if (!confirm('¿Eliminar esta bodega?')) return;
+            bodegas = bodegas.filter(b => b.id !== id);
+            localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
+            showAdminSection('bodegas');
+            renderBodegas();
+        }
+
+        function editVino(id, allBodegas) {
+            const p = products.find(x => x.id === id);
+            document.getElementById('vinoId').value = p.id;
+            document.getElementById('vinoNombre').value = p.name;
+            document.getElementById('vinoBodega').value = p.bodega;
+            document.getElementById('vinoTipo').value = p.type;
+            document.getElementById('vinoCosecha').value = p.cosecha;
+            document.getElementById('vinoPrecio').value = p.price;
+            document.getElementById('vinoStock').value = p.stock;
+            document.getElementById('vinoNotasCata').value = p.notasCata || '';
+        }
+
+        function deleteVino(id) {
+            if (!confirm('¿Eliminar este vino?')) return;
+            products = products.filter(p => p.id !== id);
+            localStorage.setItem('cb_vinos', JSON.stringify(products));
+            renderProducts();
+            showAdminSection(currentUser.role === 'superadmin' ? 'vinos' : 'mis-vinos');
+        }
+
+        function editRecorrido(id) {
+            const r = recorridos.find(x => x.id === id);
+            document.getElementById('recorridoNombre').value = r.nombre;
+            document.getElementById('recorridoBodega').value = r.bodega;
+            document.getElementById('recorridoPrecio').value = r.precio;
+            document.getElementById('recorridoDuracion').value = r.duracion;
+            document.getElementById('recorridoCapacidad').value = r.capacidad;
+            document.getElementById('recorridoFeatures').value = r.features.join('\n');
+        }
+
+        function deleteRecorrido(id) {
+            if (!confirm('¿Eliminar este recorrido?')) return;
+            recorridos = recorridos.filter(r => r.id !== id);
+            localStorage.setItem('cb_recorridos', JSON.stringify(recorridos));
+            renderRecorridos();
+            showAdminSection(currentUser.role === 'superadmin' ? 'recorridos' : 'mis-recorridos');
+        }
+
+        function deleteCupon(id) {
+            if (!confirm('¿Eliminar este cupón?')) return;
+            cupones = cupones.filter(c => c.id !== id);
+            localStorage.setItem('cb_cupones', JSON.stringify(cupones));
+            showAdminSection('cupones');
+        }
+
+        function saveMapConfig() {
+            const code = document.getElementById('mapEmbedCode').value;
+            mapConfig = { embedCode: code };
+            localStorage.setItem('cb_map', JSON.stringify(mapConfig));
+            alert('Mapa guardado');
+            renderMap();
+        }
+
+        // ==========================================
+        // DATOS Y RENDERIZADO PÚBLICO
+        // ==========================================
+
         const defaultBodegas = [
             {
                 id: 1,
@@ -1300,12 +2240,9 @@
                 fundador: "Familia Roldán",
                 anio: 1985,
                 ubicacion: "Valle Grande, San Rafael",
-                descripcion: "Ubicada en el corazón del valle de San Rafael, esta bodega familiar lleva tres generaciones cultivando Malbec de altura a 800 metros sobre el nivel del mar.",
+                descripcion: "Ubicada en el corazón del valle de San Rafael, esta bodega familiar lleva tres generaciones cultivando Malbec de altura.",
                 especialidades: ["Malbec Reserva", "Cabernet Franc", "Blend Premium"],
-                imagen: "https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg",
-                video: "",
-                instagram: "@bodegaamanecer",
-                facebook: "bodegaamanecer"
+                imagen: "https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg"
             },
             {
                 id: 2,
@@ -1313,141 +2250,25 @@
                 fundador: "Marta y Carlos Díaz",
                 anio: 1992,
                 ubicacion: "Cuadro Benegas, San Rafael",
-                descripcion: "Especialistas en vinos blancos y espumantes, esta bodega aprovecha los suelos calcáreos de la zona para crear Chardonnays de excelencia internacional.",
+                descripcion: "Especialistas en vinos blancos y espumantes, esta bodega aprovecha los suelos calcáreos de la zona.",
                 especialidades: ["Chardonnay", "Espumante Brut", "Sauvignon Blanc"],
-                imagen: "https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg",
-                video: "",
-                instagram: "@vinedosdelsol",
-                facebook: "vinedosdelsol"
-            },
-            {
-                id: 3,
-                nombre: "Bodega Monte Viejo",
-                fundador: "Inmigrantes italianos",
-                anio: 1978,
-                ubicacion: "Cañada Honda, San Rafael",
-                descripcion: "Con más de 45 años de historia, es una de las bodegas más tradicionales de la región. Famosos por sus tintos de guarda.",
-                especialidades: ["Gran Reserva", "Tannat", "Syrah Roble"],
-                imagen: "https://kimi-web-img.moonshot.cn/img/elements-resized.envatousercontent.com/2621656f2d618098f96b0c9dcbf1174e4717c311.jpg",
-                video: "",
-                instagram: "@bodegamonteviejo",
-                facebook: "bodegamonteviejo"
+                imagen: "https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg"
             }
         ];
 
-        const defaultProducts = [
-            { 
-                id: 1, 
-                name: 'Malbec Reserva', 
-                bodega: 'Bodega Amanecer', 
-                type: 'tinto', 
-                price: 4500, 
-                oldPrice: 5200, 
-                imagen: '', 
-                badge: 'Oferta',
-                cosecha: 2020,
-                stock: 50,
-                notasCata: "Color rojo intenso con matices violáceos. Aroma a frutos rojos maduros, ciruela y notas de vainilla. En boca es estructurado con taninos suaves y un final persistente.",
-                maridajes: "Carnes rojas a la parrilla, estofados de cordero, quesos curados.",
-                altura: "800 msnm",
-                guarda: "5-7 años",
-                suelo: "Suelo aluvial con buen drenaje",
-                rating: 4.8,
-                reviews: 12
-            },
-            { 
-                id: 2, 
-                name: 'Chardonnay Premium', 
-                bodega: 'Viñedos del Sol', 
-                type: 'blanco', 
-                price: 3800, 
-                oldPrice: null, 
-                imagen: '', 
-                badge: null,
-                cosecha: 2022,
-                stock: 35,
-                notasCata: "Amarillo pajizo con reflejos verdosos. Aromas de manzana verde, pera y notas cítricas con un toque de roble. Fresco y equilibrado.",
-                maridajes: "Pescados, mariscos, pastas con salsa blanca.",
-                altura: "750 msnm",
-                guarda: "2-3 años",
-                suelo: "Suelo calcáreo",
-                rating: 4.5,
-                reviews: 8
-            },
-            { 
-                id: 3, 
-                name: 'Gran Reserva', 
-                bodega: 'Bodega Monte Viejo', 
-                type: 'tinto', 
-                price: 8900, 
-                oldPrice: null, 
-                imagen: '', 
-                badge: null,
-                cosecha: 2018,
-                stock: 20,
-                notasCata: "Rojo rubí profundo. Complejo aroma a frutos negros, tabaco y chocolate. En boca es potente, con taninos maduros y un final elegante.",
-                maridajes: "Carnes de caza, cordero patagónico, quesos fuertes.",
-                altura: "850 msnm",
-                guarda: "8-10 años",
-                suelo: "Suelo pedregoso",
-                rating: 4.9,
-                reviews: 15
-            }
-        ];
-
-        const defaultRecorridos = [
-            {
-                id: 1,
-                nombre: "Clásico Enológico",
-                bodega: "Bodega Amanecer",
-                precio: 4500,
-                duracion: "2 horas",
-                capacidad: 20,
-                features: ["Recorrido por viñedos", "Visita a sala de barricas", "Degustación de 3 vinos", "Tabla de quesos regionales"]
-            },
-            {
-                id: 2,
-                nombre: "Experiencia Premium",
-                bodega: "Viñedos del Sol",
-                precio: 8900,
-                duracion: "4 horas",
-                capacidad: 12,
-                features: ["Recorrido privado VIP", "Cata guiada por enólogo", "5 vinos de alta gama", "Almuerzo maridado 3 pasos", "Botella de regalo"]
-            }
-        ];
-
-        const defaultReviews = [
-            { id: 1, productId: 1, user: "Juan Pérez", rating: 5, date: "2026-03-10", text: "Excelente vino, superó mis expectativas. Ideal para una cena especial." },
-            { id: 2, productId: 1, user: "María González", rating: 4, date: "2026-03-08", text: "Muy buen cuerpo y sabor. Lo recomiendo." },
-            { id: 3, productId: 2, user: "Carlos López", rating: 5, date: "2026-03-05", text: "Fresco y perfecto para el verano." }
-        ];
-
-        const defaultCupones = [];
-        const defaultPedidos = [];
-        const defaultStats = { views: 0, clicks: 0, sales: 0, reservations: 0, revenue: 0 };
-
-        // INICIALIZACIÓN
         let bodegas = JSON.parse(localStorage.getItem('cb_bodegas')) || defaultBodegas;
-        let products = JSON.parse(localStorage.getItem('cb_vinos')) || defaultProducts;
-        let recorridos = JSON.parse(localStorage.getItem('cb_recorridos')) || defaultRecorridos;
-        let reviews = JSON.parse(localStorage.getItem('cb_reviews')) || defaultReviews;
-        let cupones = JSON.parse(localStorage.getItem('cb_cupones')) || defaultCupones;
-        let pedidos = JSON.parse(localStorage.getItem('cb_pedidos')) || defaultPedidos;
-        let stats = JSON.parse(localStorage.getItem('cb_stats')) || defaultStats;
+        let products = JSON.parse(localStorage.getItem('cb_vinos')) || [
+            { id: 1, name: 'Malbec Reserva', bodega: 'Bodega Amanecer', type: 'tinto', price: 4500, cosecha: 2020, stock: 50, notasCata: "Color rojo intenso...", rating: 4.8, reviews: 12 },
+            { id: 2, name: 'Chardonnay Premium', bodega: 'Viñedos del Sol', type: 'blanco', price: 3800, cosecha: 2022, stock: 35, notasCata: "Amarillo pajizo...", rating: 4.5, reviews: 8 }
+        ];
+        let recorridos = JSON.parse(localStorage.getItem('cb_recorridos')) || [];
+        let cupones = JSON.parse(localStorage.getItem('cb_cupones')) || [];
+        let pedidos = JSON.parse(localStorage.getItem('cb_pedidos')) || [];
         let mapConfig = JSON.parse(localStorage.getItem('cb_map')) || { embedCode: '' };
-        let currentUser = JSON.parse(localStorage.getItem('cb_user')) || null;
-        let favorites = JSON.parse(localStorage.getItem('cb_favorites')) || [];
 
-        let cart = [];
-        let currentFilter = 'all';
-        let currentProduct = null;
-        let currentRating = 0;
-
-        // RENDERIZADO PÚBLICO
         function renderBodegas() {
             const grid = document.getElementById('bodegasGrid');
             if (!grid) return;
-
             grid.innerHTML = bodegas.map(b => `
                 <div class="bodega-card">
                     <div class="bodega-image-container">
@@ -1460,17 +2281,8 @@
                         <h3 class="bodega-name">${b.nombre}</h3>
                         <span class="bodega-founder">Fundada por ${b.fundador}</span>
                         <p class="bodega-description">${b.descripcion}</p>
-                        <div class="bodega-specialties">
-                            <span class="specialties-title">Especialidades</span>
-                            <div class="specialties-tags">
-                                ${b.especialidades.map(e => `<span class="specialty-tag">${e}</span>`).join('')}
-                            </div>
-                        </div>
                         <div class="bodega-footer">
-                            <span class="bodega-location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                ${b.ubicacion}
-                            </span>
+                            <span class="bodega-location"><i class="fas fa-map-marker-alt"></i> ${b.ubicacion}</span>
                             <button class="btn-bodega" onclick="filterByBodega('${b.nombre}')">Ver Vinos</button>
                         </div>
                     </div>
@@ -1481,70 +2293,32 @@
         function renderProducts(filter = 'all') {
             const grid = document.getElementById('productsGrid');
             if (!grid) return;
-
+            
             let filtered = filter === 'all' ? products : 
                           filter === 'oferta' ? products.filter(p => p.oldPrice) :
                           products.filter(p => p.type === filter);
-
-            // Aplicar búsqueda avanzada
+            
             const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
-            const searchBodega = document.getElementById('searchBodega')?.value || '';
-            const searchYear = document.getElementById('searchYear')?.value || '';
-            const searchPrice = document.getElementById('searchPriceRange')?.value || '';
-            const searchSort = document.getElementById('searchSort')?.value || '';
-
-            if (searchTerm) {
-                filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm));
-            }
-            if (searchBodega) {
-                filtered = filtered.filter(p => p.bodega === searchBodega);
-            }
-            if (searchYear) {
-                filtered = filtered.filter(p => p.cosecha === parseInt(searchYear));
-            }
-            if (searchPrice) {
-                if (searchPrice === '0-3000') filtered = filtered.filter(p => p.price <= 3000);
-                else if (searchPrice === '3000-6000') filtered = filtered.filter(p => p.price > 3000 && p.price <= 6000);
-                else if (searchPrice === '6000+') filtered = filtered.filter(p => p.price > 6000);
-            }
-
-            // Ordenamiento
-            if (searchSort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
-            else if (searchSort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
-            else if (searchSort === 'rating') filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-            else if (searchSort === 'newest') filtered.sort((a, b) => (b.cosecha || 0) - (a.cosecha || 0));
-
-            if (filtered.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666; padding: 2rem;">No se encontraron vinos con los filtros seleccionados</p>';
-                return;
-            }
-
-            grid.innerHTML = filtered.map(product => `
+            if (searchTerm) filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm));
+            
+            grid.innerHTML = filtered.map(p => `
                 <div class="product-card">
-                    ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                    <div class="product-image" onclick="openProductModal(${product.id})">
-                        ${product.imagen ? `<img src="${product.imagen}" alt="${product.name}">` : '<i class="fas fa-wine-bottle"></i>'}
+                    ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+                    <div class="product-image" onclick="openProductModal(${p.id})">
+                        ${p.imagen ? `<img src="${p.imagen}" alt="${p.name}">` : '<i class="fas fa-wine-bottle"></i>'}
                         <div class="product-overlay">
-                            <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${product.price})">
+                            <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${p.id}, '${p.name}', ${p.price})">
                                 Agregar al Carrito
                             </button>
                         </div>
                     </div>
                     <div class="product-info">
-                        <div class="product-bodega">${product.bodega}</div>
-                        <h3 class="product-name" onclick="openProductModal(${product.id})" style="cursor: pointer;">${product.name}</h3>
-                        <div class="product-details">
-                            <span><i class="fas fa-wine-bottle"></i> ${product.type}</span>
-                            <span><i class="fas fa-calendar"></i> ${product.cosecha || 'N/A'}</span>
-                        </div>
+                        <div class="product-bodega">${p.bodega}</div>
+                        <h3 class="product-name">${p.name}</h3>
                         <div class="product-price">
-                            <div>
-                                ${product.oldPrice ? `<span class="price-original">$${product.oldPrice}</span>` : ''}
-                                <span class="price">$${product.price}</span>
-                            </div>
+                            <span class="price">$${p.price}</span>
                             <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <span>${product.rating || '4.5'}</span>
+                                <i class="fas fa-star"></i> ${p.rating}
                             </div>
                         </div>
                     </div>
@@ -1555,23 +2329,20 @@
         function renderRecorridos() {
             const grid = document.getElementById('toursGrid');
             if (!grid) return;
-
-            grid.innerHTML = recorridos.map(t => `
+            grid.innerHTML = recorridos.map(r => `
                 <div class="tour-card">
                     <div class="tour-header">
-                        <div class="tour-price-tag">$${t.precio}</div>
-                        <h3>${t.nombre}</h3>
-                        <p>${t.bodega}</p>
+                        <div class="tour-price-tag">$${r.precio}</div>
+                        <h3>${r.nombre}</h3>
+                        <p>${r.bodega}</p>
                     </div>
                     <div class="tour-body">
                         <ul class="tour-features">
-                            ${t.features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}
-                            <li><i class="fas fa-clock"></i> Duración: ${t.duracion}</li>
-                            <li><i class="fas fa-users"></i> Capacidad: ${t.capacidad} personas</li>
+                            ${r.features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}
                         </ul>
                     </div>
                     <div class="tour-footer">
-                        <button class="btn-reserve" onclick="addToCart('tour_${t.id}', '${t.nombre} - ${t.bodega}', ${t.precio})">Reservar Ahora</button>
+                        <button class="btn-reserve" onclick="addToCart('tour_${r.id}', '${r.nombre}', ${r.precio})">Reservar</button>
                     </div>
                 </div>
             `).join('');
@@ -1580,256 +2351,54 @@
         function renderMap() {
             const container = document.getElementById('mapContainer');
             if (!container) return;
-
-            if (mapConfig.embedCode) {
-                container.innerHTML = mapConfig.embedCode;
-            } else {
-                container.innerHTML = `
-                    <div style="padding: 4rem; text-align: center; color: #666;">
-                        <i class="fas fa-map-marked-alt" style="font-size: 4rem; color: var(--dorado); margin-bottom: 1rem;"></i>
-                        <h3>Mapa no configurado</h3>
-                        <p>El administrador debe configurar el mapa desde el panel de administración.</p>
-                    </div>
-                `;
-            }
+            container.innerHTML = mapConfig.embedCode || '<div style="padding: 4rem; text-align: center; color: #666;">Mapa no configurado</div>';
         }
 
         function updateSearchOptions() {
             const bodegaSelect = document.getElementById('searchBodega');
-            const yearSelect = document.getElementById('searchYear');
-            if (!bodegaSelect || !yearSelect) return;
-
-            // Actualizar bodegas
-            const currentBodega = bodegaSelect.value;
+            if (!bodegaSelect) return;
             bodegaSelect.innerHTML = '<option value="">Todas las bodegas</option>' + 
                 bodegas.map(b => `<option value="${b.nombre}">${b.nombre}</option>`).join('');
-            bodegaSelect.value = currentBodega;
-
-            // Actualizar años
-            const years = [...new Set(products.map(p => p.cosecha).filter(y => y))].sort((a, b) => b - a);
-            const currentYear = yearSelect.value;
-            yearSelect.innerHTML = '<option value="">Todas las cosechas</option>' + 
-                years.map(y => `<option value="${y}">${y}</option>`).join('');
-            yearSelect.value = currentYear;
         }
 
-        function searchProducts() {
-            renderProducts(currentFilter);
-        }
+        // ==========================================
+        // CARRITO Y FUNCIONALIDADES
+        // ==========================================
 
-        // MODAL FICHA DE PRODUCTO
-        function openProductModal(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
+        let cart = [];
 
-            currentProduct = product;
-
-            document.getElementById('modalBodega').textContent = product.bodega;
-            document.getElementById('modalTitle').textContent = product.name;
-            document.getElementById('modalYear').textContent = product.cosecha || 'NV';
-            document.getElementById('modalPrice').textContent = '$' + product.price;
-            document.getElementById('modalType').textContent = product.type.charAt(0).toUpperCase() + product.type.slice(1);
-            document.getElementById('modalHarvest').textContent = product.cosecha || 'No vintage';
-            document.getElementById('modalAltitude').textContent = product.altura || 'No especificado';
-            document.getElementById('modalAging').textContent = product.guarda || 'No especificado';
-            document.getElementById('modalTastingNotes').textContent = product.notasCata || 'Notas de cata no disponibles';
-            document.getElementById('modalPairings').textContent = product.maridajes || 'Maridajes no especificados';
-            document.getElementById('modalVineyard').textContent = product.suelo || 'Información del viñedo no disponible';
-
-            // Galería
-            const gallery = document.getElementById('modalGallery');
-            if (product.imagen) {
-                gallery.innerHTML = `<img src="${product.imagen}" alt="${product.name}">`;
-            } else {
-                gallery.innerHTML = '<i class="fas fa-wine-bottle"></i>';
-            }
-
-            // Botón favorito
-            const favBtn = document.getElementById('modalFavorite');
-            const isFav = favorites.includes(productId);
-            favBtn.innerHTML = `<i class="${isFav ? 'fas' : 'far'} fa-heart"></i>`;
-            favBtn.classList.toggle('active', isFav);
-
-            // Botón agregar al carrito
-            document.getElementById('modalAddToCart').onclick = () => {
-                addToCart(product.id, product.name, product.price);
-                closeProductModal();
-            };
-
-            // Rating
-            document.getElementById('modalRating').textContent = product.rating || '4.5';
-
-            // Reseñas
-            renderReviews(productId);
-
-            // Mostrar formulario de reseña si hay usuario
-            document.getElementById('reviewForm').style.display = currentUser ? 'block' : 'none';
-
-            document.getElementById('productModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeProductModal() {
-            document.getElementById('productModal').classList.remove('active');
-            document.body.style.overflow = '';
-            currentProduct = null;
-            currentRating = 0;
-            resetStarRating();
-        }
-
-        function renderReviews(productId) {
-            const productReviews = reviews.filter(r => r.productId === productId);
-            document.getElementById('reviewCount').textContent = productReviews.length;
-
-            const container = document.getElementById('reviewsList');
-            if (productReviews.length === 0) {
-                container.innerHTML = '<p style="color: #666; text-align: center; padding: 1rem;">Sé el primero en dejar una reseña</p>';
-                return;
-            }
-
-            container.innerHTML = productReviews.map(r => `
-                <div class="review-card">
-                    <div class="review-header">
-                        <span class="reviewer-name">${r.user}</span>
-                        <span class="review-date">${r.date}</span>
-                    </div>
-                    <div class="review-rating">
-                        ${Array(5).fill(0).map((_, i) => 
-                            `<i class="${i < r.rating ? 'fas' : 'far'} fa-star"></i>`
-                        ).join('')}
-                    </div>
-                    <p class="review-text">${r.text}</p>
-                </div>
-            `).join('');
-        }
-
-        // Sistema de estrellas para reseñas
-        document.addEventListener('DOMContentLoaded', () => {
-            const stars = document.querySelectorAll('#starRatingInput i');
-            stars.forEach(star => {
-                star.addEventListener('click', () => {
-                    const rating = parseInt(star.dataset.rating);
-                    currentRating = rating;
-                    updateStarRating(rating);
-                });
-            });
-        });
-
-        function updateStarRating(rating) {
-            const stars = document.querySelectorAll('#starRatingInput i');
-            stars.forEach((star, index) => {
-                if (index < rating) {
-                    star.classList.remove('far');
-                    star.classList.add('fas', 'active');
-                } else {
-                    star.classList.remove('fas', 'active');
-                    star.classList.add('far');
-                }
-            });
-        }
-
-        function resetStarRating() {
-            currentRating = 0;
-            updateStarRating(0);
-            document.getElementById('reviewText').value = '';
-        }
-
-        function submitReview() {
-            if (!currentUser) {
-                alert('Debes iniciar sesión para dejar una reseña');
-                return;
-            }
-            if (currentRating === 0) {
-                alert('Por favor selecciona una calificación');
-                return;
-            }
-
-            const text = document.getElementById('reviewText').value;
-            if (!text.trim()) {
-                alert('Por favor escribe tu reseña');
-                return;
-            }
-
-            const newReview = {
-                id: Date.now(),
-                productId: currentProduct.id,
-                user: currentUser.name,
-                rating: currentRating,
-                date: new Date().toISOString().split('T')[0],
-                text: text
-            };
-
-            reviews.push(newReview);
-            localStorage.setItem('cb_reviews', JSON.stringify(reviews));
-
-            // Actualizar rating promedio del producto
-            const productReviews = reviews.filter(r => r.productId === currentProduct.id);
-            const avgRating = productReviews.reduce((sum, r) => sum + r.rating, 0) / productReviews.length;
-            currentProduct.rating = Math.round(avgRating * 10) / 10;
-            localStorage.setItem('cb_vinos', JSON.stringify(products));
-
-            renderReviews(currentProduct.id);
-            renderProducts(currentFilter);
-            resetStarRating();
-
-            alert('¡Gracias por tu reseña!');
-        }
-
-        function toggleFavorite() {
-            if (!currentProduct) return;
-
-            const index = favorites.indexOf(currentProduct.id);
-            if (index > -1) {
-                favorites.splice(index, 1);
-            } else {
-                favorites.push(currentProduct.id);
-            }
-
-            localStorage.setItem('cb_favorites', JSON.stringify(favorites));
-
-            const favBtn = document.getElementById('modalFavorite');
-            const isFav = favorites.includes(currentProduct.id);
-            favBtn.innerHTML = `<i class="${isFav ? 'fas' : 'far'} fa-heart"></i>`;
-            favBtn.classList.toggle('active', isFav);
-        }
-
-        // CARRITO
         function addToCart(id, name, price) {
+            // Verificar mayoría de edad
+            if (!localStorage.getItem('cb_ageVerified')) {
+                alert('Debes verificar que eres mayor de edad para comprar');
+                return;
+            }
+            
             const existing = cart.find(item => item.id === id);
             if (existing) {
                 existing.quantity++;
             } else {
-                cart.push({ id, name, price, quantity: 1 });
+                cart.push({ id, name, price, quantity: 1, bodega: typeof id === 'number' ? products.find(p => p.id === id)?.bodega : '' });
             }
             updateCart();
-
-            // Registrar estadística
-            if (typeof id === 'number') {
-                stats.sales++;
-                stats.revenue += price;
-                localStorage.setItem('cb_stats', JSON.stringify(stats));
-            }
         }
 
         function updateCart() {
             const count = cart.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cartCount').textContent = count;
-
+            
             const cartItems = document.getElementById('cartItems');
             const cartTotal = document.getElementById('cartTotal');
-
+            
             if (cart.length === 0) {
                 cartItems.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Tu carrito está vacío</p>';
                 cartTotal.textContent = '$0';
                 return;
             }
-
+            
             cartItems.innerHTML = cart.map(item => `
                 <div class="cart-item">
-                    <div class="cart-item-image">
-                        <i class="fas fa-wine-bottle"></i>
-                    </div>
-                    <div class="cart-item-details">
+                    <div class="cart-item-details" style="flex: 1;">
                         <div class="cart-item-name">${item.name}</div>
                         <div style="color: #666; font-size: 0.9rem;">Cantidad: ${item.quantity}</div>
                         <div class="cart-item-price">$${item.price * item.quantity}</div>
@@ -1839,7 +2408,7 @@
                     </button>
                 </div>
             `).join('');
-
+            
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             cartTotal.textContent = '$' + total.toLocaleString();
         }
@@ -1853,552 +2422,127 @@
             document.getElementById('cartModal').classList.toggle('active');
         }
 
-        function filterWines(type) {
-            currentFilter = type;
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderProducts(type);
+        function proceedToCheckout() {
+            const ageConfirm = document.getElementById('checkoutAgeConfirm');
+            if (!ageConfirm.checked) {
+                alert('Debes confirmar que eres mayor de 18 años para proceder con la compra');
+                return;
+            }
+            
+            if (!currentUser) {
+                alert('Debes iniciar sesión para completar la compra');
+                toggleCart();
+                openAuthModal();
+                return;
+            }
+            
+            // Crear pedido
+            const pedido = {
+                id: Date.now(),
+                cliente: currentUser.name,
+                email: currentUser.email,
+                items: cart,
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                fecha: new Date().toISOString().split('T')[0],
+                estado: 'pendiente'
+            };
+            
+            pedidos.push(pedido);
+            localStorage.setItem('cb_pedidos', JSON.stringify(pedidos));
+            
+            alert('¡Pedido realizado exitosamente! Recibirás un email de confirmación.');
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+
+        // ==========================================
+        // UTILIDADES
+        // ==========================================
+
+        function openProductModal(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            
+            document.getElementById('modalBodega').textContent = p.bodega;
+            document.getElementById('modalTitle').textContent = p.name;
+            document.getElementById('modalYear').textContent = p.cosecha || 'NV';
+            document.getElementById('modalPrice').textContent = '$' + p.price;
+            document.getElementById('modalType').textContent = p.type;
+            document.getElementById('modalHarvest').textContent = p.cosecha || 'N/A';
+            document.getElementById('modalAltitude').textContent = p.altura || 'No especificado';
+            document.getElementById('modalAging').textContent = p.guarda || 'No especificado';
+            document.getElementById('modalTastingNotes').textContent = p.notasCata || 'No disponible';
+            document.getElementById('modalPairings').textContent = p.maridajes || 'No especificado';
+            document.getElementById('modalVineyard').textContent = p.suelo || 'No disponible';
+            document.getElementById('modalRating').textContent = p.rating || '4.5';
+            
+            document.getElementById('modalAddToCart').onclick = () => {
+                addToCart(p.id, p.name, p.price);
+                closeProductModal();
+            };
+            
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
         }
 
         function filterByBodega(nombre) {
             document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
             document.getElementById('searchBodega').value = nombre;
-            searchProducts();
+            renderProducts();
         }
 
-        // Wine Matcher
-        let matcherAnswers = {};
-        function selectOption(question, value) {
-            matcherAnswers['q' + question] = value;
-            document.getElementById('question' + question).style.display = 'none';
-            if (question < 3) {
-                document.getElementById('question' + (question + 1)).style.display = 'block';
-            } else {
-                showMatcherResult();
-            }
+        function filterWines(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts(type);
         }
 
-        function showMatcherResult() {
-            let recommendation = products[0];
-
-            if (matcherAnswers.q1 === 'pescado') {
-                recommendation = products.find(p => p.type === 'blanco') || recommendation;
-            } else if (matcherAnswers.q3 === 'premium') {
-                recommendation = products.filter(p => p.price > 6000)[0] || recommendation;
-            }
-
-            document.getElementById('resultContent').innerHTML = `
-                <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">${recommendation.name}</h2>
-                <p style="color: #ccc; margin-bottom: 1.5rem;">${recommendation.bodega}</p>
-                <div style="font-size: 2rem; color: var(--dorado); font-weight: 600; margin-bottom: 1rem;">$${recommendation.price}</div>
-                <button class="btn-primary" onclick="addToCart(${recommendation.id}, '${recommendation.name}', ${recommendation.price}); resetMatcher();">
-                    Agregar al Carrito
-                </button>
-            `;
-            document.getElementById('matcherResult').classList.add('show');
-        }
-
-        function resetMatcher() {
-            matcherAnswers = {};
-            document.getElementById('matcherResult').classList.remove('show');
-            document.getElementById('question1').style.display = 'block';
-            document.getElementById('question2').style.display = 'none';
-            document.getElementById('question3').style.display = 'none';
+        function searchProducts() {
+            renderProducts();
         }
 
         function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             event.target.classList.add('active');
             document.getElementById(tab).classList.add('active');
         }
 
-        // Countdown
         function updateCountdown() {
             const now = new Date();
-            const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
-            const diff = endOfDay - now;
-
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            const end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+            const diff = end - now;
+            
+            document.getElementById('hours').textContent = Math.floor(diff / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
         }
-
         setInterval(updateCountdown, 1000);
-        updateCountdown();
 
-        // Navbar scroll
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
         });
-
-        function submitForm(e) {
-            e.preventDefault();
-            alert('¡Gracias por tu interés! Te contactaremos en las próximas 24 horas.');
-            e.target.reset();
-        }
 
         function subscribe(plan) {
             if (!currentUser) {
                 alert('Debes iniciar sesión para suscribirte');
-                openUserAccount();
+                openAuthModal();
                 return;
             }
-            alert('¡Excelente elección! Plan ' + plan + ' seleccionado.');
+            alert('Plan ' + plan + ' seleccionado. Te contactaremos para completar la suscripción.');
         }
 
-        // CUENTA DE USUARIO
-        function openUserAccount() {
-            if (!currentUser) {
-                const name = prompt('Ingresa tu nombre:');
-                if (name) {
-                    currentUser = { name, email: '', favorites: [], orders: [] };
-                    localStorage.setItem('cb_user', JSON.stringify(currentUser));
-                    alert('¡Bienvenido, ' + name + '!');
-                }
-            } else {
-                const option = confirm('Hola ' + currentUser.name + '\n\n¿Deseas cerrar sesión?');
-                if (option) {
-                    currentUser = null;
-                    localStorage.removeItem('cb_user');
-                    alert('Sesión cerrada');
-                }
-            }
-        }
-
-        // FUNCIONES ADMIN
-        function openAdminLogin() {
-            document.getElementById('adminLogin').classList.add('active');
-        }
-
-        function closeAdminLogin() {
-            document.getElementById('adminLogin').classList.remove('active');
-            document.getElementById('adminPassword').value = '';
-            document.getElementById('loginError').style.display = 'none';
-        }
-
-        function checkAdminPassword() {
-            const pass = document.getElementById('adminPassword').value;
-            if (pass === 'SigloTinto') {
-                closeAdminLogin();
-                document.getElementById('adminPanel').classList.add('active');
-                initAdmin();
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-            }
-        }
-
-        function cerrarAdmin() {
-            document.getElementById('adminPanel').classList.remove('active');
-        }
-
-        function showAdminSection(section) {
-            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.admin-nav button').forEach(b => b.classList.remove('active'));
-
-            document.getElementById('admin-' + section).classList.add('active');
-            event.target.classList.add('active');
-
-            if (section === 'dashboard') renderDashboard();
-            if (section === 'bodegas') renderAdminBodegas();
-            if (section === 'vinos') { renderAdminVinos(); updateBodegaSelects(); }
-            if (section === 'recorridos') { renderAdminRecorridos(); updateBodegaSelects(); }
-            if (section === 'pedidos') renderAdminPedidos();
-            if (section === 'cupones') renderAdminCupones();
-            if (section === 'mapa') {
-                document.getElementById('mapEmbedCode').value = mapConfig.embedCode;
-                updateMapPreview();
-            }
-        }
-
-        function initAdmin() {
-            renderDashboard();
-            showAdminSection('dashboard');
-        }
-
-        function renderDashboard() {
-            document.getElementById('statViews').textContent = stats.views;
-            document.getElementById('statClicks').textContent = stats.clicks;
-            document.getElementById('statSales').textContent = stats.sales;
-            document.getElementById('statReservations').textContent = stats.reservations;
-            document.getElementById('statRevenue').textContent = '$' + stats.revenue.toLocaleString();
-
-            const avgRating = products.reduce((sum, p) => sum + (p.rating || 4.5), 0) / products.length;
-            document.getElementById('statRating').textContent = avgRating.toFixed(1);
-        }
-
-        function renderAdminBodegas() {
-            const container = document.getElementById('listaBodegas');
-            container.innerHTML = bodegas.map(b => `
-                <div class="admin-item">
-                    <div class="admin-item-info">
-                        <h4>${b.nombre}</h4>
-                        <p>Fundada: ${b.anio} | ${b.fundador}</p>
-                        <p>${b.ubicacion}</p>
-                    </div>
-                    <div class="admin-item-actions">
-                        <button class="btn-small btn-edit" onclick="editBodega(${b.id})">Editar</button>
-                        <button class="btn-small btn-delete" onclick="deleteBodega(${b.id})">Eliminar</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function saveBodega(e) {
+        function submitForm(e) {
             e.preventDefault();
-            const id = document.getElementById('bodegaId').value;
-            const bodega = {
-                id: id ? parseInt(id) : Date.now(),
-                nombre: document.getElementById('bodegaNombre').value,
-                fundador: document.getElementById('bodegaFundador').value,
-                anio: parseInt(document.getElementById('bodegaAnio').value),
-                ubicacion: document.getElementById('bodegaUbicacion').value,
-                descripcion: document.getElementById('bodegaDescripcion').value,
-                especialidades: document.getElementById('bodegaEspecialidades').value.split(',').map(s => s.trim()),
-                imagen: document.getElementById('bodegaImagen').value || '',
-                video: document.getElementById('bodegaVideo').value || '',
-                instagram: document.getElementById('bodegaInstagram').value || '',
-                facebook: document.getElementById('bodegaFacebook').value || ''
-            };
-
-            if (id) {
-                const index = bodegas.findIndex(b => b.id === parseInt(id));
-                bodegas[index] = bodega;
-            } else {
-                bodegas.push(bodega);
-            }
-
-            localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
-            resetBodegaForm();
-            renderAdminBodegas();
-            renderBodegas();
-            updateSearchOptions();
-            alert('Bodega guardada correctamente');
+            alert('¡Solicitud enviada! Te contactaremos pronto.');
+            e.target.reset();
         }
-
-        function editBodega(id) {
-            const b = bodegas.find(b => b.id === id);
-            if (!b) return;
-
-            document.getElementById('bodegaId').value = b.id;
-            document.getElementById('bodegaNombre').value = b.nombre;
-            document.getElementById('bodegaFundador').value = b.fundador;
-            document.getElementById('bodegaAnio').value = b.anio;
-            document.getElementById('bodegaUbicacion').value = b.ubicacion;
-            document.getElementById('bodegaDescripcion').value = b.descripcion;
-            document.getElementById('bodegaEspecialidades').value = b.especialidades.join(', ');
-            document.getElementById('bodegaImagen').value = b.imagen || '';
-            document.getElementById('bodegaVideo').value = b.video || '';
-            document.getElementById('bodegaInstagram').value = b.instagram || '';
-            document.getElementById('bodegaFacebook').value = b.facebook || '';
-        }
-
-        function deleteBodega(id) {
-            if (!confirm('¿Eliminar esta bodega?')) return;
-            bodegas = bodegas.filter(b => b.id !== id);
-            localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
-            renderAdminBodegas();
-            renderBodegas();
-        }
-
-        function resetBodegaForm() {
-            document.getElementById('formBodega').reset();
-            document.getElementById('bodegaId').value = '';
-        }
-
-        function updateBodegaSelects() {
-            const selects = ['vinoBodega', 'recorridoBodega'];
-            selects.forEach(selectId => {
-                const select = document.getElementById(selectId);
-                if (!select) return;
-                const currentValue = select.value;
-                select.innerHTML = bodegas.map(b => `<option value="${b.nombre}">${b.nombre}</option>`).join('');
-                select.value = currentValue;
-            });
-        }
-
-        function renderAdminVinos() {
-            const container = document.getElementById('listaVinos');
-            container.innerHTML = products.map(p => `
-                <div class="admin-item">
-                    <div class="admin-item-info">
-                        <h4>${p.name} ${p.stock === 0 ? '<span style="color: var(--rojo);">(AGOTADO)</span>' : ''}</h4>
-                        <p>${p.bodega} | ${p.type} | $${p.price} | Stock: ${p.stock}</p>
-                        ${p.badge ? `<span style="color: var(--dorado); font-size: 0.8rem;">${p.badge}</span>` : ''}
-                    </div>
-                    <div class="admin-item-actions">
-                        <button class="btn-small btn-edit" onclick="editVino(${p.id})">Editar</button>
-                        <button class="btn-small btn-delete" onclick="deleteVino(${p.id})">Eliminar</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function saveVino(e) {
-            e.preventDefault();
-            const id = document.getElementById('vinoId').value;
-            const vino = {
-                id: id ? parseInt(id) : Date.now(),
-                name: document.getElementById('vinoNombre').value,
-                bodega: document.getElementById('vinoBodega').value,
-                type: document.getElementById('vinoTipo').value,
-                cosecha: parseInt(document.getElementById('vinoCosecha').value),
-                price: parseInt(document.getElementById('vinoPrecio').value),
-                oldPrice: parseInt(document.getElementById('vinoPrecioOld').value) || null,
-                stock: parseInt(document.getElementById('vinoStock').value) || 0,
-                notasCata: document.getElementById('vinoNotasCata').value,
-                maridajes: document.getElementById('vinoMaridajes').value,
-                altura: document.getElementById('vinoAltura').value,
-                guarda: document.getElementById('vinoGuarda').value,
-                suelo: document.getElementById('vinoSuelo').value,
-                imagen: document.getElementById('vinoImagen').value || '',
-                badge: document.getElementById('vinoBadge').value || null,
-                rating: id ? products.find(p => p.id === parseInt(id))?.rating || 4.5 : 4.5,
-                reviews: id ? products.find(p => p.id === parseInt(id))?.reviews || 0 : 0
-            };
-
-            if (id) {
-                const index = products.findIndex(p => p.id === parseInt(id));
-                products[index] = vino;
-            } else {
-                products.push(vino);
-            }
-
-            localStorage.setItem('cb_vinos', JSON.stringify(products));
-            resetVinoForm();
-            renderAdminVinos();
-            renderProducts(currentFilter);
-            updateSearchOptions();
-            alert('Vino guardado correctamente');
-        }
-
-        function editVino(id) {
-            const p = products.find(x => x.id === id);
-            if (!p) return;
-
-            document.getElementById('vinoId').value = p.id;
-            document.getElementById('vinoNombre').value = p.name;
-            document.getElementById('vinoBodega').value = p.bodega;
-            document.getElementById('vinoTipo').value = p.type;
-            document.getElementById('vinoCosecha').value = p.cosecha || '';
-            document.getElementById('vinoPrecio').value = p.price;
-            document.getElementById('vinoPrecioOld').value = p.oldPrice || '';
-            document.getElementById('vinoStock').value = p.stock || 0;
-            document.getElementById('vinoNotasCata').value = p.notasCata || '';
-            document.getElementById('vinoMaridajes').value = p.maridajes || '';
-            document.getElementById('vinoAltura').value = p.altura || '';
-            document.getElementById('vinoGuarda').value = p.guarda || '';
-            document.getElementById('vinoSuelo').value = p.suelo || '';
-            document.getElementById('vinoImagen').value = p.imagen || '';
-            document.getElementById('vinoBadge').value = p.badge || '';
-        }
-
-        function deleteVino(id) {
-            if (!confirm('¿Eliminar este vino?')) return;
-            products = products.filter(p => p.id !== id);
-            localStorage.setItem('cb_vinos', JSON.stringify(products));
-            renderAdminVinos();
-            renderProducts(currentFilter);
-        }
-
-        function resetVinoForm() {
-            document.getElementById('formVino').reset();
-            document.getElementById('vinoId').value = '';
-        }
-
-        function renderAdminRecorridos() {
-            const container = document.getElementById('listaRecorridos');
-            container.innerHTML = recorridos.map(r => `
-                <div class="admin-item">
-                    <div class="admin-item-info">
-                        <h4>${r.nombre}</h4>
-                        <p>${r.bodega} | $${r.precio} | ${r.duracion} | Cap: ${r.capacidad} pers.</p>
-                    </div>
-                    <div class="admin-item-actions">
-                        <button class="btn-small btn-edit" onclick="editRecorrido(${r.id})">Editar</button>
-                        <button class="btn-small btn-delete" onclick="deleteRecorrido(${r.id})">Eliminar</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function saveRecorrido(e) {
-            e.preventDefault();
-            const id = document.getElementById('recorridoId').value;
-            const recorrido = {
-                id: id ? parseInt(id) : Date.now(),
-                nombre: document.getElementById('recorridoNombre').value,
-                bodega: document.getElementById('recorridoBodega').value,
-                precio: parseInt(document.getElementById('recorridoPrecio').value),
-                duracion: document.getElementById('recorridoDuracion').value,
-                capacidad: parseInt(document.getElementById('recorridoCapacidad').value),
-                features: document.getElementById('recorridoFeatures').value.split('\n').filter(f => f.trim())
-            };
-
-            if (id) {
-                const index = recorridos.findIndex(r => r.id === parseInt(id));
-                recorridos[index] = recorrido;
-            } else {
-                recorridos.push(recorrido);
-            }
-
-            localStorage.setItem('cb_recorridos', JSON.stringify(recorridos));
-            resetRecorridoForm();
-            renderAdminRecorridos();
-            renderRecorridos();
-            alert('Recorrido guardado correctamente');
-        }
-
-        function editRecorrido(id) {
-            const r = recorridos.find(x => x.id === id);
-            if (!r) return;
-
-            document.getElementById('recorridoId').value = r.id;
-            document.getElementById('recorridoNombre').value = r.nombre;
-            document.getElementById('recorridoBodega').value = r.bodega;
-            document.getElementById('recorridoPrecio').value = r.precio;
-            document.getElementById('recorridoDuracion').value = r.duracion;
-            document.getElementById('recorridoCapacidad').value = r.capacidad;
-            document.getElementById('recorridoFeatures').value = r.features.join('\n');
-        }
-
-        function deleteRecorrido(id) {
-            if (!confirm('¿Eliminar este recorrido?')) return;
-            recorridos = recorridos.filter(r => r.id !== id);
-            localStorage.setItem('cb_recorridos', JSON.stringify(recorridos));
-            renderAdminRecorridos();
-            renderRecorridos();
-        }
-
-        function resetRecorridoForm() {
-            document.getElementById('formRecorrido').reset();
-            document.getElementById('recorridoId').value = '';
-        }
-
-        function renderAdminPedidos() {
-            const container = document.getElementById('listaPedidos');
-            if (pedidos.length === 0) {
-                container.innerHTML = '<p style="color: #666; text-align: center; padding: 2rem;">No hay pedidos pendientes</p>';
-                return;
-            }
-
-            container.innerHTML = pedidos.map(p => `
-                <div class="admin-item">
-                    <div class="admin-item-info">
-                        <h4>Pedido #${p.id}</h4>
-                        <p>Cliente: ${p.cliente} | Fecha: ${p.fecha}</p>
-                        <p>Total: $${p.total} | Items: ${p.items.length}</p>
-                    </div>
-                    <div class="admin-item-actions">
-                        <span class="order-status status-${p.estado}">${p.estado}</span>
-                        ${p.estado === 'pendiente' ? `<button class="btn-small btn-success" onclick="updatePedido(${p.id}, 'enviado')">Marcar Enviado</button>` : ''}
-                        ${p.estado === 'enviado' ? `<button class="btn-small btn-success" onclick="updatePedido(${p.id}, 'completado')">Marcar Completado</button>` : ''}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function updatePedido(id, estado) {
-            const pedido = pedidos.find(p => p.id === id);
-            if (pedido) {
-                pedido.estado = estado;
-                localStorage.setItem('cb_pedidos', JSON.stringify(pedidos));
-                renderAdminPedidos();
-            }
-        }
-
-        function renderAdminCupones() {
-            const container = document.getElementById('listaCupones');
-            if (cupones.length === 0) {
-                container.innerHTML = '<p style="color: #666; text-align: center; padding: 2rem;">No hay cupones creados</p>';
-                return;
-            }
-
-            container.innerHTML = cupones.map(c => {
-                const expirado = new Date(c.expiracion) < new Date();
-                return `
-                    <div class="admin-item">
-                        <div class="admin-item-info">
-                            <h4>${c.codigo} ${expirado ? '<span style="color: var(--rojo);">(EXPIRADO)</span>' : ''}</h4>
-                            <p>${c.tipo === 'porcentaje' ? c.valor + '%' : '$' + c.valor} de descuento</p>
-                            <p>Expira: ${c.expiracion} | Usos: ${c.usos || 0}${c.usosMaximos ? '/' + c.usosMaximos : ''}</p>
-                        </div>
-                        <div class="admin-item-actions">
-                            <button class="btn-small btn-delete" onclick="deleteCupon(${c.id})">Eliminar</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function saveCupon(e) {
-            e.preventDefault();
-            const cupon = {
-                id: Date.now(),
-                codigo: document.getElementById('cuponCodigo').value.toUpperCase(),
-                tipo: document.getElementById('cuponTipo').value,
-                valor: parseInt(document.getElementById('cuponValor').value),
-                expiracion: document.getElementById('cuponExpiracion').value,
-                usosMaximos: parseInt(document.getElementById('cuponUsos').value) || null,
-                usos: 0
-            };
-
-            cupones.push(cupon);
-            localStorage.setItem('cb_cupones', JSON.stringify(cupones));
-            resetCuponForm();
-            renderAdminCupones();
-            alert('Cupón creado correctamente');
-        }
-
-        function deleteCupon(id) {
-            if (!confirm('¿Eliminar este cupón?')) return;
-            cupones = cupones.filter(c => c.id !== id);
-            localStorage.setItem('cb_cupones', JSON.stringify(cupones));
-            renderAdminCupones();
-        }
-
-        function resetCuponForm() {
-            document.getElementById('formCupon').reset();
-            document.getElementById('cuponId').value = '';
-        }
-
-        function saveMapConfig() {
-            const code = document.getElementById('mapEmbedCode').value;
-            mapConfig = { embedCode: code };
-            localStorage.setItem('cb_map', JSON.stringify(mapConfig));
-            renderMap();
-            alert('Mapa guardado correctamente');
-        }
-
-        function updateMapPreview() {
-            const code = document.getElementById('mapEmbedCode').value;
-            const preview = document.getElementById('mapPreview');
-            if (code) {
-                preview.innerHTML = code;
-                preview.style.display = 'block';
-            } else {
-                preview.innerHTML = 'No hay mapa configurado aún';
-            }
-        }
-
-        // Inicializar todo
-        document.addEventListener('DOMContentLoaded', () => {
-            renderBodegas();
-            renderProducts();
-            renderRecorridos();
-            renderMap();
-            updateSearchOptions();
-            updateCountdown();
-        });
     </script>
 </body>
 </html>
