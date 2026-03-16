@@ -19,1879 +19,162 @@
             --blanco-puro: #ffffff;
             --rojo: #dc3545;
             --verde: #28a745;
+            --naranja: #ff6b35;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--negro); color: var(--blanco); overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--negro);
-            color: var(--blanco);
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Scrollbar personalizada */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--negro-claro);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--dorado);
-            border-radius: 5px;
-        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--negro-claro); }
+        ::-webkit-scrollbar-thumb { background: var(--dorado); border-radius: 5px; }
 
         /* Navegación */
-        nav {
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            padding: 1.5rem 5%;
-            transition: all 0.4s ease;
-            background: transparent;
-        }
+        nav { position: fixed; width: 100%; z-index: 1000; padding: 1.5rem 5%; transition: all 0.4s ease; background: transparent; }
+        nav.scrolled { background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); padding: 1rem 5%; border-bottom: 1px solid var(--dorado); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: var(--dorado); text-decoration: none; display: flex; flex-direction: column; align-items: center; position: relative; padding-bottom: 8px; }
+        .logo::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 2px; background: linear-gradient(90deg, transparent, var(--dorado), transparent); }
 
-        nav.scrolled {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 5%;
-            border-bottom: 1px solid var(--dorado);
-        }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--blanco); text-decoration: none; font-weight: 400; letter-spacing: 1px; position: relative; transition: color 0.3s; font-size: 0.9rem; text-transform: uppercase; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--dorado); transition: width 0.3s; }
+        .nav-links a:hover { color: var(--dorado); }
+        .nav-links a:hover::after { width: 100%; }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .nav-actions { display: flex; gap: 1.5rem; align-items: center; }
+        .btn-nav { background: transparent; border: 1px solid var(--dorado); color: var(--dorado); padding: 0.5rem 1.5rem; cursor: pointer; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; transition: all 0.3s; position: relative; overflow: hidden; }
+        .btn-nav::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--dorado); transition: left 0.3s; z-index: -1; }
+        .btn-nav:hover::before { left: 0; }
+        .btn-nav:hover { color: var(--negro); }
 
-        .logo {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.2rem;
-            color: var(--dorado);
-            text-decoration: none;
-            font-weight: 400;
-            letter-spacing: 1px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1;
-            position: relative;
-            padding-bottom: 8px;
-        }
-
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--dorado), transparent);
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(212, 175, 55, 0.5);
-        }
-
-        .logo i {
-            font-size: 1.2rem;
-            margin-bottom: 2px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--blanco);
-            text-decoration: none;
-            font-weight: 400;
-            letter-spacing: 1px;
-            position: relative;
-            transition: color 0.3s;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--dorado);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--dorado);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .btn-nav {
-            background: transparent;
-            border: 1px solid var(--dorado);
-            color: var(--dorado);
-            padding: 0.5rem 1.5rem;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.8rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-nav::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--dorado);
-            transition: left 0.3s;
-            z-index: -1;
-        }
-
-        .btn-nav:hover::before {
-            left: 0;
-        }
-
-        .btn-nav:hover {
-            color: var(--negro);
-        }
-
-        .cart-icon {
-            position: relative;
-            color: var(--blanco);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .cart-icon:hover {
-            color: var(--dorado);
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: var(--dorado);
-            color: var(--negro);
-            font-size: 0.7rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
+        .cart-icon { position: relative; color: var(--blanco); font-size: 1.2rem; cursor: pointer; transition: color 0.3s; }
+        .cart-icon:hover { color: var(--dorado); }
+        .cart-count { position: absolute; top: -8px; right: -8px; background: var(--dorado); color: var(--negro); font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; }
 
         /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-        }
+        .hero { height: 100vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg'); background-size: cover; background-position: center; background-attachment: fixed; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
+        .hero-content { max-width: 900px; padding: 0 2rem; animation: fadeInUp 1s ease; }
+        .hero-subtitle { color: var(--dorado); text-transform: uppercase; letter-spacing: 4px; font-size: 0.9rem; margin-bottom: 1.5rem; display: block; }
+        .hero h1 { font-size: 4.5rem; margin-bottom: 1.5rem; line-height: 1.1; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero h1 span { color: var(--dorado); font-style: italic; }
+        .hero p { font-size: 1.2rem; color: #ccc; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.6; }
+        .hero-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
 
-        .hero-content {
-            max-width: 900px;
-            padding: 0 2rem;
-            animation: fadeInUp 1s ease;
-        }
+        .btn-primary { background: var(--dorado); color: var(--negro); padding: 1rem 2.5rem; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; transition: all 0.3s; border: 2px solid var(--dorado); position: relative; overflow: hidden; cursor: pointer; display: inline-block; }
+        .btn-primary:hover { background: transparent; color: var(--dorado); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); }
+        .btn-secondary { background: transparent; color: var(--blanco); padding: 1rem 2.5rem; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; border: 1px solid var(--blanco); transition: all 0.3s; }
+        .btn-secondary:hover { background: var(--blanco); color: var(--negro); border-color: var(--dorado); }
+        .btn-danger { background: var(--rojo); color: var(--blanco); border: none; padding: 0.8rem 1.5rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; transition: all 0.3s; }
+        .btn-danger:hover { background: #c82333; }
+        .btn-success { background: var(--verde); color: var(--blanco); border: none; padding: 0.8rem 1.5rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; transition: all 0.3s; }
+        .btn-success:hover { background: #218838; }
 
-        .hero-subtitle {
-            color: var(--dorado);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
+        .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: var(--dorado); animation: bounce 2s infinite; font-size: 1.5rem; }
 
-        .hero h1 {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero h1 span {
-            color: var(--dorado);
-            font-style: italic;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #ccc;
-            margin-bottom: 2.5rem;
-            font-weight: 300;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background: var(--dorado);
-            color: var(--negro);
-            padding: 1rem 2.5rem;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: 2px solid var(--dorado);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            display: inline-block;
-        }
-
-        .btn-primary:hover {
-            background: transparent;
-            color: var(--dorado);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--blanco);
-            padding: 1rem 2.5rem;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 1px solid var(--blanco);
-            transition: all 0.3s;
-        }
-
-        .btn-secondary:hover {
-            background: var(--blanco);
-            color: var(--negro);
-            border-color: var(--dorado);
-        }
-
-        .btn-danger {
-            background: var(--rojo);
-            color: var(--blanco);
-            border: none;
-            padding: 0.8rem 1.5rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.8rem;
-            transition: all 0.3s;
-        }
-
-        .btn-danger:hover {
-            background: #c82333;
-        }
-
-        .btn-success {
-            background: var(--verde);
-            color: var(--blanco);
-            border: none;
-            padding: 0.8rem 1.5rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.8rem;
-            transition: all 0.3s;
-        }
-
-        .btn-success:hover {
-            background: #218838;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--dorado);
-            animation: bounce 2s infinite;
-            font-size: 1.5rem;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
-            40% {transform: translateX(-50%) translateY(-20px);}
-            60% {transform: translateX(-50%) translateY(-10px);}
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-20px);} 60% {transform: translateX(-50%) translateY(-10px);} }
 
         /* ADMIN PANEL STYLES */
-        .admin-login {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 3000;
-            justify-content: center;
-            align-items: center;
-        }
+        .admin-login { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; justify-content: center; align-items: center; }
+        .admin-login.active { display: flex; }
+        .login-box { background: var(--gris-oscuro); border: 1px solid var(--dorado); padding: 3rem; max-width: 400px; width: 90%; text-align: center; }
+        .login-box h2 { color: var(--dorado); margin-bottom: 2rem; font-family: 'Great Vibes', cursive; font-size: 2.5rem; }
+        .login-box input { width: 100%; background: var(--negro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 1rem; margin-bottom: 1rem; font-family: 'Inter', sans-serif; }
+        .login-box input:focus { outline: none; border-color: var(--dorado); }
 
-        .admin-login.active {
-            display: flex;
-        }
-
-        .login-box {
-            background: var(--gris-oscuro);
-            border: 1px solid var(--dorado);
-            padding: 3rem;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-        }
-
-        .login-box h2 {
-            color: var(--dorado);
-            margin-bottom: 2rem;
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.5rem;
-        }
-
-        .login-box input {
-            width: 100%;
-            background: var(--negro);
-            border: 1px solid var(--gris-medio);
-            color: var(--blanco);
-            padding: 1rem;
-            margin-bottom: 1rem;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .login-box input:focus {
-            outline: none;
-            border-color: var(--dorado);
-        }
-
-        .admin-panel {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--negro-claro);
-            z-index: 2500;
-            overflow-y: auto;
-        }
-
-        .admin-panel.active {
-            display: block;
-        }
-
-        .admin-header {
-            background: var(--negro);
-            border-bottom: 2px solid var(--dorado);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .admin-title {
-            color: var(--dorado);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-        }
-
-        .admin-nav {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .admin-nav button {
-            background: transparent;
-            border: 1px solid var(--gris-medio);
-            color: var(--blanco);
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .admin-nav button:hover, .admin-nav button.active {
-            border-color: var(--dorado);
-            color: var(--dorado);
-        }
-
-        .admin-content {
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .admin-section {
-            display: none;
-        }
-
-        .admin-section.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-
-        .admin-grid {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 2rem;
-        }
-
-        .admin-form {
-            background: var(--gris-oscuro);
-            border: 1px solid var(--gris-medio);
-            padding: 2rem;
-            height: fit-content;
-        }
-
-        .admin-form h3 {
-            color: var(--dorado);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--dorado);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--dorado);
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            background: var(--negro);
-            border: 1px solid var(--gris-medio);
-            color: var(--blanco);
-            padding: 0.8rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-        }
-
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--dorado);
-        }
-
-        .admin-list {
-            background: var(--gris-oscuro);
-            border: 1px solid var(--gris-medio);
-            padding: 2rem;
-        }
-
-        .admin-list h3 {
-            color: var(--dorado);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--dorado);
-        }
-
-        .admin-item {
-            background: var(--negro);
-            border: 1px solid var(--gris-medio);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            transition: all 0.3s;
-        }
-
-        .admin-item:hover {
-            border-color: var(--dorado);
-        }
-
-        .admin-item-info h4 {
-            color: var(--dorado);
-            margin-bottom: 0.5rem;
-        }
-
-        .admin-item-info p {
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .admin-item-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-small {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.75rem;
-            border: none;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-
-        .btn-edit {
-            background: var(--dorado);
-            color: var(--negro);
-        }
-
-        .btn-delete {
-            background: transparent;
-            border: 1px solid var(--rojo);
-            color: var(--rojo);
-        }
-
-        .btn-delete:hover {
-            background: var(--rojo);
-            color: var(--blanco);
-        }
+        .admin-panel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--negro-claro); z-index: 2500; overflow-y: auto; }
+        .admin-panel.active { display: block; }
+        .admin-header { background: var(--negro); border-bottom: 2px solid var(--dorado); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .admin-title { color: var(--dorado); font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+        .admin-nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .admin-nav button { background: transparent; border: 1px solid var(--gris-medio); color: var(--blanco); padding: 0.5rem 1rem; cursor: pointer; transition: all 0.3s; }
+        .admin-nav button:hover, .admin-nav button.active { border-color: var(--dorado); color: var(--dorado); }
+        .admin-content { padding: 2rem; max-width: 1400px; margin: 0 auto; }
+        .admin-section { display: none; }
+        .admin-section.active { display: block; animation: fadeIn 0.5s; }
+        .admin-grid { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; }
+        .admin-form { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); padding: 2rem; height: fit-content; }
+        .admin-form h3 { color: var(--dorado); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--dorado); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--dorado); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; background: var(--negro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 0.8rem; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--dorado); }
+        .admin-list { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); padding: 2rem; }
+        .admin-list h3 { color: var(--dorado); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--dorado); }
+        .admin-item { background: var(--negro); border: 1px solid var(--gris-medio); padding: 1.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: start; transition: all 0.3s; }
+        .admin-item:hover { border-color: var(--dorado); }
+        .admin-item-info h4 { color: var(--dorado); margin-bottom: 0.5rem; }
+        .admin-item-info p { color: #888; font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .admin-item-actions { display: flex; gap: 0.5rem; }
+        .btn-small { padding: 0.4rem 0.8rem; font-size: 0.75rem; border: none; cursor: pointer; text-transform: uppercase; }
+        .btn-edit { background: var(--dorado); color: var(--negro); }
+        .btn-delete { background: transparent; border: 1px solid var(--rojo); color: var(--rojo); }
+        .btn-delete:hover { background: var(--rojo); color: var(--blanco); }
 
         /* Sección Cómo Funciona */
-        .how-it-works {
-            padding: 6rem 5%;
-            background: var(--negro-claro);
-            position: relative;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-tag {
-            color: var(--dorado);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 2px;
-            background: var(--dorado);
-        }
-
-        .tabs-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            border-bottom: 1px solid var(--gris-medio);
-            padding-bottom: 1rem;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            color: var(--blanco);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            cursor: pointer;
-            padding: 0.5rem 2rem;
-            position: relative;
-            transition: color 0.3s;
-        }
-
-        .tab-btn.active {
-            color: var(--dorado);
-        }
-
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1rem;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--dorado);
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s;
-        }
-
-        .tab-content.active {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 2rem;
-            border: 1px solid var(--gris-medio);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--dorado);
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-card:hover {
-            border-color: var(--dorado);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--dorado);
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--dorado);
-        }
-
-        .feature-card p {
-            color: #aaa;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
+        .how-it-works { padding: 6rem 5%; background: var(--negro-claro); position: relative; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-tag { color: var(--dorado); text-transform: uppercase; letter-spacing: 3px; font-size: 0.85rem; margin-bottom: 1rem; display: block; }
+        .section-title { font-size: 3rem; margin-bottom: 1rem; position: relative; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 60px; height: 2px; background: var(--dorado); }
+        .tabs-container { max-width: 1200px; margin: 0 auto; }
+        .tabs { display: flex; justify-content: center; gap: 2rem; margin-bottom: 3rem; border-bottom: 1px solid var(--gris-medio); padding-bottom: 1rem; }
+        .tab-btn { background: none; border: none; color: var(--blanco); font-family: 'Playfair Display', serif; font-size: 1.3rem; cursor: pointer; padding: 0.5rem 2rem; position: relative; transition: color 0.3s; }
+        .tab-btn.active { color: var(--dorado); }
+        .tab-btn.active::after { content: ''; position: absolute; bottom: -1rem; left: 0; width: 100%; height: 2px; background: var(--dorado); }
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .feature-card { text-align: center; padding: 2rem; border: 1px solid var(--gris-medio); transition: all 0.3s; position: relative; overflow: hidden; }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--dorado); transform: scaleX(0); transition: transform 0.3s; }
+        .feature-card:hover::before { transform: scaleX(1); }
+        .feature-card:hover { border-color: var(--dorado); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1); }
+        .feature-icon { font-size: 2.5rem; color: var(--dorado); margin-bottom: 1.5rem; }
+        .feature-card h3 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--dorado); }
+        .feature-card p { color: #aaa; line-height: 1.6; font-size: 0.95rem; }
 
         /* Catálogo de Vinos */
-        .catalog {
-            padding: 6rem 5%;
-            background: var(--negro);
-        }
-
-        .filters {
-            max-width: 1200px;
-            margin: 0 auto 3rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: var(--gris-oscuro);
-            border: 1px solid var(--gris-medio);
-            color: var(--blanco);
-            padding: 0.6rem 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--dorado);
-            color: var(--negro);
-            border-color: var(--dorado);
-        }
-
-        .products-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: var(--gris-oscuro);
-            border: 1px solid var(--gris-medio);
-            overflow: hidden;
-            transition: all 0.3s;
-            position: relative;
-            group: true;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            border-color: var(--dorado);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: var(--dorado);
-            color: var(--negro);
-            padding: 0.3rem 0.8rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            z-index: 10;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 300px;
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .product-image i {
-            font-size: 4rem;
-            color: var(--dorado);
-            opacity: 0.3;
-        }
-
-        .product-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(212, 175, 55, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .product-card:hover .product-overlay {
-            opacity: 1;
-        }
-
-        .btn-add-cart {
-            background: var(--negro);
-            color: var(--dorado);
-            border: none;
-            padding: 1rem 2rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            transition: transform 0.3s;
-        }
-
-        .btn-add-cart:hover {
-            transform: scale(1.05);
-        }
-
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-bodega {
-            color: var(--dorado);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-details {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-            color: #888;
-        }
-
-        .product-details span {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .product-price {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .price {
-            font-size: 1.4rem;
-            color: var(--dorado);
-            font-weight: 600;
-        }
-
-        .price-original {
-            text-decoration: line-through;
-            color: #666;
-            font-size: 1rem;
-            margin-right: 0.5rem;
-        }
-
-        /* NUESTRAS BODEGAS */
-        .bodegas-showcase {
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, var(--negro-claro) 0%, var(--negro) 100%);
-            position: relative;
-        }
-
-        .bodegas-showcase::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--dorado), transparent);
-        }
-
-        .bodegas-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .bodega-card {
-            background: var(--gris-oscuro);
-            border: 1px solid var(--gris-medio);
-            overflow: hidden;
-            transition: all 0.4s;
-            position: relative;
-        }
-
-        .bodega-card:hover {
-            border-color: var(--dorado);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-
-        .bodega-image-container {
-            position: relative;
-            height: 280px;
-            overflow: hidden;
-        }
-
-        .bodega-image {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transition: transform 0.5s;
-        }
-
-        .bodega-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .bodega-card:hover .bodega-image {
-            transform: scale(1.05);
-        }
-
-        .bodega-image i {
-            font-size: 3.5rem;
-            color: var(--dorado);
-            opacity: 0.4;
-        }
-
-        .bodega-year {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(0,0,0,0.8);
-            border: 1px solid var(--dorado);
-            color: var(--dorado);
-            padding: 0.5rem 1rem;
-            font-family: 'Playfair Display', serif;
-            font-size: 0.9rem;
-        }
-
-        .bodega-content {
-            padding: 2rem;
-        }
-
-        .bodega-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--dorado);
-            margin-bottom: 0.5rem;
-        }
-
-        .bodega-founder {
-            color: #888;
-            font-size: 0.9rem;
-            font-style: italic;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .bodega-description {
-            color: #aaa;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .bodega-specialties {
-            margin-bottom: 1.5rem;
-        }
-
-        .specialties-title {
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            color: var(--dorado);
-            margin-bottom: 0.8rem;
-            display: block;
-        }
-
-        .specialties-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .specialty-tag {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--dorado-claro);
-            padding: 0.3rem 0.8rem;
-            font-size: 0.8rem;
-            border-radius: 20px;
-        }
-
-        .bodega-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--gris-medio);
-        }
-
-        .bodega-location {
-            color: #666;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .bodega-location i {
-            color: var(--dorado);
-        }
-
-        .btn-bodega {
-            background: transparent;
-            border: 1px solid var(--dorado);
-            color: var(--dorado);
-            padding: 0.6rem 1.2rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-        }
-
-        .btn-bodega:hover {
-            background: var(--dorado);
-            color: var(--negro);
-        }
-
-        /* Ofertas del Día */
-        .offers {
-            padding: 6rem 5%;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
-        }
-
-        .countdown-container {
-            max-width: 800px;
-            margin: 3rem auto;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .countdown-item {
-            text-align: center;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid var(--dorado);
-            padding: 1.5rem 2rem;
-            min-width: 100px;
-        }
-
-        .countdown-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: var(--dorado);
-            display: block;
-            line-height: 1;
-        }
-
-        .countdown-label {
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            color: #aaa;
-            margin-top: 0.5rem;
-        }
-
-        /* Wine Matcher */
-        .wine-matcher {
-            padding: 6rem 5%;
-            background: var(--gris-oscuro);
-        }
-
-        .matcher-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--negro);
-            border: 1px solid var(--gris-medio);
-            padding: 3rem;
-            position: relative;
-        }
-
-        .matcher-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--dorado), transparent);
-        }
-
-        .question {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .question h3 {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            color: var(--dorado);
-        }
-
-        .options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .option-btn {
-            background: var(--gris-oscuro);
-            border: 1px solid var(--gris-medio);
-            color: var(--blanco);
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .option-btn:hover {
-            border-color: var(--dorado);
-            background: rgba(212, 175, 55, 0.1);
-        }
-
-        .option-btn.selected {
-            background: var(--dorado);
-            color: var(--negro);
-            border-color: var(--dorado);
-        }
-
-        .option-btn i {
-            font-size: 1.5rem;
-        }
-
-        .matcher-result {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid var(--dorado);
-            margin-top: 2rem;
-        }
-
-        .matcher-result.show {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-
-        /* Rutas del Vino - MAPA REAL */
-        .routes {
-            padding: 6rem 5%;
-            background: var(--negro-claro);
-        }
-
-        .map-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            background: var(--gris-oscuro);
-            border: 1px solid var(--gris-medio);
-            min-height: 600px;
-            overflow: hidden;
-        }
-
-        .map-real {
-            width: 100%;
-            height: 600px;
-            border: none;
-        }
-
-        .map-placeholder {
-            width: 100%;
-            height: 600px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            display: none; /* Oculto si hay mapa real */
-        }
-
-        /* Recorridos */
-        .tours {
-            padding: 6rem 5%;
-            background: var(--negro);
-        }
-
-        .tours-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .tour-card {
-            background: var(--gris-oscuro);
-            border: 1px solid var(--gris-medio);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s;
-        }
-
-        .tour-card:hover {
-            border-color: var(--dorado);
-            transform: translateY(-5px);
-        }
-
-        .tour-header {
-            background: linear-gradient(135deg, var(--gris-medio) 0%, var(--negro-claro) 100%);
-            padding: 2rem;
-            border-bottom: 2px solid var(--dorado);
-        }
-
-        .tour-price-tag {
-            float: right;
-            background: var(--dorado);
-            color: var(--negro);
-            padding: 0.5rem 1rem;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .tour-header h3 {
-            font-size: 1.5rem;
-            color: var(--dorado);
-            margin-bottom: 0.5rem;
-            clear: both;
-        }
-
-        .tour-header p {
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        .tour-body {
-            padding: 2rem;
-            flex: 1;
-        }
-
-        .tour-features {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .tour-features li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--gris-medio);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #ccc;
-        }
-
-        .tour-features li i {
-            color: var(--dorado);
-            width: 20px;
-        }
-
-        .tour-footer {
-            padding: 0 2rem 2rem;
-        }
-
-        .btn-reserve {
-            width: 100%;
-            background: transparent;
-            border: 1px solid var(--dorado);
-            color: var(--dorado);
-            padding: 1rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-
-        .btn-reserve:hover {
-            background: var(--dorado);
-            color: var(--negro);
-        }
-
-        /* Club de Suscripción */
-        .club {
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, var(--negro-claro) 0%, var(--gris-oscuro) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .club::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .pricing-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .pricing-card {
-            background: var(--negro);
-            border: 1px solid var(--gris-medio);
-            padding: 3rem 2rem;
-            text-align: center;
-            position: relative;
-            transition: all 0.3s;
-        }
-
-        .pricing-card.featured {
-            border-color: var(--dorado);
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
-        }
-
-        .pricing-card.featured::before {
-            content: 'Más Popular';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--dorado);
-            color: var(--negro);
-            padding: 0.5rem 1.5rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .pricing-card:hover {
-            border-color: var(--dorado);
-        }
-
-        .pricing-name {
-            font-size: 1.5rem;
-            color: var(--dorado);
-            margin-bottom: 1rem;
-        }
-
-        .pricing-price {
-            font-size: 3rem;
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 2rem;
-        }
-
-        .pricing-price span {
-            font-size: 1rem;
-            color: #666;
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 2rem;
-            text-align: left;
-        }
-
-        .pricing-features li {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid var(--gris-medio);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pricing-features li i {
-            color: var(--dorado);
-        }
-
-        /* Blog */
-        .blog {
-            padding: 6rem 5%;
-            background: var(--negro-claro);
-        }
-
-        .blog-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .blog-card {
-            background: var(--gris-oscuro);
-            border: 1px solid var(--gris-medio);
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .blog-card:hover {
-            border-color: var(--dorado);
-        }
-
-        .blog-image {
-            height: 250px;
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .blog-image i {
-            font-size: 3rem;
-            color: var(--dorado);
-            opacity: 0.3;
-        }
-
-        .blog-category {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: var(--dorado);
-            color: var(--negro);
-            padding: 0.3rem 0.8rem;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .blog-content {
-            padding: 1.5rem;
-        }
-
-        .blog-date {
-            color: var(--dorado);
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .blog-title {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            line-height: 1.3;
-        }
-
-        .blog-excerpt {
-            color: #888;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .read-more {
-            color: var(--dorado);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: gap 0.3s;
-        }
-
-        .read-more:hover {
-            gap: 1rem;
-        }
-
-        /* Formulario Bodegas */
-        .partners {
-            padding: 6rem 5%;
-            background: var(--negro);
-            position: relative;
-        }
-
-        .partners::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://kimi-web-img.moonshot.cn/img/elements-resized.envatousercontent.com/2621656f2d618098f96b0c9dcbf1174e4717c311.jpg');
-            opacity: 0.1;
-            pointer-events: none;
-        }
-
-        .form-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(10, 10, 10, 0.9);
-            border: 1px solid var(--gris-medio);
-            padding: 3rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background: var(--dorado);
-            color: var(--negro);
-            border: none;
-            padding: 1.2rem;
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-submit:hover {
-            background: var(--dorado-claro);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--negro-claro);
-            border-top: 1px solid var(--gris-medio);
-            padding: 4rem 5% 2rem;
-            position: relative;
-        }
-
-        .admin-access {
-            position: absolute;
-            bottom: 1rem;
-            right: 2rem;
-            color: #333;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: color 0.3s;
-        }
-
-        .admin-access:hover {
-            color: var(--dorado);
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h4 {
-            color: var(--dorado);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-
-        .footer-section p,
-        .footer-section a {
-            color: #888;
-            text-decoration: none;
-            line-height: 1.8;
-            transition: color 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: var(--dorado);
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--gris-medio);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .social-links a:hover {
-            background: var(--dorado);
-            border-color: var(--dorado);
-            color: var(--negro);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid var(--gris-medio);
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        /* Modal Carrito */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--gris-oscuro);
-            border: 1px solid var(--dorado);
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            animation: slideIn 0.3s;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            background: var(--negro);
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--dorado);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h3 {
-            color: var(--dorado);
-            font-size: 1.5rem;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--blanco);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-modal:hover {
-            color: var(--dorado);
-        }
-
-        .modal-body {
-            padding: 1.5rem;
-        }
-
-        .cart-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--gris-medio);
-        }
-
-        .cart-item-image {
-            width: 80px;
-            height: 80px;
-            background: var(--negro);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cart-item-image i {
-            color: var(--dorado);
-            font-size: 2rem;
-        }
-
-        .cart-item-details {
-            flex: 1;
-        }
-
-        .cart-item-name {
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-
-        .cart-item-price {
-            color: var(--dorado);
-        }
-
-        .cart-total {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid var(--dorado);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.2rem;
-        }
-
-        .btn-checkout {
-            width: 100%;
-            background: var(--dorado);
-            color: var(--negro);
-            border: none;
-            padding: 1rem;
-            margin-top: 1.5rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-checkout:hover {
-            background: var(--dorado-claro);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                background-attachment: scroll !important;
-                background-position: center center !important;
-                background-size: cover !important;
-                min-height: 100vh;
-                height: auto;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .tabs {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            
-            .pricing-card.featured {
-                transform: scale(1);
-            }
-            
-            .logo {
-                font-size: 1.8rem;
-            }
-            
-            .bodegas-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .admin-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .admin-nav {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
-
-        @supports (-webkit-touch-callout: none) {
-            .hero {
-                background-attachment: scroll;
-                min-height: -webkit-fill-available;
-            }
-        }
+        .catalog { padding: 6rem 5%; background: var(--negro); }
+        .search-advanced { max-width: 1200px; margin: 0 auto 2rem; background: var(--gris-oscuro); border: 1px solid var(--gris-medio); padding: 1.5rem; border-radius: 8px; }
+        .search-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+        .search-row:last-child { margin-bottom: 0; }
+        .search-input { background: var(--negro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 0.8rem; font-family: 'Inter', sans-serif; }
+        .search-input:focus { outline: none; border-color: var(--dorado); }
+        .filters { max-width: 1200px; margin: 0 auto 3rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .filter-btn { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 0.6rem 1.5rem; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .filter-btn:hover, .filter-btn.active { background: var(--dorado); color: var(--negro); border-color: var(--dorado); }
+        .products-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+        .product-card { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); overflow: hidden; transition: all 0.3s; position: relative; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.4); border-color: var(--dorado); }
+        .product-badge { position: absolute; top: 1rem; left: 1rem; background: var(--dorado); color: var(--negro); padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; z-index: 10; }
+        .product-image { width: 100%; height: 300px; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor: pointer; }
+        .product-image img { width: 100%; height: 100%; object-fit: cover; }
+        .product-image i { font-size: 4rem; color: var(--dorado); opacity: 0.3; }
+        .product-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(212, 175, 55, 0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        .product-card:hover .product-overlay { opacity: 1; }
+        .btn-add-cart { background: var(--negro); color: var(--dorado); border: none; padding: 1rem 2rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; transition: transform 0.3s; }
+        .btn-add-cart:hover { transform: scale(1.05); }
+        .product-info { padding: 1.5rem; }
+        .product-bodega { color: var(--dorado); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .product-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .product-details { display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: #888; }
+        .product-details span { display: flex; align-items: center; gap: 0.3rem; }
+        .product-price { display: flex; justify-content: space-between; align-items: center; }
+        .price { font-size: 1.4rem; color: var(--dorado); font-weight: 600; }
+        .price-original { text-decoration: line-through; color: #666; font-size: 1rem; margin-right: 0.5rem; }
+        .product-rating { display: flex; align-items: center; gap: 0.3rem; color: var(--dorado); font-size: 0.9rem; }
     </style>
+<base target="_blank">
 </head>
 <body>
 
     <!-- Navegación -->
     <nav id="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">
-                Club de la Bodega
-            </a>
+            <a href="#" class="logo">Club de la Bodega</a>
             <ul class="nav-links">
                 <li><a href="#catalogo">Catálogo</a></li>
                 <li><a href="#bodegas-showcase">Bodegas</a></li>
@@ -1905,7 +188,7 @@
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-count" id="cartCount">0</span>
                 </div>
-                <button class="btn-nav">Mi Cuenta</button>
+                <button class="btn-nav" onclick="openUserAccount()">Mi Cuenta</button>
             </div>
         </div>
     </nav>
@@ -1921,9 +204,7 @@
                 <a href="#recorridos" class="btn-secondary">Ver Recorridos</a>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <i class="fas fa-chevron-down"></i>
-        </div>
+        <div class="scroll-indicator"><i class="fas fa-chevron-down"></i></div>
     </section>
 
     <!-- Cómo Funciona -->
@@ -1933,70 +214,51 @@
             <h2 class="section-title">¿Cómo Funciona?</h2>
             <p style="color: #888; max-width: 600px; margin: 2rem auto;">Una plataforma diseñada para conectar bodegas artesanales con consumidores apasionados</p>
         </div>
-
         <div class="tabs-container">
             <div class="tabs">
                 <button class="tab-btn active" onclick="switchTab('consumers')">Para Clientes</button>
                 <button class="tab-btn" onclick="switchTab('bodegas')">Para Bodegas</button>
             </div>
-
             <div id="consumers" class="tab-content active">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-search"></i></div>
                     <h3>Explora</h3>
                     <p>Navega por nuestro catálogo curado con los mejores vinos de San Rafael. Filtra por tipo de uva, bodega, precio o región.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-wine-glass-alt"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-wine-glass-alt"></i></div>
                     <h3>Descubre</h3>
                     <p>Usa nuestro Wine Matcher para encontrar el vino perfecto según tus preferencias y ocasión especial.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-shopping-cart"></i></div>
                     <h3>Compra</h3>
                     <p>Realiza tu pedido de forma segura. Las bodegas se encargan del envío directo a tu puerta.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-route"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-route"></i></div>
                     <h3>Experiencias</h3>
                     <p>Reserva recorridos exclusivos, catas privadas y almuerzos en los viñedos más hermosos de la región.</p>
                 </div>
             </div>
-
             <div id="bodegas" class="tab-content">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-store"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-store"></i></div>
                     <h3>Regístrate</h3>
                     <p>Únete a nuestra plataforma sin costo alguno. Solo pagas comisión por ventas realizadas.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-cloud-upload-alt"></i></div>
                     <h3>Publica</h3>
                     <p>Carga tu catálogo de vinos, fotos de tu bodega y disponibilidad de recorridos en nuestro sistema.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
                     <h3>Vende</h3>
                     <p>Recibe pedidos directos, gestiona tu stock y accede a estadísticas de ventas en tiempo real.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-handshake"></i></div>
                     <h3>Crece</h3>
                     <p>Forma parte de rutas turísticas promocionadas y llega a nuevos mercados sin inversión inicial.</p>
                 </div>
@@ -2011,6 +273,34 @@
             <h2 class="section-title">Catálogo de Vinos</h2>
         </div>
 
+        <!-- Buscador Avanzado -->
+        <div class="search-advanced">
+            <div class="search-row">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar vinos..." onkeyup="searchProducts()">
+                <select class="search-input" id="searchBodega" onchange="searchProducts()">
+                    <option value="">Todas las bodegas</option>
+                </select>
+                <select class="search-input" id="searchYear" onchange="searchProducts()">
+                    <option value="">Todas las cosechas</option>
+                </select>
+            </div>
+            <div class="search-row">
+                <select class="search-input" id="searchPriceRange" onchange="searchProducts()">
+                    <option value="">Rango de precio</option>
+                    <option value="0-3000">Hasta $3.000</option>
+                    <option value="3000-6000">$3.000 - $6.000</option>
+                    <option value="6000+">Más de $6.000</option>
+                </select>
+                <select class="search-input" id="searchSort" onchange="searchProducts()">
+                    <option value="">Ordenar por</option>
+                    <option value="price-asc">Menor precio</option>
+                    <option value="price-desc">Mayor precio</option>
+                    <option value="rating">Mejor valorados</option>
+                    <option value="newest">Más recientes</option>
+                </select>
+            </div>
+        </div>
+
         <div class="filters">
             <button class="filter-btn active" onclick="filterWines('all')">Todos</button>
             <button class="filter-btn" onclick="filterWines('tinto')">Tintos</button>
@@ -2019,11 +309,108 @@
             <button class="filter-btn" onclick="filterWines('espumante')">Espumantes</button>
             <button class="filter-btn" onclick="filterWines('oferta')">Ofertas</button>
         </div>
-
-        <div class="products-grid" id="productsGrid">
-            <!-- Los productos se generan con JS -->
-        </div>
+        <div class="products-grid" id="productsGrid"></div>
     </section>
+
+    <!-- MODAL FICHA DE PRODUCTO -->
+    <div class="product-modal" id="productModal">
+        <div class="product-modal-content">
+            <button class="product-modal-close" onclick="closeProductModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="product-modal-body">
+                <div class="product-modal-gallery" id="modalGallery">
+                    <i class="fas fa-wine-bottle"></i>
+                </div>
+                <div class="product-modal-info">
+                    <div class="product-modal-bodega" id="modalBodega"></div>
+                    <h2 class="product-modal-title" id="modalTitle"></h2>
+                    <span class="product-modal-year" id="modalYear"></span>
+                    <div class="product-modal-price" id="modalPrice"></div>
+
+                    <div class="product-modal-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Tipo</span>
+                            <span class="meta-value" id="modalType"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Cosecha</span>
+                            <span class="meta-value" id="modalHarvest"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Altura</span>
+                            <span class="meta-value" id="modalAltitude"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Guarda</span>
+                            <span class="meta-value" id="modalAging"></span>
+                        </div>
+                    </div>
+
+                    <div class="product-modal-section">
+                        <h4>Notas de Cata</h4>
+                        <p id="modalTastingNotes"></p>
+                    </div>
+
+                    <div class="product-modal-section">
+                        <h4>Maridajes Sugeridos</h4>
+                        <p id="modalPairings"></p>
+                    </div>
+
+                    <div class="product-modal-section">
+                        <h4>Información del Viñedo</h4>
+                        <p id="modalVineyard"></p>
+                    </div>
+
+                    <div class="product-modal-actions">
+                        <button class="btn-primary" id="modalAddToCart">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                        <button class="btn-favorite" id="modalFavorite" onclick="toggleFavorite()">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+
+                    <!-- Sistema de Reseñas -->
+                    <div class="reviews-section" id="reviewsSection">
+                        <div class="reviews-header">
+                            <h4>Reseñas de Clientes</h4>
+                            <div class="reviews-summary">
+                                <span class="rating-big" id="modalRating">4.8</span>
+                                <div>
+                                    <div class="stars-big" id="modalStars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span style="color: #888; font-size: 0.9rem;"><span id="reviewCount">12</span> reseñas</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="review-form" id="reviewForm" style="display: none;">
+                            <h4 style="color: var(--dorado); margin-bottom: 1rem;">Deja tu reseña</h4>
+                            <div class="star-rating-input" id="starRatingInput">
+                                <i class="far fa-star" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
+                            </div>
+                            <textarea class="search-input" id="reviewText" rows="3" placeholder="Comparte tu experiencia con este vino..."></textarea>
+                            <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="submitReview()">
+                                Publicar Reseña
+                            </button>
+                        </div>
+
+                        <div id="reviewsList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- NUESTRAS BODEGAS -->
     <section class="bodegas-showcase" id="bodegas-showcase">
@@ -2032,10 +419,7 @@
             <h2 class="section-title">Nuestras Bodegas</h2>
             <p style="color: #888; max-width: 600px; margin: 2rem auto;">Historias de familia, tradición y pasión por el vino en cada rincón de San Rafael</p>
         </div>
-
-        <div class="bodegas-grid" id="bodegasGrid">
-            <!-- Las bodegas se generan con JS -->
-        </div>
+        <div class="bodegas-grid" id="bodegasGrid"></div>
     </section>
 
     <!-- Ofertas del Día -->
@@ -2045,7 +429,6 @@
             <h2 class="section-title" style="color: var(--blanco);">Ofertas del Día</h2>
             <p style="color: #ccc; margin-top: 1rem;">Descuentos exclusivos en vinos seleccionados de nuestras bodegas asociadas</p>
         </div>
-
         <div class="countdown-container">
             <div class="countdown-item">
                 <span class="countdown-number" id="hours">12</span>
@@ -2060,7 +443,6 @@
                 <div class="countdown-label">Segundos</div>
             </div>
         </div>
-
         <div style="text-align: center; margin-top: 3rem;">
             <a href="#catalogo" class="btn-primary">Ver Ofertas</a>
         </div>
@@ -2073,66 +455,52 @@
             <h2 class="section-title">Wine Matcher</h2>
             <p style="color: #888; margin-top: 1rem;">Responde 3 preguntas simples y te recomendamos el vino perfecto</p>
         </div>
-
         <div class="matcher-container">
             <div id="question1" class="question">
                 <h3>¿Qué tipo de comida vas a acompañar?</h3>
                 <div class="options">
                     <button class="option-btn" onclick="selectOption(1, 'carne')">
-                        <i class="fas fa-drumstick-bite"></i>
-                        Carnes Rojas
+                        <i class="fas fa-drumstick-bite"></i>Carnes Rojas
                     </button>
                     <button class="option-btn" onclick="selectOption(1, 'pescado')">
-                        <i class="fas fa-fish"></i>
-                        Pescado/Mariscos
+                        <i class="fas fa-fish"></i>Pescado/Mariscos
                     </button>
                     <button class="option-btn" onclick="selectOption(1, 'pasta')">
-                        <i class="fas fa-utensils"></i>
-                        Pastas/Pizza
+                        <i class="fas fa-utensils"></i>Pastas/Pizza
                     </button>
                     <button class="option-btn" onclick="selectOption(1, 'postre')">
-                        <i class="fas fa-ice-cream"></i>
-                        Postres
+                        <i class="fas fa-ice-cream"></i>Postres
                     </button>
                 </div>
             </div>
-
             <div id="question2" class="question" style="display: none;">
                 <h3>¿Qué preferencia de sabor tenés?</h3>
                 <div class="options">
                     <button class="option-btn" onclick="selectOption(2, 'seco')">
-                        <i class="fas fa-wine-glass"></i>
-                        Seco y Estructurado
+                        <i class="fas fa-wine-glass"></i>Seco y Estructurado
                     </button>
                     <button class="option-btn" onclick="selectOption(2, 'frutal')">
-                        <i class="fas fa-apple-alt"></i>
-                        Frutal y Suave
+                        <i class="fas fa-apple-alt"></i>Frutal y Suave
                     </button>
                     <button class="option-btn" onclick="selectOption(2, 'dulce')">
-                        <i class="fas fa-candy-cane"></i>
-                        Dulce o Semi
+                        <i class="fas fa-candy-cane"></i>Dulce o Semi
                     </button>
                 </div>
             </div>
-
             <div id="question3" class="question" style="display: none;">
                 <h3>¿Cuál es tu rango de precio?</h3>
                 <div class="options">
                     <button class="option-btn" onclick="selectOption(3, 'economico')">
-                        <i class="fas fa-coins"></i>
-                        Hasta $3000
+                        <i class="fas fa-coins"></i>Hasta $3000
                     </button>
                     <button class="option-btn" onclick="selectOption(3, 'medio')">
-                        <i class="fas fa-money-bill-wave"></i>
-                        $3000 - $6000
+                        <i class="fas fa-money-bill-wave"></i>$3000 - $6000
                     </button>
                     <button class="option-btn" onclick="selectOption(3, 'premium')">
-                        <i class="fas fa-gem"></i>
-                        Más de $6000
+                        <i class="fas fa-gem"></i>Más de $6000
                     </button>
                 </div>
             </div>
-
             <div id="matcherResult" class="matcher-result">
                 <h3 style="color: var(--dorado); margin-bottom: 1rem;">¡Tu vino ideal es:</h3>
                 <div id="resultContent"></div>
@@ -2146,12 +514,9 @@
         <div class="section-header">
             <span class="section-tag">Explora San Rafael</span>
             <h2 class="section-title">Rutas del Vino</h2>
-            <p style="color: #888; margin-top: 1rem;">Descubre las bodegas más emblemáticas de nuestra región</p>
+            <p style="color: #888; margin-top: 1rem;">Ubicamos a todas las bodegas socias en un mapa interactivo, para que los turistas planifiquen su ruta y los visiten</p>
         </div>
-
-        <div class="map-container" id="mapContainer">
-            <!-- El mapa se carga dinámicamente desde el admin -->
-        </div>
+        <div class="map-container" id="mapContainer"></div>
     </section>
 
     <!-- Recorridos y Experiencias -->
@@ -2161,10 +526,7 @@
             <h2 class="section-title">Recorridos del Vino</h2>
             <p style="color: #888; margin-top: 1rem;">Vive la experiencia completa en las mejores bodegas de San Rafael</p>
         </div>
-
-        <div class="tours-grid" id="toursGrid">
-            <!-- Los recorridos se generan con JS -->
-        </div>
+        <div class="tours-grid" id="toursGrid"></div>
     </section>
 
     <!-- Club de Suscripción -->
@@ -2174,7 +536,6 @@
             <h2 class="section-title">Club de la Bodega</h2>
             <p style="color: #888; margin-top: 1rem;">Recibe mensualmente una selección curada de los mejores vinos de San Rafael</p>
         </div>
-
         <div class="pricing-grid">
             <div class="pricing-card">
                 <h3 class="pricing-name">Descubrimiento</h3>
@@ -2187,7 +548,6 @@
                 </ul>
                 <button class="btn-reserve" onclick="subscribe('descubrimiento')">Suscribirme</button>
             </div>
-
             <div class="pricing-card featured">
                 <h3 class="pricing-name">Experto</h3>
                 <div class="pricing-price">$12.500<span>/mes</span></div>
@@ -2201,7 +561,6 @@
                 </ul>
                 <button class="btn-reserve" onclick="subscribe('experto')">Suscribirme</button>
             </div>
-
             <div class="pricing-card">
                 <h3 class="pricing-name">Coleccionista</h3>
                 <div class="pricing-price">$24.900<span>/mes</span></div>
@@ -2223,7 +582,6 @@
             <span class="section-tag">Conocimiento</span>
             <h2 class="section-title">Notas de Cata</h2>
         </div>
-
         <div class="blog-grid">
             <article class="blog-card">
                 <div class="blog-image">
@@ -2237,7 +595,6 @@
                     <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
                 </div>
             </article>
-
             <article class="blog-card">
                 <div class="blog-image">
                     <span class="blog-category">Historia</span>
@@ -2250,7 +607,6 @@
                     <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
                 </div>
             </article>
-
             <article class="blog-card">
                 <div class="blog-image">
                     <span class="blog-category">Cata</span>
@@ -2273,7 +629,6 @@
             <h2 class="section-title">¿Tenés una Bodega?</h2>
             <p style="color: #888; margin-top: 1rem;">Únete a nuestra plataforma y llega a miles de amantes del vino. Sin costo de suscripción.</p>
         </div>
-
         <div class="form-container">
             <form id="bodegaForm" onsubmit="submitForm(event)">
                 <div class="form-row">
@@ -2286,7 +641,6 @@
                         <input type="text" required placeholder="Nombre completo">
                     </div>
                 </div>
-                
                 <div class="form-row">
                     <div class="form-group">
                         <label>Email</label>
@@ -2297,12 +651,10 @@
                         <input type="tel" required placeholder="+54 260...">
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>Dirección de la Bodega</label>
                     <input type="text" required placeholder="San Rafael, Mendoza">
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label>Cantidad de variedades</label>
@@ -2323,12 +675,10 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>Mensaje (opcional)</label>
                     <textarea rows="4" placeholder="Contanos más sobre tu bodega..."></textarea>
                 </div>
-
                 <button type="submit" class="btn-submit">Enviar Solicitud</button>
             </form>
         </div>
@@ -2347,7 +697,6 @@
                     <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-            
             <div class="footer-section">
                 <h4>Enlaces Rápidos</h4>
                 <ul>
@@ -2359,7 +708,6 @@
                     <li><a href="#blog">Blog</a></li>
                 </ul>
             </div>
-            
             <div class="footer-section">
                 <h4>Ayuda</h4>
                 <ul>
@@ -2369,7 +717,6 @@
                     <li><a href="#">Contacto</a></li>
                 </ul>
             </div>
-            
             <div class="footer-section">
                 <h4>Contacto</h4>
                 <p><i class="fas fa-map-marker-alt" style="color: var(--dorado); margin-right: 0.5rem;"></i> San Rafael, Mendoza, Argentina</p>
@@ -2377,12 +724,9 @@
                 <p><i class="fas fa-envelope" style="color: var(--dorado); margin-right: 0.5rem;"></i> hola@clubdelabodega.com</p>
             </div>
         </div>
-        
         <div class="footer-bottom">
             <p>&copy; 2026 Club de la Bodega. Todos los derechos reservados. | Hecho con <i class="fas fa-heart" style="color: var(--dorado);"></i> en San Rafael</p>
         </div>
-        
-        <!-- Botón oculto para acceso admin -->
         <div class="admin-access" onclick="openAdminLogin()" title="Acceso Administrador">
             <i class="fas fa-lock"></i> Admin
         </div>
@@ -2420,24 +764,65 @@
         </div>
     </div>
 
-    <!-- ADMIN PANEL -->
+    <!-- ADMIN PANEL MEJORADO -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-header">
             <div class="admin-title">
                 <i class="fas fa-wine-bottle"></i> Panel de Administración
             </div>
             <div class="admin-nav">
-                <button class="active" onclick="showAdminSection('bodegas')">Bodegas</button>
+                <button class="active" onclick="showAdminSection('dashboard')">Dashboard</button>
+                <button onclick="showAdminSection('bodegas')">Bodegas</button>
                 <button onclick="showAdminSection('vinos')">Vinos</button>
                 <button onclick="showAdminSection('recorridos')">Recorridos</button>
+                <button onclick="showAdminSection('pedidos')">Pedidos</button>
+                <button onclick="showAdminSection('cupones')">Cupones</button>
                 <button onclick="showAdminSection('mapa')">Mapa</button>
                 <button onclick="cerrarAdmin()" style="color: var(--rojo); border-color: var(--rojo);">Salir</button>
             </div>
         </div>
 
         <div class="admin-content">
+            <!-- DASHBOARD CON ESTADÍSTICAS -->
+            <div id="admin-dashboard" class="admin-section active">
+                <h2 style="color: var(--dorado); margin-bottom: 2rem;">Dashboard de Rendimiento</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number" id="statViews">0</span>
+                        <div class="stat-label">Visitas a tu perfil (esta semana)</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="statClicks">0</span>
+                        <div class="stat-label">Clics en "Ver Vinos"</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="statSales">0</span>
+                        <div class="stat-label">Unidades Vendidas</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="statReservations">0</span>
+                        <div class="stat-label">Reservas de Recorridos</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="statRevenue">$0</span>
+                        <div class="stat-label">Ingresos Totales</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="statRating">0.0</span>
+                        <div class="stat-label">Valoración Promedio</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <h3 style="color: var(--dorado); margin-bottom: 1.5rem;">Actividad Reciente</h3>
+                    <div class="admin-list" id="activityList">
+                        <p style="color: #666; text-align: center; padding: 2rem;">No hay actividad reciente para mostrar</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- SECCIÓN BODEGAS -->
-            <div id="admin-bodegas" class="admin-section active">
+            <div id="admin-bodegas" class="admin-section">
                 <div class="admin-grid">
                     <div class="admin-form">
                         <h3>Agregar/Editar Bodega</h3>
@@ -2468,6 +853,18 @@
                                 <input type="text" id="bodegaEspecialidades" placeholder="Malbec, Cabernet, etc" required>
                             </div>
                             <div class="form-group">
+                                <label>Video de Presentación (URL)</label>
+                                <input type="url" id="bodegaVideo" placeholder="https://youtube.com/...">
+                            </div>
+                            <div class="form-group">
+                                <label>Instagram</label>
+                                <input type="text" id="bodegaInstagram" placeholder="@bodega">
+                            </div>
+                            <div class="form-group">
+                                <label>Facebook</label>
+                                <input type="text" id="bodegaFacebook" placeholder="bodega">
+                            </div>
+                            <div class="form-group">
                                 <label>URL de la Imagen</label>
                                 <input type="url" id="bodegaImagen" placeholder="https://...">
                                 <small style="color: #666; display: block; margin-top: 0.3rem;">Dejar vacío para usar imagen por defecto</small>
@@ -2496,9 +893,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Bodega</label>
-                                <select id="vinoBodega" required>
-                                    <!-- Se llena dinámicamente -->
-                                </select>
+                                <select id="vinoBodega" required></select>
                             </div>
                             <div class="form-group">
                                 <label>Tipo</label>
@@ -2510,12 +905,40 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>Año de Cosecha</label>
+                                <input type="number" id="vinoCosecha" required>
+                            </div>
+                            <div class="form-group">
                                 <label>Precio</label>
                                 <input type="number" id="vinoPrecio" required>
                             </div>
                             <div class="form-group">
                                 <label>Precio Anterior (opcional)</label>
                                 <input type="number" id="vinoPrecioOld">
+                            </div>
+                            <div class="form-group">
+                                <label>Stock Disponible</label>
+                                <input type="number" id="vinoStock" required min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Notas de Cata</label>
+                                <textarea id="vinoNotasCata" rows="3" placeholder="Descripción del aroma, sabor y final..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Maridajes Sugeridos</label>
+                                <input type="text" id="vinoMaridajes" placeholder="Carnes rojas, pastas, quesos...">
+                            </div>
+                            <div class="form-group">
+                                <label>Altura del Viñedo</label>
+                                <input type="text" id="vinoAltura" placeholder="Ej: 800 msnm">
+                            </div>
+                            <div class="form-group">
+                                <label>Potencial de Guarda</label>
+                                <input type="text" id="vinoGuarda" placeholder="Ej: 5 años">
+                            </div>
+                            <div class="form-group">
+                                <label>Información del Suelo</label>
+                                <textarea id="vinoSuelo" rows="2" placeholder="Tipo de suelo, características..."></textarea>
                             </div>
                             <div class="form-group">
                                 <label>URL de la Imagen</label>
@@ -2549,9 +972,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Bodega</label>
-                                <select id="recorridoBodega" required>
-                                    <!-- Se llena dinámicamente -->
-                                </select>
+                                <select id="recorridoBodega" required></select>
                             </div>
                             <div class="form-group">
                                 <label>Precio</label>
@@ -2560,6 +981,10 @@
                             <div class="form-group">
                                 <label>Duración</label>
                                 <input type="text" id="recorridoDuracion" placeholder="Ej: 2 horas" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Capacidad Máxima (personas)</label>
+                                <input type="number" id="recorridoCapacidad" required min="1">
                             </div>
                             <div class="form-group">
                                 <label>Características (una por línea)</label>
@@ -2576,27 +1001,71 @@
                 </div>
             </div>
 
+            <!-- SECCIÓN PEDIDOS -->
+            <div id="admin-pedidos" class="admin-section">
+                <div class="admin-list" style="max-width: 100%;">
+                    <h3>Gestión de Pedidos</h3>
+                    <div id="listaPedidos">
+                        <p style="color: #666; text-align: center; padding: 2rem;">No hay pedidos pendientes</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN CUPONES -->
+            <div id="admin-cupones" class="admin-section">
+                <div class="admin-grid">
+                    <div class="admin-form">
+                        <h3>Crear Cupón de Descuento</h3>
+                        <form id="formCupon" onsubmit="saveCupon(event)">
+                            <input type="hidden" id="cuponId">
+                            <div class="form-group">
+                                <label>Código</label>
+                                <input type="text" id="cuponCodigo" required placeholder="VERANO20">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Descuento</label>
+                                <select id="cuponTipo" required>
+                                    <option value="porcentaje">Porcentaje (%)</option>
+                                    <option value="fijo">Monto Fijo ($)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Valor</label>
+                                <input type="number" id="cuponValor" required placeholder="20">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Expiración</label>
+                                <input type="date" id="cuponExpiracion" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Usos Máximos</label>
+                                <input type="number" id="cuponUsos" placeholder="Dejar vacío para ilimitado">
+                            </div>
+                            <button type="submit" class="btn-success" style="width: 100%;">Crear Cupón</button>
+                            <button type="button" class="btn-secondary" style="width: 100%; margin-top: 0.5rem;" onclick="resetCuponForm()">Cancelar</button>
+                        </form>
+                    </div>
+                    <div class="admin-list">
+                        <h3>Cupones Activos</h3>
+                        <div id="listaCupones"></div>
+                    </div>
+                </div>
+            </div>
+
             <!-- SECCIÓN MAPA -->
             <div id="admin-mapa" class="admin-section">
                 <div class="admin-form" style="max-width: 800px; margin: 0 auto;">
                     <h3>Configurar Google Maps</h3>
                     <p style="color: #888; margin-bottom: 1.5rem;">Pegá el código de embed de Google Maps (iframe) o la URL para mostrar el mapa en la página de Rutas.</p>
-                    
                     <div class="form-group">
                         <label>Código Embed de Google Maps</label>
                         <textarea id="mapEmbedCode" rows="6" placeholder='<iframe src="https://www.google.com/maps/embed?..." width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>'></textarea>
-                        <small style="color: #666; display: block; margin-top: 0.3rem;">
-                            Para obtenerlo: Google Maps → Compartir → Insertar un mapa → Copiar HTML
-                        </small>
+                        <small style="color: #666; display: block; margin-top: 0.3rem;">Para obtenerlo: Google Maps → Compartir → Insertar un mapa → Copiar HTML</small>
                     </div>
-                    
                     <button onclick="saveMapConfig()" class="btn-success" style="width: 100%; margin-bottom: 1rem;">Guardar Mapa</button>
-                    
                     <div class="form-group">
                         <label>Vista Previa:</label>
-                        <div id="mapPreview" style="background: var(--negro); border: 1px solid var(--gris-medio); min-height: 300px; display: flex; align-items: center; justify-content: center; color: #666;">
-                            No hay mapa configurado aún
-                        </div>
+                        <div id="mapPreview" style="background: var(--negro); border: 1px solid var(--gris-medio); min-height: 300px; display: flex; align-items: center; justify-content: center; color: #666;">No hay mapa configurado aún</div>
                     </div>
                 </div>
             </div>
@@ -2604,7 +1073,7 @@
     </div>
 
     <script>
-        // DATOS INICIALES
+        // DATOS INICIALES MEJORADOS
         const defaultBodegas = [
             {
                 id: 1,
@@ -2614,7 +1083,10 @@
                 ubicacion: "Valle Grande, San Rafael",
                 descripcion: "Ubicada en el corazón del valle de San Rafael, esta bodega familiar lleva tres generaciones cultivando Malbec de altura a 800 metros sobre el nivel del mar.",
                 especialidades: ["Malbec Reserva", "Cabernet Franc", "Blend Premium"],
-                imagen: "https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg"
+                imagen: "https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg",
+                video: "",
+                instagram: "@bodegaamanecer",
+                facebook: "bodegaamanecer"
             },
             {
                 id: 2,
@@ -2624,7 +1096,10 @@
                 ubicacion: "Cuadro Benegas, San Rafael",
                 descripcion: "Especialistas en vinos blancos y espumantes, esta bodega aprovecha los suelos calcáreos de la zona para crear Chardonnays de excelencia internacional.",
                 especialidades: ["Chardonnay", "Espumante Brut", "Sauvignon Blanc"],
-                imagen: "https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg"
+                imagen: "https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg",
+                video: "",
+                instagram: "@vinedosdelsol",
+                facebook: "vinedosdelsol"
             },
             {
                 id: 3,
@@ -2634,14 +1109,71 @@
                 ubicacion: "Cañada Honda, San Rafael",
                 descripcion: "Con más de 45 años de historia, es una de las bodegas más tradicionales de la región. Famosos por sus tintos de guarda.",
                 especialidades: ["Gran Reserva", "Tannat", "Syrah Roble"],
-                imagen: "https://kimi-web-img.moonshot.cn/img/elements-resized.envatousercontent.com/2621656f2d618098f96b0c9dcbf1174e4717c311.jpg"
+                imagen: "https://kimi-web-img.moonshot.cn/img/elements-resized.envatousercontent.com/2621656f2d618098f96b0c9dcbf1174e4717c311.jpg",
+                video: "",
+                instagram: "@bodegamonteviejo",
+                facebook: "bodegamonteviejo"
             }
         ];
 
         const defaultProducts = [
-            { id: 1, name: 'Malbec Reserva', bodega: 'Bodega Amanecer', type: 'tinto', price: 4500, oldPrice: 5200, imagen: '', badge: 'Oferta' },
-            { id: 2, name: 'Chardonnay Premium', bodega: 'Viñedos del Sol', type: 'blanco', price: 3800, oldPrice: null, imagen: '', badge: null },
-            { id: 3, name: 'Gran Reserva', bodega: 'Bodega Monte Viejo', type: 'tinto', price: 8900, oldPrice: null, imagen: '', badge: null }
+            { 
+                id: 1, 
+                name: 'Malbec Reserva', 
+                bodega: 'Bodega Amanecer', 
+                type: 'tinto', 
+                price: 4500, 
+                oldPrice: 5200, 
+                imagen: '', 
+                badge: 'Oferta',
+                cosecha: 2020,
+                stock: 50,
+                notasCata: "Color rojo intenso con matices violáceos. Aroma a frutos rojos maduros, ciruela y notas de vainilla. En boca es estructurado con taninos suaves y un final persistente.",
+                maridajes: "Carnes rojas a la parrilla, estofados de cordero, quesos curados.",
+                altura: "800 msnm",
+                guarda: "5-7 años",
+                suelo: "Suelo aluvial con buen drenaje",
+                rating: 4.8,
+                reviews: 12
+            },
+            { 
+                id: 2, 
+                name: 'Chardonnay Premium', 
+                bodega: 'Viñedos del Sol', 
+                type: 'blanco', 
+                price: 3800, 
+                oldPrice: null, 
+                imagen: '', 
+                badge: null,
+                cosecha: 2022,
+                stock: 35,
+                notasCata: "Amarillo pajizo con reflejos verdosos. Aromas de manzana verde, pera y notas cítricas con un toque de roble. Fresco y equilibrado.",
+                maridajes: "Pescados, mariscos, pastas con salsa blanca.",
+                altura: "750 msnm",
+                guarda: "2-3 años",
+                suelo: "Suelo calcáreo",
+                rating: 4.5,
+                reviews: 8
+            },
+            { 
+                id: 3, 
+                name: 'Gran Reserva', 
+                bodega: 'Bodega Monte Viejo', 
+                type: 'tinto', 
+                price: 8900, 
+                oldPrice: null, 
+                imagen: '', 
+                badge: null,
+                cosecha: 2018,
+                stock: 20,
+                notasCata: "Rojo rubí profundo. Complejo aroma a frutos negros, tabaco y chocolate. En boca es potente, con taninos maduros y un final elegante.",
+                maridajes: "Carnes de caza, cordero patagónico, quesos fuertes.",
+                altura: "850 msnm",
+                guarda: "8-10 años",
+                suelo: "Suelo pedregoso",
+                rating: 4.9,
+                reviews: 15
+            }
         ];
 
         const defaultRecorridos = [
@@ -2651,6 +1183,7 @@
                 bodega: "Bodega Amanecer",
                 precio: 4500,
                 duracion: "2 horas",
+                capacidad: 20,
                 features: ["Recorrido por viñedos", "Visita a sala de barricas", "Degustación de 3 vinos", "Tabla de quesos regionales"]
             },
             {
@@ -2659,24 +1192,43 @@
                 bodega: "Viñedos del Sol",
                 precio: 8900,
                 duracion: "4 horas",
+                capacidad: 12,
                 features: ["Recorrido privado VIP", "Cata guiada por enólogo", "5 vinos de alta gama", "Almuerzo maridado 3 pasos", "Botella de regalo"]
             }
         ];
+
+        const defaultReviews = [
+            { id: 1, productId: 1, user: "Juan Pérez", rating: 5, date: "2026-03-10", text: "Excelente vino, superó mis expectativas. Ideal para una cena especial." },
+            { id: 2, productId: 1, user: "María González", rating: 4, date: "2026-03-08", text: "Muy buen cuerpo y sabor. Lo recomiendo." },
+            { id: 3, productId: 2, user: "Carlos López", rating: 5, date: "2026-03-05", text: "Fresco y perfecto para el verano." }
+        ];
+
+        const defaultCupones = [];
+        const defaultPedidos = [];
+        const defaultStats = { views: 0, clicks: 0, sales: 0, reservations: 0, revenue: 0 };
 
         // INICIALIZACIÓN
         let bodegas = JSON.parse(localStorage.getItem('cb_bodegas')) || defaultBodegas;
         let products = JSON.parse(localStorage.getItem('cb_vinos')) || defaultProducts;
         let recorridos = JSON.parse(localStorage.getItem('cb_recorridos')) || defaultRecorridos;
+        let reviews = JSON.parse(localStorage.getItem('cb_reviews')) || defaultReviews;
+        let cupones = JSON.parse(localStorage.getItem('cb_cupones')) || defaultCupones;
+        let pedidos = JSON.parse(localStorage.getItem('cb_pedidos')) || defaultPedidos;
+        let stats = JSON.parse(localStorage.getItem('cb_stats')) || defaultStats;
         let mapConfig = JSON.parse(localStorage.getItem('cb_map')) || { embedCode: '' };
+        let currentUser = JSON.parse(localStorage.getItem('cb_user')) || null;
+        let favorites = JSON.parse(localStorage.getItem('cb_favorites')) || [];
 
         let cart = [];
         let currentFilter = 'all';
+        let currentProduct = null;
+        let currentRating = 0;
 
         // RENDERIZADO PÚBLICO
         function renderBodegas() {
             const grid = document.getElementById('bodegasGrid');
             if (!grid) return;
-            
+
             grid.innerHTML = bodegas.map(b => `
                 <div class="bodega-card">
                     <div class="bodega-image-container">
@@ -2710,33 +1262,70 @@
         function renderProducts(filter = 'all') {
             const grid = document.getElementById('productsGrid');
             if (!grid) return;
-            
-            const filtered = filter === 'all' ? products : 
-                           filter === 'oferta' ? products.filter(p => p.oldPrice) :
-                           products.filter(p => p.type === filter);
-            
+
+            let filtered = filter === 'all' ? products : 
+                          filter === 'oferta' ? products.filter(p => p.oldPrice) :
+                          products.filter(p => p.type === filter);
+
+            // Aplicar búsqueda avanzada
+            const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+            const searchBodega = document.getElementById('searchBodega')?.value || '';
+            const searchYear = document.getElementById('searchYear')?.value || '';
+            const searchPrice = document.getElementById('searchPriceRange')?.value || '';
+            const searchSort = document.getElementById('searchSort')?.value || '';
+
+            if (searchTerm) {
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm));
+            }
+            if (searchBodega) {
+                filtered = filtered.filter(p => p.bodega === searchBodega);
+            }
+            if (searchYear) {
+                filtered = filtered.filter(p => p.cosecha === parseInt(searchYear));
+            }
+            if (searchPrice) {
+                if (searchPrice === '0-3000') filtered = filtered.filter(p => p.price <= 3000);
+                else if (searchPrice === '3000-6000') filtered = filtered.filter(p => p.price > 3000 && p.price <= 6000);
+                else if (searchPrice === '6000+') filtered = filtered.filter(p => p.price > 6000);
+            }
+
+            // Ordenamiento
+            if (searchSort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
+            else if (searchSort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
+            else if (searchSort === 'rating') filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+            else if (searchSort === 'newest') filtered.sort((a, b) => (b.cosecha || 0) - (a.cosecha || 0));
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666; padding: 2rem;">No se encontraron vinos con los filtros seleccionados</p>';
+                return;
+            }
+
             grid.innerHTML = filtered.map(product => `
                 <div class="product-card">
                     ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                    <div class="product-image">
+                    <div class="product-image" onclick="openProductModal(${product.id})">
                         ${product.imagen ? `<img src="${product.imagen}" alt="${product.name}">` : '<i class="fas fa-wine-bottle"></i>'}
                         <div class="product-overlay">
-                            <button class="btn-add-cart" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">
+                            <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${product.price})">
                                 Agregar al Carrito
                             </button>
                         </div>
                     </div>
                     <div class="product-info">
                         <div class="product-bodega">${product.bodega}</div>
-                        <h3 class="product-name">${product.name}</h3>
+                        <h3 class="product-name" onclick="openProductModal(${product.id})" style="cursor: pointer;">${product.name}</h3>
                         <div class="product-details">
                             <span><i class="fas fa-wine-bottle"></i> ${product.type}</span>
-                            <span><i class="fas fa-star"></i> 4.8</span>
+                            <span><i class="fas fa-calendar"></i> ${product.cosecha || 'N/A'}</span>
                         </div>
                         <div class="product-price">
                             <div>
                                 ${product.oldPrice ? `<span class="price-original">$${product.oldPrice}</span>` : ''}
                                 <span class="price">$${product.price}</span>
+                            </div>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <span>${product.rating || '4.5'}</span>
                             </div>
                         </div>
                     </div>
@@ -2747,7 +1336,7 @@
         function renderRecorridos() {
             const grid = document.getElementById('toursGrid');
             if (!grid) return;
-            
+
             grid.innerHTML = recorridos.map(t => `
                 <div class="tour-card">
                     <div class="tour-header">
@@ -2759,6 +1348,7 @@
                         <ul class="tour-features">
                             ${t.features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}
                             <li><i class="fas fa-clock"></i> Duración: ${t.duracion}</li>
+                            <li><i class="fas fa-users"></i> Capacidad: ${t.capacidad} personas</li>
                         </ul>
                     </div>
                     <div class="tour-footer">
@@ -2771,11 +1361,10 @@
         function renderMap() {
             const container = document.getElementById('mapContainer');
             if (!container) return;
-            
+
             if (mapConfig.embedCode) {
                 container.innerHTML = mapConfig.embedCode;
             } else {
-                // Mapa placeholder si no hay configuración
                 container.innerHTML = `
                     <div style="padding: 4rem; text-align: center; color: #666;">
                         <i class="fas fa-map-marked-alt" style="font-size: 4rem; color: var(--dorado); margin-bottom: 1rem;"></i>
@@ -2783,6 +1372,387 @@
                         <p>El administrador debe configurar el mapa desde el panel de administración.</p>
                     </div>
                 `;
+            }
+        }
+
+        function updateSearchOptions() {
+            const bodegaSelect = document.getElementById('searchBodega');
+            const yearSelect = document.getElementById('searchYear');
+            if (!bodegaSelect || !yearSelect) return;
+
+            // Actualizar bodegas
+            const currentBodega = bodegaSelect.value;
+            bodegaSelect.innerHTML = '<option value="">Todas las bodegas</option>' + 
+                bodegas.map(b => `<option value="${b.nombre}">${b.nombre}</option>`).join('');
+            bodegaSelect.value = currentBodega;
+
+            // Actualizar años
+            const years = [...new Set(products.map(p => p.cosecha).filter(y => y))].sort((a, b) => b - a);
+            const currentYear = yearSelect.value;
+            yearSelect.innerHTML = '<option value="">Todas las cosechas</option>' + 
+                years.map(y => `<option value="${y}">${y}</option>`).join('');
+            yearSelect.value = currentYear;
+        }
+
+        function searchProducts() {
+            renderProducts(currentFilter);
+        }
+
+        // MODAL FICHA DE PRODUCTO
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            currentProduct = product;
+
+            document.getElementById('modalBodega').textContent = product.bodega;
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalYear').textContent = product.cosecha || 'NV';
+            document.getElementById('modalPrice').textContent = `$${product.price}`;
+            document.getElementById('modalType').textContent = product.type.charAt(0).toUpperCase() + product.type.slice(1);
+            document.getElementById('modalHarvest').textContent = product.cosecha || 'No vintage';
+            document.getElementById('modalAltitude').textContent = product.altura || 'No especificado';
+            document.getElementById('modalAging').textContent = product.guarda || 'No especificado';
+            document.getElementById('modalTastingNotes').textContent = product.notasCata || 'Notas de cata no disponibles';
+            document.getElementById('modalPairings').textContent = product.maridajes || 'Maridajes no especificados';
+            document.getElementById('modalVineyard').textContent = product.suelo || 'Información del viñedo no disponible';
+
+            // Galería
+            const gallery = document.getElementById('modalGallery');
+            if (product.imagen) {
+                gallery.innerHTML = `<img src="${product.imagen}" alt="${product.name}">`;
+            } else {
+                gallery.innerHTML = '<i class="fas fa-wine-bottle"></i>';
+            }
+
+            // Botón favorito
+            const favBtn = document.getElementById('modalFavorite');
+            const isFav = favorites.includes(productId);
+            favBtn.innerHTML = `<i class="${isFav ? 'fas' : 'far'} fa-heart"></i>`;
+            favBtn.classList.toggle('active', isFav);
+
+            // Botón agregar al carrito
+            document.getElementById('modalAddToCart').onclick = () => {
+                addToCart(product.id, product.name, product.price);
+                closeProductModal();
+            };
+
+            // Rating
+            document.getElementById('modalRating').textContent = product.rating || '4.5';
+
+            // Reseñas
+            renderReviews(productId);
+
+            // Mostrar formulario de reseña si hay usuario
+            document.getElementById('reviewForm').style.display = currentUser ? 'block' : 'none';
+
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = '';
+            currentProduct = null;
+            currentRating = 0;
+            resetStarRating();
+        }
+
+        function renderReviews(productId) {
+            const productReviews = reviews.filter(r => r.productId === productId);
+            document.getElementById('reviewCount').textContent = productReviews.length;
+
+            const container = document.getElementById('reviewsList');
+            if (productReviews.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center; padding: 1rem;">Sé el primero en dejar una reseña</p>';
+                return;
+            }
+
+            container.innerHTML = productReviews.map(r => `
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="reviewer-name">${r.user}</span>
+                        <span class="review-date">${r.date}</span>
+                    </div>
+                    <div class="review-rating">
+                        ${Array(5).fill(0).map((_, i) => 
+                            `<i class="${i < r.rating ? 'fas' : 'far'} fa-star"></i>`
+                        ).join('')}
+                    </div>
+                    <p class="review-text">${r.text}</p>
+                </div>
+            `).join('');
+        }
+
+        // Sistema de estrellas para reseñas
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('#starRatingInput i');
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const rating = parseInt(star.dataset.rating);
+                    currentRating = rating;
+                    updateStarRating(rating);
+                });
+            });
+        });
+
+        function updateStarRating(rating) {
+            const stars = document.querySelectorAll('#starRatingInput i');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove('far');
+                    star.classList.add('fas', 'active');
+                } else {
+                    star.classList.remove('fas', 'active');
+                    star.classList.add('far');
+                }
+            });
+        }
+
+        function resetStarRating() {
+            currentRating = 0;
+            updateStarRating(0);
+            document.getElementById('reviewText').value = '';
+        }
+
+        function submitReview() {
+            if (!currentUser) {
+                alert('Debes iniciar sesión para dejar una reseña');
+                return;
+            }
+            if (currentRating === 0) {
+                alert('Por favor selecciona una calificación');
+                return;
+            }
+
+            const text = document.getElementById('reviewText').value;
+            if (!text.trim()) {
+                alert('Por favor escribe tu reseña');
+                return;
+            }
+
+            const newReview = {
+                id: Date.now(),
+                productId: currentProduct.id,
+                user: currentUser.name,
+                rating: currentRating,
+                date: new Date().toISOString().split('T')[0],
+                text: text
+            };
+
+            reviews.push(newReview);
+            localStorage.setItem('cb_reviews', JSON.stringify(reviews));
+
+            // Actualizar rating promedio del producto
+            const productReviews = reviews.filter(r => r.productId === currentProduct.id);
+            const avgRating = productReviews.reduce((sum, r) => sum + r.rating, 0) / productReviews.length;
+            currentProduct.rating = Math.round(avgRating * 10) / 10;
+            localStorage.setItem('cb_vinos', JSON.stringify(products));
+
+            renderReviews(currentProduct.id);
+            renderProducts(currentFilter);
+            resetStarRating();
+
+            alert('¡Gracias por tu reseña!');
+        }
+
+        function toggleFavorite() {
+            if (!currentProduct) return;
+
+            const index = favorites.indexOf(currentProduct.id);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(currentProduct.id);
+            }
+
+            localStorage.setItem('cb_favorites', JSON.stringify(favorites));
+
+            const favBtn = document.getElementById('modalFavorite');
+            const isFav = favorites.includes(currentProduct.id);
+            favBtn.innerHTML = `<i class="${isFav ? 'fas' : 'far'} fa-heart"></i>`;
+            favBtn.classList.toggle('active', isFav);
+        }
+
+        // CARRITO
+        function addToCart(id, name, price) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            updateCart();
+
+            // Registrar estadística
+            if (typeof id === 'number') {
+                stats.sales++;
+                stats.revenue += price;
+                localStorage.setItem('cb_stats', JSON.stringify(stats));
+            }
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Tu carrito está vacío</p>';
+                cartTotal.textContent = '$0';
+                return;
+            }
+
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <i class="fas fa-wine-bottle"></i>
+                    </div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div style="color: #666; font-size: 0.9rem;">Cantidad: ${item.quantity}</div>
+                        <div class="cart-item-price">$${item.price * item.quantity}</div>
+                    </div>
+                    <button onclick="removeFromCart('${item.id}')" style="background: none; border: none; color: #666; cursor: pointer;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = '$' + total.toLocaleString();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('active');
+        }
+
+        function filterWines(type) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts(type);
+        }
+
+        function filterByBodega(nombre) {
+            document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('searchBodega').value = nombre;
+            searchProducts();
+        }
+
+        // Wine Matcher
+        let matcherAnswers = {};
+        function selectOption(question, value) {
+            matcherAnswers[`q${question}`] = value;
+            document.getElementById(`question${question}`).style.display = 'none';
+            if (question < 3) {
+                document.getElementById(`question${question + 1}`).style.display = 'block';
+            } else {
+                showMatcherResult();
+            }
+        }
+
+        function showMatcherResult() {
+            let recommendation = products[0];
+
+            if (matcherAnswers.q1 === 'pescado') {
+                recommendation = products.find(p => p.type === 'blanco') || recommendation;
+            } else if (matcherAnswers.q3 === 'premium') {
+                recommendation = products.filter(p => p.price > 6000)[0] || recommendation;
+            }
+
+            document.getElementById('resultContent').innerHTML = `
+                <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">${recommendation.name}</h2>
+                <p style="color: #ccc; margin-bottom: 1.5rem;">${recommendation.bodega}</p>
+                <div style="font-size: 2rem; color: var(--dorado); font-weight: 600; margin-bottom: 1rem;">$${recommendation.price}</div>
+                <button class="btn-primary" onclick="addToCart(${recommendation.id}, '${recommendation.name}', ${recommendation.price}); resetMatcher();">
+                    Agregar al Carrito
+                </button>
+            `;
+            document.getElementById('matcherResult').classList.add('show');
+        }
+
+        function resetMatcher() {
+            matcherAnswers = {};
+            document.getElementById('matcherResult').classList.remove('show');
+            document.getElementById('question1').style.display = 'block';
+            document.getElementById('question2').style.display = 'none';
+            document.getElementById('question3').style.display = 'none';
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab).classList.add('active');
+        }
+
+        // Countdown
+        function updateCountdown() {
+            const now = new Date();
+            const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+            const diff = endOfDay - now;
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        function submitForm(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu interés! Te contactaremos en las próximas 24 horas.');
+            e.target.reset();
+        }
+
+        function subscribe(plan) {
+            if (!currentUser) {
+                alert('Debes iniciar sesión para suscribirte');
+                openUserAccount();
+                return;
+            }
+            alert(`¡Excelente elección! Plan ${plan} seleccionado.`);
+        }
+
+        // CUENTA DE USUARIO
+        function openUserAccount() {
+            if (!currentUser) {
+                const name = prompt('Ingresa tu nombre:');
+                if (name) {
+                    currentUser = { name, email: '', favorites: [], orders: [] };
+                    localStorage.setItem('cb_user', JSON.stringify(currentUser));
+                    alert(`¡Bienvenido, ${name}!`);
+                }
+            } else {
+                const option = confirm(`Hola ${currentUser.name}\n\n¿Deseas cerrar sesión?`);
+                if (option) {
+                    currentUser = null;
+                    localStorage.removeItem('cb_user');
+                    alert('Sesión cerrada');
+                }
             }
         }
 
@@ -2815,13 +1785,16 @@
         function showAdminSection(section) {
             document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.admin-nav button').forEach(b => b.classList.remove('active'));
-            
+
             document.getElementById('admin-' + section).classList.add('active');
             event.target.classList.add('active');
-            
+
+            if (section === 'dashboard') renderDashboard();
             if (section === 'bodegas') renderAdminBodegas();
             if (section === 'vinos') { renderAdminVinos(); updateBodegaSelects(); }
             if (section === 'recorridos') { renderAdminRecorridos(); updateBodegaSelects(); }
+            if (section === 'pedidos') renderAdminPedidos();
+            if (section === 'cupones') renderAdminCupones();
             if (section === 'mapa') {
                 document.getElementById('mapEmbedCode').value = mapConfig.embedCode;
                 updateMapPreview();
@@ -2829,11 +1802,21 @@
         }
 
         function initAdmin() {
-            renderAdminBodegas();
-            showAdminSection('bodegas');
+            renderDashboard();
+            showAdminSection('dashboard');
         }
 
-        // GESTIÓN BODEGAS
+        function renderDashboard() {
+            document.getElementById('statViews').textContent = stats.views;
+            document.getElementById('statClicks').textContent = stats.clicks;
+            document.getElementById('statSales').textContent = stats.sales;
+            document.getElementById('statReservations').textContent = stats.reservations;
+            document.getElementById('statRevenue').textContent = '$' + stats.revenue.toLocaleString();
+
+            const avgRating = products.reduce((sum, p) => sum + (p.rating || 4.5), 0) / products.length;
+            document.getElementById('statRating').textContent = avgRating.toFixed(1);
+        }
+
         function renderAdminBodegas() {
             const container = document.getElementById('listaBodegas');
             container.innerHTML = bodegas.map(b => `
@@ -2862,27 +1845,31 @@
                 ubicacion: document.getElementById('bodegaUbicacion').value,
                 descripcion: document.getElementById('bodegaDescripcion').value,
                 especialidades: document.getElementById('bodegaEspecialidades').value.split(',').map(s => s.trim()),
-                imagen: document.getElementById('bodegaImagen').value || ''
+                imagen: document.getElementById('bodegaImagen').value || '',
+                video: document.getElementById('bodegaVideo').value || '',
+                instagram: document.getElementById('bodegaInstagram').value || '',
+                facebook: document.getElementById('bodegaFacebook').value || ''
             };
-            
+
             if (id) {
                 const index = bodegas.findIndex(b => b.id === parseInt(id));
                 bodegas[index] = bodega;
             } else {
                 bodegas.push(bodega);
             }
-            
+
             localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
             resetBodegaForm();
             renderAdminBodegas();
-            renderBodegas(); // Actualizar sitio público
+            renderBodegas();
+            updateSearchOptions();
             alert('Bodega guardada correctamente');
         }
 
         function editBodega(id) {
             const b = bodegas.find(b => b.id === id);
             if (!b) return;
-            
+
             document.getElementById('bodegaId').value = b.id;
             document.getElementById('bodegaNombre').value = b.nombre;
             document.getElementById('bodegaFundador').value = b.fundador;
@@ -2891,6 +1878,9 @@
             document.getElementById('bodegaDescripcion').value = b.descripcion;
             document.getElementById('bodegaEspecialidades').value = b.especialidades.join(', ');
             document.getElementById('bodegaImagen').value = b.imagen || '';
+            document.getElementById('bodegaVideo').value = b.video || '';
+            document.getElementById('bodegaInstagram').value = b.instagram || '';
+            document.getElementById('bodegaFacebook').value = b.facebook || '';
         }
 
         function deleteBodega(id) {
@@ -2906,7 +1896,6 @@
             document.getElementById('bodegaId').value = '';
         }
 
-        // GESTIÓN VINOS
         function updateBodegaSelects() {
             const selects = ['vinoBodega', 'recorridoBodega'];
             selects.forEach(selectId => {
@@ -2923,8 +1912,8 @@
             container.innerHTML = products.map(p => `
                 <div class="admin-item">
                     <div class="admin-item-info">
-                        <h4>${p.name}</h4>
-                        <p>${p.bodega} | ${p.type} | $${p.price}</p>
+                        <h4>${p.name} ${p.stock === 0 ? '<span style="color: var(--rojo);">(AGOTADO)</span>' : ''}</h4>
+                        <p>${p.bodega} | ${p.type} | $${p.price} | Stock: ${p.stock}</p>
                         ${p.badge ? `<span style="color: var(--dorado); font-size: 0.8rem;">${p.badge}</span>` : ''}
                     </div>
                     <div class="admin-item-actions">
@@ -2943,36 +1932,53 @@
                 name: document.getElementById('vinoNombre').value,
                 bodega: document.getElementById('vinoBodega').value,
                 type: document.getElementById('vinoTipo').value,
+                cosecha: parseInt(document.getElementById('vinoCosecha').value),
                 price: parseInt(document.getElementById('vinoPrecio').value),
                 oldPrice: parseInt(document.getElementById('vinoPrecioOld').value) || null,
+                stock: parseInt(document.getElementById('vinoStock').value) || 0,
+                notasCata: document.getElementById('vinoNotasCata').value,
+                maridajes: document.getElementById('vinoMaridajes').value,
+                altura: document.getElementById('vinoAltura').value,
+                guarda: document.getElementById('vinoGuarda').value,
+                suelo: document.getElementById('vinoSuelo').value,
                 imagen: document.getElementById('vinoImagen').value || '',
-                badge: document.getElementById('vinoBadge').value || null
+                badge: document.getElementById('vinoBadge').value || null,
+                rating: id ? products.find(p => p.id === parseInt(id))?.rating || 4.5 : 4.5,
+                reviews: id ? products.find(p => p.id === parseInt(id))?.reviews || 0 : 0
             };
-            
+
             if (id) {
                 const index = products.findIndex(p => p.id === parseInt(id));
                 products[index] = vino;
             } else {
                 products.push(vino);
             }
-            
+
             localStorage.setItem('cb_vinos', JSON.stringify(products));
             resetVinoForm();
             renderAdminVinos();
             renderProducts(currentFilter);
+            updateSearchOptions();
             alert('Vino guardado correctamente');
         }
 
         function editVino(id) {
             const p = products.find(x => x.id === id);
             if (!p) return;
-            
+
             document.getElementById('vinoId').value = p.id;
             document.getElementById('vinoNombre').value = p.name;
             document.getElementById('vinoBodega').value = p.bodega;
             document.getElementById('vinoTipo').value = p.type;
+            document.getElementById('vinoCosecha').value = p.cosecha || '';
             document.getElementById('vinoPrecio').value = p.price;
             document.getElementById('vinoPrecioOld').value = p.oldPrice || '';
+            document.getElementById('vinoStock').value = p.stock || 0;
+            document.getElementById('vinoNotasCata').value = p.notasCata || '';
+            document.getElementById('vinoMaridajes').value = p.maridajes || '';
+            document.getElementById('vinoAltura').value = p.altura || '';
+            document.getElementById('vinoGuarda').value = p.guarda || '';
+            document.getElementById('vinoSuelo').value = p.suelo || '';
             document.getElementById('vinoImagen').value = p.imagen || '';
             document.getElementById('vinoBadge').value = p.badge || '';
         }
@@ -2990,14 +1996,13 @@
             document.getElementById('vinoId').value = '';
         }
 
-        // GESTIÓN RECORRIDOS
         function renderAdminRecorridos() {
             const container = document.getElementById('listaRecorridos');
             container.innerHTML = recorridos.map(r => `
                 <div class="admin-item">
                     <div class="admin-item-info">
                         <h4>${r.nombre}</h4>
-                        <p>${r.bodega} | $${r.precio} | ${r.duracion}</p>
+                        <p>${r.bodega} | $${r.precio} | ${r.duracion} | Cap: ${r.capacidad} pers.</p>
                     </div>
                     <div class="admin-item-actions">
                         <button class="btn-small btn-edit" onclick="editRecorrido(${r.id})">Editar</button>
@@ -3016,16 +2021,17 @@
                 bodega: document.getElementById('recorridoBodega').value,
                 precio: parseInt(document.getElementById('recorridoPrecio').value),
                 duracion: document.getElementById('recorridoDuracion').value,
+                capacidad: parseInt(document.getElementById('recorridoCapacidad').value),
                 features: document.getElementById('recorridoFeatures').value.split('\n').filter(f => f.trim())
             };
-            
+
             if (id) {
                 const index = recorridos.findIndex(r => r.id === parseInt(id));
                 recorridos[index] = recorrido;
             } else {
                 recorridos.push(recorrido);
             }
-            
+
             localStorage.setItem('cb_recorridos', JSON.stringify(recorridos));
             resetRecorridoForm();
             renderAdminRecorridos();
@@ -3036,12 +2042,13 @@
         function editRecorrido(id) {
             const r = recorridos.find(x => x.id === id);
             if (!r) return;
-            
+
             document.getElementById('recorridoId').value = r.id;
             document.getElementById('recorridoNombre').value = r.nombre;
             document.getElementById('recorridoBodega').value = r.bodega;
             document.getElementById('recorridoPrecio').value = r.precio;
             document.getElementById('recorridoDuracion').value = r.duracion;
+            document.getElementById('recorridoCapacidad').value = r.capacidad;
             document.getElementById('recorridoFeatures').value = r.features.join('\n');
         }
 
@@ -3058,7 +2065,93 @@
             document.getElementById('recorridoId').value = '';
         }
 
-        // MAPA
+        function renderAdminPedidos() {
+            const container = document.getElementById('listaPedidos');
+            if (pedidos.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center; padding: 2rem;">No hay pedidos pendientes</p>';
+                return;
+            }
+
+            container.innerHTML = pedidos.map(p => `
+                <div class="admin-item">
+                    <div class="admin-item-info">
+                        <h4>Pedido #${p.id}</h4>
+                        <p>Cliente: ${p.cliente} | Fecha: ${p.fecha}</p>
+                        <p>Total: $${p.total} | Items: ${p.items.length}</p>
+                    </div>
+                    <div class="admin-item-actions">
+                        <span class="order-status status-${p.estado}">${p.estado}</span>
+                        ${p.estado === 'pendiente' ? `<button class="btn-small btn-success" onclick="updatePedido(${p.id}, 'enviado')">Marcar Enviado</button>` : ''}
+                        ${p.estado === 'enviado' ? `<button class="btn-small btn-success" onclick="updatePedido(${p.id}, 'completado')">Marcar Completado</button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updatePedido(id, estado) {
+            const pedido = pedidos.find(p => p.id === id);
+            if (pedido) {
+                pedido.estado = estado;
+                localStorage.setItem('cb_pedidos', JSON.stringify(pedidos));
+                renderAdminPedidos();
+            }
+        }
+
+        function renderAdminCupones() {
+            const container = document.getElementById('listaCupones');
+            if (cupones.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center; padding: 2rem;">No hay cupones creados</p>';
+                return;
+            }
+
+            container.innerHTML = cupones.map(c => {
+                const expirado = new Date(c.expiracion) < new Date();
+                return `
+                    <div class="admin-item">
+                        <div class="admin-item-info">
+                            <h4>${c.codigo} ${expirado ? '<span style="color: var(--rojo);">(EXPIRADO)</span>' : ''}</h4>
+                            <p>${c.tipo === 'porcentaje' ? c.valor + '%' : '$' + c.valor} de descuento</p>
+                            <p>Expira: ${c.expiracion} | Usos: ${c.usos || 0}${c.usosMaximos ? '/' + c.usosMaximos : ''}</p>
+                        </div>
+                        <div class="admin-item-actions">
+                            <button class="btn-small btn-delete" onclick="deleteCupon(${c.id})">Eliminar</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function saveCupon(e) {
+            e.preventDefault();
+            const cupon = {
+                id: Date.now(),
+                codigo: document.getElementById('cuponCodigo').value.toUpperCase(),
+                tipo: document.getElementById('cuponTipo').value,
+                valor: parseInt(document.getElementById('cuponValor').value),
+                expiracion: document.getElementById('cuponExpiracion').value,
+                usosMaximos: parseInt(document.getElementById('cuponUsos').value) || null,
+                usos: 0
+            };
+
+            cupones.push(cupon);
+            localStorage.setItem('cb_cupones', JSON.stringify(cupones));
+            resetCuponForm();
+            renderAdminCupones();
+            alert('Cupón creado correctamente');
+        }
+
+        function deleteCupon(id) {
+            if (!confirm('¿Eliminar este cupón?')) return;
+            cupones = cupones.filter(c => c.id !== id);
+            localStorage.setItem('cb_cupones', JSON.stringify(cupones));
+            renderAdminCupones();
+        }
+
+        function resetCuponForm() {
+            document.getElementById('formCupon').reset();
+            document.getElementById('cuponId').value = '';
+        }
+
         function saveMapConfig() {
             const code = document.getElementById('mapEmbedCode').value;
             mapConfig = { embedCode: code };
@@ -3078,196 +2171,14 @@
             }
         }
 
-        // CARRITO Y OTRAS FUNCIONES
-        function addToCart(id, name, price) {
-            const existing = cart.find(item => item.id === id);
-            if (existing) {
-                existing.quantity++;
-            } else {
-                cart.push({ id, name, price, quantity: 1 });
-            }
-            updateCart();
-            toggleCart();
-        }
-
-        function updateCart() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').textContent = count;
-            
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.getElementById('cartTotal');
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Tu carrito está vacío</p>';
-                cartTotal.textContent = '$0';
-                return;
-            }
-            
-            cartItems.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div class="cart-item-image">
-                        <i class="fas fa-wine-bottle"></i>
-                    </div>
-                    <div class="cart-item-details">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div style="color: #666; font-size: 0.9rem;">Cantidad: ${item.quantity}</div>
-                        <div class="cart-item-price">$${item.price * item.quantity}</div>
-                    </div>
-                    <button onclick="removeFromCart('${item.id}')" style="background: none; border: none; color: #666; cursor: pointer;">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            `).join('');
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            cartTotal.textContent = '$' + total.toLocaleString();
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCart();
-        }
-
-        function toggleCart() {
-            document.getElementById('cartModal').classList.toggle('active');
-        }
-
-        function filterWines(type) {
-            currentFilter = type;
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderProducts(type);
-        }
-
-        function filterByBodega(nombre) {
-            document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
-            // Filtrar por bodega específica
-            const filtered = products.filter(p => p.bodega === nombre);
-            const grid = document.getElementById('productsGrid');
-            if (filtered.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666; padding: 2rem;">No hay vinos de esta bodega en el catálogo aún.</p>';
-            } else {
-                grid.innerHTML = filtered.map(product => `
-                    <div class="product-card">
-                        ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                        <div class="product-image">
-                            ${product.imagen ? `<img src="${product.imagen}" alt="${product.name}">` : '<i class="fas fa-wine-bottle"></i>'}
-                            <div class="product-overlay">
-                                <button class="btn-add-cart" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">
-                                    Agregar al Carrito
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-bodega">${product.bodega}</div>
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-details">
-                                <span><i class="fas fa-wine-bottle"></i> ${product.type}</span>
-                                <span><i class="fas fa-star"></i> 4.8</span>
-                            </div>
-                            <div class="product-price">
-                                <div>
-                                    ${product.oldPrice ? `<span class="price-original">$${product.oldPrice}</span>` : ''}
-                                    <span class="price">$${product.price}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // Wine Matcher
-        let matcherAnswers = {};
-        function selectOption(question, value) {
-            matcherAnswers[`q${question}`] = value;
-            document.getElementById(`question${question}`).style.display = 'none';
-            if (question < 3) {
-                document.getElementById(`question${question + 1}`).style.display = 'block';
-            } else {
-                showMatcherResult();
-            }
-        }
-
-        function showMatcherResult() {
-            let recommendation = products[0] || { name: 'Malbec Reserva', bodega: 'Bodega Amanecer', price: 4500, descripcion: 'Un vino robusto y elegante.' };
-            
-            if (matcherAnswers.q1 === 'pescado') {
-                recommendation = products.find(p => p.type === 'blanco') || recommendation;
-            } else if (matcherAnswers.q3 === 'premium') {
-                recommendation = products.filter(p => p.price > 6000)[0] || recommendation;
-            }
-            
-            document.getElementById('resultContent').innerHTML = `
-                <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">${recommendation.name}</h2>
-                <p style="color: #ccc; margin-bottom: 1.5rem;">${recommendation.bodega}</p>
-                <div style="font-size: 2rem; color: var(--dorado); font-weight: 600; margin-bottom: 1rem;">$${recommendation.price}</div>
-                <button class="btn-primary" onclick="addToCart(${recommendation.id}, '${recommendation.name}', ${recommendation.price})">
-                    Agregar al Carrito
-                </button>
-            `;
-            document.getElementById('matcherResult').classList.add('show');
-        }
-
-        function resetMatcher() {
-            matcherAnswers = {};
-            document.getElementById('matcherResult').classList.remove('show');
-            document.getElementById('question1').style.display = 'block';
-            document.getElementById('question2').style.display = 'none';
-            document.getElementById('question3').style.display = 'none';
-        }
-
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById(tab).classList.add('active');
-        }
-
-        // Countdown
-        function updateCountdown() {
-            const now = new Date();
-            const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
-            const diff = endOfDay - now;
-            
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-
-        // Navbar scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        function submitForm(e) {
-            e.preventDefault();
-            alert('¡Gracias por tu interés! Te contactaremos en las próximas 24 horas.');
-            e.target.reset();
-        }
-
-        function subscribe(plan) {
-            alert(`¡Excelente elección! Plan ${plan} seleccionado.`);
-        }
-
         // Inicializar todo
         document.addEventListener('DOMContentLoaded', () => {
             renderBodegas();
             renderProducts();
             renderRecorridos();
             renderMap();
+            updateSearchOptions();
+            updateCountdown();
         });
     </script>
 </body>
