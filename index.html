@@ -81,40 +81,40 @@
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-20px);} 60% {transform: translateX(-50%) translateY(-10px);} }
 
-        /* SISTEMA DE AUTENTICACIÓN PREMIUM */
+        /* SISTEMA DE AUTENTICACIÓN PREMIUM - CORREGIDO */
         .auth-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 3000; justify-content: center; align-items: center; overflow-y: auto; padding: 2rem; }
         .auth-modal.active { display: flex; }
-        .auth-container { background: linear-gradient(135deg, rgba(26,26,26,0.95) 0%, rgba(10,10,10,0.98) 100%); border: 1px solid var(--dorado); border-radius: 16px; max-width: 520px; width: 100%; padding: 0; position: relative; animation: slideIn 0.4s ease; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
+        .auth-container { background: linear-gradient(135deg, rgba(26,26,26,0.95) 0%, rgba(10,10,10,0.98) 100%); border: 1px solid var(--dorado); border-radius: 16px; max-width: 520px; width: 100%; padding: 0; position: relative; animation: slideIn 0.4s ease; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.5); max-height: 90vh; display: flex; flex-direction: column; }
         @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         
-        .auth-header { text-align: center; padding: 2.5rem 2rem 1.5rem; background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, transparent 100%); border-bottom: 1px solid rgba(212,175,55,0.2); }
+        .auth-header { text-align: center; padding: 2rem 2rem 1rem; background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, transparent 100%); border-bottom: 1px solid rgba(212,175,55,0.2); flex-shrink: 0; }
         .auth-header h2 { color: var(--dorado); font-family: 'Great Vibes', cursive; font-size: 2.8rem; margin-bottom: 0.5rem; }
         .auth-header p { color: #888; font-size: 0.95rem; }
         
-        .auth-tabs { display: flex; margin: 0; background: var(--gris-oscuro); }
-        .auth-tab { flex: 1; background: none; border: none; color: #888; padding: 1.2rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; transition: all 0.3s; font-weight: 500; position: relative; }
+        .auth-tabs { display: flex; margin: 0; background: var(--gris-oscuro); flex-shrink: 0; }
+        .auth-tab { flex: 1; background: none; border: none; color: #888; padding: 1rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; transition: all 0.3s; font-weight: 500; position: relative; }
         .auth-tab.active { color: var(--dorado); background: transparent; }
         .auth-tab.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--dorado); }
         .auth-tab:hover { color: var(--blanco); background: rgba(212,175,55,0.05); }
         
-        .auth-body { padding: 2rem; }
+        .auth-body { padding: 1.5rem; overflow-y: auto; max-height: 60vh; }
         .auth-form { display: none; }
         .auth-form.active { display: block; animation: fadeIn 0.3s; }
         
-        .form-group { margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1.2rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; color: var(--dorado); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1.5px; font-weight: 600; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 1rem 1.2rem; font-family: 'Inter', sans-serif; font-size: 0.95rem; border-radius: 8px; transition: all 0.3s; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 0.8rem 1rem; font-family: 'Inter', sans-serif; font-size: 0.9rem; border-radius: 8px; transition: all 0.3s; }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(212,175,55,0.1); }
         .form-group input.error { border-color: var(--rojo); }
         .error-message { color: var(--rojo); font-size: 0.8rem; margin-top: 0.5rem; display: none; align-items: center; gap: 0.3rem; }
         .error-message.show { display: flex; }
         
-        .checkbox-group { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1.5rem; }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1.2rem; }
         .checkbox-group input[type="checkbox"] { width: auto; margin-top: 0.3rem; accent-color: var(--dorado); transform: scale(1.2); cursor: pointer; }
         .checkbox-group label { color: #aaa; font-size: 0.85rem; line-height: 1.4; margin: 0; text-transform: none; letter-spacing: normal; cursor: pointer; }
         .checkbox-group label a { color: var(--dorado); text-decoration: none; }
         
-        .btn-auth { width: 100%; background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-oscuro) 100%); color: var(--negro); border: none; padding: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s; border-radius: 8px; font-size: 0.9rem; }
+        .btn-auth { width: 100%; background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-oscuro) 100%); color: var(--negro); border: none; padding: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s; border-radius: 8px; font-size: 0.9rem; }
         .btn-auth:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212,175,55,0.3); }
         .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         
@@ -126,22 +126,22 @@
         .auth-footer a:hover { text-decoration: underline; }
 
         /* Selector de Rol Mejorado */
-        .role-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
-        .role-option { background: rgba(0,0,0,0.3); border: 2px solid var(--gris-medio); padding: 1.5rem 1rem; text-align: center; cursor: pointer; transition: all 0.3s; border-radius: 12px; position: relative; overflow: hidden; }
+        .role-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+        .role-option { background: rgba(0,0,0,0.3); border: 2px solid var(--gris-medio); padding: 1.2rem 1rem; text-align: center; cursor: pointer; transition: all 0.3s; border-radius: 12px; position: relative; overflow: hidden; }
         .role-option::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, transparent 100%); opacity: 0; transition: opacity 0.3s; }
         .role-option:hover { border-color: var(--dorado); transform: translateY(-2px); }
         .role-option:hover::before { opacity: 1; }
         .role-option.selected { border-color: var(--dorado); background: rgba(212, 175, 55, 0.15); box-shadow: 0 0 20px rgba(212,175,55,0.2); }
-        .role-option i { font-size: 2rem; color: var(--dorado); margin-bottom: 0.8rem; display: block; }
-        .role-option h4 { color: var(--blanco); font-size: 1rem; margin-bottom: 0.3rem; font-family: 'Inter', sans-serif; font-weight: 600; }
-        .role-option p { color: #666; font-size: 0.8rem; margin: 0; }
+        .role-option i { font-size: 1.8rem; color: var(--dorado); margin-bottom: 0.5rem; display: block; }
+        .role-option h4 { color: var(--blanco); font-size: 0.95rem; margin-bottom: 0.2rem; font-family: 'Inter', sans-serif; font-weight: 600; }
+        .role-option p { color: #666; font-size: 0.75rem; margin: 0; }
 
         /* Campos de Bodega Expandibles */
         .bodega-register-fields { max-height: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.3s ease; opacity: 0; }
-        .bodega-register-fields.active { max-height: 500px; opacity: 1; }
-        .bodega-fields-wrapper { background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.2); border-radius: 12px; padding: 1.5rem; margin-top: 1rem; }
-        .bodega-fields-title { color: var(--dorado); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-        .bodega-fields-title i { font-size: 1.2rem; }
+        .bodega-register-fields.active { max-height: 400px; opacity: 1; }
+        .bodega-fields-wrapper { background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.2); border-radius: 12px; padding: 1rem; margin-top: 1rem; }
+        .bodega-fields-title { color: var(--dorado); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+        .bodega-fields-title i { font-size: 1rem; }
 
         /* PANEL ADMIN REDISEÑADO PREMIUM */
         .admin-panel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--superadmin-gradient); z-index: 2500; overflow: hidden; }
@@ -300,7 +300,7 @@
         .btn-favorite { background: transparent; border: 1px solid var(--dorado); color: var(--dorado); padding: 1rem 1.5rem; cursor: pointer; transition: all 0.3s; border-radius: 8px; }
         .btn-favorite:hover, .btn-favorite.active { background: var(--dorado); color: var(--negro); }
 
-        /* NUESTRAS BODEGAS */
+        /* NUESTRAS BODEGAS - CON IMÁGENES EJEMPLO */
         .bodegas-showcase { padding: 6rem 5%; background: linear-gradient(135deg, var(--negro-claro) 0%, var(--negro) 100%); position: relative; }
         .bodegas-showcase::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--dorado), transparent); }
         .bodegas-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; }
@@ -347,16 +347,25 @@
         .matcher-result { display: none; text-align: center; padding: 2rem; background: rgba(212, 175, 55, 0.05); border: 1px solid var(--dorado); border-radius: 12px; margin-top: 2rem; }
         .matcher-result.show { display: block; animation: fadeIn 0.5s; }
 
-        /* Rutas del Vino - MAPA REAL */
+        /* Rutas del Vino - MAPA REAL CON IMAGEN EJEMPLO */
         .routes { padding: 6rem 5%; background: var(--negro-claro); }
         .map-container { max-width: 1200px; margin: 0 auto; position: relative; background: var(--gris-oscuro); border: 1px solid var(--gris-medio); min-height: 600px; overflow: hidden; border-radius: 16px; }
         .map-real { width: 100%; height: 600px; border: none; border-radius: 16px; }
+        .map-placeholder { width: 100%; height: 600px; background: linear-gradient(135deg, var(--gris-oscuro) 0%, var(--negro-claro) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--dorado); position: relative; overflow: hidden; }
+        .map-placeholder img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+        .map-placeholder-content { position: absolute; z-index: 2; text-align: center; background: rgba(0,0,0,0.7); padding: 2rem; border-radius: 16px; border: 1px solid var(--dorado); }
+        .map-placeholder i { font-size: 4rem; margin-bottom: 1rem; color: var(--dorado); }
+        .map-placeholder h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1rem; }
+        .map-placeholder p { color: #aaa; margin-bottom: 1.5rem; max-width: 400px; }
 
-        /* Recorridos */
+        /* Recorridos - CON IMÁGENES EJEMPLO */
         .tours { padding: 6rem 5%; background: var(--negro); }
         .tours-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
         .tour-card { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s; border-radius: 16px; }
         .tour-card:hover { border-color: var(--dorado); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .tour-image { height: 200px; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%); position: relative; overflow: hidden; }
+        .tour-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .tour-card:hover .tour-image img { transform: scale(1.1); }
         .tour-header { background: linear-gradient(135deg, var(--gris-medio) 0%, var(--negro-claro) 100%); padding: 2rem; border-bottom: 2px solid var(--dorado); }
         .tour-price-tag { float: right; background: var(--dorado); color: var(--negro); padding: 0.5rem 1rem; font-weight: 700; font-size: 1.2rem; border-radius: 8px; }
         .tour-header h3 { font-size: 1.5rem; color: var(--dorado); margin-bottom: 0.5rem; clear: both; }
@@ -391,6 +400,7 @@
         .blog-card { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); overflow: hidden; transition: all 0.3s; border-radius: 16px; }
         .blog-card:hover { border-color: var(--dorado); transform: translateY(-5px); }
         .blog-image { height: 250px; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%); position: relative; display: flex; align-items: center; justify-content: center; border-radius: 16px 16px 0 0; }
+        .blog-image img { width: 100%; height: 100%; object-fit: cover; }
         .blog-image i { font-size: 3rem; color: var(--dorado); opacity: 0.3; }
         .blog-category { position: absolute; top: 1rem; left: 1rem; background: var(--dorado); color: var(--negro); padding: 0.3rem 0.8rem; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; border-radius: 20px; }
         .blog-content { padding: 1.5rem; }
@@ -440,6 +450,15 @@
         .btn-checkout:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212,175,55,0.3); }
         .btn-checkout:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
+        /* Modal Recuperación Contraseña */
+        .recovery-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3500; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .recovery-modal.active { display: flex; }
+        .recovery-content { background: var(--gris-oscuro); border: 1px solid var(--dorado); max-width: 500px; width: 90%; padding: 2rem; border-radius: 16px; text-align: center; }
+        .recovery-content h3 { color: var(--dorado); font-family: 'Playfair Display', serif; margin-bottom: 1rem; }
+        .recovery-content p { color: #aaa; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .recovery-step { display: none; }
+        .recovery-step.active { display: block; animation: fadeIn 0.3s; }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .admin-sidebar { width: 240px; }
@@ -469,12 +488,17 @@
             .product-modal-gallery { min-height: 300px; }
             .search-row { grid-template-columns: 1fr; }
             .role-selector { grid-template-columns: 1fr; }
+            
+            /* Auth Modal Responsive - CORRECCIÓN ZOOM */
+            .auth-container { max-height: 95vh; width: 95%; }
+            .auth-body { max-height: 50vh; }
         }
 
         @supports (-webkit-touch-callout: none) {
             .hero { background-attachment: scroll; min-height: -webkit-fill-available; }
         }
     </style>
+<base target="_blank">
 </head>
 <body>
     <!-- SISTEMA DE AUTENTICACIÓN MEJORADO -->
@@ -584,7 +608,7 @@
                                 </div>
                                 <div class="form-group full-width">
                                     <label>Descripción de la Bodega</label>
-                                    <textarea id="regDescription" rows="3" placeholder="Cuéntanos sobre tu bodega, historia, filosofía..."></textarea>
+                                    <textarea id="regDescription" rows="2" placeholder="Cuéntanos sobre tu bodega..."></textarea>
                                 </div>
                                 <div class="form-group full-width">
                                     <label>Especialidades (separadas por coma)</label>
@@ -613,6 +637,50 @@
                         <a onclick="switchAuthTab('login')"><i class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i>Volver al inicio de sesión</a>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE RECUPERACIÓN DE CONTRASEÑA MEJORADO -->
+    <div class="recovery-modal" id="recoveryModal">
+        <div class="recovery-content">
+            <div class="recovery-step active" id="recoveryStep1">
+                <i class="fas fa-key" style="font-size: 3rem; color: var(--dorado); margin-bottom: 1rem; display: block;"></i>
+                <h3>Recuperar Contraseña</h3>
+                <p>Ingresa tu email y te enviaremos un código de verificación</p>
+                <div class="form-group" style="text-align: left;">
+                    <label>Email registrado</label>
+                    <input type="email" id="recoveryEmail" placeholder="tu@email.com" style="width: 100%;">
+                </div>
+                <button class="btn-auth" onclick="sendRecoveryCode()" style="margin-top: 1rem;">Enviar Código</button>
+                <br><br>
+                <a onclick="closeRecoveryModal()" style="color: #666; cursor: pointer; font-size: 0.9rem;">Cancelar</a>
+            </div>
+            
+            <div class="recovery-step" id="recoveryStep2">
+                <i class="fas fa-envelope-open-text" style="font-size: 3rem; color: var(--dorado); margin-bottom: 1rem; display: block;"></i>
+                <h3>Verificar Código</h3>
+                <p>Ingresa el código de 6 dígitos enviado a tu email<br>(En esta demo: usa <strong>123456</strong>)</p>
+                <div class="form-group" style="text-align: left;">
+                    <label>Código de verificación</label>
+                    <input type="text" id="recoveryCode" placeholder="123456" maxlength="6" style="width: 100%; text-align: center; letter-spacing: 0.5rem; font-size: 1.2rem;">
+                </div>
+                <button class="btn-auth" onclick="verifyRecoveryCode()" style="margin-top: 1rem;">Verificar</button>
+            </div>
+            
+            <div class="recovery-step" id="recoveryStep3">
+                <i class="fas fa-lock-open" style="font-size: 3rem; color: var(--dorado); margin-bottom: 1rem; display: block;"></i>
+                <h3>Nueva Contraseña</h3>
+                <p>Establece tu nueva contraseña (mínimo 8 caracteres)</p>
+                <div class="form-group" style="text-align: left;">
+                    <label>Nueva contraseña</label>
+                    <input type="password" id="newPassword" placeholder="••••••••" style="width: 100%;" minlength="8">
+                </div>
+                <div class="form-group" style="text-align: left;">
+                    <label>Confirmar contraseña</label>
+                    <input type="password" id="newPasswordConfirm" placeholder="••••••••" style="width: 100%;">
+                </div>
+                <button class="btn-auth" onclick="resetPassword()" style="margin-top: 1rem;">Restablecer Contraseña</button>
             </div>
         </div>
     </div>
@@ -816,7 +884,7 @@
         </div>
     </div>
 
-    <!-- NUESTRAS BODEGAS -->
+    <!-- NUESTRAS BODEGAS - CON IMÁGENES EJEMPLO -->
     <section class="bodegas-showcase" id="bodegas-showcase">
         <div class="section-header">
             <span class="section-tag">Conoce a Nuestros Socios</span>
@@ -913,17 +981,35 @@
         </div>
     </section>
 
-    <!-- Rutas del Vino - MAPA REAL -->
+    <!-- Rutas del Vino - CON IMAGEN EJEMPLO DE MAPA -->
     <section class="routes" id="rutas">
         <div class="section-header">
             <span class="section-tag">Explora San Rafael</span>
             <h2 class="section-title">Rutas del Vino</h2>
-            <p style="color: #888; margin-top: 1rem;">Ubicamos a todas las bodegas socias en un mapa interactivo, para que los turistas planifiquen su ruta y los visiten</p>
+            <p style="color: #888; margin-top: 1rem;">Descubre las bodegas ubicadas en los mejores terroirs de San Rafael</p>
         </div>
-        <div class="map-container" id="mapContainer"></div>
+        <div class="map-container" id="mapContainer">
+            <!-- Imagen de ejemplo de mapa de rutas del vino -->
+            <div class="map-placeholder">
+                <img src="https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=1200&h=600&fit=crop" alt="Mapa Rutas del Vino San Rafael">
+                <div class="map-placeholder-content">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Rutas del Vino - San Rafael</h3>
+                    <p>Explora las bodegas asociadas ubicadas en los mejores terroirs de nuestra región</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
+                        <span style="background: rgba(212,175,55,0.2); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">
+                            <i class="fas fa-wine-bottle" style="margin-right: 0.5rem;"></i>12 Bodegas Asociadas
+                        </span>
+                        <span style="background: rgba(212,175,55,0.2); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">
+                            <i class="fas fa-route" style="margin-right: 0.5rem;"></i>3 Circuitos Principales
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Recorridos y Experiencias -->
+    <!-- Recorridos y Experiencias - CON IMÁGENES EJEMPLO -->
     <section class="tours" id="recorridos">
         <div class="section-header">
             <span class="section-tag">Experiencias Únicas</span>
@@ -990,7 +1076,7 @@
             <article class="blog-card">
                 <div class="blog-image">
                     <span class="blog-category">Maridaje</span>
-                    <i class="fas fa-wine-glass-alt"></i>
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop" alt="Maridajes">
                 </div>
                 <div class="blog-content">
                     <span class="blog-date">12 Marzo 2026</span>
@@ -1002,7 +1088,7 @@
             <article class="blog-card">
                 <div class="blog-image">
                     <span class="blog-category">Historia</span>
-                    <i class="fas fa-landmark"></i>
+                    <img src="https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?w=600&h=400&fit=crop" alt="Historia del vino">
                 </div>
                 <div class="blog-content">
                     <span class="blog-date">8 Marzo 2026</span>
@@ -1014,7 +1100,7 @@
             <article class="blog-card">
                 <div class="blog-image">
                     <span class="blog-category">Cata</span>
-                    <i class="fas fa-eye"></i>
+                    <img src="https://images.unsplash.com/photo-1470158499416-75be9aa0c4db?w=600&h=400&fit=crop" alt="Cata de vinos">
                 </div>
                 <div class="blog-content">
                     <span class="blog-date">1 Marzo 2026</span>
@@ -1164,7 +1250,7 @@
         </div>
     </div>
 
-    <!-- PANEL DE ADMINISTRACIÓN REDISEÑADO -->
+    <!-- PANEL DE ADMINISTRACIÓN REDISEÑADO PREMIUM POR ROLES -->
     <div class="admin-panel" id="adminPanel">
         <!-- Sidebar -->
         <div class="admin-sidebar">
@@ -1238,14 +1324,33 @@
         let cupones = JSON.parse(localStorage.getItem('cb_cupones')) || [];
         let pedidos = JSON.parse(localStorage.getItem('cb_pedidos')) || [];
         let resenas = JSON.parse(localStorage.getItem('cb_resenas')) || [];
+        let mapConfig = JSON.parse(localStorage.getItem('cb_map')) || {};
+
+        // Imágenes de ejemplo para inicializar datos
+        const imagenesEjemplo = {
+            bodegas: [
+                'https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?w=600&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1566995541429-5d56f72206c6?w=600&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?w=600&h=400&fit=crop'
+            ],
+            recorridos: [
+                'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?w=600&h=400&fit=crop',
+                'https://images.unsplash.com/photo-1474722883778-792e7990302f?w=600&h=400&fit=crop'
+            ],
+            vinos: [
+                'https://images.unsplash.com/photo-1586370434639-0fe43b2d32e6?w=300&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=300&h=300&fit=crop'
+            ]
+        };
 
         // Inicialización
         document.addEventListener('DOMContentLoaded', () => {
             initAuth();
+            initExampleData();
             renderBodegas();
             renderProducts();
             renderRecorridos();
-            renderMap();
             updateSearchOptions();
             updateCountdown();
             
@@ -1257,6 +1362,151 @@
                 }
             }
         });
+
+        // Inicializar datos de ejemplo si no existen
+        function initExampleData() {
+            // Bodegas de ejemplo si no hay ninguna
+            if (bodegas.length === 0) {
+                bodegas = [
+                    {
+                        id: generateUUID(),
+                        nombre: 'Bodega Amanecer',
+                        fundador: 'Familia González',
+                        anio: 1985,
+                        ubicacion: 'Ruta 143 Km 12, San Rafael',
+                        descripcion: 'Bodega familiar dedicada al cultivo de Malbec con más de 35 años de tradición. Viñedos ubicados a 800msnm.',
+                        especialidades: ['Malbec', 'Cabernet Sauvignon', 'Blend de Autor'],
+                        imagen: imagenesEjemplo.bodegas[0],
+                        approved: true,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateUUID(),
+                        nombre: 'Viñedos del Sol',
+                        fundador: 'Roberto Martinez',
+                        anio: 1992,
+                        ubicacion: 'Calle Los Olmos 234, San Rafael',
+                        descripcion: 'Especialistas en vinos de altura. Nuestros viñedos se encuentran en la zona más elevada de San Rafael.',
+                        especialidades: ['Malbec Reserva', 'Torrontés', 'Syrah'],
+                        imagen: imagenesEjemplo.bodegas[1],
+                        approved: true,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateUUID(),
+                        nombre: 'Bodega Los Toneles',
+                        fundador: 'Familia Bianchi',
+                        anio: 1978,
+                        ubicacion: 'Av. Balloffet 456, San Rafael',
+                        descripcion: 'Tradición italiana en cada botella. Elaboramos vinos artesanales con técnicas ancestrales.',
+                        especialidades: ['Barbera', 'Merlot', 'Espumante'],
+                        imagen: imagenesEjemplo.bodegas[2],
+                        approved: true,
+                        created_at: new Date().toISOString()
+                    }
+                ];
+                localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
+            }
+
+            // Recorridos de ejemplo si no hay ninguno
+            if (recorridos.length === 0) {
+                recorridos = [
+                    {
+                        id: generateUUID(),
+                        nombre: 'Experiencia Cosecha',
+                        bodega: 'Bodega Amanecer',
+                        bodega_id: bodegas[0]?.id || null,
+                        precio: 8500,
+                        duracion: '2 horas',
+                        capacidad: 15,
+                        imagen: imagenesEjemplo.recorridos[0],
+                        features: ['Visita guiada al viñedo', 'Degustación de 3 vinos', 'Aperitivos regionales', 'Botella de regalo'],
+                        activo: true,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateUUID(),
+                        nombre: 'Almuerzo entre Viñedos',
+                        bodega: 'Viñedos del Sol',
+                        bodega_id: bodegas[1]?.id || null,
+                        precio: 15000,
+                        duracion: '3 horas',
+                        capacidad: 8,
+                        imagen: imagenesEjemplo.recorridos[1],
+                        features: ['Almuerzo gourmet', 'Maridaje de 4 vinos', 'Tour privado', 'Degustación de aceites'],
+                        activo: true,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateUUID(),
+                        nombre: 'Blend de Autor',
+                        bodega: 'Bodega Los Toneles',
+                        bodega_id: bodegas[2]?.id || null,
+                        precio: 12000,
+                        duracion: '2.5 horas',
+                        capacidad: 12,
+                        imagen: imagenesEjemplo.recorridos[2],
+                        features: ['Crea tu propio blend', 'Teoría de ensamblaje', 'Botella personalizada', 'Certificado de participación'],
+                        activo: true,
+                        created_at: new Date().toISOString()
+                    }
+                ];
+                localStorage.setItem('cb_recorridos', JSON.stringify(recorridos));
+            }
+
+            // Productos de ejemplo si no hay ninguno
+            if (products.length === 0) {
+                products = [
+                    {
+                        id: generateUUID(),
+                        nombre: 'Malbec Reserva 2020',
+                        bodega: 'Bodega Amanecer',
+                        bodega_id: bodegas[0]?.id || null,
+                        tipo: 'tinto',
+                        cosecha: 2020,
+                        precio: 4500,
+                        stock: 24,
+                        imagen: imagenesEjemplo.vinos[0],
+                        notas_cata: 'Color rubí intenso. Aromas a frutos rojos, vainilla y chocolate. Boca estructurada con taninos suaves.',
+                        rating: 4.8,
+                        reviews: 12,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateUUID(),
+                        nombre: 'Torrontés Estate 2023',
+                        bodega: 'Viñedos del Sol',
+                        bodega_id: bodegas[1]?.id || null,
+                        tipo: 'blanco',
+                        cosecha: 2023,
+                        precio: 3200,
+                        stock: 18,
+                        imagen: imagenesEjemplo.vinos[1],
+                        notas_cata: 'Aromas florales intensos con notas cítricas. Fresco y equilibrado, ideal para mariscos.',
+                        rating: 4.5,
+                        reviews: 8,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateUUID(),
+                        nombre: 'Blend Premium 2019',
+                        bodega: 'Bodega Los Toneles',
+                        bodega_id: bodegas[2]?.id || null,
+                        tipo: 'tinto',
+                        cosecha: 2019,
+                        precio: 6800,
+                        stock: 15,
+                        notas_cata: 'Ensamblaje de Malbec, Cabernet y Merlot. Complejo, elegante, con final persistente.',
+                        rating: 4.9,
+                        reviews: 15,
+                        badge: 'Oferta',
+                        oldPrice: 8500,
+                        created_at: new Date().toISOString()
+                    }
+                ];
+                localStorage.setItem('cb_vinos', JSON.stringify(products));
+            }
+        }
 
         // ==========================================
         // SISTEMA DE AUTENTICACIÓN PREMIUM
@@ -1471,15 +1721,79 @@
         function handleForgotPassword(e) {
             e.preventDefault();
             const email = document.getElementById('forgotEmail').value;
-            alert('Si existe una cuenta con ' + email + ', recibirás instrucciones para restablecer tu contraseña.');
-            switchAuthTab('login');
+            // Redirigir al nuevo sistema de recuperación
+            document.getElementById('authModal').classList.remove('active');
+            document.getElementById('recoveryModal').classList.add('active');
+            document.getElementById('recoveryEmail').value = email || '';
         }
 
         function showForgotPassword() {
-            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-            document.getElementById('forgotForm').classList.add('active');
-            document.getElementById('authSubtitle').textContent = 'Recupera tu contraseña';
+            document.getElementById('authModal').classList.remove('active');
+            document.getElementById('recoveryModal').classList.add('active');
+        }
+
+        function closeRecoveryModal() {
+            document.getElementById('recoveryModal').classList.remove('active');
+            document.querySelectorAll('.recovery-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('recoveryStep1').classList.add('active');
+            document.getElementById('recoveryEmail').value = '';
+            document.getElementById('recoveryCode').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('newPasswordConfirm').value = '';
+        }
+
+        function sendRecoveryCode() {
+            const email = document.getElementById('recoveryEmail').value;
+            if (!email) {
+                alert('Por favor ingresa tu email');
+                return;
+            }
+            
+            const user = users.find(u => u.email === email);
+            if (!user) {
+                alert('No existe una cuenta con ese email');
+                return;
+            }
+            
+            // Simulación de envío de email
+            alert('Código de verificación enviado a ' + email + '\n\nPara esta demo, usa el código: 123456');
+            document.getElementById('recoveryStep1').classList.remove('active');
+            document.getElementById('recoveryStep2').classList.add('active');
+        }
+
+        function verifyRecoveryCode() {
+            const code = document.getElementById('recoveryCode').value;
+            if (code === '123456') {
+                document.getElementById('recoveryStep2').classList.remove('active');
+                document.getElementById('recoveryStep3').classList.add('active');
+            } else {
+                alert('Código incorrecto. Intenta nuevamente.');
+            }
+        }
+
+        function resetPassword() {
+            const email = document.getElementById('recoveryEmail').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirmPass = document.getElementById('newPasswordConfirm').value;
+            
+            if (newPass.length < 8) {
+                alert('La contraseña debe tener al menos 8 caracteres');
+                return;
+            }
+            
+            if (newPass !== confirmPass) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+            
+            const user = users.find(u => u.email === email);
+            if (user) {
+                user.password_hash = btoa(newPass);
+                localStorage.setItem('cb_users', JSON.stringify(users));
+                alert('¡Contraseña actualizada exitosamente! Ahora puedes iniciar sesión.');
+                closeRecoveryModal();
+                document.getElementById('authModal').classList.add('active');
+            }
         }
 
         function createSession(user, remember) {
@@ -1760,6 +2074,10 @@
                             <input type="text" id="bodegaUbicacion" required>
                         </div>
                         <div class="form-group full-width">
+                            <label>URL Imagen (opcional)</label>
+                            <input type="url" id="bodegaImagen" placeholder="https://...">
+                        </div>
+                        <div class="form-group full-width">
                             <label>Descripción</label>
                             <textarea id="bodegaDescripcion" rows="3" required></textarea>
                         </div>
@@ -1792,7 +2110,10 @@
                         <tbody>
                             ${bodegas.map(b => `
                                 <tr>
-                                    <td><strong>${b.nombre}</strong></td>
+                                    <td>
+                                        ${b.imagen ? `<img src="${b.imagen}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; margin-right: 0.5rem; vertical-align: middle;">` : ''}
+                                        <strong>${b.nombre}</strong>
+                                    </td>
                                     <td>${b.fundador}</td>
                                     <td>${b.anio}</td>
                                     <td><span class="badge badge-approved">Activa</span></td>
@@ -1895,6 +2216,10 @@
                             <input type="number" id="vinoStock" required min="0" value="0">
                         </div>
                         <div class="form-group full-width">
+                            <label>URL Imagen (opcional)</label>
+                            <input type="url" id="vinoImagen" placeholder="https://..." class="search-input">
+                        </div>
+                        <div class="form-group full-width">
                             <label>Notas de Cata</label>
                             <textarea id="vinoNotas" rows="2"></textarea>
                         </div>
@@ -1924,7 +2249,10 @@
                         <tbody>
                             ${filteredProducts.map(p => `
                                 <tr>
-                                    <td><strong>${p.nombre || p.name}</strong></td>
+                                    <td>
+                                        ${p.imagen ? `<img src="${p.imagen}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; margin-right: 0.5rem; vertical-align: middle;">` : ''}
+                                        <strong>${p.nombre || p.name}</strong>
+                                    </td>
                                     <td>${p.bodega}</td>
                                     <td><span style="text-transform: capitalize;">${p.tipo || p.type}</span></td>
                                     <td style="color: var(--dorado); font-weight: 600;">$${p.precio || p.price}</td>
@@ -1991,6 +2319,10 @@
                             <input type="number" id="recorridoCapacidad" required min="1">
                         </div>
                         <div class="form-group full-width">
+                            <label>URL Imagen (opcional)</label>
+                            <input type="url" id="recorridoImagen" placeholder="https://..." class="search-input">
+                        </div>
+                        <div class="form-group full-width">
                             <label>Características (una por línea)</label>
                             <textarea id="recorridoFeatures" rows="4" placeholder="• Visita guiada al viñedo&#10;• Degustación de 3 vinos&#10;• Almuerzo regional"></textarea>
                         </div>
@@ -2008,19 +2340,22 @@
                     </div>
                     <div style="display: grid; gap: 1rem;">
                         ${filteredRecorridos.map(r => `
-                            <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--dorado);">
-                                <div style="display: flex; justify-content: space-between; align-items: start;">
-                                    <div>
-                                        <h4 style="color: var(--blanco); margin-bottom: 0.5rem;">${r.nombre}</h4>
-                                        <p style="color: #888; font-size: 0.9rem;">${r.bodega} | $${r.precio} | ${r.duracion}</p>
-                                        <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                                            ${r.features.map(f => `<span style="background: rgba(212,175,55,0.1); color: var(--dorado); padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem;">${f}</span>`).join('')}
+                            <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--dorado); display: flex; gap: 1rem;">
+                                ${r.imagen ? `<img src="${r.imagen}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; flex-shrink: 0;">` : ''}
+                                <div style="flex: 1;">
+                                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                                        <div>
+                                            <h4 style="color: var(--blanco); margin-bottom: 0.5rem;">${r.nombre}</h4>
+                                            <p style="color: #888; font-size: 0.9rem;">${r.bodega} | $${r.precio} | ${r.duracion}</p>
+                                            <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                                ${r.features.map(f => `<span style="background: rgba(212,175,55,0.1); color: var(--dorado); padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem;">${f}</span>`).join('')}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="table-actions">
-                                        <button class="btn-icon btn-delete" onclick="deleteRecorrido('${r.id}')" title="Eliminar">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        <div class="table-actions">
+                                            <button class="btn-icon btn-delete" onclick="deleteRecorrido('${r.id}')" title="Eliminar">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2197,27 +2532,82 @@
             container.innerHTML = `
                 <div class="admin-content-card">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-map"></i> Configuración de Mapa</h3>
+                        <h3 class="card-title"><i class="fas fa-image"></i> Gestión de Imágenes del Sitio</h3>
                     </div>
-                    <div class="form-group" style="margin-bottom: 1rem;">
-                        <label>Código Embed de Google Maps</label>
-                        <textarea id="mapEmbedCode" rows="6" class="search-input" placeholder="Pegar código iframe aquí...">${mapConfig.embedCode || ''}</textarea>
+                    <div style="display: grid; gap: 1.5rem;">
+                        <div class="form-group">
+                            <label>URL Imagen Hero (Barriles)</label>
+                            <input type="url" id="configHeroImage" value="https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg" class="search-input" style="width: 100%;">
+                            <small style="color: #666; display: block; margin-top: 0.3rem;">Imagen actual de los barriles en la página principal</small>
+                        </div>
+                        <div class="form-group">
+                            <label>URL Imagen Ofertas (Fondo)</label>
+                            <input type="url" id="configOffersImage" value="https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg" class="search-input" style="width: 100%;">
+                            <small style="color: #666; display: block; margin-top: 0.3rem;">Fondo de la sección de ofertas</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Color Principal (Dorado)</label>
+                            <input type="color" id="configPrimaryColor" value="#D4AF37" style="width: 100%; height: 40px; background: transparent; border: 1px solid var(--gris-medio); border-radius: 8px;">
+                        </div>
+                        <button onclick="saveSiteConfig()" class="btn-success" style="padding: 1rem; justify-self: start;">
+                            <i class="fas fa-save" style="margin-right: 0.5rem;"></i>Guardar Configuración
+                        </button>
                     </div>
-                    <button onclick="saveMapConfig()" class="btn-success" style="padding: 1rem 2rem;">
-                        <i class="fas fa-save" style="margin-right: 0.5rem;"></i>Guardar Configuración
-                    </button>
+                </div>
+
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-database"></i> Mantenimiento de Datos</h3>
+                    </div>
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="background: rgba(255,193,7,0.1); border: 1px solid rgba(255,193,7,0.3); padding: 1rem; border-radius: 8px;">
+                            <h4 style="color: #ffc107; margin-bottom: 0.5rem;"><i class="fas fa-exclamation-triangle" style="margin-right: 0.5rem;"></i>Datos de Ejemplo</h4>
+                            <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 1rem;">Si la página se ve vacía, puedes regenerar los datos de ejemplo (bodegas, vinos y recorridos).</p>
+                            <button onclick="regenerateExampleData()" class="btn-action" style="background: rgba(255,193,7,0.2); color: #ffc107; border-color: #ffc107;">
+                                <i class="fas fa-sync" style="margin-right: 0.5rem;"></i>Regenerar Datos de Ejemplo
+                            </button>
+                        </div>
+                        
+                        <div style="background: rgba(220,53,69,0.1); border: 1px solid rgba(220,53,69,0.3); padding: 1rem; border-radius: 8px;">
+                            <h4 style="color: var(--rojo); margin-bottom: 0.5rem;"><i class="fas fa-trash" style="margin-right: 0.5rem;"></i>Zona Peligrosa</h4>
+                            <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 1rem;">Esta acción eliminará TODOS los datos almacenados localmente.</p>
+                            <button onclick="clearAllData()" class="btn-danger" style="padding: 0.8rem 1.5rem;">
+                                <i class="fas fa-trash-alt" style="margin-right: 0.5rem;"></i>Eliminar Todos los Datos
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info-circle"></i> Información del Sistema</h3>
+                    </div>
+                    <div style="color: #888; font-size: 0.9rem; line-height: 1.8;">
+                        <p><strong>Versión:</strong> 1.2.0</p>
+                        <p><strong>Última actualización:</strong> ${new Date().toLocaleString()}</p>
+                        <p><strong>Almacenamiento utilizado:</strong> ~${Math.round(JSON.stringify(localStorage).length / 1024)} KB</p>
+                        <p><strong>Usuarios registrados:</strong> ${users.length}</p>
+                        <p><strong>Total productos:</strong> ${products.length}</p>
+                    </div>
                 </div>
             `;
         }
 
         function renderBodegaProfile(container) {
             const bodegaData = currentUser.bodega_data || {};
+            const bodegaInfo = bodegas.find(b => b.nombre === currentUser.full_name);
+            
             container.innerHTML = `
                 <div class="admin-content-card">
                     <div class="card-header">
                         <h3 class="card-title"><i class="fas fa-id-card"></i> Información de Mi Bodega</h3>
                     </div>
                     <div style="display: grid; gap: 1.5rem;">
+                        ${bodegaInfo?.imagen ? `
+                            <div style="text-align: center; margin-bottom: 1rem;">
+                                <img src="${bodegaInfo.imagen}" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 12px; border: 2px solid var(--dorado);">
+                            </div>
+                        ` : ''}
                         <div class="admin-form-grid">
                             <div class="form-group">
                                 <label>Nombre de la Bodega</label>
@@ -2235,16 +2625,16 @@
                             </div>
                             <div class="form-group">
                                 <label>Año de Fundación</label>
-                                <input type="text" value="${bodegaData.year || 'No especificado'}" disabled style="background: rgba(255,255,255,0.05);">
+                                <input type="text" value="${bodegaData.year || bodegaInfo?.anio || 'No especificado'}" disabled style="background: rgba(255,255,255,0.05);">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Dirección</label>
-                            <input type="text" value="${bodegaData.address || 'No especificado'}" disabled style="background: rgba(255,255,255,0.05);">
+                            <input type="text" value="${bodegaData.address || bodegaInfo?.ubicacion || 'No especificado'}" disabled style="background: rgba(255,255,255,0.05);">
                         </div>
                         <div class="form-group">
                             <label>Descripción</label>
-                            <textarea disabled rows="3" style="background: rgba(255,255,255,0.05);">${bodegaData.description || 'No hay descripción'}</textarea>
+                            <textarea disabled rows="3" style="background: rgba(255,255,255,0.05);">${bodegaData.description || bodegaInfo?.descripcion || 'No hay descripción'}</textarea>
                         </div>
                         <p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">
                             <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
@@ -2270,6 +2660,7 @@
                 ubicacion: document.getElementById('bodegaUbicacion').value,
                 descripcion: document.getElementById('bodegaDescripcion').value,
                 especialidades: document.getElementById('bodegaEspecialidades').value.split(',').map(s => s.trim()).filter(s => s),
+                imagen: document.getElementById('bodegaImagen').value || null,
                 approved: true,
                 created_at: new Date().toISOString()
             };
@@ -2303,6 +2694,7 @@
                 cosecha: parseInt(document.getElementById('vinoCosecha').value),
                 precio: parseInt(document.getElementById('vinoPrecio').value),
                 stock: parseInt(document.getElementById('vinoStock').value),
+                imagen: document.getElementById('vinoImagen').value || null,
                 notas_cata: document.getElementById('vinoNotas').value,
                 rating: 4.5,
                 reviews: 0,
@@ -2331,6 +2723,7 @@
                 precio: parseInt(document.getElementById('recorridoPrecio').value),
                 duracion: document.getElementById('recorridoDuracion').value,
                 capacidad: parseInt(document.getElementById('recorridoCapacidad').value),
+                imagen: document.getElementById('recorridoImagen').value || null,
                 features: document.getElementById('recorridoFeatures').value.split('\n').map(f => f.trim()).filter(f => f.startsWith('•') || f.startsWith('-') ? f.substring(1).trim() : f).filter(f => f),
                 activo: true,
                 created_at: new Date().toISOString()
@@ -2420,6 +2813,7 @@
             document.getElementById('bodegaUbicacion').value = b.ubicacion;
             document.getElementById('bodegaDescripcion').value = b.descripcion;
             document.getElementById('bodegaEspecialidades').value = b.especialidades.join(', ');
+            document.getElementById('bodegaImagen').value = b.imagen || '';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -2441,6 +2835,7 @@
             document.getElementById('vinoCosecha').value = p.cosecha;
             document.getElementById('vinoPrecio').value = p.precio || p.price;
             document.getElementById('vinoStock').value = p.stock;
+            document.getElementById('vinoImagen').value = p.imagen || '';
             document.getElementById('vinoNotas').value = p.notas_cata || '';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -2468,12 +2863,54 @@
             showAdminSection('cupones');
         }
 
-        function saveMapConfig() {
-            const code = document.getElementById('mapEmbedCode').value;
-            mapConfig = { embedCode: code };
+        function saveSiteConfig() {
+            const heroUrl = document.getElementById('configHeroImage').value;
+            const offersUrl = document.getElementById('configOffersImage').value;
+            const color = document.getElementById('configPrimaryColor').value;
+            
+            mapConfig = { 
+                heroImage: heroUrl, 
+                offersImage: offersUrl,
+                primaryColor: color 
+            };
             localStorage.setItem('cb_map', JSON.stringify(mapConfig));
-            alert('Configuración de mapa guardada');
-            renderMap();
+            
+            // Aplicar cambios inmediatos
+            document.querySelector('.hero').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('${heroUrl}')`;
+            document.querySelector('.offers').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('${offersUrl}')`;
+            
+            alert('Configuración guardada. Algunos cambios se aplicarán al recargar la página.');
+        }
+
+        function regenerateExampleData() {
+            if (!confirm('¿Estás seguro? Esto regenerará los datos de ejemplo, manteniendo usuarios y pedidos.')) return;
+            
+            // Eliminar solo datos de ejemplo
+            bodegas = [];
+            products = [];
+            recorridos = [];
+            localStorage.removeItem('cb_bodegas');
+            localStorage.removeItem('cb_vinos');
+            localStorage.removeItem('cb_recorridos');
+            
+            // Volver a crear
+            initExampleData();
+            renderBodegas();
+            renderProducts();
+            renderRecorridos();
+            
+            alert('Datos de ejemplo regenerados exitosamente');
+            showAdminSection('config');
+        }
+
+        function clearAllData() {
+            if (!confirm('⚠️ ATENCIÓN: Esto eliminará TODOS los datos permanentemente. ¿Continuar?')) return;
+            if (!confirm('¿Estás 100% seguro? Esta acción no se puede deshacer.')) return;
+            
+            localStorage.clear();
+            sessionStorage.clear();
+            alert('Todos los datos han sido eliminados. La página se recargará.');
+            location.reload();
         }
 
         // ==========================================
@@ -2487,7 +2924,7 @@
                 <div class="bodega-card">
                     <div class="bodega-image-container">
                         <div class="bodega-image">
-                            ${b.imagen ? `<img src="${b.imagen}" alt="${b.nombre}">` : '<i class="fas fa-wine-bottle"></i>'}}
+                            ${b.imagen ? `<img src="${b.imagen}" alt="${b.nombre}">` : '<i class="fas fa-wine-bottle"></i>'}
                             <span class="bodega-year">Desde ${b.anio}</span>
                         </div>
                     </div>
@@ -2565,6 +3002,9 @@
             if (!grid) return;
             grid.innerHTML = recorridos.filter(r => r.activo !== false).map(r => `
                 <div class="tour-card">
+                    <div class="tour-image">
+                        ${r.imagen ? `<img src="${r.imagen}" alt="${r.nombre}">` : ''}
+                    </div>
                     <div class="tour-header">
                         <div class="tour-price-tag">$${r.precio}</div>
                         <h3>${r.nombre}</h3>
@@ -2580,26 +3020,6 @@
                     </div>
                 </div>
             `).join('');
-        }
-
-        function renderMap() {
-            const container = document.getElementById('mapContainer');
-            if (!container) return;
-            
-            if (mapConfig.embedCode) {
-                container.innerHTML = mapConfig.embedCode;
-            } else {
-                // Mapa placeholder estilizado
-                container.innerHTML = `
-                    <div style="width: 100%; height: 600px; background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--dorado);">
-                        <i class="fas fa-map-marked-alt" style="font-size: 4rem; margin-bottom: 2rem; opacity: 0.5;"></i>
-                        <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Mapa de Rutas del Vino</h3>
-                        <p style="color: #666; max-width: 400px; text-align: center;">
-                            Configure el mapa de Google Maps desde el panel de administración para visualizar las bodegas aquí.
-                        </p>
-                    </div>
-                `;
-            }
         }
 
         function updateSearchOptions() {
