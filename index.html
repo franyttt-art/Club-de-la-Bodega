@@ -47,24 +47,26 @@
     text-decoration: none; 
     display: inline-block;
     position: relative; 
-    padding: 0 10px 15px 10px; 
+    padding-bottom: 8px; 
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 } 
 
-/* Trazo ondulado tipo tinta de pluma */
+/* Trazo fino recto tipo pluma */
 .logo::after { 
     content: ''; 
     position: absolute; 
-    bottom: 8px; 
-    left: 50%; 
-    transform: translateX(-50%) rotate(-3deg); 
-    width: 130px; 
-    height: 8px; 
-    background: transparent;
-    border-bottom: 3px solid var(--dorado);
-    border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
-    box-shadow: 0 2px 0 -1px var(--dorado-oscuro);
+    bottom: 0; 
+    left: -5px; 
+    right: -5px; 
+    height: 1px; 
+    background: linear-gradient(to right, 
+        transparent 0%, 
+        var(--dorado) 15%,
+        var(--dorado) 85%,
+        transparent 100%
+    );
+    opacity: 0.8;
 }
 /* El rulito final (cola ascendente tipo firma) */
 .logo::before { 
