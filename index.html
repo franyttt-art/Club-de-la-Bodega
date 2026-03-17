@@ -6,6 +6,7 @@
     <title>Club de la Bodega | San Rafael</title>
    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='dg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23FFD700'/%3E%3Cstop offset='50%25' style='stop-color:%23D4AF37'/%3E%3Cstop offset='100%25' style='stop-color:%23B8941F'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='50' fill='%23000'/%3E%3Ctext x='50' y='68' font-family='Georgia, serif' font-size='55' font-weight='bold' text-anchor='middle' fill='url(%23dg)' letter-spacing='-2'%3ECB%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --negro: #000000;
@@ -39,9 +40,9 @@
         nav { position: fixed; width: 100%; z-index: 1000; padding: 1.5rem 5%; transition: all 0.4s ease; background: transparent; }
         nav.scrolled { background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); padding: 1rem 5%; border-bottom: 1px solid var(--dorado); }
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { 
-    font-family: 'Tangerine', 'Great Vibes', cursive; 
-    font-size: 2.6rem; 
+      .logo { 
+    font-family: 'Tangerine', cursive; 
+    font-size: 3.2rem; 
     color: var(--dorado); 
     text-decoration: none; 
     display: flex; 
@@ -49,12 +50,11 @@
     align-items: center; 
     position: relative; 
     padding-bottom: 15px; 
-    letter-spacing: 2px;
-    font-weight: 400;
+    font-weight: 700;
+    letter-spacing: 1px;
     text-shadow: 
-        0 0 10px rgba(212, 175, 55, 0.6),
-        0 0 20px rgba(212, 175, 55, 0.3),
-        0 0 30px rgba(212, 175, 55, 0.1);
+        0 0 10px rgba(212, 175, 55, 0.5),
+        0 0 20px rgba(212, 175, 55, 0.2);
     transition: all 0.3s ease;
 } 
 .logo:hover {
@@ -69,7 +69,7 @@
     bottom: 8px; 
     left: 50%; 
     transform: translateX(-50%); 
-    width: 120px; 
+    width: 140px; 
     height: 3px; 
     background: linear-gradient(90deg, 
         transparent, 
@@ -84,7 +84,6 @@
     box-shadow: 
         0 -2px 8px rgba(212, 175, 55, 0.4),
         0 2px 4px rgba(0, 0, 0, 0.3);
-    opacity: 0.9;
 }
         .nav-links { display: flex; gap: 2.5rem; list-style: none; }
         .nav-links a { color: var(--blanco); text-decoration: none; font-weight: 400; letter-spacing: 1px; position: relative; transition: color 0.3s; font-size: 0.9rem; text-transform: uppercase; }
