@@ -40,38 +40,31 @@
         nav { position: fixed; width: 100%; z-index: 1000; padding: 1.5rem 5%; transition: all 0.4s ease; background: transparent; }
         nav.scrolled { background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); padding: 1rem 5%; border-bottom: 1px solid var(--dorado); }
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-     .logo { 
+.logo { 
     font-family: 'Tangerine', cursive; 
     font-size: 3.4rem; 
     color: var(--dorado); 
     text-decoration: none; 
     display: inline-block;
     position: relative; 
-    padding: 0 15px 12px 10px; 
+    padding: 0 10px 15px 10px; 
     font-weight: 700;
     letter-spacing: 1px;
 } 
 
-/* Trazo fino que entra grueso y sale fino */
+/* Trazo ondulado tipo tinta de pluma */
 .logo::after { 
     content: ''; 
     position: absolute; 
-    bottom: 0; 
-    left: 10px; 
-    right: 25px; 
-    height: 3px; 
-    background: linear-gradient(to right, 
-        transparent 0%, 
-        var(--dorado-oscuro) 5%,
-        var(--dorado) 20%, 
-        var(--dorado) 80%, 
-        var(--dorado-oscuro) 95%,
-        transparent 100%
-    );
-    border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
-    transform: rotate(-2deg);
+    bottom: 5px; 
+    left: 50%; 
+    transform: translateX(-50%) rotate(-2deg); 
+    width: 140px; 
+    height: 6px; 
+    border-bottom: 2.5px solid var(--dorado);
+    border-radius: 100% 100% 100% 100% / 0% 0% 100% 100%;
+    opacity: 0.9;
 }
-
 /* El rulito final (cola ascendente tipo firma) */
 .logo::before { 
     content: ''; 
