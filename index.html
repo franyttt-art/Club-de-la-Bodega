@@ -49,41 +49,33 @@
     flex-direction: column; 
     align-items: center; 
     position: relative; 
-    padding-bottom: 15px; 
+    padding-bottom: 12px; 
     font-weight: 700;
-    letter-spacing: 1px;
-    text-shadow: 
-        0 0 10px rgba(212, 175, 55, 0.5),
-        0 0 20px rgba(212, 175, 55, 0.2);
+    letter-spacing: 2px;
     transition: all 0.3s ease;
 } 
 .logo:hover {
-    text-shadow: 
-        0 0 15px rgba(212, 175, 55, 0.8),
-        0 0 30px rgba(212, 175, 55, 0.4);
     transform: scale(1.02);
+    color: var(--dorado-claro);
 }
 .logo::after { 
     content: ''; 
     position: absolute; 
-    bottom: 8px; 
+    bottom: 5px; 
     left: 50%; 
-    transform: translateX(-50%); 
-    width: 140px; 
-    height: 3px; 
+    transform: translateX(-50%) rotate(-2deg); 
+    width: 100px; 
+    height: 4px; 
     background: linear-gradient(90deg, 
-        transparent, 
-        rgba(212, 175, 55, 0.3) 10%,
-        var(--dorado) 40%, 
-        var(--dorado-claro) 50%, 
-        var(--dorado) 60%, 
-        rgba(212, 175, 55, 0.3) 90%,
-        transparent
+        transparent 0%, 
+        var(--dorado-oscuro) 20%,
+        var(--dorado) 50%, 
+        var(--dorado-claro) 80%,
+        transparent 100%
     );
-    border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
-    box-shadow: 
-        0 -2px 8px rgba(212, 175, 55, 0.4),
-        0 2px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 100% 0% 100% 0% / 100% 0% 100% 0%;
+    opacity: 0.8;
+    box-shadow: none;
 }
         .nav-links { display: flex; gap: 2.5rem; list-style: none; }
         .nav-links a { color: var(--blanco); text-decoration: none; font-weight: 400; letter-spacing: 1px; position: relative; transition: color 0.3s; font-size: 0.9rem; text-transform: uppercase; }
