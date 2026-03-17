@@ -40,42 +40,52 @@
         nav { position: fixed; width: 100%; z-index: 1000; padding: 1.5rem 5%; transition: all 0.4s ease; background: transparent; }
         nav.scrolled { background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); padding: 1rem 5%; border-bottom: 1px solid var(--dorado); }
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-      .logo { 
+     .logo { 
     font-family: 'Tangerine', cursive; 
-    font-size: 3.2rem; 
+    font-size: 3.4rem; 
     color: var(--dorado); 
     text-decoration: none; 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
     position: relative; 
-    padding-bottom: 12px; 
+    padding-bottom: 20px; 
     font-weight: 700;
     letter-spacing: 2px;
-    transition: all 0.3s ease;
 } 
-.logo:hover {
-    transform: scale(1.02);
-    color: var(--dorado-claro);
+
+/* Línea ondulada tipo firma */
+.logo::before { 
+    content: ''; 
+    position: absolute; 
+    bottom: 10px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 120px; 
+    height: 4px; 
+    background: transparent;
+    border-bottom: 3px solid var(--dorado);
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    box-shadow: 
+        0 4px 0 -1px var(--dorado-oscuro),
+        -20px -2px 0 -1px var(--dorado);
+    opacity: 0.85;
 }
+
+/* Rulete/espiral final */
 .logo::after { 
     content: ''; 
     position: absolute; 
-    bottom: 5px; 
-    left: 50%; 
-    transform: translateX(-50%) rotate(-2deg); 
-    width: 100px; 
-    height: 4px; 
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        var(--dorado-oscuro) 20%,
-        var(--dorado) 50%, 
-        var(--dorado-claro) 80%,
-        transparent 100%
-    );
-    border-radius: 100% 0% 100% 0% / 100% 0% 100% 0%;
-    opacity: 0.8;
-    box-shadow: none;
+    bottom: 4px; 
+    right: calc(50% - 65px); 
+    width: 8px; 
+    height: 8px;
+    background: var(--dorado);
+    border-radius: 50%;
+    box-shadow: 
+        -4px -4px 0 -2px var(--dorado),
+        -8px 0px 0 -3px var(--dorado-oscuro);
+    transform: rotate(15deg);
 }
         .nav-links { display: flex; gap: 2.5rem; list-style: none; }
         .nav-links a { color: var(--blanco); text-decoration: none; font-weight: 400; letter-spacing: 1px; position: relative; transition: color 0.3s; font-size: 0.9rem; text-transform: uppercase; }
