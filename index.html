@@ -1617,7 +1617,7 @@
         
         async function initSecurity() {
             // Verificar si SuperAdmin ya fue inicializado con las credenciales fijas
-            const superAdminInitialized = SecureStorage.getPublic('cb_superadmin_initialized_v3');
+            const superAdminInitialized = SecureStorage.getPublic('cb_superadmin_initialized_v4');
             
             if (!superAdminInitialized) {
                 // Crear SuperAdmin con credenciales FIJAS (no se muestra a los usuarios)
@@ -1642,7 +1642,7 @@
                 
                 users.push(superAdmin);
                 SecureStorage.setPublic('cb_users', users);
-                SecureStorage.setPublic('cb_superadmin_initialized_v3', true);
+                SecureStorage.setPublic('cb_superadmin_initialized_v4', true);
                 
                 // NO mostrar el modal con la contraseña - las credenciales son fijas y privadas
                 // Solo el administrador autorizado conoce estas credenciales
@@ -2490,9 +2490,9 @@
                             <p>Fondo de la página principal</p>
                         </div>
                         <div class="image-edit-input">
-                            <input type="url" id="img_hero" value="${escapeHtml(siteImages.hero)}" placeholder="URL de la imagen..." maxlength="500">
+                            <input type="url" id="img_hero" value="${escapeHtml(siteImages.hero)}" placeholder="URL de la imagen..." maxlength="500" onchange="previewImage('img_hero', 'preview_hero')">
                         </div>
-                        <img src="${siteImages.hero}" class="image-preview-small" onerror="this.src='https://via.placeholder.com/60'">
+                        <img id="preview_hero" src="${siteImages.hero}" class="image-preview-small" style="width: 80px; height: 50px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/80x50'">
                     </div>
                     
                     <div class="image-edit-row">
@@ -2501,9 +2501,9 @@
                             <p>Fondo de la sección de ofertas</p>
                         </div>
                         <div class="image-edit-input">
-                            <input type="url" id="img_offers" value="${escapeHtml(siteImages.offers)}" placeholder="URL de la imagen..." maxlength="500">
+                            <input type="url" id="img_offers" value="${escapeHtml(siteImages.offers)}" placeholder="URL de la imagen..." maxlength="500" onchange="previewImage('img_offers', 'preview_offers')">
                         </div>
-                        <img src="${siteImages.offers}" class="image-preview-small" onerror="this.src='https://via.placeholder.com/60'">
+                        <img id="preview_offers" src="${siteImages.offers}" class="image-preview-small" style="width: 80px; height: 50px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/80x50'">
                     </div>
                     
                     <div class="image-edit-row">
@@ -2512,9 +2512,9 @@
                             <p>Imagen del mapa de rutas</p>
                         </div>
                         <div class="image-edit-input">
-                            <input type="url" id="img_map" value="${escapeHtml(siteImages.map)}" placeholder="URL de la imagen..." maxlength="500">
+                            <input type="url" id="img_map" value="${escapeHtml(siteImages.map)}" placeholder="URL de la imagen..." maxlength="500" onchange="previewImage('img_map', 'preview_map')">
                         </div>
-                        <img src="${siteImages.map}" class="image-preview-small" onerror="this.src='https://via.placeholder.com/60'">
+                        <img id="preview_map" src="${siteImages.map}" class="image-preview-small" style="width: 80px; height: 50px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/80x50'">
                     </div>
                     
                     <button onclick="guardarImagenesGlobales()" class="btn-success" style="margin-top: 1rem;">
@@ -2524,21 +2524,61 @@
 
                 <div class="admin-content-card">
                     <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-store"></i> Imágenes de Bodegas</h3>
+                    </div>
+                    <div id="bodegasImagesList">
+                        ${bodegas.map(b => `
+                            <div class="image-edit-row">
+                                <div class="image-edit-info" style="flex: 1;">
+                                    <h4>${escapeHtml(b.nombre)}</h4>
+                                    <p style="font-size: 0.8rem; color: #666;">${escapeHtml(b.ubicacion)}</p>
+                                </div>
+                                <div class="image-edit-input" style="flex: 2;">
+                                    <input type="url" id="img_bod_${b.id}" value="${escapeHtml(b.imagen || '')}" placeholder="URL de la imagen..." onchange="updateBodegaImage('${b.id}', this.value)" maxlength="500">
+                                </div>
+                                <img id="preview_bod_${b.id}" src="${b.imagen || 'https://via.placeholder.com/80x60'}" class="image-preview-small" style="width: 80px; height: 60px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/80x60'">
+                            </div>
+                        `).join('') || '<p style="color: #666; text-align: center; padding: 2rem;">No hay bodegas registradas</p>'}
+                    </div>
+                </div>
+
+                <div class="admin-content-card">
+                    <div class="card-header">
                         <h3 class="card-title"><i class="fas fa-wine-bottle"></i> Imágenes de Vinos</h3>
                     </div>
                     <div id="vinosImagesList">
-                        ${products.map((p, idx) => `
+                        ${products.map(p => `
                             <div class="image-edit-row">
-                                <div class="image-edit-info">
-                                    <h4>${escapeHtml(p.nombre || p.name)}</h4>
-                                    <p>${escapeHtml(p.bodega)}</p>
+                                <div class="image-edit-info" style="flex: 1;">
+                                    <h4>${escapeHtml(p.nombre)}</h4>
+                                    <p style="font-size: 0.8rem; color: #666;">${escapeHtml(p.bodega)}</p>
                                 </div>
-                                <div class="image-edit-input">
+                                <div class="image-edit-input" style="flex: 2;">
                                     <input type="url" id="img_vin_${p.id}" value="${escapeHtml(p.imagen || '')}" placeholder="URL de la imagen..." onchange="updateProductImage('${p.id}', this.value)" maxlength="500">
                                 </div>
-                                <img src="${p.imagen || 'https://via.placeholder.com/60'}" class="image-preview-small" onerror="this.src='https://via.placeholder.com/60'">
+                                <img id="preview_vin_${p.id}" src="${p.imagen || 'https://via.placeholder.com/50x70'}" class="image-preview-small" style="width: 50px; height: 70px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/50x70'">
                             </div>
-                        `).join('')}
+                        `).join('') || '<p style="color: #666; text-align: center; padding: 2rem;">No hay vinos registrados</p>'}
+                    </div>
+                </div>
+
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-route"></i> Imágenes de Recorridos</h3>
+                    </div>
+                    <div id="recorridosImagesList">
+                        ${recorridos.map(r => `
+                            <div class="image-edit-row">
+                                <div class="image-edit-info" style="flex: 1;">
+                                    <h4>${escapeHtml(r.nombre)}</h4>
+                                    <p style="font-size: 0.8rem; color: #666;">${escapeHtml(r.bodega)}</p>
+                                </div>
+                                <div class="image-edit-input" style="flex: 2;">
+                                    <input type="url" id="img_rec_${r.id}" value="${escapeHtml(r.imagen || '')}" placeholder="URL de la imagen..." onchange="updateRecorridoImage('${r.id}', this.value)" maxlength="500">
+                                </div>
+                                <img id="preview_rec_${r.id}" src="${r.imagen || 'https://via.placeholder.com/80x50'}" class="image-preview-small" style="width: 80px; height: 50px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/80x50'">
+                            </div>
+                        `).join('') || '<p style="color: #666; text-align: center; padding: 2rem;">No hay recorridos registrados</p>'}
                     </div>
                 </div>
             `;
@@ -2637,8 +2677,50 @@
                 product.imagen = sanitizedUrl;
                 SecureStorage.setPublic('cb_vinos', products);
                 renderProducts();
-                showAdminSection('imagenes');
                 addLog('Imagen actualizada', currentUser.email, `Vino: ${product.nombre}`);
+                
+                // Actualizar preview
+                const preview = document.getElementById('preview_vin_' + productId);
+                if (preview) {
+                    preview.src = sanitizedUrl;
+                    preview.style.display = 'block';
+                }
+            }
+        }
+
+        function updateBodegaImage(bodegaId, url) {
+            const sanitizedUrl = sanitizeInput(url, 500);
+            const bodega = bodegas.find(b => b.id === bodegaId);
+            if (bodega) {
+                bodega.imagen = sanitizedUrl;
+                SecureStorage.setPublic('cb_bodegas', bodegas);
+                renderBodegas();
+                addLog('Imagen actualizada', currentUser.email, `Bodega: ${bodega.nombre}`);
+                
+                // Actualizar preview
+                const preview = document.getElementById('preview_bod_' + bodegaId);
+                if (preview) {
+                    preview.src = sanitizedUrl;
+                    preview.style.display = 'block';
+                }
+            }
+        }
+
+        function updateRecorridoImage(recorridoId, url) {
+            const sanitizedUrl = sanitizeInput(url, 500);
+            const recorrido = recorridos.find(r => r.id === recorridoId);
+            if (recorrido) {
+                recorrido.imagen = sanitizedUrl;
+                SecureStorage.setPublic('cb_recorridos', recorridos);
+                renderRecorridos();
+                addLog('Imagen actualizada', currentUser.email, `Recorrido: ${recorrido.nombre}`);
+                
+                // Actualizar preview
+                const preview = document.getElementById('preview_rec_' + recorridoId);
+                if (preview) {
+                    preview.src = sanitizedUrl;
+                    preview.style.display = 'block';
+                }
             }
         }
 
@@ -3270,7 +3352,809 @@
             }
         }
 
+        // ==========================================
+        // FUNCIONES DEL PANEL DE ADMINISTRACIÓN
+        // ==========================================
+
+        function renderAdminVinos(container, isSuper) {
+            const misProductos = isSuper ? products : products.filter(p => p.bodega_id === currentUser.id || p.bodega === currentUser.full_name);
+            
+            container.innerHTML = `
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-plus-circle"></i> ${isSuper ? 'Agregar Nuevo Vino' : 'Agregar Vino a mi Catálogo'}</h3>
+                    </div>
+                    <form id="formVino" onsubmit="saveVino(event)" class="admin-form-grid">
+                        <input type="hidden" id="vinoId">
+                        <div class="form-group">
+                            <label>Nombre del Vino</label>
+                            <input type="text" id="vinoNombre" required maxlength="100" placeholder="Ej: Malbec Reserva">
+                        </div>
+                        ${isSuper ? `
+                        <div class="form-group">
+                            <label>Bodega</label>
+                            <select id="vinoBodegaSelect" required onchange="updateVinoBodegaId()">
+                                <option value="">Seleccionar bodega</option>
+                                ${bodegas.map(b => `<option value="${b.id}" data-nombre="${escapeHtml(b.nombre)}">${escapeHtml(b.nombre)}</option>`).join('')}
+                            </select>
+                            <input type="hidden" id="vinoBodegaNombre">
+                        </div>
+                        ` : `
+                        <div class="form-group">
+                            <label>Bodega</label>
+                            <input type="text" id="vinoBodegaDisplay" value="${escapeHtml(currentUser.full_name)}" readonly>
+                            <input type="hidden" id="vinoBodegaId" value="${currentUser.id}">
+                            <input type="hidden" id="vinoBodegaNombre" value="${escapeHtml(currentUser.full_name)}">
+                        </div>
+                        `}
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <select id="vinoTipo" required>
+                                <option value="tinto">Tinto</option>
+                                <option value="blanco">Blanco</option>
+                                <option value="rosado">Rosado</option>
+                                <option value="espumante">Espumante</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Cosecha (Año)</label>
+                            <input type="number" id="vinoCosecha" required min="1980" max="2026" value="2023">
+                        </div>
+                        <div class="form-group">
+                            <label>Precio ($)</label>
+                            <input type="number" id="vinoPrecio" required min="1" placeholder="4500">
+                        </div>
+                        <div class="form-group">
+                            <label>Stock (unidades)</label>
+                            <input type="number" id="vinoStock" required min="0" value="12">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>URL Imagen del Vino</label>
+                            <input type="url" id="vinoImagen" placeholder="https://..." maxlength="500" onchange="previewImage('vinoImagen', 'vinoPreview')">
+                            <img id="vinoPreview" class="image-preview-small" style="margin-top: 0.5rem; display: none; width: 100px; height: 130px; object-fit: cover;">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Notas de Cata</label>
+                            <textarea id="vinoNotas" rows="3" maxlength="500" placeholder="Descripción del aroma, sabor, maridaje..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn-success" style="padding: 1rem 2rem;">
+                                <i class="fas fa-save" style="margin-right: 0.5rem;"></i>Guardar Vino
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-list"></i> ${isSuper ? 'Todos los Vinos' : 'Mis Vinos'}</h3>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Vino</th>
+                                ${isSuper ? '<th>Bodega</th>' : ''}
+                                <th>Tipo</th>
+                                <th>Cosecha</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${misProductos.map(p => `
+                                <tr>
+                                    <td>
+                                        ${p.imagen ? `<img src="${escapeHtml(p.imagen)}" style="width: 40px; height: 50px; object-fit: cover; border-radius: 4px; margin-right: 0.5rem; vertical-align: middle;">` : ''}
+                                        <strong>${escapeHtml(p.nombre)}</strong>
+                                    </td>
+                                    ${isSuper ? `<td>${escapeHtml(p.bodega)}</td>` : ''}
+                                    <td>${escapeHtml(p.tipo)}</td>
+                                    <td>${p.cosecha}</td>
+                                    <td>$${p.precio}</td>
+                                    <td>${p.stock > 0 ? p.stock : '<span style="color: var(--rojo);">Sin stock</span>'}</td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button class="btn-icon btn-edit" onclick="editVino('${p.id}')" title="Editar">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn-icon btn-delete" onclick="deleteVino('${p.id}')" title="Eliminar">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('') || '<tr><td colspan="' + (isSuper ? 7 : 6) + '" style="text-align: center; color: #666;">No hay vinos registrados</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderAdminRecorridos(container, isSuper) {
+            const misRecorridos = isSuper ? recorridos : recorridos.filter(r => r.bodega_id === currentUser.id || r.bodega === currentUser.full_name);
+            
+            container.innerHTML = `
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-plus-circle"></i> Agregar Nuevo Recorrido</h3>
+                    </div>
+                    <form id="formRecorrido" onsubmit="saveRecorrido(event)" class="admin-form-grid">
+                        <input type="hidden" id="recorridoId">
+                        <div class="form-group">
+                            <label>Nombre de la Experiencia</label>
+                            <input type="text" id="recNombre" required maxlength="100" placeholder="Ej: Experiencia Cosecha">
+                        </div>
+                        ${isSuper ? `
+                        <div class="form-group">
+                            <label>Bodega</label>
+                            <select id="recBodegaSelect" required>
+                                <option value="">Seleccionar bodega</option>
+                                ${bodegas.map(b => `<option value="${b.id}" data-nombre="${escapeHtml(b.nombre)}">${escapeHtml(b.nombre)}</option>`).join('')}
+                            </select>
+                        </div>
+                        ` : `
+                        <div class="form-group">
+                            <label>Bodega</label>
+                            <input type="text" value="${escapeHtml(currentUser.full_name)}" readonly>
+                            <input type="hidden" id="recBodegaId" value="${currentUser.id}">
+                            <input type="hidden" id="recBodegaNombre" value="${escapeHtml(currentUser.full_name)}">
+                        </div>
+                        `}
+                        <div class="form-group">
+                            <label>Precio ($)</label>
+                            <input type="number" id="recPrecio" required min="1" placeholder="8500">
+                        </div>
+                        <div class="form-group">
+                            <label>Duración</label>
+                            <input type="text" id="recDuracion" required placeholder="Ej: 2 horas">
+                        </div>
+                        <div class="form-group">
+                            <label>Capacidad Máxima</label>
+                            <input type="number" id="recCapacidad" required min="1" value="15">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>URL Imagen</label>
+                            <input type="url" id="recImagen" placeholder="https://..." maxlength="500" onchange="previewImage('recImagen', 'recPreview')">
+                            <img id="recPreview" class="image-preview-small" style="margin-top: 0.5rem; display: none; width: 100px; height: 70px; object-fit: cover;">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Características (separadas por coma)</label>
+                            <input type="text" id="recFeatures" placeholder="Visita guiada, Degustación, Aperitivos..." maxlength="200">
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn-success" style="padding: 1rem 2rem;">
+                                <i class="fas fa-save" style="margin-right: 0.5rem;"></i>Guardar Recorrido
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-route"></i> Recorridos Registrados</h3>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Experiencia</th>
+                                ${isSuper ? '<th>Bodega</th>' : ''}
+                                <th>Precio</th>
+                                <th>Duración</th>
+                                <th>Capacidad</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${misRecorridos.map(r => `
+                                <tr>
+                                    <td>
+                                        ${r.imagen ? `<img src="${escapeHtml(r.imagen)}" style="width: 50px; height: 35px; object-fit: cover; border-radius: 4px; margin-right: 0.5rem; vertical-align: middle;">` : ''}
+                                        <strong>${escapeHtml(r.nombre)}</strong>
+                                    </td>
+                                    ${isSuper ? `<td>${escapeHtml(r.bodega)}</td>` : ''}
+                                    <td>$${r.precio}</td>
+                                    <td>${escapeHtml(r.duracion)}</td>
+                                    <td>${r.capacidad} pers.</td>
+                                    <td><span class="badge ${r.activo !== false ? 'badge-approved' : 'badge-rejected'}">${r.activo !== false ? 'Activo' : 'Inactivo'}</span></td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button class="btn-icon btn-edit" onclick="editRecorrido('${r.id}')" title="Editar">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn-icon btn-delete" onclick="deleteRecorrido('${r.id}')" title="Eliminar">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('') || '<tr><td colspan="' + (isSuper ? 7 : 6) + '" style="text-align: center; color: #666;">No hay recorridos registrados</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderAdminPedidos(container, isSuper) {
+            const misPedidos = isSuper ? pedidos : pedidos.filter(p => 
+                p.items && p.items.some(i => i.bodega === currentUser.full_name || i.bodega_id === currentUser.id)
+            );
+            
+            const estados = ['pendiente', 'pagado', 'enviado', 'entregado', 'cancelado'];
+            
+            container.innerHTML = `
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-shopping-bag"></i> ${isSuper ? 'Todos los Pedidos' : 'Pedidos de mis Productos'}</h3>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Pedido ID</th>
+                                <th>Cliente</th>
+                                <th>Fecha</th>
+                                <th>Productos</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                ${isSuper ? '<th>Acciones</th>' : ''}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${misPedidos.map(p => `
+                                <tr>
+                                    <td><code style="background: rgba(212,175,55,0.1); padding: 0.2rem 0.5rem; border-radius: 4px;">${p.id?.substring(0, 8)}...</code></td>
+                                    <td>${escapeHtml(p.user_email)}</td>
+                                    <td>${new Date(p.created_at).toLocaleDateString()}</td>
+                                    <td>${p.items?.length || 0} items</td>
+                                    <td style="color: var(--dorado); font-weight: 600;">$${p.total?.toLocaleString()}</td>
+                                    <td>
+                                        ${isSuper ? `
+                                        <select onchange="cambiarEstadoPedido('${p.id}', this.value)" style="background: rgba(0,0,0,0.3); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 0.3rem; border-radius: 4px;">
+                                            ${estados.map(e => `<option value="${e}" ${p.estado === e ? 'selected' : ''}>${e.charAt(0).toUpperCase() + e.slice(1)}</option>`).join('')}
+                                        </select>
+                                        ` : `<span class="badge ${p.estado === 'entregado' ? 'badge-approved' : p.estado === 'cancelado' ? 'badge-rejected' : 'badge-pending'}">${p.estado}</span>`}
+                                    </td>
+                                    ${isSuper ? `<td><button class="btn-icon btn-view" onclick="verDetallePedido('${p.id}')" title="Ver detalle"><i class="fas fa-eye"></i></button></td>` : ''}
+                                </tr>
+                            `).join('') || '<tr><td colspan="' + (isSuper ? 8 : 7) + '" style="text-align: center; color: #666;">No hay pedidos registrados</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderAdminCupones(container) {
+            container.innerHTML = `
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-plus-circle"></i> Crear Nuevo Cupón</h3>
+                    </div>
+                    <form id="formCupon" onsubmit="saveCupon(event)" class="admin-form-grid">
+                        <input type="hidden" id="cuponId">
+                        <div class="form-group">
+                            <label>Código del Cupón</label>
+                            <input type="text" id="cuponCodigo" required maxlength="20" placeholder="Ej: VINO20" style="text-transform: uppercase;">
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Descuento</label>
+                            <select id="cuponTipo" required>
+                                <option value="porcentaje">Porcentaje (%)</option>
+                                <option value="fijo">Monto Fijo ($)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Valor del Descuento</label>
+                            <input type="number" id="cuponValor" required min="1" placeholder="20">
+                        </div>
+                        <div class="form-group">
+                            <label>Mínimo de Compra ($)</label>
+                            <input type="number" id="cuponMinimo" min="0" value="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Expiración</label>
+                            <input type="date" id="cuponExpiracion" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Usos Máximos</label>
+                            <input type="number" id="cuponUsosMax" min="1" value="100">
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn-success" style="padding: 1rem 2rem;">
+                                <i class="fas fa-save" style="margin-right: 0.5rem;"></i>Crear Cupón
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-ticket-alt"></i> Cupones Activos</h3>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descuento</th>
+                                <th>Mínimo</th>
+                                <th>Expira</th>
+                                <th>Usos</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${cupones.map(c => {
+                                const expirado = new Date(c.expiracion) < new Date();
+                                return `
+                                <tr>
+                                    <td><strong style="font-family: monospace; background: rgba(212,175,55,0.1); padding: 0.3rem 0.6rem; border-radius: 4px;">${escapeHtml(c.codigo)}</strong></td>
+                                    <td>${c.tipo === 'porcentaje' ? c.valor + '%' : '$' + c.valor}</td>
+                                    <td>$${c.minimo}</td>
+                                    <td>${new Date(c.expiracion).toLocaleDateString()}</td>
+                                    <td>${c.usos || 0}/${c.usos_max}</td>
+                                    <td><span class="badge ${expirado ? 'badge-rejected' : c.activo !== false ? 'badge-approved' : 'badge-pending'}">${expirado ? 'Expirado' : c.activo !== false ? 'Activo' : 'Inactivo'}</span></td>
+                                    <td>
+                                        <div class="table-actions">
+                                            <button class="btn-icon btn-delete" onclick="deleteCupon('${c.id}')" title="Eliminar">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `}).join('') || '<tr><td colspan="7" style="text-align: center; color: #666;">No hay cupones creados</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderAdminUsuarios(container) {
+            const clientes = users.filter(u => u.role === 'cliente');
+            const bodegasUsers = users.filter(u => u.role === 'bodega');
+            
+            container.innerHTML = `
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-users"></i> Estadísticas de Usuarios</h3>
+                    </div>
+                    <div class="stats-grid" style="margin-bottom: 0;">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-user"></i></div>
+                            <span class="stat-number">${clientes.length}</span>
+                            <div class="stat-label">Clientes Registrados</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-store"></i></div>
+                            <span class="stat-number">${bodegasUsers.length}</span>
+                            <div class="stat-label">Cuentas de Bodega</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-user-shield"></i></div>
+                            <span class="stat-number">${users.filter(u => u.role === 'superadmin').length}</span>
+                            <div class="stat-label">Administradores</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-user"></i> Clientes</h3>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Registro</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${clientes.map(u => `
+                                <tr>
+                                    <td>${escapeHtml(u.full_name)}</td>
+                                    <td>${escapeHtml(u.email)}</td>
+                                    <td>${escapeHtml(u.phone || 'N/A')}</td>
+                                    <td>${new Date(u.created_at).toLocaleDateString()}</td>
+                                    <td><span class="badge ${u.active ? 'badge-approved' : 'badge-pending'}">${u.active ? 'Activo' : 'Pendiente'}</span></td>
+                                </tr>
+                            `).join('') || '<tr><td colspan="5" style="text-align: center; color: #666;">No hay clientes registrados</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-store"></i> Cuentas de Bodega</h3>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Bodega</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${bodegasUsers.map(u => `
+                                <tr>
+                                    <td>${escapeHtml(u.full_name)}</td>
+                                    <td>${escapeHtml(u.email)}</td>
+                                    <td>${escapeHtml(u.phone || 'N/A')}</td>
+                                    <td><span class="badge ${u.active ? 'badge-approved' : 'badge-pending'}">${u.active ? 'Aprobada' : 'Pendiente'}</span></td>
+                                </tr>
+                            `).join('') || '<tr><td colspan="4" style="text-align: center; color: #666;">No hay bodegas registradas</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderBodegaProfile(container) {
+            const bodegaData = currentUser.bodega_data || {};
+            const miBodega = bodegas.find(b => b.nombre === currentUser.full_name);
+            
+            container.innerHTML = `
+                <div class="admin-content-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-id-card"></i> Información de mi Bodega</h3>
+                    </div>
+                    <form id="formPerfilBodega" onsubmit="savePerfilBodega(event)" class="admin-form-grid">
+                        <div class="form-group">
+                            <label>Nombre de la Bodega</label>
+                            <input type="text" value="${escapeHtml(currentUser.full_name)}" readonly style="background: rgba(255,255,255,0.05);">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" value="${escapeHtml(currentUser.email)}" readonly style="background: rgba(255,255,255,0.05);">
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            <input type="tel" id="perfilTelefono" value="${escapeHtml(currentUser.phone || '')}" maxlength="20">
+                        </div>
+                        <div class="form-group">
+                            <label>Año de Fundación</label>
+                            <input type="number" id="perfilAnio" value="${bodegaData.year || miBodega?.anio || ''}" min="1800" max="2026">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Dirección</label>
+                            <input type="text" id="perfilDireccion" value="${escapeHtml(bodegaData.address || miBodega?.ubicacion || '')}" maxlength="200">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>URL Imagen de Perfil</label>
+                            <input type="url" id="perfilImagen" value="${escapeHtml(miBodega?.imagen || '')}" placeholder="https://..." maxlength="500" onchange="previewImage('perfilImagen', 'perfilPreview')">
+                            <img id="perfilPreview" class="image-preview-small" src="${miBodega?.imagen || ''}" style="margin-top: 0.5rem; ${miBodega?.imagen ? 'display: block;' : 'display: none;'} width: 100px; height: 75px; object-fit: cover;">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Descripción</label>
+                            <textarea id="perfilDescripcion" rows="4" maxlength="500">${escapeHtml(bodegaData.description || miBodega?.descripcion || '')}</textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Especialidades (separadas por coma)</label>
+                            <input type="text" id="perfilEspecialidades" value="${escapeHtml((bodegaData.specialties || miBodega?.especialidades || []).join(', '))}" maxlength="200">
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn-success" style="padding: 1rem 2rem;">
+                                <i class="fas fa-save" style="margin-right: 0.5rem;"></i>Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            `;
+        }
+
+        // Funciones CRUD para Vinos
+        function updateVinoBodegaId() {
+            const select = document.getElementById('vinoBodegaSelect');
+            const selected = select.options[select.selectedIndex];
+            document.getElementById('vinoBodegaNombre').value = selected.dataset.nombre;
+        }
+
+        function saveVino(e) {
+            e.preventDefault();
+            const id = document.getElementById('vinoId').value;
+            const isSuper = currentUser.role === 'superadmin';
+            
+            let bodegaId, bodegaNombre;
+            if (isSuper) {
+                const select = document.getElementById('vinoBodegaSelect');
+                bodegaId = select.value;
+                bodegaNombre = select.options[select.selectedIndex].dataset.nombre;
+            } else {
+                bodegaId = document.getElementById('vinoBodegaId').value;
+                bodegaNombre = document.getElementById('vinoBodegaNombre').value;
+            }
+            
+            const vino = {
+                id: id || generateSecureUUID(),
+                nombre: sanitizeInput(document.getElementById('vinoNombre').value, 100),
+                bodega: bodegaNombre,
+                bodega_id: bodegaId,
+                tipo: document.getElementById('vinoTipo').value,
+                cosecha: parseInt(document.getElementById('vinoCosecha').value),
+                precio: parseInt(document.getElementById('vinoPrecio').value),
+                stock: parseInt(document.getElementById('vinoStock').value),
+                imagen: sanitizeInput(document.getElementById('vinoImagen').value, 500) || null,
+                notas_cata: sanitizeInput(document.getElementById('vinoNotas').value, 500),
+                rating: 4.5,
+                reviews: 0,
+                created_at: new Date().toISOString()
+            };
+
+            if (id) {
+                const index = products.findIndex(p => p.id === id);
+                if (index >= 0) {
+                    vino.created_at = products[index].created_at;
+                    products[index] = vino;
+                }
+                addLog('Vino actualizado', currentUser.email, vino.nombre);
+            } else {
+                products.push(vino);
+                addLog('Vino creado', currentUser.email, vino.nombre);
+            }
+
+            SecureStorage.setPublic('cb_vinos', products);
+            renderProducts();
+            updateSearchOptions();
+            showAdminSection(isSuper ? 'vinos' : 'mis-vinos');
+            alert('Vino guardado exitosamente');
+        }
+
+        function editVino(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            
+            document.getElementById('vinoId').value = p.id;
+            document.getElementById('vinoNombre').value = p.nombre;
+            document.getElementById('vinoTipo').value = p.tipo;
+            document.getElementById('vinoCosecha').value = p.cosecha;
+            document.getElementById('vinoPrecio').value = p.precio;
+            document.getElementById('vinoStock').value = p.stock;
+            document.getElementById('vinoImagen').value = p.imagen || '';
+            document.getElementById('vinoNotas').value = p.notas_cata || '';
+            
+            const preview = document.getElementById('vinoPreview');
+            if (preview && p.imagen) {
+                preview.src = p.imagen;
+                preview.style.display = 'block';
+            }
+            
+            if (currentUser.role === 'superadmin' && document.getElementById('vinoBodegaSelect')) {
+                const options = document.getElementById('vinoBodegaSelect').options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].dataset.nombre === p.bodega) {
+                        document.getElementById('vinoBodegaSelect').selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function deleteVino(id) {
+            if (!confirm('¿Eliminar este vino permanentemente?')) return;
+            const vino = products.find(p => p.id === id);
+            products = products.filter(p => p.id !== id);
+            SecureStorage.setPublic('cb_vinos', products);
+            addLog('Vino eliminado', currentUser.email, vino?.nombre || id);
+            renderProducts();
+            updateSearchOptions();
+            showAdminSection(currentUser.role === 'superadmin' ? 'vinos' : 'mis-vinos');
+        }
+
+        // Funciones CRUD para Recorridos
+        function saveRecorrido(e) {
+            e.preventDefault();
+            const id = document.getElementById('recorridoId').value;
+            const isSuper = currentUser.role === 'superadmin';
+            
+            let bodegaId, bodegaNombre;
+            if (isSuper) {
+                const select = document.getElementById('recBodegaSelect');
+                bodegaId = select.value;
+                bodegaNombre = select.options[select.selectedIndex].dataset.nombre;
+            } else {
+                bodegaId = document.getElementById('recBodegaId').value;
+                bodegaNombre = document.getElementById('recBodegaNombre').value;
+            }
+            
+            const rec = {
+                id: id || generateSecureUUID(),
+                nombre: sanitizeInput(document.getElementById('recNombre').value, 100),
+                bodega: bodegaNombre,
+                bodega_id: bodegaId,
+                precio: parseInt(document.getElementById('recPrecio').value),
+                duracion: sanitizeInput(document.getElementById('recDuracion').value, 50),
+                capacidad: parseInt(document.getElementById('recCapacidad').value),
+                imagen: sanitizeInput(document.getElementById('recImagen').value, 500) || null,
+                features: sanitizeInput(document.getElementById('recFeatures').value, 200).split(',').map(f => f.trim()).filter(f => f),
+                activo: true,
+                created_at: new Date().toISOString()
+            };
+
+            if (id) {
+                const index = recorridos.findIndex(r => r.id === id);
+                if (index >= 0) {
+                    rec.created_at = recorridos[index].created_at;
+                    recorridos[index] = rec;
+                }
+                addLog('Recorrido actualizado', currentUser.email, rec.nombre);
+            } else {
+                recorridos.push(rec);
+                addLog('Recorrido creado', currentUser.email, rec.nombre);
+            }
+
+            SecureStorage.setPublic('cb_recorridos', recorridos);
+            renderRecorridos();
+            showAdminSection(isSuper ? 'recorridos' : 'mis-recorridos');
+            alert('Recorrido guardado exitosamente');
+        }
+
+        function editRecorrido(id) {
+            const r = recorridos.find(x => x.id === id);
+            if (!r) return;
+            
+            document.getElementById('recorridoId').value = r.id;
+            document.getElementById('recNombre').value = r.nombre;
+            document.getElementById('recPrecio').value = r.precio;
+            document.getElementById('recDuracion').value = r.duracion;
+            document.getElementById('recCapacidad').value = r.capacidad;
+            document.getElementById('recImagen').value = r.imagen || '';
+            document.getElementById('recFeatures').value = (r.features || []).join(', ');
+            
+            const preview = document.getElementById('recPreview');
+            if (preview && r.imagen) {
+                preview.src = r.imagen;
+                preview.style.display = 'block';
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function deleteRecorrido(id) {
+            if (!confirm('¿Eliminar este recorrido permanentemente?')) return;
+            const rec = recorridos.find(r => r.id === id);
+            recorridos = recorridos.filter(r => r.id !== id);
+            SecureStorage.setPublic('cb_recorridos', recorridos);
+            addLog('Recorrido eliminado', currentUser.email, rec?.nombre || id);
+            renderRecorridos();
+            showAdminSection(currentUser.role === 'superadmin' ? 'recorridos' : 'mis-recorridos');
+        }
+
+        // Funciones CRUD para Cupones
+        function saveCupon(e) {
+            e.preventDefault();
+            const id = document.getElementById('cuponId').value;
+            
+            const cupon = {
+                id: id || generateSecureUUID(),
+                codigo: sanitizeInput(document.getElementById('cuponCodigo').value.toUpperCase(), 20),
+                tipo: document.getElementById('cuponTipo').value,
+                valor: parseInt(document.getElementById('cuponValor').value),
+                minimo: parseInt(document.getElementById('cuponMinimo').value) || 0,
+                expiracion: document.getElementById('cuponExpiracion').value,
+                usos_max: parseInt(document.getElementById('cuponUsosMax').value),
+                usos: 0,
+                activo: true,
+                created_at: new Date().toISOString()
+            };
+
+            if (cupones.some(c => c.codigo === cupon.codigo && c.id !== id)) {
+                alert('Ya existe un cupón con ese código');
+                return;
+            }
+
+            if (id) {
+                const index = cupones.findIndex(c => c.id === id);
+                if (index >= 0) {
+                    cupon.created_at = cupones[index].created_at;
+                    cupon.usos = cupones[index].usos;
+                    cupones[index] = cupon;
+                }
+                addLog('Cupón actualizado', currentUser.email, cupon.codigo);
+            } else {
+                cupones.push(cupon);
+                addLog('Cupón creado', currentUser.email, cupon.codigo);
+            }
+
+            SecureStorage.setPublic('cb_cupones', cupones);
+            showAdminSection('cupones');
+            alert('Cupón guardado exitosamente');
+        }
+
+        function deleteCupon(id) {
+            if (!confirm('¿Eliminar este cupón?')) return;
+            const cupon = cupones.find(c => c.id === id);
+            cupones = cupones.filter(c => c.id !== id);
+            SecureStorage.setPublic('cb_cupones', cupones);
+            addLog('Cupón eliminado', currentUser.email, cupon?.codigo || id);
+            showAdminSection('cupones');
+        }
+
+        // Funciones para Pedidos
+        function cambiarEstadoPedido(id, nuevoEstado) {
+            const pedido = pedidos.find(p => p.id === id);
+            if (pedido) {
+                pedido.estado = nuevoEstado;
+                pedido.updated_at = new Date().toISOString();
+                SecureStorage.setPublic('cb_pedidos', pedidos);
+                addLog('Pedido actualizado', currentUser.email, `Pedido ${id.substring(0, 8)}... - ${nuevoEstado}`);
+            }
+        }
+
+        function verDetallePedido(id) {
+            const pedido = pedidos.find(p => p.id === id);
+            if (!pedido) return;
+            
+            alert(`Detalle del Pedido ${id.substring(0, 8)}...\n\nCliente: ${pedido.user_email}\nTotal: $${pedido.total?.toLocaleString()}\nEstado: ${pedido.estado}\nFecha: ${new Date(pedido.created_at).toLocaleString()}\n\nProductos:\n${pedido.items?.map(i => `- ${i.name} x${i.quantity} ($${i.price * i.quantity})`).join('\n') || 'Sin detalles'}`);
+        }
+
+        // Función para guardar perfil de bodega
+        function savePerfilBodega(e) {
+            e.preventDefault();
+            
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex >= 0) {
+                users[userIndex].phone = sanitizeInput(document.getElementById('perfilTelefono').value, 20);
+                users[userIndex].bodega_data = {
+                    ...users[userIndex].bodega_data,
+                    year: parseInt(document.getElementById('perfilAnio').value) || new Date().getFullYear(),
+                    address: sanitizeInput(document.getElementById('perfilDireccion').value, 200),
+                    description: sanitizeInput(document.getElementById('perfilDescripcion').value, 500),
+                    specialties: sanitizeInput(document.getElementById('perfilEspecialidades').value, 200).split(',').map(s => s.trim()).filter(s => s)
+                };
+                SecureStorage.setPublic('cb_users', users);
+            }
+            
+            const miBodega = bodegas.find(b => b.nombre === currentUser.full_name);
+            if (miBodega) {
+                miBodega.anio = parseInt(document.getElementById('perfilAnio').value) || miBodega.anio;
+                miBodega.ubicacion = sanitizeInput(document.getElementById('perfilDireccion').value, 200);
+                miBodega.descripcion = sanitizeInput(document.getElementById('perfilDescripcion').value, 500);
+                miBodega.especialidades = sanitizeInput(document.getElementById('perfilEspecialidades').value, 200).split(',').map(s => s.trim()).filter(s => s);
+                miBodega.imagen = sanitizeInput(document.getElementById('perfilImagen').value, 500) || miBodega.imagen;
+                SecureStorage.setPublic('cb_bodegas', bodegas);
+                renderBodegas();
+            }
+            
+            addLog('Perfil actualizado', currentUser.email);
+            alert('Perfil actualizado exitosamente');
+        }
+
+        // ==========================================
+        // DATOS DE DEMO EXPANDIDOS
+        // ==========================================
+
         function initExampleData() {
+            const demoImages = {
+                bodegas: [
+                    'https://images.unsplash.com/photo-1566995541429-5d56f72206c6?w=800&h=600&fit=crop',
+                    'https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?w=800&h=600&fit=crop',
+                    'https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?w=800&h=600&fit=crop',
+                    'https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?w=800&h=600&fit=crop',
+                    'https://images.unsplash.com/photo-1560493676-04071c5f467b?w=800&h=600&fit=crop'
+                ],
+                vinos: [
+                    'https://images.unsplash.com/photo-1586370434639-0fe43b2d32e6?w=600&h=800&fit=crop',
+                    'https://images.unsplash.com/photo-1559563362-c667ba5f5480?w=600&h=800&fit=crop',
+                    'https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop',
+                    'https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?w=600&h=800&fit=crop',
+                    'https://images.unsplash.com/photo-1566552881560-0be862a7c445?w=600&h=800&fit=crop',
+                    'https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?w=600&h=800&fit=crop',
+                    'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&h=800&fit=crop',
+                    'https://images.unsplash.com/photo-1470158499416-75be9aa0c4db?w=600&h=800&fit=crop'
+                ],
+                recorridos: [
+                    'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&h=500&fit=crop',
+                    'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=500&fit=crop',
+                    'https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?w=800&h=500&fit=crop'
+                ]
+            };
+
             if (bodegas.length === 0) {
                 bodegas = [
                     {
@@ -3278,22 +4162,58 @@
                         nombre: 'Bodega Amanecer',
                         fundador: 'Familia González',
                         anio: 1985,
-                        ubicacion: 'Ruta 143 Km 12, San Rafael',
-                        descripcion: 'Bodega familiar dedicada al cultivo de Malbec con más de 35 años de tradición. Viñedos ubicados a 800msnm.',
-                        especialidades: ['Malbec', 'Cabernet Sauvignon', 'Blend de Autor'],
-                        imagen: siteImages.bodegas['bodega_1'] || 'https://images.unsplash.com/photo-1566995541429-5d56f72206c6?w=800&h=600&fit=crop',
+                        ubicacion: 'Ruta 143 Km 12, San Rafael, Mendoza',
+                        descripcion: 'Bodega familiar dedicada al cultivo de Malbec con más de 35 años de tradición. Viñedos ubicados a 800 metros sobre el nivel del mar, donde el clima árido de San Rafael brinda condiciones únicas para vinos de excelencia. Nuestra bodega combina técnicas tradicionales con tecnología moderna para crear vinos que expresan el verdadero carácter de nuestra tierra.',
+                        especialidades: ['Malbec', 'Cabernet Sauvignon', 'Blend de Autor', 'Torrontés'],
+                        imagen: demoImages.bodegas[0],
                         approved: true,
                         created_at: new Date().toISOString()
                     },
                     {
                         id: generateSecureUUID(),
                         nombre: 'Viñedos del Sol',
-                        fundador: 'Roberto Martinez',
+                        fundador: 'Roberto Martínez',
                         anio: 1992,
-                        ubicacion: 'Calle Los Olmos 234, San Rafael',
-                        descripcion: 'Especialistas en vinos de altura. Nuestros viñedos se encuentran en la zona más elevada de San Rafael.',
-                        especialidades: ['Malbec Reserva', 'Torrontés', 'Syrah'],
-                        imagen: siteImages.bodegas['bodega_2'] || 'https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?w=800&h=600&fit=crop',
+                        ubicacion: 'Calle Los Olmos 234, San Rafael, Mendoza',
+                        descripcion: 'Especialistas en vinos de altura. Nuestros viñedos se encuentran en la zona más elevada de San Rafael, a 1.200 metros sobre el nivel del mar. La amplitud térmica diaria y los suelos pedregosos dan origen a vinos de gran intensidad y carácter único. Visitantes de todo el mundo eligen nuestra bodega por sus paisajes impresionantes.',
+                        especialidades: ['Malbec Reserva', 'Torrontés', 'Syrah', 'Bonarda'],
+                        imagen: demoImages.bodegas[1],
+                        approved: true,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Bodega Los Toneles',
+                        fundador: 'Hermanos López',
+                        anio: 1978,
+                        ubicacion: 'Ruta 146 Km 8, Las Pintadas, San Rafael',
+                        descripcion: 'Fundada por tres hermanos inmigrantes italianos, Bodega Los Toneles conserva las recetas tradicionales del viejo continente mientras abraza el terroir argentino. Nuestras bodegas subterráneas mantienen temperatura constante durante todo el año, creando condiciones perfectas para el añejo de nuestros vinos premium.',
+                        especialidades: ['Malbec Gran Reserva', 'Barbera', 'Merlot', 'Espumante'],
+                        imagen: demoImages.bodegas[2],
+                        approved: true,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Casa Montaña',
+                        fundador: 'Elena Castro',
+                        anio: 2005,
+                        ubicacion: 'Valle Grande, San Rafael, Mendoza',
+                        descripcion: 'Bodega boutique fundada por la enóloga Elena Castro tras su regreso de Borgoña, Francia. Producción limitada de vinos artesanales con énfasis en la expresión del terruño. Cada botella es el resultado de un trabajo meticuloso en viñedos de bajo rendimiento que concentran todos los aromas y sabores de nuestra montaña.',
+                        especialidades: ['Pinot Noir', 'Chardonnay', 'Malbec Single Vineyard'],
+                        imagen: demoImages.bodegas[3],
+                        approved: true,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'El Viejo Algarrobo',
+                        fundador: 'Don Antonio Sosa',
+                        anio: 1965,
+                        ubicacion: 'Calle Algarrobo 567, Cuadro Nacional, San Rafael',
+                        descripcion: 'La bodega más antigua de la zona, con más de 55 años de historia. Don Antonio Sosa comenzó vendiendo vino en damajuanas a los vecinos y hoy sus nietos continúan la tradición. Nuestro algarrobo centenario da nombre a la bodega y sombra a quienes visitan nuestro patio de degustación. Vinos honestos de gente trabajadora.',
+                        especialidades: ['Vino de Mesa', 'Malbec Roble', 'Cabernet Franc'],
+                        imagen: demoImages.bodegas[4],
                         approved: true,
                         created_at: new Date().toISOString()
                     }
@@ -3311,13 +4231,39 @@
                         precio: 8500,
                         duracion: '2 horas',
                         capacidad: 15,
-                        imagen: siteImages.recorridos['rec_1'] || 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&h=500&fit=crop',
+                        imagen: demoImages.recorridos[0],
                         features: ['Visita guiada al viñedo', 'Degustación de 3 vinos', 'Aperitivos regionales', 'Botella de regalo'],
+                        activo: true,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Almuerzo entre Viñedos',
+                        bodega: 'Viñedos del Sol',
+                        bodega_id: bodegas[1]?.id || null,
+                        precio: 15000,
+                        duracion: '4 horas',
+                        capacidad: 12,
+                        imagen: demoImages.recorridos[1],
+                        features: ['Tour completo de bodega', 'Almuerzo gourmet con maridaje', 'Degustación de vinos premium', 'Paseo en cuatriciclo por viñedos'],
+                        activo: true,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Mystic Barrel - Blend Tu Propio Vino',
+                        bodega: 'Bodega Los Toneles',
+                        bodega_id: bodegas[2]?.id || null,
+                        precio: 12000,
+                        duracion: '3 horas',
+                        capacidad: 8,
+                        imagen: demoImages.recorridos[2],
+                        features: ['Visita a bodega subterránea', 'Taller de blend', 'Crea tu propio vino', 'Te llevas tu botella personalizada'],
                         activo: true,
                         created_at: new Date().toISOString()
                     }
                 ];
-                SecureStorage.setPublic('cb_recorridos', JSON.stringify(recorridos));
+                SecureStorage.setPublic('cb_recorridos', recorridos);
             }
 
             if (products.length === 0) {
@@ -3331,10 +4277,181 @@
                         cosecha: 2020,
                         precio: 4500,
                         stock: 24,
-                        imagen: siteImages.vinos['vin_1'] || 'https://images.unsplash.com/photo-1586370434639-0fe43b2d32e6?w=600&h=800&fit=crop',
-                        notas_cata: 'Color rubí intenso. Aromas a frutos rojos, vainilla y chocolate. Boca estructurada con taninos suaves.',
+                        imagen: demoImages.vinos[0],
+                        notas_cata: 'Color rubí intenso con reflejos violáceos. Aromas a frutos rojos maduros, vainilla y chocolate. Boca estructurada con taninos suaves y redondos. Final persistente con notas de tabaco y especias.',
                         rating: 4.8,
                         reviews: 12,
+                        badge: 'Más Vendido',
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Cabernet Sauvignon Gran Reserva 2019',
+                        bodega: 'Bodega Amanecer',
+                        bodega_id: bodegas[0]?.id || null,
+                        tipo: 'tinto',
+                        cosecha: 2019,
+                        precio: 5200,
+                        stock: 18,
+                        imagen: demoImages.vinos[1],
+                        notas_cata: 'Intenso color rojo granate. Nariz compleja con notas de pimiento verde, cassis y tostado. En boca es elegante, con buena acidez y taninos firmes pero amables. Ideal para carnes rojas a la parrilla.',
+                        rating: 4.7,
+                        reviews: 8,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Torrontés 2023',
+                        bodega: 'Viñedos del Sol',
+                        bodega_id: bodegas[1]?.id || null,
+                        tipo: 'blanco',
+                        cosecha: 2023,
+                        precio: 3200,
+                        stock: 36,
+                        imagen: demoImages.vinos[2],
+                        notas_cata: 'Amarillo brillante con destellos verdosos. Intensos aromas florales de rosas y jazmín, con notas cítricas de lima y pomelo. Fresco y vivaz en boca, perfecto para días de verano.',
+                        rating: 4.6,
+                        reviews: 15,
+                        badge: 'Nuevo',
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Syrah Altura 2021',
+                        bodega: 'Viñedos del Sol',
+                        bodega_id: bodegas[1]?.id || null,
+                        tipo: 'tinto',
+                        cosecha: 2021,
+                        precio: 4800,
+                        stock: 20,
+                        imagen: demoImages.vinos[3],
+                        notas_cata: 'Color púrpura profundo. Aromas especiados de pimienta negra, regaliz y frutas negras. Boca potente con taninos sedosos y un final especiado característico de los viñedos de altura.',
+                        rating: 4.5,
+                        reviews: 6,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Malbec Gran Reserva 2018',
+                        bodega: 'Bodega Los Toneles',
+                        bodega_id: bodegas[2]?.id || null,
+                        tipo: 'tinto',
+                        cosecha: 2018,
+                        precio: 8900,
+                        stock: 12,
+                        imagen: demoImages.vinos[4],
+                        notas_cata: 'Edición limitada añejada 24 meses en barricas de roble francés. Complejo y elegante, con aromas de ciruela negra, cuero, tabaco y vainilla. Boca untuosa con final largo y memorable. Un vino para ocasiones especiales.',
+                        rating: 4.9,
+                        reviews: 23,
+                        badge: 'Edición Limitada',
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Barbera Tradición 2020',
+                        bodega: 'Bodega Los Toneles',
+                        bodega_id: bodegas[2]?.id || null,
+                        tipo: 'tinto',
+                        cosecha: 2020,
+                        precio: 3800,
+                        stock: 30,
+                        imagen: demoImages.vinos[5],
+                        notas_cata: 'Homenaje a nuestras raíces italianas. Fresco y jugoso con acidez vibrante. Aromas de cereza fresca, frambuesa y un toque de almendra. Perfecto para pastas con salsa de tomate.',
+                        rating: 4.4,
+                        reviews: 9,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Espumante Brut Nature',
+                        bodega: 'Bodega Los Toneles',
+                        bodega_id: bodegas[2]?.id || null,
+                        tipo: 'espumante',
+                        cosecha: 2022,
+                        precio: 4200,
+                        stock: 40,
+                        imagen: 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?w=600&h=800&fit=crop',
+                        notas_cata: 'Método tradicional con 18 meses de crianza sobre borras. Burbuja fina y persistente. Aromas de pan tostado, manzana verde y flores blancas. Seco, elegante y refrescante. Ideal para brindis.',
+                        rating: 4.7,
+                        reviews: 18,
+                        badge: 'Recomendado',
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Pinot Noir Single Vineyard 2021',
+                        bodega: 'Casa Montaña',
+                        bodega_id: bodegas[3]?.id || null,
+                        tipo: 'tinto',
+                        cosecha: 2021,
+                        precio: 7500,
+                        stock: 15,
+                        imagen: demoImages.vinos[6],
+                        notas_cata: 'Delicado y elegante. Color rubí translúcido. Aromas complejos de cereza agria, frambuesa, tierra y un toque de especias. En boca es sedoso con taninos finos y una acidez refrescante que invita a otro sorbo.',
+                        rating: 4.8,
+                        reviews: 11,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Chardonnay 2022',
+                        bodega: 'Casa Montaña',
+                        bodega_id: bodegas[3]?.id || null,
+                        tipo: 'blanco',
+                        cosecha: 2022,
+                        precio: 4800,
+                        stock: 22,
+                        imagen: 'https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=600&h=800&fit=crop',
+                        notas_cata: 'Fermentado y añejado parcialmente en barricas de roble. Dorado brillante. Notas de piña, durazno, vainilla y manteca. Boca cremosa con buena acidez que equilibra la madera.',
+                        rating: 4.6,
+                        reviews: 7,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Malbec Roble 2022',
+                        bodega: 'El Viejo Algarrobo',
+                        bodega_id: bodegas[4]?.id || null,
+                        tipo: 'tinto',
+                        cosecha: 2022,
+                        precio: 2800,
+                        stock: 50,
+                        imagen: demoImages.vinos[7],
+                        notas_cata: 'Vino honesto de gente trabajadora. Seis meses en roble americano le dan suavidad sin perder la frescura del joven Malbec. Aromas de ciruela, mora y un toque de coco. Excelente relación calidad-precio.',
+                        rating: 4.3,
+                        reviews: 31,
+                        badge: 'Oferta',
+                        oldPrice: 3500,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Rosado de Malbec 2023',
+                        bodega: 'Viñedos del Sol',
+                        bodega_id: bodegas[1]?.id || null,
+                        tipo: 'rosado',
+                        cosecha: 2023,
+                        precio: 2900,
+                        stock: 28,
+                        imagen: 'https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop',
+                        notas_cata: 'Color rosa pálido brillante. Fresco y frutal con notas de frutillas, cereza y pomelo. Seco, liviano y refrescante. Perfecto para tardes de verano y picadas con amigos.',
+                        rating: 4.4,
+                        reviews: 14,
+                        created_at: new Date().toISOString()
+                    },
+                    {
+                        id: generateSecureUUID(),
+                        nombre: 'Cabernet Franc Reserva 2020',
+                        bodega: 'El Viejo Algarrobo',
+                        bodega_id: bodegas[4]?.id || null,
+                        tipo: 'tinto',
+                        cosecha: 2020,
+                        precio: 3200,
+                        stock: 20,
+                        imagen: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&h=800&fit=crop',
+                        notas_cata: 'Elegante varietal que gana adeptos cada año. Pimienta verde, pimiento rojo, cassis y hierbas aromáticas. Boca suave con taninos sedosos. Ideal para acompañar cordero.',
+                        rating: 4.5,
+                        reviews: 10,
                         created_at: new Date().toISOString()
                     }
                 ];
