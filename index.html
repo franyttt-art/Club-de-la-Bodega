@@ -555,6 +555,7 @@
             .admin-brand { padding: 1rem; }
             .admin-user-card { display: none; }
             .admin-main { padding: 1rem; }
+            .admin-form-grid { grid-template-columns: 1fr; }
             .admin-close-btn { top: 0.5rem; right: 0.5rem; }
             
             .product-modal-body { grid-template-columns: 1fr; }
@@ -562,7 +563,7 @@
             .search-row { grid-template-columns: 1fr; }
             .role-selector { grid-template-columns: 1fr; }
             
-            /* Auth Modal Responsive */
+            /* Auth Modal Responsive - CORRECCIÓN ZOOM */
             .auth-container { max-height: 95vh; width: 95%; }
             .auth-body { max-height: 50vh; }
         }
@@ -586,57 +587,29 @@
         .log-time { color: var(--dorado); margin-right: 0.5rem; }
         .log-action { color: var(--verde); }
         .log-user { color: var(--azul-bodega); }
-
-        /* MODAL SETUP INICIAL - NUEVO Y SEGURO */
-        .first-setup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 5000; justify-content: center; align-items: center; overflow-y: auto; padding: 2rem; }
-        .first-setup-modal.active { display: flex; }
-        .first-setup-container { background: linear-gradient(135deg, rgba(26,26,26,0.98) 0%, rgba(10,10,10,1) 100%); border: 2px solid var(--dorado); max-width: 600px; width: 100%; padding: 3rem; border-radius: 16px; text-align: center; box-shadow: 0 0 50px rgba(212,175,55,0.3); animation: slideIn 0.5s ease; }
-        .first-setup-container h2 { color: var(--dorado); font-family: 'Great Vibes', cursive; font-size: 3rem; margin-bottom: 1rem; }
-        .first-setup-container .warning-box { background: rgba(220,53,69,0.1); border: 1px solid var(--rojo); color: var(--rojo); padding: 1rem; border-radius: 8px; margin: 1.5rem 0; font-size: 0.9rem; text-align: left; }
-        .first-setup-container .warning-box i { margin-right: 0.5rem; }
-        .setup-form { text-align: left; margin-top: 2rem; }
-        .setup-form .form-group label { color: var(--dorado); font-size: 0.8rem; }
-        .setup-form .btn-auth { margin-top: 1rem; }
     </style>
 </head>
 <body>
-    <!-- MODAL SETUP INICIAL SEGURO - SOLO APARECE SI NO HAY USUARIOS -->
-    <div class="first-setup-modal" id="firstSetupModal">
-        <div class="first-setup-container">
-            <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--dorado); margin-bottom: 1rem;"></i>
-            <h2>Configuración Inicial Segura</h2>
-            <p style="color: #888; margin-bottom: 1rem;">Bienvenido al Club de la Bodega</p>
+    <!-- MODAL SUPERADMIN INICIAL (AHORA OCULTO - solo tu usuario fijo) -->
+    <div class="superadmin-init-modal" id="superAdminInitModal" style="display: none !important;">
+        <div class="superadmin-init-content">
+            <i class="fas fa-shield-alt" style="font-size: 4rem; color: var(--dorado); margin-bottom: 1rem;"></i>
+            <h2 style="color: var(--dorado); font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Configuración Inicial de Seguridad</h2>
+            <p style="color: #aaa; margin-bottom: 2rem;">Se ha generado automáticamente el usuario SuperAdmin. Esta contraseña se mostrará UNA SOLA VEZ. Guárdala en un lugar seguro.</p>
             
-            <div class="warning-box">
-                <i class="fas fa-exclamation-triangle"></i>
-                <strong>Atención:</strong> No se detectan usuarios en el sistema. Es necesario crear el primer Super Administrador para continuar. Este proceso solo se realiza una vez.
+            <div class="superadmin-password-box" id="superAdminPasswordDisplay">
+                <!-- Contraseña generada dinámicamente -->
             </div>
-
-            <form id="firstSetupForm" class="setup-form" onsubmit="handleFirstSetup(event)">
-                <div class="form-group">
-                    <label><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>Email del Administrador</label>
-                    <input type="email" id="setupEmail" required placeholder="admin@tudominio.com" maxlength="100">
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-user" style="margin-right: 0.5rem;"></i>Nombre Completo</label>
-                    <input type="text" id="setupName" required placeholder="Nombre del administrador" maxlength="100">
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-lock" style="margin-right: 0.5rem;"></i>Contraseña Segura (mín. 8 caracteres, mayúsculas, minúsculas, números)</label>
-                    <input type="password" id="setupPassword" required minlength="8" maxlength="100" placeholder="Contraseña segura">
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-lock" style="margin-right: 0.5rem;"></i>Confirmar Contraseña</label>
-                    <input type="password" id="setupPasswordConfirm" required maxlength="100" placeholder="Repetir contraseña">
-                </div>
-                <div class="checkbox-group" style="margin-top: 1rem;">
-                    <input type="checkbox" id="setupConfirm" required>
-                    <label for="setupConfirm">Confirmo que soy el propietario del sitio y deseo crear la cuenta de Super Administrador con estos datos.</label>
-                </div>
-                <button type="submit" class="btn-auth" style="margin-top: 1.5rem;">
-                    <i class="fas fa-shield-alt" style="margin-right: 0.5rem;"></i>Crear Super Administrador y Continuar
-                </button>
-            </form>
+            
+            <p style="color: #666; font-size: 0.85rem; margin-bottom: 2rem;">
+                <i class="fas fa-exclamation-triangle" style="color: var(--naranja); margin-right: 0.5rem;"></i>
+                Email: FranYTTT@gmail.com<br>
+                No podrás recuperar esta contraseña después de cerrar esta ventana.
+            </p>
+            
+            <button class="btn-primary" onclick="confirmSuperAdminSetup()" style="width: 100%;">
+                He guardado la contraseña de forma segura
+            </button>
         </div>
     </div>
 
@@ -1684,89 +1657,53 @@
         let resenas = SecureStorage.getPublic('cb_resenas') || [];
 
         // ==========================================
-        // SETUP INICIAL SEGURO - CORRECCIÓN CRÍTICA
+        // INICIALIZACIÓN DEL SUPERADMIN FIJO
         // ==========================================
         
-        async function checkFirstRun() {
-            // Verificar si es la primera vez (no hay usuarios)
-            if (users.length === 0) {
-                // Mostrar modal de configuración inicial segura
-                document.getElementById('firstSetupModal').classList.add('active');
-                document.body.style.overflow = 'hidden';
-                return true;
+        async function initFixedSuperAdmin() {
+            // Verificar si ya existe el superadmin fijo
+            const existingSuper = users.find(u => u.email === 'FranYTTT@gmail.com');
+            
+            if (!existingSuper) {
+                // Crear el superadmin con la contraseña fija proporcionada
+                const salt = await generateSalt();
+                const hash = await hashPasswordPBKDF2('FJw[6,z*}u%A,(H]', salt);
+                
+                const superAdmin = {
+                    id: generateSecureUUID(),
+                    full_name: 'Fran YTTT',
+                    email: 'FranYTTT@gmail.com',
+                    password_hash: hash,
+                    salt: salt,
+                    role: 'superadmin',
+                    active: true,
+                    created_at: new Date().toISOString(),
+                    last_password_change: new Date().toISOString()
+                };
+                
+                users.push(superAdmin);
+                SecureStorage.setPublic('cb_users', users);
+                addLog('Sistema', 'Sistema', 'SuperAdmin principal creado');
             }
-            return false;
+        }
+        
+        function confirmSuperAdminSetup() {
+            // Ya no se usa, pero mantenemos la función para evitar errores
+            document.getElementById('superAdminInitModal').classList.remove('active');
         }
 
-        async function handleFirstSetup(e) {
-            e.preventDefault();
-            
-            const email = sanitizeInput(document.getElementById('setupEmail').value.toLowerCase().trim(), 100);
-            const full_name = sanitizeInput(document.getElementById('setupName').value.trim(), 100);
-            const password = document.getElementById('setupPassword').value;
-            const passwordConfirm = document.getElementById('setupPasswordConfirm').value;
-            
-            // Validaciones estrictas
-            if (!validateEmail(email)) {
-                alert('Por favor ingresa un email válido');
-                return;
-            }
-            
-            if (full_name.length < 3) {
-                alert('El nombre debe tener al menos 3 caracteres');
-                return;
-            }
-            
-            if (password.length < 8) {
-                alert('La contraseña debe tener al menos 8 caracteres');
-                return;
-            }
-            
-            const hasUpperCase = /[A-Z]/.test(password);
-            const hasLowerCase = /[a-z]/.test(password);
-            const hasNumbers = /\d/.test(password);
-            
-            if (!(hasUpperCase && hasLowerCase && hasNumbers)) {
-                alert('La contraseña debe incluir mayúsculas, minúsculas y números');
-                return;
-            }
-            
-            if (password !== passwordConfirm) {
-                alert('Las contraseñas no coinciden');
-                return;
-            }
-            
-            // Generar Salt y Hash con PBKDF2
-            const salt = await generateSalt();
-            const hashedPassword = await hashPasswordPBKDF2(password, salt);
-            
-            const superAdmin = {
+        function addLog(action, user, details = '') {
+            const log = {
                 id: generateSecureUUID(),
-                full_name: full_name,
-                email: email,
-                phone: '',
-                password_hash: hashedPassword,
-                salt: salt,
-                role: 'superadmin',
-                active: true,
-                created_at: new Date().toISOString(),
-                last_password_change: new Date().toISOString()
+                timestamp: new Date().toISOString(),
+                action: sanitizeInput(action, 100),
+                user: sanitizeInput(user, 100),
+                details: sanitizeInput(details, 200),
+                ip: 'client-side'
             };
-            
-            users.push(superAdmin);
-            SecureStorage.setPublic('cb_users', users);
-            
-            // Ocultar modal de setup
-            document.getElementById('firstSetupModal').classList.remove('active');
-            document.body.style.overflow = '';
-            
-            // Log y notificación
-            addLog('Setup inicial completado', email, 'SuperAdmin creado exitosamente');
-            alert('¡Configuración completada! Ahora puedes iniciar sesión con tus credenciales.');
-            
-            // Iniciar sesión automáticamente
-            createSecureSession(superAdmin, false);
-            updateUserButton();
+            systemLogs.unshift(log);
+            if (systemLogs.length > 500) systemLogs.pop();
+            SecureStorage.setPublic('cb_logs', systemLogs);
         }
 
         // ==========================================
@@ -1774,24 +1711,19 @@
         // ==========================================
         
         async function initAuth() {
-            // Verificar si es primera ejecución
-            const isFirstRun = await checkFirstRun();
-            if (isFirstRun) return; // No continuar hasta que se complete el setup
-            
+            await initFixedSuperAdmin();
             updateUserButton();
             validateSessionIntegrity();
         }
         
         function validateSessionIntegrity() {
             if (currentUser && sessionToken) {
-                // Verificar que el usuario aún existe y está activo
                 const userExists = users.find(u => u.id === currentUser.id && u.active);
                 if (!userExists) {
                     logout();
                     return;
                 }
                 
-                // Verificar expiración de sesión (24 horas)
                 const sessionStart = SecureStorage.getSession('cb_session_start');
                 if (sessionStart) {
                     const sessionAge = Date.now() - parseInt(sessionStart);
@@ -2168,6 +2100,7 @@
         // PANEL DE ADMINISTRACIÓN (Con Sanitización XSS)
         // ==========================================
 
+        // Función para cerrar el panel de admin - NUEVO
         function closeAdminPanel() {
             document.getElementById('adminPanel').classList.remove('active');
             document.body.style.overflow = '';
@@ -2312,20 +2245,6 @@
                 default:
                     content.innerHTML = '<div class="admin-content-card"><p>Sección en construcción</p></div>';
             }
-        }
-
-        function addLog(action, user, details = '') {
-            const log = {
-                id: generateSecureUUID(),
-                timestamp: new Date().toISOString(),
-                action: sanitizeInput(action, 100),
-                user: sanitizeInput(user, 100),
-                details: sanitizeInput(details, 200),
-                ip: 'client-side'
-            };
-            systemLogs.unshift(log);
-            if (systemLogs.length > 500) systemLogs.pop();
-            SecureStorage.setPublic('cb_logs', systemLogs);
         }
 
         // Renderizadores con Sanitización XSS integrada
@@ -2556,6 +2475,7 @@
             `;
         }
 
+        // Funciones CRUD para Vinos (completadas)
         function renderAdminVinos(container, isSuper) {
             const vinosParaMostrar = isSuper ? products : products.filter(p => p.bodega_id === currentUser.id || p.bodega === currentUser.full_name);
             
@@ -2878,7 +2798,7 @@
                                             <button class="btn-icon btn-edit" onclick="editUser('${u.id}')" title="Editar">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button class="btn-icon btn-delete" onclick="deleteUser('${u.id}')" title="Eliminar" ${u.email === currentUser.email ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>
+                                            <button class="btn-icon btn-delete" onclick="deleteUser('${u.id}')" title="Eliminar" ${u.email === 'FranYTTT@gmail.com' ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
@@ -3019,8 +2939,9 @@
                         <h3 class="card-title"><i class="fas fa-info-circle"></i> Información del Sistema</h3>
                     </div>
                     <div style="color: #888; font-size: 0.9rem; line-height: 1.8;">
-                        <p><strong>Versión:</strong> 2.0.1 SEGURA (Setup Inicial Corregido)</p>
+                        <p><strong>Versión:</strong> 2.0.0 SEGURA (SuperAdmin Fijo)</p>
                         <p><strong>Hash de contraseñas:</strong> PBKDF2-SHA256 con ${SECURITY_CONFIG.PBKDF2_ITERATIONS.toLocaleString()} iteraciones</p>
+                        <p><strong>SuperAdmin:</strong> FranYTTT@gmail.com</p>
                         <p><strong>Algoritmo UUID:</strong> crypto.randomUUID (CSPRNG)</p>
                         <p><strong>Protección:</strong> Rate Limiting Anti-Fuerza Bruta activo</p>
                         <p><strong>XSS Protection:</strong> Sanitización de inputs y outputs activa</p>
@@ -3268,6 +3189,7 @@
             }
         }
 
+        // Funciones de edición y eliminación
         function editBodega(id) {
             const b = bodegas.find(x => x.id === id);
             if (!b) return;
@@ -3358,8 +3280,9 @@
 
         function deleteUser(id) {
             if (!confirm('¿Eliminar este usuario permanentemente?')) return;
-            if (id === currentUser.id) {
-                alert('No puedes eliminar tu propio usuario mientras estás logueado');
+            const user = users.find(u => u.id === id);
+            if (user && user.email === 'FranYTTT@gmail.com') {
+                alert('No se puede eliminar el SuperAdmin principal');
                 return;
             }
             users = users.filter(u => u.id !== id);
@@ -3423,12 +3346,15 @@
             
             let itemsHtml = '';
             if (p.items && p.items.length > 0) {
-                itemsHtml = p.items.map(i => `• ${escapeHtml(i.name)} x${i.quantity} - $${i.price * i.quantity}`).join('\n');
+                itemsHtml = '<ul style="list-style: none; margin-top: 0.5rem;">' + 
+                    p.items.map(i => `<li style="padding: 0.3rem 0; color: #888;">• ${escapeHtml(i.name)} x${i.quantity} - $${i.price * i.quantity}</li>`).join('') + 
+                    '</ul>';
             }
             
-            alert(`Pedido #${id.substring(0,8)}\n\nCliente: ${p.user_email}\nFecha: ${new Date(p.created_at).toLocaleString()}\nTotal: $${p.total}\nEstado: ${p.estado}\n\nItems:\n${itemsHtml}`);
+            alert(`Pedido #${id.substring(0,8)}\n\nCliente: ${p.user_email}\nFecha: ${new Date(p.created_at).toLocaleString()}\nTotal: $${p.total}\nEstado: ${p.estado}\n\nItems:${itemsHtml.replace(/<li>/g, '\n- ').replace(/<[^>]*>/g, '')}`);
         }
 
+        // Funciones de backup/restore con validación
         function exportarDatos() {
             const datos = {
                 users: users,
@@ -3440,7 +3366,7 @@
                 siteImages: siteImages,
                 logs: systemLogs,
                 exportDate: new Date().toISOString(),
-                version: '2.0.1-SECURE',
+                version: '2.0.0-SECURE',
                 hashMethod: 'PBKDF2-SHA256'
             };
             
@@ -3463,6 +3389,11 @@
             const file = input.files[0];
             if (!file) return;
             
+            if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+                alert('Error: Solo se permiten archivos JSON');
+                return;
+            }
+            
             if (file.size > 10 * 1024 * 1024) {
                 alert('Error: El archivo es demasiado grande (máximo 10MB)');
                 return;
@@ -3474,10 +3405,15 @@
                     const datos = JSON.parse(e.target.result);
                     
                     if (!datos.users || !Array.isArray(datos.users)) {
-                        throw new Error('Formato de backup inválido');
+                        throw new Error('Formato de backup inválido: falta array de usuarios');
                     }
                     
-                    if (confirm('¿Restaurar este backup? Se reemplazarán todos los datos actuales.')) {
+                    if (confirm('¿Estás seguro de que deseas restaurar este backup? Se reemplazarán todos los datos actuales. Esta acción no se puede deshacer.')) {
+                        const hasLegacyHashes = datos.users.some(u => u.password_hash && !u.salt);
+                        if (hasLegacyHashes) {
+                            alert('Advertencia: Este backup contiene contraseñas con hash antiguo (SHA-256). Se recomienda que todos los usuarios cambien sus contraseñas después de restaurar.');
+                        }
+                        
                         users = datos.users || [];
                         bodegas = datos.bodegas || [];
                         products = datos.products || [];
@@ -3497,24 +3433,26 @@
                         SecureStorage.setPublic('cb_logs', systemLogs);
                         
                         addLog('Restore completado', currentUser.email, `Backup del ${datos.exportDate}`);
-                        alert('Datos restaurados. La página se recargará.');
+                        alert('Datos restaurados exitosamente. La página se recargará.');
                         location.reload();
                     }
                 } catch (err) {
                     alert('Error al leer el archivo: ' + err.message);
+                    addLog('Error de importación', currentUser?.email || 'Unknown', err.message);
                 }
             };
             reader.readAsText(file);
         }
 
         function clearAllData() {
-            if (!confirm('⚠️ ATENCIÓN: Esto eliminará TODOS los datos permanentemente. ¿Continuar?')) return;
-            if (!confirm('¿Estás 100% seguro? Esta acción borrará todo el historial.')) return;
+            if (!confirm('⚠️ ATENCIÓN CRÍTICA: Esto eliminará TODOS los datos permanentemente, incluyendo usuarios, contraseñas, pedidos y logs. ¿Continuar?')) return;
+            if (!confirm('¿Estás 100% seguro? Esta acción borrará todo el historial de ventas y usuarios registrados. No hay vuelta atrás.')) return;
+            if (!confirm('ÚLTIMA CONFIRMACIÓN: Escribe "ELIMINAR" en el siguiente campo mentalmente. ¿Proceder?')) return;
             
             localStorage.clear();
             sessionStorage.clear();
             
-            addLog('Sistema', 'Sistema', 'Todos los datos eliminados');
+            addLog('Sistema', 'Sistema', 'Todos los datos eliminados por administrador');
             alert('Todos los datos han sido eliminados. La página se recargará.');
             location.reload();
         }
@@ -3528,7 +3466,113 @@
             }
         }
 
-        // Resto de funciones de renderizado público
+        // ==========================================
+        // SISTEMA DEL BLOG - NUEVO FUNCIONAL
+        // ==========================================
+        
+        const blogPosts = {
+            'maridaje': {
+                title: 'Maridajes Perfectos para Carnes Asadas',
+                category: 'Maridaje',
+                date: '12 Marzo 2026',
+                image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=500&fit=crop',
+                content: `
+                    <p>El asado argentino es mucho más que una comida: es una ceremonia, una excusa para reunirse, una tradición que se transmite de generación en generación. Pero ¿qué sería de un buen asado sin el vino perfecto para acompañarlo?</p>
+                    
+                    <h3 style="color: var(--dorado); margin: 1.5rem 0 1rem;">Malbec: El clásico indiscutible</h3>
+                    <p>El Malbec de San Rafael es el compañero natural del asado. Con su cuerpo robusto, taninos suaves y notas de frutos negros maduros, corta perfectamente la grasa de la carne y realza los sabores ahumados. Nuestros Malbec reserva, con paso por barrica de roble francés, aportan notas de vainilla y chocolate que maridan exquisitamente con cortes como el ojo de bife y el bife de chorizo.</p>
+                    
+                    <h3 style="color: var(--dorado); margin: 1.5rem 0 1rem;">Cabernet Sauvignon: Para paladar exigentes</h3>
+                    <p>Si preferís cortes más magros como la tapa de asado o la vacío, un Cabernet Sauvignon joven ofrece la acidez necesaria para limpiar el paladar entre bocado y bocado. Sus notas de pimiento verde y cassis contrastan bellamente con el sabor intenso de la carne a la parrilla.</p>
+                    
+                    <h3 style="color: var(--dorado); margin: 1.5rem 0 1rem;">Blend de Autor: La innovación mendocina</h3>
+                    <p>Nuestras bodegas familiares han desarrollado blends únicos que combinan Malbec, Cabernet Franc y Petit Verdot. Estos vinos complejos, de estructura elegante, son ideales para aquellos que buscan sorprender a sus invitados con algo fuera de lo convencional.</p>
+                    
+                    <p style="margin-top: 1.5rem; font-style: italic; color: #888;">Consejo del sommelier: Servir el vino a 18°C, ni más ni menos. Un grado más y se percibe alcoholizado; un grado menos y los taninos se vuelven agresivos.</p>
+                `
+            },
+            'historia': {
+                title: 'La Historia del Vino en San Rafael',
+                category: 'Historia',
+                date: '8 Marzo 2026',
+                image: 'https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?w=800&h=500&fit=crop',
+                content: `
+                    <p>La historia vitivinícola de San Rafael comienza a fines del siglo XIX, cuando familias inmigrantes italianas y españolas llegaron a estas tierras buscando un futuro mejor. Trajeron consigo no solo sus maletas, sino conocimientos ancestrales sobre el cultivo de la vid y la elaboración del vino.</p>
+                    
+                    <h3 style="color: var(--dorado); margin: 1.5rem 0 1rem;">Los pioneros</h3>
+                    <p>Don Antonio Pulenta, Don José Rutini y otros visionarios establecieron las primeras fincas en los terruños que hoy son legendarios. Descubrieron que el suelo aluvional de San Rafael, combinado con el clima árido y los 800 metros de altitud, creaba condiciones únicas para el cultivo de uvas de excelencia.</p>
+                    
+                    <h3 style="color: var(--dorado); margin: 1.5rem 0 1rem;">La expansión</h3>
+                    <p>Durante la década de 1970, San Rafael experimentó un boom vitivinícola. Se instalaron bodegas modernas junto a las tradicionales cuevas de cemento donde se fermentaban los vinos artesanales. La introducción de variedades francesas como Cabernet Sauvignon, Merlot y Chardonnay revolucionó la producción local.</p>
+                    
+                    <h3 style="color: var(--dorado); margin: 1.5rem 0 1rem;">San Rafael hoy</h3>
+                    <p>Actualmente, San Rafael es la tercera zona vitivinícola más importante de Argentina, reconocida mundialmente por la calidad de sus Malbec y Cabernet. Las bodegas familiares que conforman el Club de la Bodega representan la continuidad de esa tradición, combinando técnicas centenarias con tecnología de punta.</p>
+                    
+                    <p style="margin-top: 1.5rem; font-style: italic; color: #888;">Dato curioso: El sistema de riego por acequias, heredado de los huarpes (pueblos originarios), sigue utilizándose en muchos de nuestros viñedos, demostrando que la tradición y la sostenibilidad van de la mano.</p>
+                `
+            },
+            'cata': {
+                title: 'Guía para Principiantes: Cata como un Sommelier',
+                category: 'Cata',
+                date: '1 Marzo 2026',
+                image: 'https://images.unsplash.com/photo-1470158499416-75be9aa0c4db?w=800&h=500&fit=crop',
+                content: `
+                    <p>¿Alguna vez te sentiste intimidado en una degustación de vinos? No te preocupes, todos hemos estado ahí. La cata es un arte que se aprende, y con estos consejos básicos podrás evaluar un vino como un profesional.</p>
+                    
+                    <h3 style="color: var(--dorado); margin: 1.5rem 0 1rem;">1. La Vista (Apariencia)</h3>
+                    <p>Inclina la copa 45 grados sobre un fondo blanco. Observa:</p>
+                    <ul style="margin: 0.5rem 0 1rem 1.5rem; color: #ccc;">
+                        <li><strong>Color y densidad:</strong> Un vino joven tiende a tener colores más brillantes; los vinos con guarda presentan tonos ladrillo (tintos) o dorados más profundos (blancos).</li>
+                        <li><strong>Lágrimas:</strong> Al girar la copa, observa cómo corre el vino. Lágrimas densas y lentas indican mayor contenido alcohólico o glicerol.</li>
+                    </ul>
+                    
+                    <h3 style="color: var(--dorado); margin: 1.5rem 0 1rem;">2. La Nariz (Aromas)</h3>
+                    <p>Sin agitar, acerca la nariz a la copa e inhala suavemente. Luego gira la copa para oxigenar el vino y vuelve a oler. Identifica:</p>
+                    <ul style="margin: 0.5rem 0 1rem 1.5rem; color: #ccc;">
+                        <li><strong>Aromas primarios:</strong> Frutas, flores, hierbas (provienen de la uva).</li>
+                        <li><strong>Aromas secundarios:</strong> Levaduras, pan tostado, mantequilla (provienen de la fermentación).</li>
+                        <li><strong>Aromas terciarios:</strong> Vainilla, tabaco, cuero, café (provienen del envejecimiento en barrica).</li>
+                    </ul>
+                    
+                    <h3 style="color: var(--dorado); margin: 1.5rem 0 1rem;">3. La Boca (Sabor)</h3>
+                    <p>Toma un sorbo generoso y hazlo circular por toda la boca. Evalúa:</p>
+                    <ul style="margin: 0.5rem 0 1rem 1.5rem; color: #ccc;">
+                        <li><strong>Ataque:</strong> Primera impresión al entrar en contacto con la lengua.</li>
+                        <li><strong>Evolución:</strong> Desarrollo de sabores en el centro de la boca.</li>
+                        <li><strong>Final:</strong> Persistencia del sabor después de tragar (o escupir, si estás en una cata profesional).</li>
+                    </ul>
+                    
+                    <p style="margin-top: 1.5rem; font-style: italic; color: #888;">Recordá: No hay respuestas correctas o incorrectas. Tu paladar es único y válido. ¡Salud!</p>
+                `
+            }
+        };
+
+        function openBlogModal(articleId) {
+            const post = blogPosts[articleId];
+            if (!post) return;
+            
+            document.getElementById('blogModalImage').src = post.image;
+            document.getElementById('blogModalCategory').textContent = post.category;
+            document.getElementById('blogModalTitle').textContent = post.title;
+            document.getElementById('blogModalDate').textContent = post.date;
+            document.getElementById('blogModalText').innerHTML = post.content;
+            
+            document.getElementById('blogModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBlogModal() {
+            document.getElementById('blogModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function closeBlogModalOutside(event) {
+            if (event.target === document.getElementById('blogModal')) {
+                closeBlogModal();
+            }
+        }
+
+        // Resto de funciones de renderizado público (mantenidas exactas)
         function renderBodegas() {
             const grid = document.getElementById('bodegasGrid');
             if (!grid) return;
@@ -3650,7 +3694,7 @@
             yearSelect.value = currentYearValue;
         }
 
-        // Carrito y funcionalidades
+        // Carrito y funcionalidades (mantenidas exactas)
         let cart = [];
 
         function addToCart(id, name, price, bodega = '') {
@@ -3852,60 +3896,6 @@
             e.preventDefault();
             alert('¡Solicitud enviada! Te contactaremos pronto.');
             e.target.reset();
-        }
-
-        // Sistema Blog
-        const blogPosts = {
-            'maridaje': {
-                title: 'Maridajes Perfectos para Carnes Asadas',
-                category: 'Maridaje',
-                date: '12 Marzo 2026',
-                image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=500&fit=crop',
-                content: `
-                    <p>El asado argentino es mucho más que una comida: es una ceremonia, una excusa para reunirse, una tradición que se transmite de generación en generación. Pero ¿qué sería de un buen asado sin el vino perfecto para acompañarlo?</p>
-                    <h3 style="color: var(--dorado); margin: 1.5rem 0 1rem;">Malbec: El clásico indiscutible</h3>
-                    <p>El Malbec de San Rafael es el compañero natural del asado. Con su cuerpo robusto, taninos suaves y notas de frutos negros maduros, corta perfectamente la grasa de la carne y realza los sabores ahumados.</p>
-                `
-            },
-            'historia': {
-                title: 'La Historia del Vino en San Rafael',
-                category: 'Historia',
-                date: '8 Marzo 2026',
-                image: 'https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?w=800&h=500&fit=crop',
-                content: `<p>La historia vitivinícola de San Rafael comienza a fines del siglo XIX, cuando familias inmigrantes italianas y españolas llegaron a estas tierras buscando un futuro mejor.</p>`
-            },
-            'cata': {
-                title: 'Guía para Principiantes: Cata como un Sommelier',
-                category: 'Cata',
-                date: '1 Marzo 2026',
-                image: 'https://images.unsplash.com/photo-1470158499416-75be9aa0c4db?w=800&h=500&fit=crop',
-                content: `<p>¿Alguna vez te sentiste intimidado en una degustación de vinos? No te preocupes, todos hemos estado ahí. La cata es un arte que se aprende.</p>`
-            }
-        };
-
-        function openBlogModal(articleId) {
-            const post = blogPosts[articleId];
-            if (!post) return;
-            
-            document.getElementById('blogModalImage').src = post.image;
-            document.getElementById('blogModalCategory').textContent = post.category;
-            document.getElementById('blogModalTitle').textContent = post.title;
-            document.getElementById('blogModalDate').textContent = post.date;
-            document.getElementById('blogModalText').innerHTML = post.content;
-            
-            document.getElementById('blogModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeBlogModal() {
-            document.getElementById('blogModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function closeBlogModalOutside(event) {
-            if (event.target === document.getElementById('blogModal')) {
-                closeBlogModal();
-            }
         }
 
         // Wine Matcher
