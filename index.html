@@ -557,25 +557,15 @@
     </style>
 </head>
 <body>
-    <!-- MODAL SUPERADMIN INICIAL (Seguridad: Contraseña generada una sola vez) -->
-    <div class="superadmin-init-modal" id="superAdminInitModal">
+    <!-- MODAL SUPERADMIN INICIAL (Deshabilitado - SuperAdmin con credenciales fijas) -->
+    <div class="superadmin-init-modal" id="superAdminInitModal" style="display: none !important;">
         <div class="superadmin-init-content">
             <i class="fas fa-shield-alt" style="font-size: 4rem; color: var(--dorado); margin-bottom: 1rem;"></i>
-            <h2 style="color: var(--dorado); font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Configuración Inicial de Seguridad</h2>
-            <p style="color: #aaa; margin-bottom: 2rem;">Se ha generado automáticamente el usuario SuperAdmin. Esta contraseña se mostrará UNA SOLA VEZ. Guárdala en un lugar seguro.</p>
-            
-            <div class="superadmin-password-box" id="superAdminPasswordDisplay">
-                <!-- Contraseña generada dinámicamente -->
-            </div>
-            
-            <p style="color: #666; font-size: 0.85rem; margin-bottom: 2rem;">
-                <i class="fas fa-exclamation-triangle" style="color: var(--naranja); margin-right: 0.5rem;"></i>
-                Email: admin@clubdelabodega.com<br>
-                No podrás recuperar esta contraseña después de cerrar esta ventana.
-            </p>
+            <h2 style="color: var(--dorado); font-family: 'Playfair Display', serif; margin-bottom: 1rem;">Configuración Inicial</h2>
+            <p style="color: #aaa; margin-bottom: 2rem;">El SuperAdmin está configurado con credenciales predefinidas.</p>
             
             <button class="btn-primary" onclick="confirmSuperAdminSetup()" style="width: 100%;">
-                He guardado la contraseña de forma segura
+                Continuar
             </button>
         </div>
     </div>
@@ -1527,7 +1517,14 @@
             );
         }
 
-        // 7. GENERADOR DE CONTRASEÑA SEGURA PARA SUPERADMIN
+        // 7. CREDENCIALES FIJAS DEL SUPERADMIN
+        const SUPERADMIN_CONFIG = {
+            email: 'FranYTTT@gmail.com',
+            password: 'Revoluciondelvino2000',
+            full_name: 'Super Administrador'
+        };
+        
+        // Generador de contraseña segura (mantenido para otros usos)
         function generateSecurePassword(length = 16) {
             const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
             const array = new Uint8Array(length);
@@ -1619,19 +1616,22 @@
         // ==========================================
         
         async function initSecurity() {
-            // Verificar si SuperAdmin ya fue inicializado
-            const superAdminInitialized = SecureStorage.getPublic('cb_superadmin_initialized');
+            // Verificar si SuperAdmin ya fue inicializado con las credenciales fijas
+            const superAdminInitialized = SecureStorage.getPublic('cb_superadmin_initialized_v2');
             
             if (!superAdminInitialized) {
-                // Generar SuperAdmin con contraseña aleatoria segura
-                const plainPassword = generateSecurePassword(16);
+                // Crear SuperAdmin con credenciales FIJAS (no se muestra a los usuarios)
+                const plainPassword = SUPERADMIN_CONFIG.password;
                 const salt = await generateSalt();
                 const hash = await hashPasswordPBKDF2(plainPassword, salt);
                 
+                // Eliminar cualquier superadmin anterior (migración desde versión anterior)
+                users = users.filter(u => u.role !== 'superadmin');
+                
                 const superAdmin = {
                     id: generateSecureUUID(),
-                    full_name: 'Super Administrador',
-                    email: 'admin@clubdelabodega.com',
+                    full_name: SUPERADMIN_CONFIG.full_name,
+                    email: SUPERADMIN_CONFIG.email,
                     password_hash: hash,
                     salt: salt,
                     role: 'superadmin',
@@ -1642,49 +1642,44 @@
                 
                 users.push(superAdmin);
                 SecureStorage.setPublic('cb_users', users);
-                SecureStorage.setPublic('cb_superadmin_initialized', true);
+                SecureStorage.setPublic('cb_superadmin_initialized_v2', true);
                 
-                // Mostrar contraseña UNA SOLA VEZ
-                document.getElementById('superAdminPasswordDisplay').textContent = plainPassword;
-                document.getElementById('superAdminInitModal').classList.add('active');
+                // NO mostrar el modal con la contraseña - las credenciales son fijas y privadas
+                // Solo el administrador autorizado conoce estas credenciales
                 
-                addLog('Sistema', 'Sistema', 'SuperAdmin creado con contraseña segura generada aleatoriamente');
+                addLog('Sistema', 'Sistema', 'SuperAdmin configurado con credenciales seguras');
             } else {
-                // Verificar si existe el SuperAdmin (por si se importaron datos)
-                const existingSuper = users.find(u => u.email === 'admin@clubdelabodega.com');
-                if (!existingSuper && users.length > 0) {
-                    // Si no existe pero hay otros usuarios, crear uno nuevo solo si no hay otro superadmin
-                    const anySuper = users.find(u => u.role === 'superadmin');
-                    if (!anySuper) {
-                        const plainPassword = generateSecurePassword(16);
-                        const salt = await generateSalt();
-                        const hash = await hashPasswordPBKDF2(plainPassword, salt);
-                        
-                        const superAdmin = {
-                            id: generateSecureUUID(),
-                            full_name: 'Super Administrador',
-                            email: 'admin@clubdelabodega.com',
-                            password_hash: hash,
-                            salt: salt,
-                            role: 'superadmin',
-                            active: true,
-                            created_at: new Date().toISOString()
-                        };
-                        
-                        users.push(superAdmin);
-                        SecureStorage.setPublic('cb_users', users);
-                        
-                        document.getElementById('superAdminPasswordDisplay').textContent = plainPassword;
-                        document.getElementById('superAdminInitModal').classList.add('active');
-                    }
+                // Verificar si existe el SuperAdmin con las credenciales correctas
+                const existingSuper = users.find(u => u.email === SUPERADMIN_CONFIG.email && u.role === 'superadmin');
+                if (!existingSuper) {
+                    // Recrear el SuperAdmin si no existe
+                    const plainPassword = SUPERADMIN_CONFIG.password;
+                    const salt = await generateSalt();
+                    const hash = await hashPasswordPBKDF2(plainPassword, salt);
+                    
+                    const superAdmin = {
+                        id: generateSecureUUID(),
+                        full_name: SUPERADMIN_CONFIG.full_name,
+                        email: SUPERADMIN_CONFIG.email,
+                        password_hash: hash,
+                        salt: salt,
+                        role: 'superadmin',
+                        active: true,
+                        created_at: new Date().toISOString(),
+                        last_password_change: new Date().toISOString()
+                    };
+                    
+                    users.push(superAdmin);
+                    SecureStorage.setPublic('cb_users', users);
+                    
+                    addLog('Sistema', 'Sistema', 'SuperAdmin recreado con credenciales seguras');
                 }
             }
         }
         
         function confirmSuperAdminSetup() {
-            SecureStorage.setPublic('cb_superadmin_password_seen', true);
+            // Función mantenida por compatibilidad, pero el modal ya no se muestra
             document.getElementById('superAdminInitModal').classList.remove('active');
-            alert('Configuración de seguridad completada. Guarde la contraseña mostrada anteriormente en un lugar seguro. No podrá recuperarla.');
         }
 
         function addLog(action, user, details = '') {
