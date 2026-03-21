@@ -3,199 +3,848 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Club de la Bodega - Conectamos las mejores bodegas de San Rafael con amantes del vino">
-    <meta name="theme-color" content="#D4AF37">
-    
     <title>Club de la Bodega | San Rafael</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='dg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23FFD700'/%3E%3Cstop offset='50%25' style='stop-color:%23D4AF37'/%3E%3Cstop offset='100%25' style='stop-color:%23B8941F'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='50' fill='%23000'/%3E%3Ctext x='50' y='68' font-family='Georgia, serif' font-size='55' font-weight='bold' text-anchor='middle' fill='url(%23dg)' letter-spacing='-2'%3ECB%3C/text%3E%3C/svg%3E">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/main.css">
+    <style>
+        :root {
+            --negro: #000000;
+            --negro-claro: #0a0a0a;
+            --gris-oscuro: #1a1a1a;
+            --gris-medio: #2d2d2d;
+            --dorado: #D4AF37;
+            --dorado-claro: #FFD700;
+            --dorado-oscuro: #B8941F;
+            --blanco: #f5f5f5;
+            --blanco-puro: #ffffff;
+            --rojo: #dc3545;
+            --verde: #28a745;
+            --naranja: #ff6b35;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--negro); color: var(--blanco); overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--negro-claro); }
+        ::-webkit-scrollbar-thumb { background: var(--dorado); border-radius: 5px; }
+
+        /* Navegación */
+        nav { position: fixed; width: 100%; z-index: 1000; padding: 1.5rem 5%; transition: all 0.4s ease; background: transparent; }
+        nav.scrolled { background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); padding: 1rem 5%; border-bottom: 1px solid var(--dorado); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: var(--dorado); text-decoration: none; display: flex; flex-direction: column; align-items: center; position: relative; padding-bottom: 8px; }
+        .logo::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 2px; background: linear-gradient(90deg, transparent, var(--dorado), transparent); }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--blanco); text-decoration: none; font-weight: 400; letter-spacing: 1px; position: relative; transition: color 0.3s; font-size: 0.9rem; text-transform: uppercase; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--dorado); transition: width 0.3s; }
+        .nav-links a:hover { color: var(--dorado); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-actions { display: flex; gap: 1.5rem; align-items: center; }
+        .btn-nav { background: transparent; border: 1px solid var(--dorado); color: var(--dorado); padding: 0.5rem 1.5rem; cursor: pointer; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; transition: all 0.3s; position: relative; overflow: hidden; }
+        .btn-nav::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--dorado); transition: left 0.3s; z-index: -1; }
+        .btn-nav:hover::before { left: 0; }
+        .btn-nav:hover { color: var(--negro); }
+
+        .cart-icon { position: relative; color: var(--blanco); font-size: 1.2rem; cursor: pointer; transition: color 0.3s; }
+        .cart-icon:hover { color: var(--dorado); }
+        .cart-count { position: absolute; top: -8px; right: -8px; background: var(--dorado); color: var(--negro); font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+
+        /* Hero Section */
+        .hero { height: 100vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg'); background-size: cover; background-position: center; background-attachment: fixed; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
+        .hero-content { max-width: 900px; padding: 0 2rem; animation: fadeInUp 1s ease; }
+        .hero-subtitle { color: var(--dorado); text-transform: uppercase; letter-spacing: 4px; font-size: 0.9rem; margin-bottom: 1.5rem; display: block; }
+        .hero h1 { font-size: 4.5rem; margin-bottom: 1.5rem; line-height: 1.1; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero h1 span { color: var(--dorado); font-style: italic; }
+        .hero p { font-size: 1.2rem; color: #ccc; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.6; }
+        .hero-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn-primary { background: var(--dorado); color: var(--negro); padding: 1rem 2.5rem; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; transition: all 0.3s; border: 2px solid var(--dorado); position: relative; overflow: hidden; cursor: pointer; display: inline-block; }
+        .btn-primary:hover { background: transparent; color: var(--dorado); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); }
+        .btn-secondary { background: transparent; color: var(--blanco); padding: 1rem 2.5rem; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; border: 1px solid var(--blanco); transition: all 0.3s; }
+        .btn-secondary:hover { background: var(--blanco); color: var(--negro); border-color: var(--dorado); }
+        .btn-danger { background: var(--rojo); color: var(--blanco); border: none; padding: 0.8rem 1.5rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; transition: all 0.3s; }
+        .btn-danger:hover { background: #c82333; }
+        .btn-success { background: var(--verde); color: var(--blanco); border: none; padding: 0.8rem 1.5rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; transition: all 0.3s; }
+        .btn-success:hover { background: #218838; }
+
+        .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: var(--dorado); animation: bounce 2s infinite; font-size: 1.5rem; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-20px);} 60% {transform: translateX(-50%) translateY(-10px);} }
+
+        /* SISTEMA DE AUTENTICACIÓN MEJORADO */
+        .auth-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; justify-content: center; align-items: center; overflow-y: auto; }
+        .auth-modal.active { display: flex; }
+        .auth-container { background: var(--gris-oscuro); border: 1px solid var(--dorado); max-width: 500px; width: 90%; padding: 3rem; position: relative; animation: slideIn 0.3s; }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .auth-header { text-align: center; margin-bottom: 2rem; }
+        .auth-header h2 { color: var(--dorado); font-family: 'Great Vibes', cursive; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .auth-header p { color: #888; font-size: 0.9rem; }
+        .auth-tabs { display: flex; margin-bottom: 2rem; border-bottom: 1px solid var(--gris-medio); }
+        .auth-tab { flex: 1; background: none; border: none; color: #888; padding: 1rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; transition: all 0.3s; }
+        .auth-tab.active { color: var(--dorado); border-bottom: 2px solid var(--dorado); }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; animation: fadeIn 0.3s; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--dorado); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .form-group input, .form-group select { width: 100%; background: var(--negro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 1rem; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--dorado); }
+        .form-group input.error { border-color: var(--rojo); }
+        .error-message { color: var(--rojo); font-size: 0.8rem; margin-top: 0.3rem; display: none; }
+        .error-message.show { display: block; }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1.5rem; }
+        .checkbox-group input[type="checkbox"] { width: auto; margin-top: 0.3rem; accent-color: var(--dorado); }
+        .checkbox-group label { color: #ccc; font-size: 0.85rem; line-height: 1.4; margin: 0; text-transform: none; letter-spacing: normal; }
+        .checkbox-group label a { color: var(--dorado); }
+        .btn-auth { width: 100%; background: var(--dorado); color: var(--negro); border: none; padding: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s; }
+        .btn-auth:hover { background: var(--dorado-claro); }
+        .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; }
+        .close-auth { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--blanco); font-size: 1.5rem; cursor: pointer; transition: color 0.3s; }
+        .close-auth:hover { color: var(--dorado); }
+        .auth-footer { text-align: center; margin-top: 1.5rem; color: #888; font-size: 0.85rem; }
+        .auth-footer a { color: var(--dorado); cursor: pointer; }
+        .role-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+        .role-option { background: var(--negro); border: 1px solid var(--gris-medio); padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.3s; }
+        .role-option:hover { border-color: var(--dorado); }
+        .role-option.selected { border-color: var(--dorado); background: rgba(212, 175, 55, 0.1); }
+        .role-option i { font-size: 2rem; color: var(--dorado); margin-bottom: 0.5rem; display: block; }
+        .role-option h4 { color: var(--blanco); font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .role-option p { color: #666; font-size: 0.75rem; }
+
+        /* SISTEMA DE BODEGAS - REGISTRO ESPECIAL */
+        .bodega-register-fields { display: none; }
+        .bodega-register-fields.active { display: block; animation: fadeIn 0.3s; }
+        .bodega-select-group { margin-bottom: 1.5rem; }
+        .bodega-select-group label { display: block; margin-bottom: 0.5rem; color: var(--dorado); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .bodega-select-group select { width: 100%; background: var(--negro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 1rem; font-family: 'Inter', sans-serif; }
+
+        /* PANEL ADMIN MEJORADO CON ROLES */
+        .admin-panel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--negro-claro); z-index: 2500; overflow-y: auto; }
+        .admin-panel.active { display: block; }
+        .admin-header { background: var(--negro); border-bottom: 2px solid var(--dorado); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .admin-title { color: var(--dorado); font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+        .admin-user-info { display: flex; align-items: center; gap: 1rem; color: #888; font-size: 0.9rem; }
+        .admin-role-badge { background: var(--dorado); color: var(--negro); padding: 0.3rem 0.8rem; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; border-radius: 3px; }
+        .admin-nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .admin-nav button { background: transparent; border: 1px solid var(--gris-medio); color: var(--blanco); padding: 0.5rem 1rem; cursor: pointer; transition: all 0.3s; }
+        .admin-nav button:hover, .admin-nav button.active { border-color: var(--dorado); color: var(--dorado); }
+        .admin-content { padding: 2rem; max-width: 1400px; margin: 0 auto; }
+        .admin-section { display: none; }
+        .admin-section.active { display: block; animation: fadeIn 0.5s; }
+        .admin-grid { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; }
+        .admin-form { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); padding: 2rem; height: fit-content; }
+        .admin-form h3 { color: var(--dorado); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--dorado); }
+        .admin-list { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); padding: 2rem; }
+        .admin-list h3 { color: var(--dorado); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--dorado); }
+        .admin-item { background: var(--negro); border: 1px solid var(--gris-medio); padding: 1.5rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: start; transition: all 0.3s; }
+        .admin-item:hover { border-color: var(--dorado); }
+        .admin-item-info h4 { color: var(--dorado); margin-bottom: 0.5rem; }
+        .admin-item-info p { color: #888; font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .admin-item-actions { display: flex; gap: 0.5rem; }
+        .btn-small { padding: 0.4rem 0.8rem; font-size: 0.75rem; border: none; cursor: pointer; text-transform: uppercase; }
+        .btn-edit { background: var(--dorado); color: var(--negro); }
+        .btn-delete { background: transparent; border: 1px solid var(--rojo); color: var(--rojo); }
+        .btn-delete:hover { background: var(--rojo); color: var(--blanco); }
+
+        /* Sección Cómo Funciona */
+        .how-it-works { padding: 6rem 5%; background: var(--negro-claro); position: relative; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-tag { color: var(--dorado); text-transform: uppercase; letter-spacing: 3px; font-size: 0.85rem; margin-bottom: 1rem; display: block; }
+        .section-title { font-size: 3rem; margin-bottom: 1rem; position: relative; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 60px; height: 2px; background: var(--dorado); }
+        .tabs-container { max-width: 1200px; margin: 0 auto; }
+        .tabs { display: flex; justify-content: center; gap: 2rem; margin-bottom: 3rem; border-bottom: 1px solid var(--gris-medio); padding-bottom: 1rem; }
+        .tab-btn { background: none; border: none; color: var(--blanco); font-family: 'Playfair Display', serif; font-size: 1.3rem; cursor: pointer; padding: 0.5rem 2rem; position: relative; transition: color 0.3s; }
+        .tab-btn.active { color: var(--dorado); }
+        .tab-btn.active::after { content: ''; position: absolute; bottom: -1rem; left: 0; width: 100%; height: 2px; background: var(--dorado); }
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .feature-card { text-align: center; padding: 2rem; border: 1px solid var(--gris-medio); transition: all 0.3s; position: relative; overflow: hidden; }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--dorado); transform: scaleX(0); transition: transform 0.3s; }
+        .feature-card:hover::before { transform: scaleX(1); }
+        .feature-card:hover { border-color: var(--dorado); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1); }
+        .feature-icon { font-size: 2.5rem; color: var(--dorado); margin-bottom: 1.5rem; }
+        .feature-card h3 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--dorado); }
+        .feature-card p { color: #aaa; line-height: 1.6; font-size: 0.95rem; }
+
+        /* Catálogo de Vinos */
+        .catalog { padding: 6rem 5%; background: var(--negro); }
+        .search-advanced { max-width: 1200px; margin: 0 auto 2rem; background: var(--gris-oscuro); border: 1px solid var(--gris-medio); padding: 1.5rem; border-radius: 8px; }
+        .search-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+        .search-row:last-child { margin-bottom: 0; }
+        .search-input { background: var(--negro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 0.8rem; font-family: 'Inter', sans-serif; }
+        .search-input:focus { outline: none; border-color: var(--dorado); }
+        .filters { max-width: 1200px; margin: 0 auto 3rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .filter-btn { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 0.6rem 1.5rem; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .filter-btn:hover, .filter-btn.active { background: var(--dorado); color: var(--negro); border-color: var(--dorado); }
+        .products-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+        .product-card { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); overflow: hidden; transition: all 0.3s; position: relative; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.4); border-color: var(--dorado); }
+        .product-badge { position: absolute; top: 1rem; left: 1rem; background: var(--dorado); color: var(--negro); padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; z-index: 10; }
+        .product-image { width: 100%; height: 300px; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor: pointer; }
+        .product-image img { width: 100%; height: 100%; object-fit: cover; }
+        .product-image i { font-size: 4rem; color: var(--dorado); opacity: 0.3; }
+        .product-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(212, 175, 55, 0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        .product-card:hover .product-overlay { opacity: 1; }
+        .btn-add-cart { background: var(--negro); color: var(--dorado); border: none; padding: 1rem 2rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; transition: transform 0.3s; }
+        .btn-add-cart:hover { transform: scale(1.05); }
+        .product-info { padding: 1.5rem; }
+        .product-bodega { color: var(--dorado); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .product-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .product-details { display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: #888; }
+        .product-details span { display: flex; align-items: center; gap: 0.3rem; }
+        .product-price { display: flex; justify-content: space-between; align-items: center; }
+        .price { font-size: 1.4rem; color: var(--dorado); font-weight: 600; }
+        .price-original { text-decoration: line-through; color: #666; font-size: 1rem; margin-right: 0.5rem; }
+        .product-rating { display: flex; align-items: center; gap: 0.3rem; color: var(--dorado); font-size: 0.9rem; }
+
+        /* MODAL FICHA DE PRODUCTO */
+        .product-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; overflow-y: auto; backdrop-filter: blur(10px); }
+        .product-modal.active { display: block; }
+        .product-modal-content { max-width: 1000px; margin: 2rem auto; background: var(--gris-oscuro); border: 1px solid var(--dorado); position: relative; }
+        .product-modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--blanco); font-size: 2rem; cursor: pointer; z-index: 10; transition: color 0.3s; }
+        .product-modal-close:hover { color: var(--dorado); }
+        .product-modal-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+        .product-modal-gallery { background: var(--negro); min-height: 500px; position: relative; overflow: hidden; }
+        .product-modal-gallery img { width: 100%; height: 100%; object-fit: cover; }
+        .product-modal-gallery i { font-size: 6rem; color: var(--dorado); opacity: 0.3; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .product-modal-info { padding: 3rem; }
+        .product-modal-bodega { color: var(--dorado); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .product-modal-title { font-size: 2.5rem; margin-bottom: 1rem; color: var(--blanco); }
+        .product-modal-year { display: inline-block; background: var(--dorado); color: var(--negro); padding: 0.3rem 1rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .product-modal-price { font-size: 2rem; color: var(--dorado); font-weight: 700; margin-bottom: 2rem; }
+        .product-modal-section { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--gris-medio); }
+        .product-modal-section:last-of-type { border-bottom: none; }
+        .product-modal-section h4 { color: var(--dorado); margin-bottom: 1rem; font-size: 1.1rem; }
+        .product-modal-section p { color: #ccc; line-height: 1.8; }
+        .product-modal-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .meta-item { background: var(--negro); padding: 1rem; border-left: 3px solid var(--dorado); }
+        .meta-label { color: #666; font-size: 0.8rem; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+        .meta-value { color: var(--blanco); font-weight: 600; }
+        .product-modal-actions { display: flex; gap: 1rem; margin-top: 2rem; }
+        .btn-favorite { background: transparent; border: 1px solid var(--dorado); color: var(--dorado); padding: 1rem 1.5rem; cursor: pointer; transition: all 0.3s; }
+        .btn-favorite:hover, .btn-favorite.active { background: var(--dorado); color: var(--negro); }
+
+        /* VERIFICACIÓN DE EDAD MEJORADA */
+        .age-verification { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 4000; justify-content: center; align-items: center; padding: 2rem; }
+        .age-verification.active { display: flex; }
+        .age-box { background: var(--gris-oscuro); border: 2px solid var(--dorado); max-width: 500px; width: 100%; padding: 3rem; text-align: center; }
+        .age-box h2 { color: var(--dorado); font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1.5rem; }
+        .age-box p { color: #ccc; margin-bottom: 2rem; line-height: 1.6; }
+        .age-warning { background: rgba(220, 53, 69, 0.1); border: 1px solid var(--rojo); color: var(--rojo); padding: 1rem; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .age-checkbox-group { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; text-align: left; background: var(--negro); padding: 1.5rem; border: 1px solid var(--gris-medio); }
+        .age-checkbox-group input { width: auto; margin-top: 0.3rem; accent-color: var(--dorado); transform: scale(1.2); }
+        .age-checkbox-group label { color: var(--blanco); font-size: 0.9rem; line-height: 1.4; margin: 0; text-transform: none; letter-spacing: normal; }
+        .age-checkbox-group label strong { color: var(--dorado); }
+        .age-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .btn-age-yes { background: var(--verde); color: var(--blanco); border: none; padding: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
+        .btn-age-yes:hover:not(:disabled) { background: #218838; }
+        .btn-age-yes:disabled { opacity: 0.5; cursor: not-allowed; background: #666; }
+        .btn-age-no { background: transparent; border: 1px solid var(--rojo); color: var(--rojo); padding: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
+        .btn-age-no:hover { background: var(--rojo); color: var(--blanco); }
+
+        /* SISTEMA DE RESEÑAS */
+        .reviews-section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--gris-medio); }
+        .reviews-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .reviews-summary { display: flex; align-items: center; gap: 1rem; }
+        .rating-big { font-size: 3rem; color: var(--dorado); font-weight: 700; }
+        .stars-big { color: var(--dorado); font-size: 1.5rem; }
+        .review-card { background: var(--negro); border: 1px solid var(--gris-medio); padding: 1.5rem; margin-bottom: 1rem; }
+        .review-header { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+        .reviewer-name { color: var(--dorado); font-weight: 600; }
+        .review-date { color: #666; font-size: 0.85rem; }
+        .review-rating { color: var(--dorado); margin-bottom: 0.5rem; }
+        .review-text { color: #ccc; line-height: 1.6; }
+        .review-form { background: var(--negro); border: 1px solid var(--gris-medio); padding: 2rem; margin-bottom: 2rem; }
+        .star-rating-input { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .star-rating-input i { font-size: 1.5rem; color: #444; cursor: pointer; transition: color 0.3s; }
+        .star-rating-input i:hover, .star-rating-input i.active { color: var(--dorado); }
+
+        /* NUESTRAS BODEGAS */
+        .bodegas-showcase { padding: 6rem 5%; background: linear-gradient(135deg, var(--negro-claro) 0%, var(--negro) 100%); position: relative; }
+        .bodegas-showcase::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--dorado), transparent); }
+        .bodegas-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; }
+        .bodega-card { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); overflow: hidden; transition: all 0.4s; position: relative; }
+        .bodega-card:hover { border-color: var(--dorado); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .bodega-image-container { position: relative; height: 280px; overflow: hidden; }
+        .bodega-image { width: 100%; height: 100%; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%); display: flex; align-items: center; justify-content: center; position: relative; transition: transform 0.5s; }
+        .bodega-image img { width: 100%; height: 100%; object-fit: cover; }
+        .bodega-card:hover .bodega-image { transform: scale(1.05); }
+        .bodega-image i { font-size: 3.5rem; color: var(--dorado); opacity: 0.4; }
+        .bodega-year { position: absolute; top: 1rem; right: 1rem; background: rgba(0,0,0,0.8); border: 1px solid var(--dorado); color: var(--dorado); padding: 0.5rem 1rem; font-family: 'Playfair Display', serif; font-size: 0.9rem; }
+        .bodega-content { padding: 2rem; }
+        .bodega-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--dorado); margin-bottom: 0.5rem; }
+        .bodega-founder { color: #888; font-size: 0.9rem; font-style: italic; margin-bottom: 1rem; display: block; }
+        .bodega-description { color: #aaa; line-height: 1.6; margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .bodega-specialties { margin-bottom: 1.5rem; }
+        .specialties-title { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--dorado); margin-bottom: 0.8rem; display: block; }
+        .specialties-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .specialty-tag { background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--dorado-claro); padding: 0.3rem 0.8rem; font-size: 0.8rem; border-radius: 20px; }
+        .bodega-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid var(--gris-medio); }
+        .bodega-location { color: #666; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; }
+        .bodega-location i { color: var(--dorado); }
+        .btn-bodega { background: transparent; border: 1px solid var(--dorado); color: var(--dorado); padding: 0.6rem 1.2rem; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; transition: all 0.3s; }
+        .btn-bodega:hover { background: var(--dorado); color: var(--negro); }
+
+        /* Ofertas del Día */
+        .offers { padding: 6rem 5%; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg'); background-size: cover; background-position: center; background-attachment: fixed; position: relative; }
+        .countdown-container { max-width: 800px; margin: 3rem auto; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+        .countdown-item { text-align: center; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--dorado); padding: 1.5rem 2rem; min-width: 100px; }
+        .countdown-number { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--dorado); display: block; line-height: 1; }
+        .countdown-label { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; color: #aaa; margin-top: 0.5rem; }
+
+        /* Wine Matcher */
+        .wine-matcher { padding: 6rem 5%; background: var(--gris-oscuro); }
+        .matcher-container { max-width: 800px; margin: 0 auto; background: var(--negro); border: 1px solid var(--gris-medio); padding: 3rem; position: relative; }
+        .matcher-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, var(--dorado), transparent); }
+        .question { text-align: center; margin-bottom: 2rem; }
+        .question h3 { font-size: 1.8rem; margin-bottom: 2rem; color: var(--dorado); }
+        .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .option-btn { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); color: var(--blanco); padding: 1.5rem; cursor: pointer; transition: all 0.3s; font-size: 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+        .option-btn:hover { border-color: var(--dorado); background: rgba(212, 175, 55, 0.1); }
+        .option-btn.selected { background: var(--dorado); color: var(--negro); border-color: var(--dorado); }
+        .option-btn i { font-size: 1.5rem; }
+        .matcher-result { display: none; text-align: center; padding: 2rem; background: rgba(212, 175, 55, 0.05); border: 1px solid var(--dorado); margin-top: 2rem; }
+        .matcher-result.show { display: block; animation: fadeIn 0.5s; }
+
+        /* Rutas del Vino - MAPA REAL */
+        .routes { padding: 6rem 5%; background: var(--negro-claro); }
+        .map-container { max-width: 1200px; margin: 0 auto; position: relative; background: var(--gris-oscuro); border: 1px solid var(--gris-medio); min-height: 600px; overflow: hidden; }
+        .map-real { width: 100%; height: 600px; border: none; }
+
+        /* Recorridos */
+        .tours { padding: 6rem 5%; background: var(--negro); }
+        .tours-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .tour-card { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s; }
+        .tour-card:hover { border-color: var(--dorado); transform: translateY(-5px); }
+        .tour-header { background: linear-gradient(135deg, var(--gris-medio) 0%, var(--negro-claro) 100%); padding: 2rem; border-bottom: 2px solid var(--dorado); }
+        .tour-price-tag { float: right; background: var(--dorado); color: var(--negro); padding: 0.5rem 1rem; font-weight: 700; font-size: 1.2rem; }
+        .tour-header h3 { font-size: 1.5rem; color: var(--dorado); margin-bottom: 0.5rem; clear: both; }
+        .tour-header p { color: #888; font-size: 0.9rem; }
+        .tour-body { padding: 2rem; flex: 1; }
+        .tour-features { list-style: none; margin-bottom: 2rem; }
+        .tour-features li { padding: 0.5rem 0; border-bottom: 1px solid var(--gris-medio); display: flex; align-items: center; gap: 0.5rem; color: #ccc; }
+        .tour-features li i { color: var(--dorado); width: 20px; }
+        .tour-footer { padding: 0 2rem 2rem; }
+        .btn-reserve { width: 100%; background: transparent; border: 1px solid var(--dorado); color: var(--dorado); padding: 1rem; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; font-weight: 600; }
+        .btn-reserve:hover { background: var(--dorado); color: var(--negro); }
+
+        /* Club de Suscripción */
+        .club { padding: 6rem 5%; background: linear-gradient(135deg, var(--negro-claro) 0%, var(--gris-oscuro) 100%); position: relative; overflow: hidden; }
+        .club::before { content: ''; position: absolute; top: -50%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%); pointer-events: none; }
+        .pricing-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; position: relative; z-index: 1; }
+        .pricing-card { background: var(--negro); border: 1px solid var(--gris-medio); padding: 3rem 2rem; text-align: center; position: relative; transition: all 0.3s; }
+        .pricing-card.featured { border-color: var(--dorado); transform: scale(1.05); box-shadow: 0 0 40px rgba(212, 175, 55, 0.2); }
+        .pricing-card.featured::before { content: 'Más Popular'; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--dorado); color: var(--negro); padding: 0.5rem 1.5rem; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+        .pricing-card:hover { border-color: var(--dorado); }
+        .pricing-name { font-size: 1.5rem; color: var(--dorado); margin-bottom: 1rem; }
+        .pricing-price { font-size: 3rem; font-family: 'Playfair Display', serif; margin-bottom: 2rem; }
+        .pricing-price span { font-size: 1rem; color: #666; }
+        .pricing-features { list-style: none; margin-bottom: 2rem; text-align: left; }
+        .pricing-features li { padding: 0.8rem 0; border-bottom: 1px solid var(--gris-medio); display: flex; align-items: center; gap: 0.5rem; }
+        .pricing-features li i { color: var(--dorado); }
+
+        /* Blog */
+        .blog { padding: 6rem 5%; background: var(--negro-claro); }
+        .blog-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .blog-card { background: var(--gris-oscuro); border: 1px solid var(--gris-medio); overflow: hidden; transition: all 0.3s; }
+        .blog-card:hover { border-color: var(--dorado); }
+        .blog-image { height: 250px; background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%); position: relative; display: flex; align-items: center; justify-content: center; }
+        .blog-image i { font-size: 3rem; color: var(--dorado); opacity: 0.3; }
+        .blog-category { position: absolute; top: 1rem; left: 1rem; background: var(--dorado); color: var(--negro); padding: 0.3rem 0.8rem; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; }
+        .blog-content { padding: 1.5rem; }
+        .blog-date { color: var(--dorado); font-size: 0.8rem; margin-bottom: 0.5rem; display: block; }
+        .blog-title { font-size: 1.3rem; margin-bottom: 1rem; line-height: 1.3; }
+        .blog-excerpt { color: #888; line-height: 1.6; margin-bottom: 1rem; }
+        .read-more { color: var(--dorado); text-decoration: none; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.3s; }
+        .read-more:hover { gap: 1rem; }
+
+        /* Formulario Bodegas */
+        .partners { padding: 6rem 5%; background: var(--negro); position: relative; }
+        .partners::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://kimi-web-img.moonshot.cn/img/elements-resized.envatousercontent.com/2621656f2d618098f96b0c9dcbf1174e4717c311.jpg'); opacity: 0.1; pointer-events: none; }
+        .form-container { max-width: 800px; margin: 0 auto; background: rgba(10, 10, 10, 0.9); border: 1px solid var(--gris-medio); padding: 3rem; position: relative; z-index: 1; }
+        .btn-submit { width: 100%; background: var(--dorado); color: var(--negro); border: none; padding: 1.2rem; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s; }
+        .btn-submit:hover { background: var(--dorado-claro); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); }
+
+        /* Footer */
+        footer { background: var(--negro-claro); border-top: 1px solid var(--gris-medio); padding: 4rem 5% 2rem; position: relative; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+        .footer-section h4 { color: var(--dorado); margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .footer-section p, .footer-section a { color: #888; text-decoration: none; line-height: 1.8; transition: color 0.3s; }
+        .footer-section a:hover { color: var(--dorado); }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 0.5rem; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+        .social-links a { width: 40px; height: 40px; border: 1px solid var(--gris-medio); display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .social-links a:hover { background: var(--dorado); border-color: var(--dorado); color: var(--negro); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--gris-medio); color: #666; font-size: 0.9rem; }
+
+        /* Modal Carrito */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .modal.active { display: flex; }
+        .modal-content { background: var(--gris-oscuro); border: 1px solid var(--dorado); max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; animation: slideIn 0.3s; }
+        .modal-header { background: var(--negro); padding: 1.5rem; border-bottom: 1px solid var(--dorado); display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { color: var(--dorado); font-size: 1.5rem; }
+        .close-modal { background: none; border: none; color: var(--blanco); font-size: 1.5rem; cursor: pointer; transition: color 0.3s; }
+        .close-modal:hover { color: var(--dorado); }
+        .modal-body { padding: 1.5rem; }
+        .cart-item { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--gris-medio); }
+        .cart-item-image { width: 80px; height: 80px; background: var(--negro); display: flex; align-items: center; justify-content: center; }
+        .cart-item-image i { color: var(--dorado); font-size: 2rem; }
+        .cart-item-details { flex: 1; }
+        .cart-item-name { font-weight: 600; margin-bottom: 0.3rem; }
+        .cart-item-price { color: var(--dorado); }
+        .cart-total { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--dorado); display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; }
+        .btn-checkout { width: 100%; background: var(--dorado); color: var(--negro); border: none; padding: 1rem; margin-top: 1.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; }
+        .btn-checkout:hover { background: var(--dorado-claro); }
+
+        /* ESTADÍSTICAS ADMIN */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--negro); border: 1px solid var(--gris-medio); padding: 1.5rem; text-align: center; transition: all 0.3s; }
+        .stat-card:hover { border-color: var(--dorado); }
+        .stat-number { font-size: 2.5rem; color: var(--dorado); font-weight: 700; display: block; }
+        .stat-label { color: #888; font-size: 0.9rem; margin-top: 0.5rem; }
+
+        /* PEDIDOS ADMIN */
+        .order-status { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+        .status-pendiente { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+        .status-enviado { background: rgba(33, 150, 243, 0.2); color: #2196f3; }
+        .status-completado { background: rgba(40, 167, 69, 0.2); color: #28a745; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero { background-attachment: scroll !important; background-position: center center !important; background-size: cover !important; min-height: 100vh; height: auto; }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .tabs { flex-direction: column; align-items: center; }
+            .form-row { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: scale(1); }
+            .logo { font-size: 1.8rem; }
+            .bodegas-grid { grid-template-columns: 1fr; }
+            .admin-grid { grid-template-columns: 1fr; }
+            .admin-nav { flex-wrap: wrap; justify-content: center; }
+            .product-modal-body { grid-template-columns: 1fr; }
+            .product-modal-gallery { min-height: 300px; }
+            .search-row { grid-template-columns: 1fr; }
+            .role-selector { grid-template-columns: 1fr; }
+            .age-buttons { grid-template-columns: 1fr; }
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            .hero { background-attachment: scroll; min-height: -webkit-fill-available; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="navbar__container">
-            <a href="#" class="navbar__logo">Club de la Bodega</a>
+    <!-- VERIFICACIÓN DE EDAD OBLIGATORIA -->
+    <div class="age-verification active" id="ageVerification">
+        <div class="age-box">
+            <i class="fas fa-wine-bottle" style="font-size: 3rem; color: var(--dorado); margin-bottom: 1rem;"></i>
+            <h2>Verificación de Edad</h2>
+            <div class="age-warning">
+                <i class="fas fa-exclamation-triangle"></i> Debes ser mayor de 18 años para acceder a este sitio
+            </div>
+            <p>Este sitio web contiene información sobre bebidas alcohólicas y está destinado exclusivamente a adultos mayores de edad legal para consumir alcohol en su jurisdicción.</p>
             
-            <ul class="navbar__links">
-                <li><a href="#catalogo" class="navbar__link">Catálogo</a></li>
-                <li><a href="#bodegas-showcase" class="navbar__link">Bodegas</a></li>
-                <li><a href="#recorridos" class="navbar__link">Recorridos</a></li>
-                <li><a href="#rutas" class="navbar__link">Rutas</a></li>
-                <li><a href="#club" class="navbar__link">Club</a></li>
-                <li><a href="#blog" class="navbar__link">Blog</a></li>
-            </ul>
+            <div class="age-checkbox-group">
+                <input type="checkbox" id="ageConfirm" onchange="toggleAgeButton()">
+                <label for="ageConfirm">
+                    Confirmo que tengo <strong>al menos 18 años de edad</strong> y acepto los <a href="#">Términos de Uso</a> y la <a href="#">Política de Privacidad</a> del sitio.
+                </label>
+            </div>
             
-            <div class="navbar__actions">
-                <div class="cart-icon" onclick="window.toggleCart()">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span class="cart-icon__count" id="cartCount">0</span>
+            <div class="age-buttons">
+                <button class="btn-age-yes" id="btnAgeYes" onclick="verifyAge(true)" disabled>
+                    <i class="fas fa-check"></i> Sí, soy mayor de edad
+                </button>
+                <button class="btn-age-no" onclick="verifyAge(false)">
+                    <i class="fas fa-times"></i> No, salir del sitio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEMA DE AUTENTICACIÓN -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-container">
+            <button class="close-auth" onclick="closeAuthModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="auth-header">
+                <h2>Club de la Bodega</h2>
+                <p id="authSubtitle">Inicia sesión en tu cuenta</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login')">Iniciar Sesión</button>
+                <button class="auth-tab" onclick="switchAuthTab('register')">Crear Cuenta</button>
+            </div>
+
+            <!-- LOGIN -->
+            <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required placeholder="tu@email.com">
+                    <span class="error-message" id="loginEmailError">Email no encontrado</span>
                 </div>
-                <button class="btn btn--nav" id="userBtn" onclick="window.openAuthModal()">Iniciar Sesión</button>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                    <span class="error-message" id="loginPasswordError">Contraseña incorrecta</span>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Recordar mis datos en este dispositivo</label>
+                </div>
+                <button type="submit" class="btn-auth">Ingresar</button>
+                <div class="auth-footer">
+                    <a onclick="showForgotPassword()">¿Olvidaste tu contraseña?</a>
+                </div>
+            </form>
+
+            <!-- REGISTRO -->
+            <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                <!-- Selector de Rol -->
+                <div class="role-selector">
+                    <div class="role-option selected" onclick="selectRole('cliente')" id="roleCliente">
+                        <i class="fas fa-user"></i>
+                        <h4>Soy Cliente</h4>
+                        <p>Quiero comprar vinos</p>
+                    </div>
+                    <div class="role-option" onclick="selectRole('bodega')" id="roleBodega">
+                        <i class="fas fa-wine-bottle"></i>
+                        <h4>Soy Bodega</h4>
+                        <p>Quiero vender mis vinos</p>
+                    </div>
+                </div>
+                <input type="hidden" id="selectedRole" value="cliente">
+
+                <!-- Campos comunes -->
+                <div class="form-group">
+                    <label>Nombre Completo / Nombre de Bodega</label>
+                    <input type="text" id="regName" required placeholder="Ej: Juan Pérez o Bodega Los Toneles">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" required placeholder="tu@email.com">
+                    <span class="error-message" id="regEmailError">Este email ya está registrado</span>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" id="regPhone" required placeholder="+54 260...">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña (mínimo 8 caracteres)</label>
+                    <input type="password" id="regPassword" required minlength="8" placeholder="••••••••">
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Contraseña</label>
+                    <input type="password" id="regPasswordConfirm" required placeholder="••••••••">
+                    <span class="error-message" id="regPasswordError">Las contraseñas no coinciden</span>
+                </div>
+
+                <!-- Campos específicos para bodega -->
+                <div class="bodega-register-fields" id="bodegaFields">
+                    <div class="form-group">
+                        <label>Dirección de la Bodega</label>
+                        <input type="text" id="regAddress" placeholder="San Rafael, Mendoza">
+                    </div>
+                    <div class="form-group">
+                        <label>Año de Fundación</label>
+                        <input type="number" id="regYear" placeholder="1990">
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción de la Bodega</label>
+                        <textarea id="regDescription" rows="3" placeholder="Cuéntanos sobre tu bodega..."></textarea>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="termsAccept" required>
+                    <label for="termsAccept">Acepto los <a href="#">Términos y Condiciones</a> y confirmo que soy mayor de 18 años</label>
+                </div>
+
+                <button type="submit" class="btn-auth">Crear Cuenta</button>
+            </form>
+
+            <!-- RECUPERAR CONTRASEÑA -->
+            <form id="forgotForm" class="auth-form" onsubmit="handleForgotPassword(event)">
+                <div class="form-group">
+                    <label>Email de recuperación</label>
+                    <input type="email" id="forgotEmail" required placeholder="tu@email.com">
+                </div>
+                <button type="submit" class="btn-auth">Enviar instrucciones</button>
+                <div class="auth-footer">
+                    <a onclick="switchAuthTab('login')">Volver al inicio de sesión</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Navegación -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Club de la Bodega</a>
+            <ul class="nav-links">
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#bodegas-showcase">Bodegas</a></li>
+                <li><a href="#recorridos">Recorridos</a></li>
+                <li><a href="#rutas">Rutas</a></li>
+                <li><a href="#club">Club</a></li>
+                <li><a href="#blog">Blog</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <button class="btn-nav" id="userBtn" onclick="openAuthModal()">Iniciar Sesión</button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="heroSection">
-        <div class="hero__content">
-            <span class="hero__subtitle">Bienvenido a San Rafael</span>
-            <h1 class="hero__title">Descubre el Alma del <span class="hero__title-accent">Vino</span></h1>
-            <p class="hero__description">Conectamos las mejores bodegas de San Rafael con amantes del vino. Explora nuestro catálogo exclusivo, reserva recorridos únicos y únete a nuestro club de suscripción.</p>
-            <div class="hero__buttons">
-                <a href="#catalogo" class="btn btn--primary">Explorar Catálogo</a>
-                <a href="#recorridos" class="btn btn--secondary">Ver Recorridos</a>
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-subtitle">Bienvenido a San Rafael</span>
+            <h1>Descubre el Alma del <span>Vino</span></h1>
+            <p>Conectamos las mejores bodegas de San Rafael con amantes del vino. Explora nuestro catálogo exclusivo, reserva recorridos únicos y únete a nuestro club de suscripción.</p>
+            <div class="hero-buttons">
+                <a href="#catalogo" class="btn-primary">Explorar Catálogo</a>
+                <a href="#recorridos" class="btn-secondary">Ver Recorridos</a>
             </div>
         </div>
-        <div class="hero__scroll">
-            <i class="fas fa-chevron-down"></i>
-        </div>
+        <div class="scroll-indicator"><i class="fas fa-chevron-down"></i></div>
     </section>
 
-    <!-- How It Works -->
-    <section class="section section--darker" id="como-funciona">
-        <div class="section__header">
-            <span class="section__tag">Nuestro Sistema</span>
-            <h2 class="section__title">¿Cómo Funciona?</h2>
-            <p class="section__description">Una plataforma diseñada para conectar bodegas artesanales con consumidores apasionados</p>
+    <!-- Cómo Funciona -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="section-header">
+            <span class="section-tag">Nuestro Sistema</span>
+            <h2 class="section-title">¿Cómo Funciona?</h2>
+            <p style="color: #888; max-width: 600px; margin: 2rem auto;">Una plataforma diseñada para conectar bodegas artesanales con consumidores apasionados</p>
         </div>
-        
-        <div class="container">
+        <div class="tabs-container">
             <div class="tabs">
-                <button class="tabs__btn active" onclick="window.switchTab('consumers', event)">Para Clientes</button>
-                <button class="tabs__btn" onclick="window.switchTab('bodegas', event)">Para Bodegas</button>
+                <button class="tab-btn active" onclick="switchTab('consumers')">Para Clientes</button>
+                <button class="tab-btn" onclick="switchTab('bodegas')">Para Bodegas</button>
             </div>
-            
-            <div id="consumers" class="tabs__content active">
+            <div id="consumers" class="tab-content active">
                 <div class="feature-card">
-                    <div class="feature-card__icon"><i class="fas fa-search"></i></div>
-                    <h3 class="feature-card__title">Explora</h3>
-                    <p class="feature-card__text">Navega por nuestro catálogo curado con los mejores vinos de San Rafael. Filtra por tipo de uva, bodega, precio o región.</p>
+                    <div class="feature-icon"><i class="fas fa-search"></i></div>
+                    <h3>Explora</h3>
+                    <p>Navega por nuestro catálogo curado con los mejores vinos de San Rafael. Filtra por tipo de uva, bodega, precio o región.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-card__icon"><i class="fas fa-wine-glass-alt"></i></div>
-                    <h3 class="feature-card__title">Descubre</h3>
-                    <p class="feature-card__text">Usa nuestro Wine Matcher para encontrar el vino perfecto según tus preferencias y ocasión especial.</p>
+                    <div class="feature-icon"><i class="fas fa-wine-glass-alt"></i></div>
+                    <h3>Descubre</h3>
+                    <p>Usa nuestro Wine Matcher para encontrar el vino perfecto según tus preferencias y ocasión especial.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-card__icon"><i class="fas fa-shopping-cart"></i></div>
-                    <h3 class="feature-card__title">Compra</h3>
-                    <p class="feature-card__text">Realiza tu pedido de forma segura. Las bodegas se encargan del envío directo a tu puerta.</p>
+                    <div class="feature-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>Compra</h3>
+                    <p>Realiza tu pedido de forma segura. Las bodegas se encargan del envío directo a tu puerta.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-card__icon"><i class="fas fa-route"></i></div>
-                    <h3 class="feature-card__title">Experiencias</h3>
-                    <p class="feature-card__text">Reserva recorridos exclusivos, catas privadas y almuerzos en los viñedos más hermosos de la región.</p>
+                    <div class="feature-icon"><i class="fas fa-route"></i></div>
+                    <h3>Experiencias</h3>
+                    <p>Reserva recorridos exclusivos, catas privadas y almuerzos en los viñedos más hermosos de la región.</p>
                 </div>
             </div>
-            
-            <div id="bodegas" class="tabs__content">
+            <div id="bodegas" class="tab-content">
                 <div class="feature-card">
-                    <div class="feature-card__icon"><i class="fas fa-store"></i></div>
-                    <h3 class="feature-card__title">Regístrate</h3>
-                    <p class="feature-card__text">Únete a nuestra plataforma sin costo alguno. Solo pagas comisión por ventas realizadas.</p>
+                    <div class="feature-icon"><i class="fas fa-store"></i></div>
+                    <h3>Regístrate</h3>
+                    <p>Únete a nuestra plataforma sin costo alguno. Solo pagas comisión por ventas realizadas.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-card__icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <h3 class="feature-card__title">Publica</h3>
-                    <p class="feature-card__text">Carga tu catálogo de vinos, fotos de tu bodega y disponibilidad de recorridos en nuestro sistema.</p>
+                    <div class="feature-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <h3>Publica</h3>
+                    <p>Carga tu catálogo de vinos, fotos de tu bodega y disponibilidad de recorridos en nuestro sistema.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-card__icon"><i class="fas fa-chart-line"></i></div>
-                    <h3 class="feature-card__title">Vende</h3>
-                    <p class="feature-card__text">Recibe pedidos directos, gestiona tu stock y accede a estadísticas de ventas en tiempo real.</p>
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Vende</h3>
+                    <p>Recibe pedidos directos, gestiona tu stock y accede a estadísticas de ventas en tiempo real.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-card__icon"><i class="fas fa-handshake"></i></div>
-                    <h3 class="feature-card__title">Crece</h3>
-                    <p class="feature-card__text">Forma parte de rutas turísticas promocionadas y llega a nuevos mercados sin inversión inicial.</p>
+                    <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Crece</h3>
+                    <p>Forma parte de rutas turísticas promocionadas y llega a nuevos mercados sin inversión inicial.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Catalog -->
-    <section class="section section--dark" id="catalogo">
-        <div class="section__header">
-            <span class="section__tag">Nuestra Selección</span>
-            <h2 class="section__title">Catálogo de Vinos</h2>
+    <!-- Catálogo de Vinos -->
+    <section class="catalog" id="catalogo">
+        <div class="section-header">
+            <span class="section-tag">Nuestra Selección</span>
+            <h2 class="section-title">Catálogo de Vinos</h2>
         </div>
-        
-        <!-- Search -->
+
+        <!-- Buscador Avanzado -->
         <div class="search-advanced">
             <div class="search-row">
-                <input type="text" class="search-input" id="searchInput" placeholder="Buscar vinos..." onkeyup="window.searchProducts()">
-                <select class="search-input" id="searchBodega" onchange="window.searchProducts()">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar vinos..." onkeyup="searchProducts()">
+                <select class="search-input" id="searchBodega" onchange="searchProducts()">
                     <option value="">Todas las bodegas</option>
                 </select>
-                <select class="search-input" id="searchYear" onchange="window.searchProducts()">
+                <select class="search-input" id="searchYear" onchange="searchProducts()">
                     <option value="">Todas las cosechas</option>
                 </select>
             </div>
             <div class="search-row">
-                <select class="search-input" id="searchPriceRange" onchange="window.searchProducts()">
+                <select class="search-input" id="searchPriceRange" onchange="searchProducts()">
                     <option value="">Rango de precio</option>
                     <option value="0-3000">Hasta $3.000</option>
                     <option value="3000-6000">$3.000 - $6.000</option>
                     <option value="6000+">Más de $6.000</option>
                 </select>
-                <select class="search-input" id="searchSort" onchange="window.searchProducts()">
+                <select class="search-input" id="searchSort" onchange="searchProducts()">
                     <option value="">Ordenar por</option>
                     <option value="price-asc">Menor precio</option>
                     <option value="price-desc">Mayor precio</option>
                     <option value="rating">Mejor valorados</option>
+                    <option value="newest">Más recientes</option>
                 </select>
             </div>
         </div>
-        
-        <!-- Filters -->
+
         <div class="filters">
-            <button class="filter-btn active" onclick="window.filterWines('all', event)">Todos</button>
-            <button class="filter-btn" onclick="window.filterWines('tinto', event)">Tintos</button>
-            <button class="filter-btn" onclick="window.filterWines('blanco', event)">Blancos</button>
-            <button class="filter-btn" onclick="window.filterWines('rosado', event)">Rosados</button>
-            <button class="filter-btn" onclick="window.filterWines('espumante', event)">Espumantes</button>
-            <button class="filter-btn" onclick="window.filterWines('oferta', event)">Ofertas</button>
+            <button class="filter-btn active" onclick="filterWines('all')">Todos</button>
+            <button class="filter-btn" onclick="filterWines('tinto')">Tintos</button>
+            <button class="filter-btn" onclick="filterWines('blanco')">Blancos</button>
+            <button class="filter-btn" onclick="filterWines('rosado')">Rosados</button>
+            <button class="filter-btn" onclick="filterWines('espumante')">Espumantes</button>
+            <button class="filter-btn" onclick="filterWines('oferta')">Ofertas</button>
         </div>
-        
-        <!-- Products Grid -->
-        <div class="container">
-            <div class="products-grid" id="productsGrid"></div>
-        </div>
+        <div class="products-grid" id="productsGrid"></div>
     </section>
 
-    <!-- Bodegas Showcase -->
-    <section class="section section--darker" id="bodegas-showcase">
-        <div class="section__header">
-            <span class="section__tag">Conoce a Nuestros Socios</span>
-            <h2 class="section__title">Nuestras Bodegas</h2>
-            <p class="section__description">Historias de familia, tradición y pasión por el vino en cada rincón de San Rafael</p>
+    <!-- MODAL FICHA DE PRODUCTO -->
+    <div class="product-modal" id="productModal">
+        <div class="product-modal-content">
+            <button class="product-modal-close" onclick="closeProductModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="product-modal-body">
+                <div class="product-modal-gallery" id="modalGallery">
+                    <i class="fas fa-wine-bottle"></i>
+                </div>
+                <div class="product-modal-info">
+                    <div class="product-modal-bodega" id="modalBodega"></div>
+                    <h2 class="product-modal-title" id="modalTitle"></h2>
+                    <span class="product-modal-year" id="modalYear"></span>
+                    <div class="product-modal-price" id="modalPrice"></div>
+
+                    <div class="product-modal-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Tipo</span>
+                            <span class="meta-value" id="modalType"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Cosecha</span>
+                            <span class="meta-value" id="modalHarvest"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Altura</span>
+                            <span class="meta-value" id="modalAltitude"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Guarda</span>
+                            <span class="meta-value" id="modalAging"></span>
+                        </div>
+                    </div>
+
+                    <div class="product-modal-section">
+                        <h4>Notas de Cata</h4>
+                        <p id="modalTastingNotes"></p>
+                    </div>
+
+                    <div class="product-modal-section">
+                        <h4>Maridajes Sugeridos</h4>
+                        <p id="modalPairings"></p>
+                    </div>
+
+                    <div class="product-modal-section">
+                        <h4>Información del Viñedo</h4>
+                        <p id="modalVineyard"></p>
+                    </div>
+
+                    <div class="product-modal-actions">
+                        <button class="btn-primary" id="modalAddToCart">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                        <button class="btn-favorite" id="modalFavorite" onclick="toggleFavorite()">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+
+                    <!-- Sistema de Reseñas -->
+                    <div class="reviews-section" id="reviewsSection">
+                        <div class="reviews-header">
+                            <h4>Reseñas de Clientes</h4>
+                            <div class="reviews-summary">
+                                <span class="rating-big" id="modalRating">4.8</span>
+                                <div>
+                                    <div class="stars-big" id="modalStars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span style="color: #888; font-size: 0.9rem;"><span id="reviewCount">12</span> reseñas</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="review-form" id="reviewForm" style="display: none;">
+                            <h4 style="color: var(--dorado); margin-bottom: 1rem;">Deja tu reseña</h4>
+                            <div class="star-rating-input" id="starRatingInput">
+                                <i class="far fa-star" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
+                            </div>
+                            <textarea class="search-input" id="reviewText" rows="3" placeholder="Comparte tu experiencia con este vino..."></textarea>
+                            <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="submitReview()">
+                                Publicar Reseña
+                            </button>
+                        </div>
+
+                        <div id="reviewsList"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="container">
-            <div class="bodegas-grid" id="bodegasGrid"></div>
+    </div>
+
+    <!-- NUESTRAS BODEGAS -->
+    <section class="bodegas-showcase" id="bodegas-showcase">
+        <div class="section-header">
+            <span class="section-tag">Conoce a Nuestros Socios</span>
+            <h2 class="section-title">Nuestras Bodegas</h2>
+            <p style="color: #888; max-width: 600px; margin: 2rem auto;">Historias de familia, tradición y pasión por el vino en cada rincón de San Rafael</p>
         </div>
+        <div class="bodegas-grid" id="bodegasGrid"></div>
     </section>
 
-    <!-- Offers -->
-    <section class="section offers" id="ofertas">
-        <div class="section__header">
-            <span class="section__tag">No te lo Pierdas</span>
-            <h2 class="section__title" style="color: var(--color-white);">Ofertas del Día</h2>
+    <!-- Ofertas del Día -->
+    <section class="offers" id="ofertas">
+        <div class="section-header">
+            <span class="section-tag">No te lo Pierdas</span>
+            <h2 class="section-title" style="color: var(--blanco);">Ofertas del Día</h2>
             <p style="color: #ccc; margin-top: 1rem;">Descuentos exclusivos en vinos seleccionados de nuestras bodegas asociadas</p>
         </div>
-        
         <div class="countdown-container">
             <div class="countdown-item">
                 <span class="countdown-number" id="hours">12</span>
@@ -210,145 +859,115 @@
                 <div class="countdown-label">Segundos</div>
             </div>
         </div>
-        
         <div style="text-align: center; margin-top: 3rem;">
-            <a href="#catalogo" class="btn btn--primary">Ver Ofertas</a>
+            <a href="#catalogo" class="btn-primary">Ver Ofertas</a>
         </div>
     </section>
 
     <!-- Wine Matcher -->
-    <section class="section section--gray" id="matcher">
-        <div class="section__header">
-            <span class="section__tag">Encuentra tu Vino Ideal</span>
-            <h2 class="section__title">Wine Matcher</h2>
-            <p class="section__description">Responde 3 preguntas simples y te recomendamos el vino perfecto</p>
+    <section class="wine-matcher" id="matcher">
+        <div class="section-header">
+            <span class="section-tag">Encuentra tu Vino Ideal</span>
+            <h2 class="section-title">Wine Matcher</h2>
+            <p style="color: #888; margin-top: 1rem;">Responde 3 preguntas simples y te recomendamos el vino perfecto</p>
         </div>
-        
-        <div class="matcher-container container-narrow">
+        <div class="matcher-container">
             <div id="question1" class="question">
                 <h3>¿Qué tipo de comida vas a acompañar?</h3>
                 <div class="options">
-                    <button class="option-btn" onclick="window.selectOption(1, 'carne')">
+                    <button class="option-btn" onclick="selectOption(1, 'carne')">
                         <i class="fas fa-drumstick-bite"></i>Carnes Rojas
                     </button>
-                    <button class="option-btn" onclick="window.selectOption(1, 'pescado')">
+                    <button class="option-btn" onclick="selectOption(1, 'pescado')">
                         <i class="fas fa-fish"></i>Pescado/Mariscos
                     </button>
-                    <button class="option-btn" onclick="window.selectOption(1, 'pasta')">
+                    <button class="option-btn" onclick="selectOption(1, 'pasta')">
                         <i class="fas fa-utensils"></i>Pastas/Pizza
                     </button>
-                    <button class="option-btn" onclick="window.selectOption(1, 'postre')">
+                    <button class="option-btn" onclick="selectOption(1, 'postre')">
                         <i class="fas fa-ice-cream"></i>Postres
                     </button>
                 </div>
             </div>
-            
             <div id="question2" class="question" style="display: none;">
                 <h3>¿Qué preferencia de sabor tenés?</h3>
                 <div class="options">
-                    <button class="option-btn" onclick="window.selectOption(2, 'seco')">
+                    <button class="option-btn" onclick="selectOption(2, 'seco')">
                         <i class="fas fa-wine-glass"></i>Seco y Estructurado
                     </button>
-                    <button class="option-btn" onclick="window.selectOption(2, 'frutal')">
+                    <button class="option-btn" onclick="selectOption(2, 'frutal')">
                         <i class="fas fa-apple-alt"></i>Frutal y Suave
                     </button>
-                    <button class="option-btn" onclick="window.selectOption(2, 'dulce')">
+                    <button class="option-btn" onclick="selectOption(2, 'dulce')">
                         <i class="fas fa-candy-cane"></i>Dulce o Semi
                     </button>
                 </div>
             </div>
-            
             <div id="question3" class="question" style="display: none;">
                 <h3>¿Cuál es tu rango de precio?</h3>
                 <div class="options">
-                    <button class="option-btn" onclick="window.selectOption(3, 'economico')">
+                    <button class="option-btn" onclick="selectOption(3, 'economico')">
                         <i class="fas fa-coins"></i>Hasta $3000
                     </button>
-                    <button class="option-btn" onclick="window.selectOption(3, 'medio')">
+                    <button class="option-btn" onclick="selectOption(3, 'medio')">
                         <i class="fas fa-money-bill-wave"></i>$3000 - $6000
                     </button>
-                    <button class="option-btn" onclick="window.selectOption(3, 'premium')">
+                    <button class="option-btn" onclick="selectOption(3, 'premium')">
                         <i class="fas fa-gem"></i>Más de $6000
                     </button>
                 </div>
             </div>
-            
             <div id="matcherResult" class="matcher-result">
-                <h3 style="color: var(--color-gold); margin-bottom: 1rem;">¡Tu vino ideal es:</h3>
+                <h3 style="color: var(--dorado); margin-bottom: 1rem;">¡Tu vino ideal es:</h3>
                 <div id="resultContent"></div>
-                <button class="btn btn--primary" onclick="window.resetMatcher()" style="margin-top: 1.5rem;">Volver a Empezar</button>
+                <button class="btn-primary" onclick="resetMatcher()" style="margin-top: 1.5rem;">Volver a Empezar</button>
             </div>
         </div>
     </section>
 
-    <!-- Routes -->
-    <section class="section section--darker" id="rutas">
-        <div class="section__header">
-            <span class="section__tag">Explora San Rafael</span>
-            <h2 class="section__title">Rutas del Vino</h2>
-            <p class="section__description">Descubre las bodegas ubicadas en los mejores terroirs de San Rafael</p>
+    <!-- Rutas del Vino - MAPA REAL -->
+    <section class="routes" id="rutas">
+        <div class="section-header">
+            <span class="section-tag">Explora San Rafael</span>
+            <h2 class="section-title">Rutas del Vino</h2>
+            <p style="color: #888; margin-top: 1rem;">Ubicamos a todas las bodegas socias en un mapa interactivo, para que los turistas planifiquen su ruta y los visiten</p>
         </div>
-        
-        <div class="container">
-            <div class="map-container" id="mapContainer">
-                <div class="map-placeholder">
-                    <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=1200&h=600&fit=crop" alt="Mapa Rutas del Vino San Rafael" id="mapImage">
-                    <div class="map-placeholder-content">
-                        <i class="fas fa-map-marked-alt"></i>
-                        <h3>Rutas del Vino - San Rafael</h3>
-                        <p>Explora las bodegas asociadas ubicadas en los mejores terroirs de nuestra región</p>
-                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
-                            <span style="background: rgba(212,175,55,0.2); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">
-                                <i class="fas fa-wine-bottle" style="margin-right: 0.5rem;"></i>12 Bodegas Asociadas
-                            </span>
-                            <span style="background: rgba(212,175,55,0.2); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem;">
-                                <i class="fas fa-route" style="margin-right: 0.5rem;"></i>3 Circuitos Principales
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="map-container" id="mapContainer"></div>
     </section>
 
-    <!-- Tours -->
-    <section class="section section--dark" id="recorridos">
-        <div class="section__header">
-            <span class="section__tag">Experiencias Únicas</span>
-            <h2 class="section__title">Recorridos del Vino</h2>
-            <p class="section__description">Vive la experiencia completa en las mejores bodegas de San Rafael</p>
+    <!-- Recorridos y Experiencias -->
+    <section class="tours" id="recorridos">
+        <div class="section-header">
+            <span class="section-tag">Experiencias Únicas</span>
+            <h2 class="section-title">Recorridos del Vino</h2>
+            <p style="color: #888; margin-top: 1rem;">Vive la experiencia completa en las mejores bodegas de San Rafael</p>
         </div>
-        
-        <div class="container">
-            <div class="tours-grid" id="toursGrid"></div>
-        </div>
+        <div class="tours-grid" id="toursGrid"></div>
     </section>
 
-    <!-- Club -->
-    <section class="section club" id="club">
-        <div class="section__header">
-            <span class="section__tag">Únete al Club</span>
-            <h2 class="section__title">Club de la Bodega</h2>
-            <p class="section__description">Recibe mensualmente una selección curada de los mejores vinos de San Rafael</p>
+    <!-- Club de Suscripción -->
+    <section class="club" id="club">
+        <div class="section-header">
+            <span class="section-tag">Únete al Club</span>
+            <h2 class="section-title">Club de la Bodega</h2>
+            <p style="color: #888; margin-top: 1rem;">Recibe mensualmente una selección curada de los mejores vinos de San Rafael</p>
         </div>
-        
-        <div class="pricing-grid container">
+        <div class="pricing-grid">
             <div class="pricing-card">
-                <h3 class="pricing-card__name">Descubrimiento</h3>
-                <div class="pricing-card__price">$6.900<span>/mes</span></div>
-                <ul class="pricing-card__features">
+                <h3 class="pricing-name">Descubrimiento</h3>
+                <div class="pricing-price">$6.900<span>/mes</span></div>
+                <ul class="pricing-features">
                     <li><i class="fas fa-wine-bottle"></i> 2 botellas seleccionadas</li>
                     <li><i class="fas fa-book"></i> Ficha de cata de cada vino</li>
                     <li><i class="fas fa-truck"></i> Envío incluido</li>
                     <li><i class="fas fa-percent"></i> 10% off en compras adicionales</li>
                 </ul>
-                <button class="btn btn--reserve" onclick="window.subscribe('descubrimiento')">Suscribirme</button>
+                <button class="btn-reserve" onclick="subscribe('descubrimiento')">Suscribirme</button>
             </div>
-            
-            <div class="pricing-card pricing-card--featured">
-                <h3 class="pricing-card__name">Experto</h3>
-                <div class="pricing-card__price">$12.500<span>/mes</span></div>
-                <ul class="pricing-card__features">
+            <div class="pricing-card featured">
+                <h3 class="pricing-name">Experto</h3>
+                <div class="pricing-price">$12.500<span>/mes</span></div>
+                <ul class="pricing-features">
                     <li><i class="fas fa-wine-bottle"></i> 4 botellas premium</li>
                     <li><i class="fas fa-book"></i> Notas de cata detalladas</li>
                     <li><i class="fas fa-gift"></i> Snacks maridados incluidos</li>
@@ -356,110 +975,103 @@
                     <li><i class="fas fa-percent"></i> 20% off en compras</li>
                     <li><i class="fas fa-ticket-alt"></i> 1 recorrido gratis al año</li>
                 </ul>
-                <button class="btn btn--reserve" onclick="window.subscribe('experto')">Suscribirme</button>
+                <button class="btn-reserve" onclick="subscribe('experto')">Suscribirme</button>
             </div>
-            
             <div class="pricing-card">
-                <h3 class="pricing-card__name">Coleccionista</h3>
-                <div class="pricing-card__price">$24.900<span>/mes</span></div>
-                <ul class="pricing-card__features">
+                <h3 class="pricing-name">Coleccionista</h3>
+                <div class="pricing-price">$24.900<span>/mes</span></div>
+                <ul class="pricing-features">
                     <li><i class="fas fa-wine-bottle"></i> 6 botellas (incluye guarda)</li>
                     <li><i class="fas fa-book"></i> Guía de inversión en vinos</li>
                     <li><i class="fas fa-user-tie"></i> Asesoría personalizada</li>
                     <li><i class="fas fa-glass-cheers"></i> Eventos exclusivos</li>
                     <li><i class="fas fa-percent"></i> 30% off en compras</li>
                 </ul>
-                <button class="btn btn--reserve" onclick="window.subscribe('coleccionista')">Suscribirme</button>
+                <button class="btn-reserve" onclick="subscribe('coleccionista')">Suscribirme</button>
             </div>
         </div>
     </section>
 
     <!-- Blog -->
-    <section class="section section--darker" id="blog">
-        <div class="section__header">
-            <span class="section__tag">Conocimiento</span>
-            <h2 class="section__title">Notas de Cata</h2>
+    <section class="blog" id="blog">
+        <div class="section-header">
+            <span class="section-tag">Conocimiento</span>
+            <h2 class="section-title">Notas de Cata</h2>
         </div>
-        
-        <div class="container">
-            <div class="blog-grid">
-                <article class="blog-card" onclick="window.openBlogModal('maridaje')">
-                    <div class="blog-image">
-                        <span class="blog-category">Maridaje</span>
-                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop" alt="Maridajes">
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">12 Marzo 2026</span>
-                        <h3 class="blog-title">Maridajes Perfectos para Carnes Asadas</h3>
-                        <p class="blog-excerpt">Descubre qué vinos de San Rafael acompañan mejor un buen asado argentino.</p>
-                        <span class="read-more">Leer más <i class="fas fa-arrow-right"></i></span>
-                    </div>
-                </article>
-                
-                <article class="blog-card" onclick="window.openBlogModal('historia')">
-                    <div class="blog-image">
-                        <span class="blog-category">Historia</span>
-                        <img src="https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?w=600&h=400&fit=crop" alt="Historia del vino">
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">8 Marzo 2026</span>
-                        <h3 class="blog-title">La Historia del Vino en San Rafael</h3>
-                        <p class="blog-excerpt">Desde los primeros inmigrantes italianos hasta la actualidad.</p>
-                        <span class="read-more">Leer más <i class="fas fa-arrow-right"></i></span>
-                    </div>
-                </article>
-                
-                <article class="blog-card" onclick="window.openBlogModal('cata')">
-                    <div class="blog-image">
-                        <span class="blog-category">Cata</span>
-                        <img src="https://images.unsplash.com/photo-1470158499416-75be9aa0c4db?w=600&h=400&fit=crop" alt="Cata de vinos">
-                    </div>
-                    <div class="blog-content">
-                        <span class="blog-date">1 Marzo 2026</span>
-                        <h3 class="blog-title">Guía para Principiantes: Cata como un Sommelier</h3>
-                        <p class="blog-excerpt">Aprende las técnicas básicas para evaluar un vino: vista, nariz y boca.</p>
-                        <span class="read-more">Leer más <i class="fas fa-arrow-right"></i></span>
-                    </div>
-                </article>
-            </div>
+        <div class="blog-grid">
+            <article class="blog-card">
+                <div class="blog-image">
+                    <span class="blog-category">Maridaje</span>
+                    <i class="fas fa-wine-glass-alt"></i>
+                </div>
+                <div class="blog-content">
+                    <span class="blog-date">12 Marzo 2026</span>
+                    <h3 class="blog-title">Maridajes Perfectos para Carnes Asadas</h3>
+                    <p class="blog-excerpt">Descubre qué vinos de San Rafael acompañan mejor un buen asado argentino, desde Malbec robustos hasta blends elegantes.</p>
+                    <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            <article class="blog-card">
+                <div class="blog-image">
+                    <span class="blog-category">Historia</span>
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div class="blog-content">
+                    <span class="blog-date">8 Marzo 2026</span>
+                    <h3 class="blog-title">La Historia del Vino en San Rafael</h3>
+                    <p class="blog-excerpt">Desde los primeros inmigrantes italianos hasta la actualidad, conoce cómo se formó esta región vitivinícola de renombre.</p>
+                    <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            <article class="blog-card">
+                <div class="blog-image">
+                    <span class="blog-category">Cata</span>
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="blog-content">
+                    <span class="blog-date">1 Marzo 2026</span>
+                    <h3 class="blog-title">Guía para Principiantes: Cata como un Sommelier</h3>
+                    <p class="blog-excerpt">Aprende las técnicas básicas para evaluar un vino: vista, nariz y boca. Todo lo que necesitas saber para tu próxima degustación.</p>
+                    <a href="#" class="read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
         </div>
     </section>
 
-    <!-- Partners Form -->
-    <section class="section section--dark" id="bodegas">
-        <div class="section__header">
-            <span class="section__tag">Colabora con Nosotros</span>
-            <h2 class="section__title">¿Tenés una Bodega?</h2>
-            <p class="section__description">Únete a nuestra plataforma y llega a miles de amantes del vino. Sin costo de suscripción.</p>
+    <!-- Formulario para Bodegas -->
+    <section class="partners" id="bodegas">
+        <div class="section-header">
+            <span class="section-tag">Colabora con Nosotros</span>
+            <h2 class="section-title">¿Tenés una Bodega?</h2>
+            <p style="color: #888; margin-top: 1rem;">Únete a nuestra plataforma y llega a miles de amantes del vino. Sin costo de suscripción.</p>
         </div>
-        
-        <div class="form-container container-narrow">
-            <form id="bodegaForm" onsubmit="window.submitForm(event)">
-                <div class="form-grid">
+        <div class="form-container">
+            <form id="bodegaForm" onsubmit="submitForm(event)">
+                <div class="form-row">
                     <div class="form-group">
                         <label>Nombre de la Bodega</label>
-                        <input type="text" required placeholder="Ej: Bodega Los Toneles" maxlength="100">
+                        <input type="text" required placeholder="Ej: Bodega Los Toneles">
                     </div>
                     <div class="form-group">
                         <label>Nombre del Contacto</label>
-                        <input type="text" required placeholder="Nombre completo" maxlength="100">
+                        <input type="text" required placeholder="Nombre completo">
                     </div>
                 </div>
-                <div class="form-grid">
+                <div class="form-row">
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" required placeholder="contacto@bodega.com" maxlength="100">
+                        <input type="email" required placeholder="contacto@bodega.com">
                     </div>
                     <div class="form-group">
                         <label>Teléfono</label>
-                        <input type="tel" required placeholder="+54 260..." maxlength="20">
+                        <input type="tel" required placeholder="+54 260...">
                     </div>
                 </div>
-                <div class="form-group full-width">
+                <div class="form-group">
                     <label>Dirección de la Bodega</label>
-                    <input type="text" required placeholder="San Rafael, Mendoza" maxlength="200">
+                    <input type="text" required placeholder="San Rafael, Mendoza">
                 </div>
-                <div class="form-grid">
+                <div class="form-row">
                     <div class="form-group">
                         <label>Cantidad de variedades</label>
                         <select required>
@@ -479,30 +1091,29 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group full-width">
+                <div class="form-group">
                     <label>Mensaje (opcional)</label>
-                    <textarea rows="4" placeholder="Contanos más sobre tu bodega..." maxlength="500"></textarea>
+                    <textarea rows="4" placeholder="Contanos más sobre tu bodega..."></textarea>
                 </div>
-                <button type="submit" class="btn btn--submit">Enviar Solicitud</button>
+                <button type="submit" class="btn-submit">Enviar Solicitud</button>
             </form>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer__content">
-            <div class="footer__section">
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
                 <h4>Club de la Bodega</h4>
-                <p>Conectando las mejores bodegas de San Rafael con amantes del vino desde 2024.</p>
-                <div class="footer__social">
-                    <a href="#" class="footer__social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="footer__social-link"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="footer__social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="footer__social-link"><i class="fab fa-youtube"></i></a>
+                <p>Conectando las mejores bodegas de San Rafael con amantes del vino desde 2024. Una plataforma diseñada para potenciar la vitivinicultura regional.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-            
-            <div class="footer__section">
+            <div class="footer-section">
                 <h4>Enlaces Rápidos</h4>
                 <ul>
                     <li><a href="#catalogo">Catálogo de Vinos</a></li>
@@ -510,10 +1121,10 @@
                     <li><a href="#recorridos">Recorridos</a></li>
                     <li><a href="#rutas">Rutas del Vino</a></li>
                     <li><a href="#club">Club de Suscripción</a></li>
+                    <li><a href="#blog">Blog</a></li>
                 </ul>
             </div>
-            
-            <div class="footer__section">
+            <div class="footer-section">
                 <h4>Ayuda</h4>
                 <ul>
                     <li><a href="#">Preguntas Frecuentes</a></li>
@@ -522,342 +1133,1416 @@
                     <li><a href="#">Contacto</a></li>
                 </ul>
             </div>
-            
-            <div class="footer__section">
+            <div class="footer-section">
                 <h4>Contacto</h4>
-                <p><i class="fas fa-map-marker-alt" style="color: var(--color-gold); margin-right: 0.5rem;"></i> San Rafael, Mendoza, Argentina</p>
-                <p><i class="fas fa-phone" style="color: var(--color-gold); margin-right: 0.5rem;"></i> 2604323056</p>
-                <p><i class="fas fa-envelope" style="color: var(--color-gold); margin-right: 0.5rem;"></i> FranYTTT@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt" style="color: var(--dorado); margin-right: 0.5rem;"></i> San Rafael, Mendoza, Argentina</p>
+                <p><i class="fas fa-phone" style="color: var(--dorado); margin-right: 0.5rem;"></i> +54 260 444-4444</p>
+                <p><i class="fas fa-envelope" style="color: var(--dorado); margin-right: 0.5rem;"></i> hola@clubdelabodega.com</p>
             </div>
         </div>
-        
-        <div class="footer__bottom">
-            <p>&copy; 2026 Club de la Bodega. Todos los derechos reservados. | Hecho con <i class="fas fa-heart" style="color: var(--color-gold);"></i> en San Rafael</p>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Club de la Bodega. Todos los derechos reservados. | Hecho con <i class="fas fa-heart" style="color: var(--dorado);"></i> en San Rafael</p>
         </div>
     </footer>
 
-    <!-- Cart Modal -->
-    <div class="modal-overlay cart-modal" id="cartModal">
-        <div class="modal-container">
-            <div class="cart-modal__header">
-                <h3 class="cart-modal__title">Tu Carrito</h3>
-                <button class="modal__close" onclick="window.toggleCart()">
+    <!-- Modal Carrito -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tu Carrito</h3>
+                <button class="close-modal" onclick="toggleCart()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="modal__body" id="cartBody">
+            <div class="modal-body" id="cartBody">
                 <div id="cartItems"></div>
                 <div class="cart-total">
                     <span>Total:</span>
-                    <span id="cartTotal" style="color: var(--color-gold); font-weight: 700;">$0</span>
+                    <span id="cartTotal" style="color: var(--dorado); font-weight: 700;">$0</span>
                 </div>
                 
-                <div class="form-group--checkbox" style="margin-top: 1rem; background: rgba(212,175,55,0.05); padding: 1rem; border-radius: 8px;">
+                <!-- Verificación de edad en checkout -->
+                <div class="age-checkbox-group" style="margin-top: 1rem; background: transparent; padding: 0;">
                     <input type="checkbox" id="checkoutAgeConfirm" required>
-                    <label for="checkoutAgeConfirm" style="font-size: 0.85rem; color: #aaa;">
+                    <label for="checkoutAgeConfirm" style="font-size: 0.8rem;">
                         Confirmo que soy mayor de 18 años y acepto los términos de compra de bebidas alcohólicas
                     </label>
                 </div>
                 
-                <button class="btn btn--checkout" id="btnCheckout" onclick="window.proceedToCheckout()" disabled>
-                    Proceder al Pago
+                <button class="btn-checkout" onclick="proceedToCheckout()">Proceder al Pago</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL DE ADMINISTRACIÓN CON ROLES -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <div class="admin-title">
+                <i class="fas fa-wine-bottle"></i> 
+                <span id="adminPanelTitle">Panel de Administración</span>
+            </div>
+            <div class="admin-user-info">
+                <span id="adminUserName">Usuario</span>
+                <span class="admin-role-badge" id="adminRoleBadge">ROL</span>
+                <button onclick="logout()" style="background: transparent; border: 1px solid var(--rojo); color: var(--rojo); padding: 0.3rem 0.8rem; cursor: pointer; font-size: 0.8rem;">Salir</button>
+            </div>
+        </div>
+
+        <div class="admin-nav" id="adminNav">
+            <!-- Se genera dinámicamente según el rol -->
+        </div>
+
+        <div class="admin-content" id="adminContent">
+            <!-- Contenido dinámico según rol -->
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // SISTEMA DE SEGURIDAD Y AUTENTICACIÓN
+        // ==========================================
+
+        // Contraseña maestra hasheada (en producción usar bcrypt)
+        // "SigloTinto2024!" -> SHA256 simplificado para demo
+        const MASTER_PASSWORD_HASH = btoa("SigloTinto2024!");
+        
+        // Estructura de usuarios
+        let users = JSON.parse(localStorage.getItem('cb_users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('cb_currentUser')) || null;
+        let sessionToken = localStorage.getItem('cb_sessionToken') || null;
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAgeVerification();
+            initAuth();
+            renderBodegas();
+            renderProducts();
+            renderRecorridos();
+            renderMap();
+            updateSearchOptions();
+            updateCountdown();
+        });
+
+        // ==========================================
+        // VERIFICACIÓN DE EDAD
+        // ==========================================
+        
+        function checkAgeVerification() {
+            const ageVerified = localStorage.getItem('cb_ageVerified');
+            const ageVerification = document.getElementById('ageVerification');
+            
+            if (ageVerified === 'true') {
+                ageVerification.classList.remove('active');
+            } else {
+                ageVerification.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function toggleAgeButton() {
+            const checkbox = document.getElementById('ageConfirm');
+            const btn = document.getElementById('btnAgeYes');
+            btn.disabled = !checkbox.checked;
+        }
+
+        function verifyAge(isAdult) {
+            if (isAdult) {
+                const checkbox = document.getElementById('ageConfirm');
+                if (!checkbox.checked) {
+                    alert('Debes aceptar los términos y condiciones');
+                    return;
+                }
+                localStorage.setItem('cb_ageVerified', 'true');
+                document.getElementById('ageVerification').classList.remove('active');
+                document.body.style.overflow = '';
+            } else {
+                window.location.href = 'https://www.google.com';
+            }
+        }
+
+        // ==========================================
+        // SISTEMA DE AUTENTICACIÓN
+        // ==========================================
+
+        function initAuth() {
+            updateUserButton();
+            
+            // Verificar sesión activa
+            if (currentUser && sessionToken) {
+                validateSession();
+            }
+        }
+
+        function openAuthModal() {
+            if (currentUser) {
+                // Si ya está logueado, mostrar menú de usuario o ir a admin
+                if (currentUser.role === 'superadmin' || currentUser.role === 'bodega') {
+                    openAdminPanel();
+                } else {
+                    if (confirm(`Hola ${currentUser.name}\n\n¿Deseas cerrar sesión?`)) {
+                        logout();
+                    }
+                }
+            } else {
+                document.getElementById('authModal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+            document.body.style.overflow = '';
+            // Resetear formularios
+            document.getElementById('loginForm').reset();
+            document.getElementById('registerForm').reset();
+            clearErrors();
+        }
+
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab === 'login' ? 'loginForm' : 
+                                   tab === 'register' ? 'registerForm' : 'forgotForm').classList.add('active');
+            
+            document.getElementById('authSubtitle').textContent = 
+                tab === 'login' ? 'Inicia sesión en tu cuenta' : 
+                tab === 'register' ? 'Crea tu cuenta gratuita' : 'Recupera tu contraseña';
+        }
+
+        function selectRole(role) {
+            document.querySelectorAll('.role-option').forEach(r => r.classList.remove('selected'));
+            document.getElementById('role' + role.charAt(0).toUpperCase() + role.slice(1)).classList.add('selected');
+            document.getElementById('selectedRole').value = role;
+            
+            const bodegaFields = document.getElementById('bodegaFields');
+            if (role === 'bodega') {
+                bodegaFields.classList.add('active');
+                document.getElementById('regAddress').required = true;
+                document.getElementById('regYear').required = true;
+            } else {
+                bodegaFields.classList.remove('active');
+                document.getElementById('regAddress').required = false;
+                document.getElementById('regYear').required = false;
+            }
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error-message').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('input').forEach(i => i.classList.remove('error'));
+        }
+
+        function showError(fieldId, message) {
+            const errorEl = document.getElementById(fieldId + 'Error');
+            const field = document.getElementById(fieldId);
+            if (errorEl) {
+                errorEl.textContent = message;
+                errorEl.classList.add('show');
+            }
+            if (field) field.classList.add('error');
+        }
+
+        // LOGIN
+        function handleLogin(e) {
+            e.preventDefault();
+            clearErrors();
+            
+            const email = document.getElementById('loginEmail').value.toLowerCase().trim();
+            const password = document.getElementById('loginPassword').value;
+            const remember = document.getElementById('rememberMe').checked;
+
+            // Verificar super admin
+            if (email === 'admin@clubdelabodega.com') {
+                if (btoa(password) === MASTER_PASSWORD_HASH) {
+                    createSession({
+                        id: 'superadmin',
+                        name: 'Super Administrador',
+                        email: email,
+                        role: 'superadmin',
+                        createdAt: new Date().toISOString()
+                    }, remember);
+                    closeAuthModal();
+                    openAdminPanel();
+                    return;
+                } else {
+                    showError('loginPassword', 'Contraseña de administrador incorrecta');
+                    return;
+                }
+            }
+
+            // Buscar usuario regular
+            const user = users.find(u => u.email === email);
+            if (!user) {
+                showError('loginEmail', 'Email no registrado');
+                return;
+            }
+
+            if (user.password !== btoa(password)) {
+                showError('loginPassword', 'Contraseña incorrecta');
+                return;
+            }
+
+            if (!user.active) {
+                alert('Tu cuenta está pendiente de aprobación. Te contactaremos pronto.');
+                return;
+            }
+
+            createSession(user, remember);
+            closeAuthModal();
+            
+            if (user.role === 'bodega') {
+                openAdminPanel();
+            } else {
+                updateUserButton();
+                alert('¡Bienvenido de vuelta, ' + user.name + '!');
+            }
+        }
+
+        // REGISTRO
+        function handleRegister(e) {
+            e.preventDefault();
+            clearErrors();
+
+            const role = document.getElementById('selectedRole').value;
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.toLowerCase().trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+
+            // Validaciones
+            if (users.some(u => u.email === email)) {
+                showError('regEmail', 'Este email ya está registrado');
+                return;
+            }
+
+            if (password !== passwordConfirm) {
+                showError('regPassword', 'Las contraseñas no coinciden');
+                return;
+            }
+
+            if (password.length < 8) {
+                showError('regPassword', 'La contraseña debe tener al menos 8 caracteres');
+                return;
+            }
+
+            const newUser = {
+                id: Date.now().toString(),
+                name: name,
+                email: email,
+                phone: phone,
+                password: btoa(password), // En producción: hash real
+                role: role,
+                active: role === 'cliente', // Bodegas necesitan aprobación
+                createdAt: new Date().toISOString(),
+                // Datos específicos de bodega
+                bodegaData: role === 'bodega' ? {
+                    address: document.getElementById('regAddress').value,
+                    year: document.getElementById('regYear').value,
+                    description: document.getElementById('regDescription').value,
+                    approved: false
+                } : null
+            };
+
+            users.push(newUser);
+            localStorage.setItem('cb_users', JSON.stringify(users));
+
+            if (role === 'bodega') {
+                alert('¡Solicitud enviada! Revisaremos tu información y te contactaremos en 24-48 horas para activar tu cuenta.');
+                closeAuthModal();
+            } else {
+                createSession(newUser, false);
+                closeAuthModal();
+                updateUserButton();
+                alert('¡Cuenta creada exitosamente! Bienvenido, ' + name);
+            }
+        }
+
+        function handleForgotPassword(e) {
+            e.preventDefault();
+            const email = document.getElementById('forgotEmail').value;
+            alert('Si existe una cuenta con ' + email + ', recibirás instrucciones para restablecer tu contraseña.');
+            switchAuthTab('login');
+        }
+
+        function createSession(user, remember) {
+            currentUser = user;
+            const token = btoa(user.id + Date.now() + Math.random());
+            sessionToken = token;
+            
+            const storage = remember ? localStorage : sessionStorage;
+            storage.setItem('cb_currentUser', JSON.stringify(user));
+            storage.setItem('cb_sessionToken', token);
+        }
+
+        function validateSession() {
+            // En producción: validar contra servidor
+            // Por ahora solo verificamos que exista
+            if (!currentUser || !sessionToken) {
+                logout();
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            sessionToken = null;
+            localStorage.removeItem('cb_currentUser');
+            localStorage.removeItem('cb_sessionToken');
+            sessionStorage.removeItem('cb_currentUser');
+            sessionStorage.removeItem('cb_sessionToken');
+            
+            document.getElementById('adminPanel').classList.remove('active');
+            updateUserButton();
+        }
+
+        function updateUserButton() {
+            const btn = document.getElementById('userBtn');
+            if (currentUser) {
+                btn.textContent = currentUser.name.split(' ')[0];
+                if (currentUser.role === 'superadmin' || currentUser.role === 'bodega') {
+                    btn.innerHTML = '<i class="fas fa-cog"></i> ' + btn.textContent;
+                }
+            } else {
+                btn.textContent = 'Iniciar Sesión';
+            }
+        }
+
+        // ==========================================
+        // PANEL DE ADMINISTRACIÓN POR ROLES
+        // ==========================================
+
+        function openAdminPanel() {
+            if (!currentUser) return;
+            
+            document.getElementById('adminPanel').classList.add('active');
+            document.getElementById('adminUserName').textContent = currentUser.name;
+            document.getElementById('adminRoleBadge').textContent = 
+                currentUser.role === 'superadmin' ? 'SUPER ADMIN' : 
+                currentUser.role === 'bodega' ? 'BODEGA' : 'USUARIO';
+            
+            renderAdminNav();
+            showAdminSection('dashboard');
+        }
+
+        function renderAdminNav() {
+            const nav = document.getElementById('adminNav');
+            const isSuper = currentUser.role === 'superadmin';
+            const isBodega = currentUser.role === 'bodega';
+            
+            let buttons = [];
+            
+            if (isSuper) {
+                buttons = [
+                    { id: 'dashboard', label: 'Dashboard', icon: 'fa-chart-line' },
+                    { id: 'bodegas', label: 'Bodegas', icon: 'fa-store' },
+                    { id: 'vinos', label: 'Todos los Vinos', icon: 'fa-wine-bottle' },
+                    { id: 'recorridos', label: 'Recorridos', icon: 'fa-route' },
+                    { id: 'pedidos', label: 'Pedidos', icon: 'fa-shopping-bag' },
+                    { id: 'cupones', label: 'Cupones', icon: 'fa-ticket-alt' },
+                    { id: 'usuarios', label: 'Usuarios', icon: 'fa-users' },
+                    { id: 'mapa', label: 'Configurar Mapa', icon: 'fa-map' }
+                ];
+            } else if (isBodega) {
+                buttons = [
+                    { id: 'dashboard', label: 'Mis Estadísticas', icon: 'fa-chart-line' },
+                    { id: 'mis-vinos', label: 'Mis Vinos', icon: 'fa-wine-bottle' },
+                    { id: 'mis-recorridos', label: 'Mis Recorridos', icon: 'fa-route' },
+                    { id: 'mis-pedidos', label: 'Mis Pedidos', icon: 'fa-shopping-bag' },
+                    { id: 'mi-perfil', label: 'Mi Perfil', icon: 'fa-user' }
+                ];
+            }
+            
+            nav.innerHTML = buttons.map(b => `
+                <button onclick="showAdminSection('${b.id}')" id="nav-${b.id}">
+                    <i class="fas ${b.icon}"></i> ${b.label}
                 </button>
-            </div>
-        </div>
-    </div>
+            `).join('');
+        }
 
-    <!-- Product Modal -->
-    <div class="modal-overlay product-modal" id="productModal">
-        <div class="modal-container">
-            <button class="modal__close" onclick="window.closeProductModal()">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="product-modal__body">
-                <div class="product-modal__gallery" id="modalGallery">
-                    <i class="fas fa-wine-bottle product-modal__gallery-placeholder"></i>
-                </div>
-                <div class="product-modal__info">
-                    <div class="product-modal__bodega" id="modalBodega"></div>
-                    <h2 class="product-modal__title" id="modalTitle"></h2>
-                    <span class="product-modal__year" id="modalYear"></span>
-                    <div class="product-modal__price" id="modalPrice"></div>
-                    
-                    <div class="product-modal__meta">
-                        <div class="meta-item">
-                            <span class="meta-item__label">Tipo</span>
-                            <span class="meta-item__value" id="modalType"></span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-item__label">Cosecha</span>
-                            <span class="meta-item__value" id="modalHarvest"></span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-item__label">Altura</span>
-                            <span class="meta-item__value" id="modalAltitude">No especificado</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-item__label">Guarda</span>
-                            <span class="meta-item__value" id="modalAging">No especificado</span>
-                        </div>
-                    </div>
-                    
-                    <div class="product-modal__section">
-                        <h4>Notas de Cata</h4>
-                        <p id="modalTastingNotes">No disponible</p>
-                    </div>
-                    
-                    <div class="product-modal__section">
-                        <h4>Maridajes Sugeridos</h4>
-                        <p id="modalPairings">No especificado</p>
-                    </div>
-                    
-                    <div class="product-modal__actions">
-                        <button class="btn btn--primary" id="modalAddToCart">
-                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
-                        </button>
-                        <button class="btn btn--favorite" id="modalFavorite" onclick="window.toggleFavorite()">
-                            <i class="far fa-heart"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        function showAdminSection(section) {
+            // Actualizar navegación activa
+            document.querySelectorAll('.admin-nav button').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById('nav-' + section);
+            if (activeBtn) activeBtn.classList.add('active');
+            
+            const content = document.getElementById('adminContent');
+            
+            // Renderizar contenido según sección y rol
+            if (currentUser.role === 'superadmin') {
+                renderSuperAdminSection(section, content);
+            } else if (currentUser.role === 'bodega') {
+                renderBodegaAdminSection(section, content);
+            }
+        }
 
-    <!-- Blog Modal -->
-    <div class="modal-overlay blog-modal" id="blogModal">
-        <div class="modal-container">
-            <button class="modal__close" onclick="window.closeBlogModal()">
-                <i class="fas fa-times"></i>
-            </button>
-            <img class="blog-modal__image" id="blogModalImage" src="" alt="">
-            <div class="blog-modal__body">
-                <span class="blog-modal__category" id="blogModalCategory"></span>
-                <h2 class="blog-modal__title" id="blogModalTitle"></h2>
-                <span class="blog-modal__date" id="blogModalDate"></span>
-                <div class="blog-modal__content" id="blogModalText"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Auth Modal -->
-    <div class="modal-overlay auth-modal" id="authModal">
-        <div class="modal-container">
-            <button class="modal__close" onclick="window.closeAuthModal()" title="Cerrar">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <div class="modal__header">
-                <h2 class="modal__title">Club de la Bodega</h2>
-                <p class="modal__subtitle" id="authSubtitle">Inicia sesión en tu cuenta</p>
-            </div>
-            
-            <div class="auth-tabs">
-                <button class="auth-tabs__btn active" onclick="window.switchAuthTab('login', event)">Iniciar Sesión</button>
-                <button class="auth-tabs__btn" onclick="window.switchAuthTab('register', event)">Crear Cuenta</button>
-            </div>
-            
-            <div class="modal__body">
-                <!-- Login Form -->
-                <form id="loginForm" class="auth-form active" onsubmit="window.handleLogin(event)">
-                    <div class="form-group">
-                        <label><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>Email</label>
-                        <input type="email" id="loginEmail" required placeholder="tu@email.com" maxlength="100">
-                        <span class="error-message" id="loginEmailError"><i class="fas fa-exclamation-circle"></i> Email no encontrado</span>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-lock" style="margin-right: 0.5rem;"></i>Contraseña</label>
-                        <input type="password" id="loginPassword" required placeholder="••••••••" minlength="8" maxlength="100">
-                        <span class="error-message" id="loginPasswordError"><i class="fas fa-exclamation-circle"></i> Contraseña incorrecta</span>
-                    </div>
-                    <div class="rate-limit-message" id="loginRateLimitMessage">
-                        <i class="fas fa-ban" style="margin-right: 0.5rem;"></i>
-                        Cuenta bloqueada temporalmente por múltiples intentos fallidos.
-                    </div>
-                    <div class="form-group--checkbox">
-                        <input type="checkbox" id="rememberMe">
-                        <label for="rememberMe">Recordar mis datos en este dispositivo</label>
-                    </div>
-                    <button type="submit" class="btn btn--submit" id="loginSubmitBtn">Ingresar</button>
-                    <div class="auth-footer">
-                        <a onclick="window.showForgotPassword()">¿Olvidaste tu contraseña?</a>
-                    </div>
-                </form>
-                
-                <!-- Register Form -->
-                <form id="registerForm" class="auth-form" onsubmit="window.handleRegister(event)">
-                    <div class="role-selector">
-                        <div class="role-option selected" onclick="window.selectRole('cliente')" id="roleCliente">
-                            <i class="fas fa-user role-option__icon"></i>
-                            <h4 class="role-option__title">Soy Cliente</h4>
-                            <p class="role-option__desc">Quiero comprar vinos</p>
-                        </div>
-                        <div class="role-option" onclick="window.selectRole('bodega')" id="roleBodega">
-                            <i class="fas fa-wine-bottle role-option__icon"></i>
-                            <h4 class="role-option__title">Soy Bodega</h4>
-                            <p class="role-option__desc">Quiero vender mis vinos</p>
-                        </div>
-                    </div>
-                    <input type="hidden" id="selectedRole" value="cliente">
-                    
-                    <div class="form-group">
-                        <label>Nombre Completo / Nombre de Bodega</label>
-                        <input type="text" id="regName" required placeholder="Ej: Juan Pérez o Bodega Los Toneles" maxlength="100">
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="regEmail" required placeholder="tu@email.com" maxlength="100">
-                            <span class="error-message" id="regEmailError"><i class="fas fa-exclamation-circle"></i> Este email ya está registrado</span>
-                        </div>
-                        <div class="form-group">
-                            <label>Teléfono</label>
-                            <input type="tel" id="regPhone" required placeholder="+54 260..." maxlength="20">
-                        </div>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Contraseña (mínimo 8 caracteres)</label>
-                            <input type="password" id="regPassword" required minlength="8" maxlength="100" placeholder="••••••••">
-                        </div>
-                        <div class="form-group">
-                            <label>Confirmar Contraseña</label>
-                            <input type="password" id="regPasswordConfirm" required placeholder="••••••••" maxlength="100">
-                            <span class="error-message" id="regPasswordError"><i class="fas fa-exclamation-circle"></i> Las contraseñas no coinciden</span>
-                        </div>
-                    </div>
-                    
-                    <div class="bodega-fields" id="bodegaFields">
-                        <div class="bodega-fields__wrapper">
-                            <div class="bodega-fields__title">
-                                <i class="fas fa-store"></i>
-                                Información de la Bodega
+        function renderSuperAdminSection(section, container) {
+            switch(section) {
+                case 'dashboard':
+                    container.innerHTML = `
+                        <h2 style="color: var(--dorado); margin-bottom: 2rem;">Dashboard General</h2>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-number">${users.length}</span>
+                                <div class="stat-label">Usuarios Registrados</div>
                             </div>
-                            <div class="form-grid">
-                                <div class="form-group full-width">
-                                    <label>Dirección de la Bodega</label>
-                                    <input type="text" id="regAddress" placeholder="San Rafael, Mendoza" maxlength="200">
+                            <div class="stat-card">
+                                <span class="stat-number">${bodegas.length}</span>
+                                <div class="stat-label">Bodegas Activas</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">${products.length}</span>
+                                <div class="stat-label">Vinos en Catálogo</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">${pedidos.length}</span>
+                                <div class="stat-label">Pedidos Totales</div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'bodegas':
+                    renderAdminBodegas(container);
+                    break;
+                    
+                case 'vinos':
+                    renderAdminVinos(container, true); // true = todas las bodegas
+                    break;
+                    
+                case 'recorridos':
+                    renderAdminRecorridos(container, true);
+                    break;
+                    
+                case 'pedidos':
+                    renderAdminPedidos(container, true);
+                    break;
+                    
+                case 'cupones':
+                    renderAdminCupones(container);
+                    break;
+                    
+                case 'usuarios':
+                    renderAdminUsuarios(container);
+                    break;
+                    
+                case 'mapa':
+                    renderAdminMapa(container);
+                    break;
+            }
+        }
+
+        function renderBodegaAdminSection(section, container) {
+            switch(section) {
+                case 'dashboard':
+                    const misProductos = products.filter(p => p.bodega === currentUser.name);
+                    const misVentas = pedidos.filter(p => p.items.some(i => i.bodega === currentUser.name));
+                    
+                    container.innerHTML = `
+                        <h2 style="color: var(--dorado); margin-bottom: 2rem;">Mis Estadísticas</h2>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-number">${misProductos.length}</span>
+                                <div class="stat-label">Mis Vinos</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">${misVentas.length}</span>
+                                <div class="stat-label">Mis Ventas</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">$${misVentas.reduce((sum, p) => sum + p.total, 0).toLocaleString()}</span>
+                                <div class="stat-label">Ingresos Totales</div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">${misProductos.reduce((sum, p) => sum + (p.stock || 0), 0)}</span>
+                                <div class="stat-label">Stock Total</div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'mis-vinos':
+                    renderAdminVinos(container, false); // false = solo mi bodega
+                    break;
+                    
+                case 'mis-recorridos':
+                    renderAdminRecorridos(container, false);
+                    break;
+                    
+                case 'mis-pedidos':
+                    renderAdminPedidos(container, false);
+                    break;
+                    
+                case 'mi-perfil':
+                    container.innerHTML = `
+                        <div class="admin-form" style="max-width: 600px;">
+                            <h3>Mi Perfil de Bodega</h3>
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" value="${currentUser.name}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" value="${currentUser.email}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="tel" value="${currentUser.phone}" disabled>
+                            </div>
+                            ${currentUser.bodegaData ? `
+                                <div class="form-group">
+                                    <label>Dirección</label>
+                                    <input type="text" value="${currentUser.bodegaData.address}" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Año de Fundación</label>
-                                    <input type="number" id="regYear" placeholder="1990" min="1800" max="2026">
+                                    <input type="text" value="${currentUser.bodegaData.year}" disabled>
                                 </div>
+                            ` : ''}
+                            <p style="color: #666; margin-top: 1rem; font-size: 0.9rem;">
+                                Para modificar estos datos, contacta al administrador.
+                            </p>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        // ==========================================
+        // RENDERIZADO DE SECCIONES ADMIN
+        // ==========================================
+
+        function renderAdminBodegas(container) {
+            container.innerHTML = `
+                <div class="admin-grid">
+                    <div class="admin-form">
+                        <h3>Agregar/Editar Bodega</h3>
+                        <form id="formBodega" onsubmit="saveBodega(event)">
+                            <input type="hidden" id="bodegaId">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" id="bodegaNombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fundador</label>
+                                <input type="text" id="bodegaFundador" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Año de Fundación</label>
+                                <input type="number" id="bodegaAnio" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Ubicación</label>
+                                <input type="text" id="bodegaUbicacion" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Descripción</label>
+                                <textarea id="bodegaDescripcion" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Especialidades (separadas por coma)</label>
+                                <input type="text" id="bodegaEspecialidades" placeholder="Malbec, Cabernet, etc" required>
+                            </div>
+                            <div class="form-group">
+                                <label>URL de la Imagen</label>
+                                <input type="url" id="bodegaImagen" placeholder="https://...">
+                            </div>
+                            <button type="submit" class="btn-success" style="width: 100%;">Guardar Bodega</button>
+                        </form>
+                    </div>
+                    <div class="admin-list">
+                        <h3>Bodegas Registradas</h3>
+                        <div id="listaBodegas">
+                            ${bodegas.map(b => `
+                                <div class="admin-item">
+                                    <div class="admin-item-info">
+                                        <h4>${b.nombre}</h4>
+                                        <p>Fundada: ${b.anio} | ${b.fundador}</p>
+                                    </div>
+                                    <div class="admin-item-actions">
+                                        <button class="btn-small btn-edit" onclick="editBodega(${b.id})">Editar</button>
+                                        <button class="btn-small btn-delete" onclick="deleteBodega(${b.id})">Eliminar</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAdminVinos(container, allBodegas) {
+            const filteredProducts = allBodegas ? products : products.filter(p => p.bodega === currentUser.name);
+            
+            container.innerHTML = `
+                <div class="admin-grid">
+                    <div class="admin-form">
+                        <h3>${allBodegas ? 'Agregar/Editar Vino' : 'Agregar Nuevo Vino'}</h3>
+                        <form id="formVino" onsubmit="saveVino(event, ${allBodegas})">
+                            <input type="hidden" id="vinoId">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" id="vinoNombre" required>
+                            </div>
+                            ${allBodegas ? `
                                 <div class="form-group">
-                                    <label>Fundador</label>
-                                    <input type="text" id="regFounder" placeholder="Nombre del fundador" maxlength="100">
+                                    <label>Bodega</label>
+                                    <select id="vinoBodega" required>
+                                        ${bodegas.map(b => `<option value="${b.nombre}">${b.nombre}</option>`).join('')}
+                                    </select>
                                 </div>
-                                <div class="form-group full-width">
-                                    <label>Descripción de la Bodega</label>
-                                    <textarea id="regDescription" rows="2" placeholder="Cuéntanos sobre tu bodega..." maxlength="500"></textarea>
+                            ` : `
+                                <input type="hidden" id="vinoBodega" value="${currentUser.name}">
+                                <div class="form-group">
+                                    <label>Bodega</label>
+                                    <input type="text" value="${currentUser.name}" disabled>
                                 </div>
-                                <div class="form-group full-width">
-                                    <label>Especialidades (separadas por coma)</label>
-                                    <input type="text" id="regSpecialties" placeholder="Malbec, Cabernet, etc" maxlength="200">
+                            `}
+                            <div class="form-group">
+                                <label>Tipo</label>
+                                <select id="vinoTipo" required>
+                                    <option value="tinto">Tinto</option>
+                                    <option value="blanco">Blanco</option>
+                                    <option value="rosado">Rosado</option>
+                                    <option value="espumante">Espumante</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Año de Cosecha</label>
+                                <input type="number" id="vinoCosecha" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Precio</label>
+                                <input type="number" id="vinoPrecio" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Stock Disponible</label>
+                                <input type="number" id="vinoStock" required min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Notas de Cata</label>
+                                <textarea id="vinoNotasCata" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn-success" style="width: 100%;">Guardar Vino</button>
+                        </form>
+                    </div>
+                    <div class="admin-list">
+                        <h3>${allBodegas ? 'Todos los Vinos' : 'Mis Vinos'}</h3>
+                        <div id="listaVinos">
+                            ${filteredProducts.map(p => `
+                                <div class="admin-item">
+                                    <div class="admin-item-info">
+                                        <h4>${p.name} ${p.stock === 0 ? '<span style="color: var(--rojo);">(AGOTADO)</span>' : ''}</h4>
+                                        <p>${p.bodega} | ${p.type} | $${p.price} | Stock: ${p.stock}</p>
+                                    </div>
+                                    <div class="admin-item-actions">
+                                        <button class="btn-small btn-edit" onclick="editVino(${p.id}, ${allBodegas})">Editar</button>
+                                        ${allBodegas || p.bodega === currentUser.name ? `
+                                            <button class="btn-small btn-delete" onclick="deleteVino(${p.id})">Eliminar</button>
+                                        ` : ''}
+                                    </div>
                                 </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAdminRecorridos(container, allBodegas) {
+            const filteredRecorridos = allBodegas ? recorridos : recorridos.filter(r => r.bodega === currentUser.name);
+            
+            container.innerHTML = `
+                <div class="admin-grid">
+                    <div class="admin-form">
+                        <h3>Agregar Recorrido</h3>
+                        <form id="formRecorrido" onsubmit="saveRecorrido(event, ${allBodegas})">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" id="recorridoNombre" required>
+                            </div>
+                            ${allBodegas ? `
+                                <div class="form-group">
+                                    <label>Bodega</label>
+                                    <select id="recorridoBodega" required>
+                                        ${bodegas.map(b => `<option value="${b.nombre}">${b.nombre}</option>`).join('')}
+                                    </select>
+                                </div>
+                            ` : `
+                                <input type="hidden" id="recorridoBodega" value="${currentUser.name}">
+                            `}
+                            <div class="form-group">
+                                <label>Precio</label>
+                                <input type="number" id="recorridoPrecio" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Duración</label>
+                                <input type="text" id="recorridoDuracion" placeholder="Ej: 2 horas" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Capacidad Máxima</label>
+                                <input type="number" id="recorridoCapacidad" required min="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Características (una por línea)</label>
+                                <textarea id="recorridoFeatures" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-success" style="width: 100%;">Guardar Recorrido</button>
+                        </form>
+                    </div>
+                    <div class="admin-list">
+                        <h3>${allBodegas ? 'Todos los Recorridos' : 'Mis Recorridos'}</h3>
+                        ${filteredRecorridos.map(r => `
+                            <div class="admin-item">
+                                <div class="admin-item-info">
+                                    <h4>${r.nombre}</h4>
+                                    <p>${r.bodega} | $${r.precio} | ${r.duracion}</p>
+                                </div>
+                                <div class="admin-item-actions">
+                                    <button class="btn-small btn-edit" onclick="editRecorrido(${r.id})">Editar</button>
+                                    <button class="btn-small btn-delete" onclick="deleteRecorrido(${r.id})">Eliminar</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAdminPedidos(container, allBodegas) {
+            const filteredPedidos = allBodegas ? pedidos : pedidos.filter(p => 
+                p.items.some(i => i.bodega === currentUser.name)
+            );
+            
+            container.innerHTML = `
+                <div class="admin-list" style="max-width: 100%;">
+                    <h3>${allBodegas ? 'Todos los Pedidos' : 'Mis Pedidos'}</h3>
+                    ${filteredPedidos.length === 0 ? 
+                        '<p style="color: #666; text-align: center; padding: 2rem;">No hay pedidos</p>' :
+                        filteredPedidos.map(p => `
+                            <div class="admin-item">
+                                <div class="admin-item-info">
+                                    <h4>Pedido #${p.id}</h4>
+                                    <p>Cliente: ${p.cliente} | Fecha: ${p.fecha}</p>
+                                    <p>Items: ${p.items.map(i => i.name).join(', ')}</p>
+                                    <p>Total: $${p.total}</p>
+                                </div>
+                                <div class="admin-item-actions">
+                                    <span class="order-status status-${p.estado}">${p.estado}</span>
+                                </div>
+                            </div>
+                        `).join('')
+                    }
+                </div>
+            `;
+        }
+
+        function renderAdminCupones(container) {
+            container.innerHTML = `
+                <div class="admin-grid">
+                    <div class="admin-form">
+                        <h3>Crear Cupón</h3>
+                        <form id="formCupon" onsubmit="saveCupon(event)">
+                            <div class="form-group">
+                                <label>Código</label>
+                                <input type="text" id="cuponCodigo" required placeholder="VERANO20">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo</label>
+                                <select id="cuponTipo" required>
+                                    <option value="porcentaje">Porcentaje (%)</option>
+                                    <option value="fijo">Monto Fijo ($)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Valor</label>
+                                <input type="number" id="cuponValor" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Expiración</label>
+                                <input type="date" id="cuponExpiracion" required>
+                            </div>
+                            <button type="submit" class="btn-success" style="width: 100%;">Crear Cupón</button>
+                        </form>
+                    </div>
+                    <div class="admin-list">
+                        <h3>Cupones Activos</h3>
+                        ${cupones.map(c => `
+                            <div class="admin-item">
+                                <div class="admin-item-info">
+                                    <h4>${c.codigo}</h4>
+                                    <p>${c.tipo === 'porcentaje' ? c.valor + '%' : '$' + c.valor} de descuento</p>
+                                </div>
+                                <div class="admin-item-actions">
+                                    <button class="btn-small btn-delete" onclick="deleteCupon(${c.id})">Eliminar</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAdminUsuarios(container) {
+            const pendingBodegas = users.filter(u => u.role === 'bodega' && !u.active);
+            
+            container.innerHTML = `
+                <div class="admin-list" style="max-width: 100%;">
+                    <h3>Bodegas Pendientes de Aprobación</h3>
+                    ${pendingBodegas.length === 0 ? 
+                        '<p style="color: #666; text-align: center; padding: 2rem;">No hay bodegas pendientes</p>' :
+                        pendingBodegas.map(u => `
+                            <div class="admin-item">
+                                <div class="admin-item-info">
+                                    <h4>${u.name}</h4>
+                                    <p>${u.email} | ${u.phone}</p>
+                                    ${u.bodegaData ? `
+                                        <p>Fundada: ${u.bodegaData.year} | ${u.bodegaData.address}</p>
+                                        <p>${u.bodegaData.description}</p>
+                                    ` : ''}
+                                </div>
+                                <div class="admin-item-actions">
+                                    <button class="btn-small btn-success" onclick="approveBodega('${u.id}')">Aprobar</button>
+                                    <button class="btn-small btn-delete" onclick="rejectBodega('${u.id}')">Rechazar</button>
+                                </div>
+                            </div>
+                        `).join('')
+                    }
+                </div>
+            `;
+        }
+
+        function renderAdminMapa(container) {
+            container.innerHTML = `
+                <div class="admin-form" style="max-width: 800px; margin: 0 auto;">
+                    <h3>Configurar Google Maps</h3>
+                    <div class="form-group">
+                        <label>Código Embed</label>
+                        <textarea id="mapEmbedCode" rows="6" placeholder='<iframe src="..."'></textarea>
+                    </div>
+                    <button onclick="saveMapConfig()" class="btn-success" style="width: 100%;">Guardar</button>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // FUNCIONES DE GUARDADO (CRUD)
+        // ==========================================
+
+        function saveBodega(e) {
+            e.preventDefault();
+            const id = document.getElementById('bodegaId').value;
+            const bodega = {
+                id: id ? parseInt(id) : Date.now(),
+                nombre: document.getElementById('bodegaNombre').value,
+                fundador: document.getElementById('bodegaFundador').value,
+                anio: parseInt(document.getElementById('bodegaAnio').value),
+                ubicacion: document.getElementById('bodegaUbicacion').value,
+                descripcion: document.getElementById('bodegaDescripcion').value,
+                especialidades: document.getElementById('bodegaEspecialidades').value.split(',').map(s => s.trim()),
+                imagen: document.getElementById('bodegaImagen').value || ''
+            };
+
+            if (id) {
+                const index = bodegas.findIndex(b => b.id === parseInt(id));
+                bodegas[index] = bodega;
+            } else {
+                bodegas.push(bodega);
+            }
+
+            localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
+            alert('Bodega guardada');
+            showAdminSection('bodegas');
+            renderBodegas();
+        }
+
+        function saveVino(e, allBodegas) {
+            e.preventDefault();
+            const id = document.getElementById('vinoId').value;
+            const vino = {
+                id: id ? parseInt(id) : Date.now(),
+                name: document.getElementById('vinoNombre').value,
+                bodega: document.getElementById('vinoBodega').value,
+                type: document.getElementById('vinoTipo').value,
+                cosecha: parseInt(document.getElementById('vinoCosecha').value),
+                price: parseInt(document.getElementById('vinoPrecio').value),
+                stock: parseInt(document.getElementById('vinoStock').value) || 0,
+                notasCata: document.getElementById('vinoNotasCata').value,
+                rating: 4.5,
+                reviews: 0
+            };
+
+            if (id) {
+                const index = products.findIndex(p => p.id === parseInt(id));
+                products[index] = vino;
+            } else {
+                products.push(vino);
+            }
+
+            localStorage.setItem('cb_vinos', JSON.stringify(products));
+            alert('Vino guardado');
+            showAdminSection(allBodegas ? 'vinos' : 'mis-vinos');
+            renderProducts();
+        }
+
+        function saveRecorrido(e, allBodegas) {
+            e.preventDefault();
+            const recorrido = {
+                id: Date.now(),
+                nombre: document.getElementById('recorridoNombre').value,
+                bodega: document.getElementById('recorridoBodega').value,
+                precio: parseInt(document.getElementById('recorridoPrecio').value),
+                duracion: document.getElementById('recorridoDuracion').value,
+                capacidad: parseInt(document.getElementById('recorridoCapacidad').value),
+                features: document.getElementById('recorridoFeatures').value.split('\n').filter(f => f.trim())
+            };
+
+            recorridos.push(recorrido);
+            localStorage.setItem('cb_recorridos', JSON.stringify(recorridos));
+            alert('Recorrido guardado');
+            showAdminSection(allBodegas ? 'recorridos' : 'mis-recorridos');
+            renderRecorridos();
+        }
+
+        function saveCupon(e) {
+            e.preventDefault();
+            const cupon = {
+                id: Date.now(),
+                codigo: document.getElementById('cuponCodigo').value.toUpperCase(),
+                tipo: document.getElementById('cuponTipo').value,
+                valor: parseInt(document.getElementById('cuponValor').value),
+                expiracion: document.getElementById('cuponExpiracion').value
+            };
+            cupones.push(cupon);
+            localStorage.setItem('cb_cupones', JSON.stringify(cupones));
+            alert('Cupón creado');
+            showAdminSection('cupones');
+        }
+
+        function approveBodega(userId) {
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                user.active = true;
+                localStorage.setItem('cb_users', JSON.stringify(users));
+                
+                // Crear entrada en bodegas
+                const newBodega = {
+                    id: Date.now(),
+                    nombre: user.name,
+                    fundador: user.name,
+                    anio: user.bodegaData?.year || new Date().getFullYear(),
+                    ubicacion: user.bodegaData?.address || 'San Rafael',
+                    descripcion: user.bodegaData?.description || 'Bodega asociada',
+                    especialidades: ['Vinos de autor'],
+                    imagen: ''
+                };
+                bodegas.push(newBodega);
+                localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
+                
+                alert('Bodega aprobada y creada');
+                showAdminSection('usuarios');
+            }
+        }
+
+        function rejectBodega(userId) {
+            if (confirm('¿Eliminar esta solicitud?')) {
+                users = users.filter(u => u.id !== userId);
+                localStorage.setItem('cb_users', JSON.stringify(users));
+                showAdminSection('usuarios');
+            }
+        }
+
+        // ==========================================
+        // FUNCIONES DE EDICIÓN Y ELIMINACIÓN
+        // ==========================================
+
+        function editBodega(id) {
+            const b = bodegas.find(x => x.id === id);
+            document.getElementById('bodegaId').value = b.id;
+            document.getElementById('bodegaNombre').value = b.nombre;
+            document.getElementById('bodegaFundador').value = b.fundador;
+            document.getElementById('bodegaAnio').value = b.anio;
+            document.getElementById('bodegaUbicacion').value = b.ubicacion;
+            document.getElementById('bodegaDescripcion').value = b.descripcion;
+            document.getElementById('bodegaEspecialidades').value = b.especialidades.join(', ');
+            document.getElementById('bodegaImagen').value = b.imagen || '';
+        }
+
+        function deleteBodega(id) {
+            if (!confirm('¿Eliminar esta bodega?')) return;
+            bodegas = bodegas.filter(b => b.id !== id);
+            localStorage.setItem('cb_bodegas', JSON.stringify(bodegas));
+            showAdminSection('bodegas');
+            renderBodegas();
+        }
+
+        function editVino(id, allBodegas) {
+            const p = products.find(x => x.id === id);
+            document.getElementById('vinoId').value = p.id;
+            document.getElementById('vinoNombre').value = p.name;
+            document.getElementById('vinoBodega').value = p.bodega;
+            document.getElementById('vinoTipo').value = p.type;
+            document.getElementById('vinoCosecha').value = p.cosecha;
+            document.getElementById('vinoPrecio').value = p.price;
+            document.getElementById('vinoStock').value = p.stock;
+            document.getElementById('vinoNotasCata').value = p.notasCata || '';
+        }
+
+        function deleteVino(id) {
+            if (!confirm('¿Eliminar este vino?')) return;
+            products = products.filter(p => p.id !== id);
+            localStorage.setItem('cb_vinos', JSON.stringify(products));
+            renderProducts();
+            showAdminSection(currentUser.role === 'superadmin' ? 'vinos' : 'mis-vinos');
+        }
+
+        function editRecorrido(id) {
+            const r = recorridos.find(x => x.id === id);
+            document.getElementById('recorridoNombre').value = r.nombre;
+            document.getElementById('recorridoBodega').value = r.bodega;
+            document.getElementById('recorridoPrecio').value = r.precio;
+            document.getElementById('recorridoDuracion').value = r.duracion;
+            document.getElementById('recorridoCapacidad').value = r.capacidad;
+            document.getElementById('recorridoFeatures').value = r.features.join('\n');
+        }
+
+        function deleteRecorrido(id) {
+            if (!confirm('¿Eliminar este recorrido?')) return;
+            recorridos = recorridos.filter(r => r.id !== id);
+            localStorage.setItem('cb_recorridos', JSON.stringify(recorridos));
+            renderRecorridos();
+            showAdminSection(currentUser.role === 'superadmin' ? 'recorridos' : 'mis-recorridos');
+        }
+
+        function deleteCupon(id) {
+            if (!confirm('¿Eliminar este cupón?')) return;
+            cupones = cupones.filter(c => c.id !== id);
+            localStorage.setItem('cb_cupones', JSON.stringify(cupones));
+            showAdminSection('cupones');
+        }
+
+        function saveMapConfig() {
+            const code = document.getElementById('mapEmbedCode').value;
+            mapConfig = { embedCode: code };
+            localStorage.setItem('cb_map', JSON.stringify(mapConfig));
+            alert('Mapa guardado');
+            renderMap();
+        }
+
+        // ==========================================
+        // DATOS Y RENDERIZADO PÚBLICO
+        // ==========================================
+
+        const defaultBodegas = [
+            {
+                id: 1,
+                nombre: "Bodega Amanecer",
+                fundador: "Familia Roldán",
+                anio: 1985,
+                ubicacion: "Valle Grande, San Rafael",
+                descripcion: "Ubicada en el corazón del valle de San Rafael, esta bodega familiar lleva tres generaciones cultivando Malbec de altura.",
+                especialidades: ["Malbec Reserva", "Cabernet Franc", "Blend Premium"],
+                imagen: "https://kimi-web-img.moonshot.cn/img/img.freepik.com/769b58cfa3598b00da89881e57dc509cdbb4c32f.jpg"
+            },
+            {
+                id: 2,
+                nombre: "Viñedos del Sol",
+                fundador: "Marta y Carlos Díaz",
+                anio: 1992,
+                ubicacion: "Cuadro Benegas, San Rafael",
+                descripcion: "Especialistas en vinos blancos y espumantes, esta bodega aprovecha los suelos calcáreos de la zona.",
+                especialidades: ["Chardonnay", "Espumante Brut", "Sauvignon Blanc"],
+                imagen: "https://kimi-web-img.moonshot.cn/img/images.photowall.com/533105473e10f428e0cec391ee4fdc35025ea4c2.jpg"
+            }
+        ];
+
+        let bodegas = JSON.parse(localStorage.getItem('cb_bodegas')) || defaultBodegas;
+        let products = JSON.parse(localStorage.getItem('cb_vinos')) || [
+            { id: 1, name: 'Malbec Reserva', bodega: 'Bodega Amanecer', type: 'tinto', price: 4500, cosecha: 2020, stock: 50, notasCata: "Color rojo intenso...", rating: 4.8, reviews: 12 },
+            { id: 2, name: 'Chardonnay Premium', bodega: 'Viñedos del Sol', type: 'blanco', price: 3800, cosecha: 2022, stock: 35, notasCata: "Amarillo pajizo...", rating: 4.5, reviews: 8 }
+        ];
+        let recorridos = JSON.parse(localStorage.getItem('cb_recorridos')) || [];
+        let cupones = JSON.parse(localStorage.getItem('cb_cupones')) || [];
+        let pedidos = JSON.parse(localStorage.getItem('cb_pedidos')) || [];
+        let mapConfig = JSON.parse(localStorage.getItem('cb_map')) || { embedCode: '' };
+
+        function renderBodegas() {
+            const grid = document.getElementById('bodegasGrid');
+            if (!grid) return;
+            grid.innerHTML = bodegas.map(b => `
+                <div class="bodega-card">
+                    <div class="bodega-image-container">
+                        <div class="bodega-image">
+                            ${b.imagen ? `<img src="${b.imagen}" alt="${b.nombre}">` : '<i class="fas fa-wine-bottle"></i>'}
+                            <span class="bodega-year">Desde ${b.anio}</span>
+                        </div>
+                    </div>
+                    <div class="bodega-content">
+                        <h3 class="bodega-name">${b.nombre}</h3>
+                        <span class="bodega-founder">Fundada por ${b.fundador}</span>
+                        <p class="bodega-description">${b.descripcion}</p>
+                        <div class="bodega-footer">
+                            <span class="bodega-location"><i class="fas fa-map-marker-alt"></i> ${b.ubicacion}</span>
+                            <button class="btn-bodega" onclick="filterByBodega('${b.nombre}')">Ver Vinos</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            if (!grid) return;
+            
+            let filtered = filter === 'all' ? products : 
+                          filter === 'oferta' ? products.filter(p => p.oldPrice) :
+                          products.filter(p => p.type === filter);
+            
+            const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+            if (searchTerm) filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm));
+            
+            grid.innerHTML = filtered.map(p => `
+                <div class="product-card">
+                    ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+                    <div class="product-image" onclick="openProductModal(${p.id})">
+                        ${p.imagen ? `<img src="${p.imagen}" alt="${p.name}">` : '<i class="fas fa-wine-bottle"></i>'}
+                        <div class="product-overlay">
+                            <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${p.id}, '${p.name}', ${p.price})">
+                                Agregar al Carrito
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-bodega">${p.bodega}</div>
+                        <h3 class="product-name">${p.name}</h3>
+                        <div class="product-price">
+                            <span class="price">$${p.price}</span>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i> ${p.rating}
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="form-group--checkbox" style="margin-top: 1rem;">
-                        <input type="checkbox" id="termsAccept" required>
-                        <label for="termsAccept">Acepto los <a href="#">Términos y Condiciones</a> y confirmo que soy mayor de 18 años</label>
+                </div>
+            `).join('');
+        }
+
+        function renderRecorridos() {
+            const grid = document.getElementById('toursGrid');
+            if (!grid) return;
+            grid.innerHTML = recorridos.map(r => `
+                <div class="tour-card">
+                    <div class="tour-header">
+                        <div class="tour-price-tag">$${r.precio}</div>
+                        <h3>${r.nombre}</h3>
+                        <p>${r.bodega}</p>
                     </div>
-                    
-                    <button type="submit" class="btn btn--submit" style="margin-top: 1rem;" id="registerSubmitBtn">Crear Cuenta</button>
-                </form>
-            </div>
-        </div>
-    </div>
+                    <div class="tour-body">
+                        <ul class="tour-features">
+                            ${r.features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="tour-footer">
+                        <button class="btn-reserve" onclick="addToCart('tour_${r.id}', '${r.nombre}', ${r.precio})">Reservar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-    <!-- Recovery Modal -->
-    <div class="modal-overlay recovery-modal" id="recoveryModal">
-        <div class="modal-container">
-            <div class="recovery-step active" id="recoveryStep1">
-                <i class="fas fa-key recovery-step__icon"></i>
-                <h3>Recuperar Contraseña</h3>
-                <p>Ingresa tu email y te enviaremos un código de verificación</p>
-                <div class="form-group" style="text-align: left;">
-                    <label>Email registrado</label>
-                    <input type="email" id="recoveryEmail" placeholder="tu@email.com" style="width: 100%;" maxlength="100">
-                </div>
-                <button class="btn btn--submit" onclick="window.sendRecoveryCode()" style="margin-top: 1rem;">Enviar Código</button>
-                <br><br>
-                <a onclick="window.closeRecoveryModal()" style="color: #666; cursor: pointer; font-size: 0.9rem;">Cancelar</a>
-            </div>
-            
-            <div class="recovery-step" id="recoveryStep2">
-                <i class="fas fa-envelope-open-text recovery-step__icon"></i>
-                <h3>Verificar Código</h3>
-                <p>Ingresa el código de 6 dígitos enviado a tu email<br>(En esta demo: usa <strong>123456</strong>)</p>
-                <div class="form-group" style="text-align: left;">
-                    <label>Código de verificación</label>
-                    <input type="text" id="recoveryCode" placeholder="123456" maxlength="6" style="width: 100%; text-align: center; letter-spacing: 0.5rem; font-size: 1.2rem;">
-                </div>
-                <button class="btn btn--submit" onclick="window.verifyRecoveryCode()" style="margin-top: 1rem;">Verificar</button>
-            </div>
-            
-            <div class="recovery-step" id="recoveryStep3">
-                <i class="fas fa-lock-open recovery-step__icon"></i>
-                <h3>Nueva Contraseña</h3>
-                <p>Establece tu nueva contraseña (mínimo 8 caracteres)</p>
-                <div class="form-group" style="text-align: left;">
-                    <label>Nueva contraseña</label>
-                    <input type="password" id="newPassword" placeholder="••••••••" style="width: 100%;" minlength="8" maxlength="100">
-                </div>
-                <div class="form-group" style="text-align: left;">
-                    <label>Confirmar contraseña</label>
-                    <input type="password" id="newPasswordConfirm" placeholder="••••••••" style="width: 100%;" maxlength="100">
-                </div>
-                <button class="btn btn--submit" onclick="window.resetPassword()" style="margin-top: 1rem;">Restablecer Contraseña</button>
-            </div>
-        </div>
-    </div>
+        function renderMap() {
+            const container = document.getElementById('mapContainer');
+            if (!container) return;
+            container.innerHTML = mapConfig.embedCode || '<div style="padding: 4rem; text-align: center; color: #666;">Mapa no configurado</div>';
+        }
 
-    <!-- Admin Panel -->
-    <div class="admin-panel" id="adminPanel">
-        <button class="admin-panel__close" onclick="window.closeAdminPanel()" title="Volver al sitio">
-            <i class="fas fa-times"></i>
-        </button>
-        
-        <!-- Sidebar -->
-        <div class="admin-sidebar">
-            <div class="admin-sidebar__brand">
-                <h3>Club de la Bodega</h3>
-                <span id="adminPanelSubtitle">Panel de Control</span>
-            </div>
-            
-            <div class="admin-sidebar__user">
-                <div class="admin-sidebar__avatar" id="adminAvatar">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="admin-sidebar__username" id="adminUserName">Usuario</div>
-                <span class="admin-sidebar__role" id="adminRoleBadge">ROL</span>
-            </div>
-            
-            <div class="admin-nav" id="adminNav"></div>
-            
-            <div class="admin-sidebar__footer">
-                <button class="btn btn--logout" onclick="window.logout()">
-                    <i class="fas fa-sign-out-alt" style="margin-right: 0.5rem;"></i>Cerrar Sesión
-                </button>
-            </div>
-        </div>
-        
-        <!-- Main Content -->
-        <div class="admin-main" id="adminMain">
-            <div class="admin-header">
-                <div class="admin-header__title">
-                    <h1 id="adminSectionTitle">Dashboard</h1>
-                    <p id="adminSectionSubtitle">Bienvenido al panel de administración</p>
-                </div>
-                <div class="admin-header__actions" id="adminActions"></div>
-            </div>
-            
-            <div id="adminContent"></div>
-        </div>
-    </div>
+        function updateSearchOptions() {
+            const bodegaSelect = document.getElementById('searchBodega');
+            if (!bodegaSelect) return;
+            bodegaSelect.innerHTML = '<option value="">Todas las bodegas</option>' + 
+                bodegas.map(b => `<option value="${b.nombre}">${b.nombre}</option>`).join('');
+        }
 
-    <!-- Application Scripts -->
-    <script type="module" src="js/app.js"></script>
+        // ==========================================
+        // CARRITO Y FUNCIONALIDADES
+        // ==========================================
+
+        let cart = [];
+
+        function addToCart(id, name, price) {
+            // Verificar mayoría de edad
+            if (!localStorage.getItem('cb_ageVerified')) {
+                alert('Debes verificar que eres mayor de edad para comprar');
+                return;
+            }
+            
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ id, name, price, quantity: 1, bodega: typeof id === 'number' ? products.find(p => p.id === id)?.bodega : '' });
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+            
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Tu carrito está vacío</p>';
+                cartTotal.textContent = '$0';
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-details" style="flex: 1;">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div style="color: #666; font-size: 0.9rem;">Cantidad: ${item.quantity}</div>
+                        <div class="cart-item-price">$${item.price * item.quantity}</div>
+                    </div>
+                    <button onclick="removeFromCart('${item.id}')" style="background: none; border: none; color: #666; cursor: pointer;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = '$' + total.toLocaleString();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('active');
+        }
+
+        function proceedToCheckout() {
+            const ageConfirm = document.getElementById('checkoutAgeConfirm');
+            if (!ageConfirm.checked) {
+                alert('Debes confirmar que eres mayor de 18 años para proceder con la compra');
+                return;
+            }
+            
+            if (!currentUser) {
+                alert('Debes iniciar sesión para completar la compra');
+                toggleCart();
+                openAuthModal();
+                return;
+            }
+            
+            // Crear pedido
+            const pedido = {
+                id: Date.now(),
+                cliente: currentUser.name,
+                email: currentUser.email,
+                items: cart,
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                fecha: new Date().toISOString().split('T')[0],
+                estado: 'pendiente'
+            };
+            
+            pedidos.push(pedido);
+            localStorage.setItem('cb_pedidos', JSON.stringify(pedidos));
+            
+            alert('¡Pedido realizado exitosamente! Recibirás un email de confirmación.');
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+
+        // ==========================================
+        // UTILIDADES
+        // ==========================================
+
+        function openProductModal(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            
+            document.getElementById('modalBodega').textContent = p.bodega;
+            document.getElementById('modalTitle').textContent = p.name;
+            document.getElementById('modalYear').textContent = p.cosecha || 'NV';
+            document.getElementById('modalPrice').textContent = '$' + p.price;
+            document.getElementById('modalType').textContent = p.type;
+            document.getElementById('modalHarvest').textContent = p.cosecha || 'N/A';
+            document.getElementById('modalAltitude').textContent = p.altura || 'No especificado';
+            document.getElementById('modalAging').textContent = p.guarda || 'No especificado';
+            document.getElementById('modalTastingNotes').textContent = p.notasCata || 'No disponible';
+            document.getElementById('modalPairings').textContent = p.maridajes || 'No especificado';
+            document.getElementById('modalVineyard').textContent = p.suelo || 'No disponible';
+            document.getElementById('modalRating').textContent = p.rating || '4.5';
+            
+            document.getElementById('modalAddToCart').onclick = () => {
+                addToCart(p.id, p.name, p.price);
+                closeProductModal();
+            };
+            
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        function filterByBodega(nombre) {
+            document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('searchBodega').value = nombre;
+            renderProducts();
+        }
+
+        function filterWines(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts(type);
+        }
+
+        function searchProducts() {
+            renderProducts();
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab).classList.add('active');
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+            const diff = end - now;
+            
+            document.getElementById('hours').textContent = Math.floor(diff / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        function subscribe(plan) {
+            if (!currentUser) {
+                alert('Debes iniciar sesión para suscribirte');
+                openAuthModal();
+                return;
+            }
+            alert('Plan ' + plan + ' seleccionado. Te contactaremos para completar la suscripción.');
+        }
+
+        function submitForm(e) {
+            e.preventDefault();
+            alert('¡Solicitud enviada! Te contactaremos pronto.');
+            e.target.reset();
+        }
+    </script>
 </body>
 </html>
