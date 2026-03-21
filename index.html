@@ -1519,7 +1519,7 @@
 
         // 7. CREDENCIALES FIJAS DEL SUPERADMIN
         const SUPERADMIN_CONFIG = {
-            email: 'FranYTTT@gmail.com',
+            email: 'franyttt@gmail.com', // Email en minúsculas para coincidir con la validación de login
             password: 'Revoluciondelvino2000',
             full_name: 'Super Administrador'
         };
@@ -1617,7 +1617,7 @@
         
         async function initSecurity() {
             // Verificar si SuperAdmin ya fue inicializado con las credenciales fijas
-            const superAdminInitialized = SecureStorage.getPublic('cb_superadmin_initialized_v2');
+            const superAdminInitialized = SecureStorage.getPublic('cb_superadmin_initialized_v3');
             
             if (!superAdminInitialized) {
                 // Crear SuperAdmin con credenciales FIJAS (no se muestra a los usuarios)
@@ -1642,7 +1642,7 @@
                 
                 users.push(superAdmin);
                 SecureStorage.setPublic('cb_users', users);
-                SecureStorage.setPublic('cb_superadmin_initialized_v2', true);
+                SecureStorage.setPublic('cb_superadmin_initialized_v3', true);
                 
                 // NO mostrar el modal con la contraseña - las credenciales son fijas y privadas
                 // Solo el administrador autorizado conoce estas credenciales
